@@ -55,7 +55,7 @@ Antes de reconstruir, vamos ser honestos sobre o que foi destruído:
 
 ## 2. O Que Schmidt Intuiu Mas Não Desenvolveu: Heidegger
 
-Schmidt e os Friends of Attention citam Heidegger como influência. A resenha do Public Seminar chama Attensity! de "Heidegger's Being and Time on wheels." Mas Schmidt usa Heidegger como grife, não como fundamento. Vamos fazer o trabalho que Schmidt não fez.
+Schmidt e os Friends of Attention citam Heidegger como influência. A resenha do Public Seminar chama Attensity! de "Heidegger's Being and Time on wheels." O livro foi lançado em 20 de janeiro de 2026 (Crown/Penguin, $39.99 hardcover), com evento de lançamento no dia seguinte na St. Joseph's University, Brooklyn (série Brooklyn Voices). Em 26 de fevereiro de 2026, D. Graham Burnett — Henry Charles Lea Professor of History of Science em Princeton e co-fundador da Strother School of Radical Attention — deu a ASU Distinguished Lecture: "Attensity Now! The Revolution Rises Against Human Fracking." A Strother School mantém "attention labs" gratuitos, seminários online e presenciais, e programas de arte. Mas Schmidt usa Heidegger como grife, não como fundamento. Vamos fazer o trabalho que Schmidt não fez.
 
 ### Cuidado (Sorge) Como Estrutura da Atenção
 
@@ -189,7 +189,8 @@ Se eu tivesse que escrever um "Attensity 2.0" depois destes 7 loops, os capítul
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Martin Heidegger — Ser e Tempo (1927): cuidado (Sorge), decaída (Verfallenheit), falatório (Gerede), curiosidade (Neugier), ambiguidade (Zweideutigkeit), autenticidade (Eigentlichkeit), ser-para-a-morte (Sein-zum-Tode), ser-com (Mitsein), "a gente" (das Man)
+- Martin Heidegger — *Sein und Zeit* (1927, Max Niemeyer Verlag). Conceitos: Sorge (§41), Verfallenheit (§38: Gerede, Neugier, Zweideutigkeit), Eigentlichkeit (§54), Sein-zum-Tode (§53), Mitsein (§26), das Man (§27). Tradução inglês: John Macquarrie & Edward Robinson (Harper & Row, 1962).
+- The Friends of Attention (D. Graham Burnett, Alyssa Loh, Peter Schmidt, eds.) — *Attensity! A Manifesto of the Attention Liberation Movement* (Crown/Penguin, 20 jan 2026, $39.99 hardcover). Lançamento: Brooklyn Voices, St. Joseph's University, 21 jan 2026. ASU Distinguished Lecture: D. Graham Burnett, "Attensity Now!" (26 fev 2026). Strother School of Radical Attention: attention labs, seminários, programas de arte. Burnett é Henry Charles Lea Professor of History of Science em Princeton. Resenha: Public Seminar, junho 2026.
 
 ### Dos Loops Anteriores (reintegrados)
 - Loop 1: metabolismo atencional, Borgmann, Han, Odell
@@ -203,3 +204,10 @@ Se eu tivesse que escrever um "Attensity 2.0" depois destes 7 loops, os capítul
 ---
 
 *Fim do Loop 7. Sete loops. O projeto continua. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 7.** Pesquisa web verificou e expandiu:
+- Attensity! book: release Jan 20 2026 (Crown/Penguin, $39.99), Brooklyn Voices launch Jan 21, ASU Distinguished Lecture (Burnett, "Attensity Now!", Feb 26 2026), Strother School activities (attention labs, seminars, art programs)
+- Heidegger: paragraph references for all concepts (§27 das Man, §38 Verfallenheit, §41 Sorge, §53 Sein-zum-Tode, §54 Eigentlichkeit), Macquarrie & Robinson translation (1962)
