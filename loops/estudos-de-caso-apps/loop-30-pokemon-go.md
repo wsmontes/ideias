@@ -1,93 +1,75 @@
-# Estudo de Caso 30 — Pokémon GO: O Jogo Que Tirou Milhões de Pessoas de Casa (E Foi Vendido por $3.5B)
+# Estudo de Caso 30 — Pokémon GO: O Jogo Que Mapeou o Mundo em 3D Enquanto Você Caçava Pikachu
 
 > **Data:** 2026-07-03
-> **Loop:** 30 de ∞ (Fase 2: AR & Gaming)
-> **Categoria:** AR / Gaming / Real-World Exploration
-> **Tema:** Abril de 2014. O Google Maps faz uma piada de April Fools': **"Pokémon Challenge."** Um vídeo falso mostrando pessoas caçando Pokémon no Google Maps. 18 MILHÕES de views. O público AMOU. John Hanke — o criador do Google Earth, ex-CEO da Keyhole e fundador da Niantic Labs — viu o vídeo e pensou: "isso NÃO é piada. Dá para fazer DE VERDADE." Ele já tinha construído o **Ingress** (2012) — um jogo de realidade aumentada onde facções competiam por portais em locais reais. A base de dados de ~5M de "portais" do Ingress viraram **PokéStops e Gyms.** Em 2015, a Niantic se separou do Google (Alphabet). Google + Nintendo + The Pokémon Company investiram $20M. Em 6 de julho de 2016, Pokémon GO lançou. Foi o MAIOR lançamento de app da HISTÓRIA. 1 em cada 10 americanos jogava DIARIAMENTE. $6M/dia em receita. Hillary Clinton usou na campanha. Justin Bieber caçava Pokémon no Central Park. Um repórter foi expulso de um briefing do Departamento de Estado por jogar. Hoje: $6B+ em receita vitalícia. Vendido para a Scopely em 2025 por **$3.5 bilhões.** Esta é a história do jogo que fez o mundo OLHAR PARA CIMA do celular — e caminhar 144 BILHÕES de quilômetros juntos.
+> **Loop:** 30 de ∞ (Reescrita — Fase 2)
+> **Categoria:** AR / Gaming / Infraestrutura Geoespacial
+> **Tema:** 2010. John Hanke — o homem que fundou a Keyhole (adquirida pelo Google em 2004 e transformada em Google Earth) — convence Larry Page a deixá-lo montar um grupo interno no Google explorando a interseção de mapas, telefones celulares e jogos. O grupo se chama Niantic Labs, nome de um navio baleeiro que encalhou em San Francisco durante a Corrida do Ouro de 1849 e foi soterrado — uma metáfora para a ideia de que "há coisas incríveis escondidas sob a superfície". O primeiro produto da Niantic é o Field Trip (2011), um app que notifica o usuário sobre pontos históricos próximos — interessante, mas não viral. O segundo é o Ingress (2012), um jogo de realidade aumentada onde jogadores visitam locais físicos para capturar portais. O Ingress acumula 15 milhões de downloads e, crucialmente, 5 milhões de localizações submetidas por usuários — um banco de dados geoespacial que se tornaria a infraestrutura do Pokémon GO. Em 1º de abril de 2014, o Google Maps publica um vídeo de April Fools' mostrando pessoas caçando Pokémon no Google Maps. O vídeo tem 18 milhões de visualizações. Tsunekazu Ishihara, CEO da The Pokémon Company, é um jogador de Ingress nível 11 que joga com a esposa todos os dias. Ele assiste ao vídeo. Hanke assiste ao vídeo. A reunião entre Niantic e The Pokémon Company parece "inevitável". Em agosto de 2015, a Niantic se separa do Google. Google, Nintendo e The Pokémon Company investem US$ 20 milhões. Em 6 de julho de 2016, o Pokémon GO é lançado. Em um mês, fatura US$ 200 milhões. Os servidores caem repetidamente. O mundo para.
 
 ---
 
-## 1. A Origem: Uma Piada de April Fools', Um Google Exec e 5 Milhões de Portais
+## 0. A Linhagem: Como Um Mapa Virtual do Mundo Real se Tornou o Tabuleiro de Jogo Mais Valioso Já Construído
 
-### John Hanke: O Homem Que Mapeou o Mundo
+```
+Google Earth/Keyhole (2001-2005): imagens de satélite. Visualização. Passivo.
+      ↓
+Field Trip (2011): notificações baseadas em localização. Interessante, não viral.
+      ↓
+Ingress (2012): jogo AR. Portais em locais reais. 5M de pontos submetidos por usuários.
+      ↓
+Pokémon GO (2016): Ingress + Pokémon + timing perfeito. Fenômeno global.
+      ↓
+Niantic Lightship (2021-): plataforma de AR para desenvolvedores. VPS.
+      ↓
+Large Geospatial Model (2024): AI espacial treinada em bilhões de imagens de pedestres.
+```
 
-| Ano | Feito |
-|---|---|
-| **1996** | Co-criou **Meridian 59** — o primeiro MMORPG 3D da história. |
-| **2001** | Co-fundou a **Keyhole** (Earth Viewer). Google comprou em 2004. Virou **Google Earth.** |
-| **2005** | Liderou o lançamento do Google Earth. |
-| **2007** | Negociou com Steve Jobs para colocar o Google Maps no iPhone ORIGINAL. |
-| **2010** | Quis sair do Google. Larry Page pediu: "Fica. Monta uma divisão de GAMES." Nasceu a **Niantic Labs.** |
-
-### Ingress (2012): O Laboratório
-
-Niantic lançou o **Ingress** — um jogo AR onde duas facções disputam "portais" em locais reais. Jogadores precisam IR FISICAMENTE ao local.
-
-- **~15M de downloads.** Cult hit.
-- **5 milhões de portais** aprovados (enviados pelos JOGADORES).
-- **Tsunekazu Ishihara** (CEO da The Pokémon Company) era JOGADOR de Ingress. Nível 11. Jogava todo dia.
-
-### A Piada Que Virou Realidade (2014)
-
-Google Maps April Fools': "Pokémon Challenge." 18M views. Ishihara viu. Hanke viu.
-
-Hanke foi a Tóquio. Reunião com Ishihara em maio de 2014. Ishihara ENTENDEU na hora:
-
-> *"We have to do this."*
-
-O falecido **Satoru Iwata** (CEO da Nintendo) deu a bênção.
-
-### A Separação do Google (2015)
-
-Com a reestruturação para Alphabet, a Niantic precisava SAIR. Hanke convenceu Google, Nintendo e The Pokémon Company a investirem **$20M.** VCs (a16z, Kleiner) PASSARAM.
-
-### 6 de Julho de 2016: O Mundo PAROU
-
-- Maior lançamento de app da HISTÓRIA (Apple).
-- **1 em cada 10 americanos** jogando DIARIAMENTE.
-- **$6M/dia** em receita (SurveyMonkey).
-- Servidores CAÍAM toda hora. Hanke era Level 5 no próprio jogo — não tinha TEMPO para jogar.
+Pokémon GO não foi um jogo que deu certo. Foi uma infraestrutura — cinco anos de dados geoespaciais coletados por jogadores de Ingress — que encontrou a propriedade intelectual certa no momento em que smartphones tinham capacidade de processamento suficiente para AR. O jogo era a camada visível. O mapa era o ativo.
 
 ---
 
-## 2. A Filosofia: "Movement. Exploration. Community."
+## 1. A Origem: Google Earth, April Fools' e Um CEO Que Jogava Ingress
 
-### Os 3 Pilares da Niantic
+John Hanke não era um desenvolvedor de jogos. Era um construtor de mapas. Sua empresa Keyhole — cujo nome era uma referência aos satélites espiões KH da Guerra Fria — havia sido financiada em parte pela In-Q-Tel, o braço de venture capital da CIA. Quando o Google adquiriu a Keyhole em 2004, o Earth Viewer se tornou Google Earth. Hanke passou seis anos dentro do Google gerenciando as divisões de Maps e Earth, crescendo a equipe de trinta para mais de mil pessoas.
 
-| Pilar | Como Aparece no Jogo |
-|---|---|
-| **Movement** | Chocar ovos (2km, 5km, 10km). Raids. Ginásios. "Vá lá FORA." |
-| **Exploration** | PokéStops em landmarks reais. Biomas (floresta, praia, montanha). "Descubra sua cidade." |
-| **Community** | Community Days. GO Fest. Raids em grupo. Club Campfire. "Joguem JUNTOS." |
+Em 2010, ele estava inquieto. Larry Page deu permissão para um experimento: um pequeno grupo dentro do Google explorando mapas, celulares e jogos. O nome Niantic veio de uma placa que Hanke viu em San Francisco — Niantic era um navio baleeiro que encalhou durante a Corrida do Ouro. Sobreviveu como armazém e hotel. Quando queimou, foi soterrado. Anos depois, arqueólogos escavaram o local. O navio estava lá o tempo todo, debaixo da cidade. A metáfora era perfeita: há camadas de história e significado sob cada ponto do mundo físico. O trabalho da Niantic era revelá-las.
 
-### Por Que Funcionou Tão Bem
+O Ingress foi o laboratório. Dois times — Enlightened e Resistance — disputando portais em locais reais. Jogadores precisavam estar fisicamente presentes em um local para capturá-lo. O jogo não era um sucesso comercial massivo, mas construiu dois ativos extraordinários: uma comunidade de jogadores dispostos a viajar para lugares aleatórios para capturar pontos virtuais, e um banco de dados de 5 milhões de portais — submetidos pelos próprios jogadores, verificados por outros jogadores, cobrindo o planeta inteiro. Cada portal tinha coordenadas GPS, foto, descrição e categoria.
 
-1. **Baixa barreira de entrada.** Qualquer smartphone. Sem headset. Sem hardware extra.
-2. **Nostalgia.** Pokémon é a franquia de mídia MAIS LUCRATIVA da história ($100B+ vitalício).
-3. **AR como "mágica", não como "tecnologia."** O jogador vê um Pikachu no MEU quintal. Isso é MÁGICO.
-4. **Social por natureza.** Raids, trocas, batalhas — tudo exige PESSOAS.
+Em 1º de abril de 2014, Tatsuo Nomura — um engenheiro do Google Maps — publicou um vídeo de April Fools' mostrando um "Pokémon Challenge" no Google Maps. Dezoito milhões de visualizações. A piada revelou uma demanda real. Hanke e Nomura começaram a explorar a ideia seriamente. A reunião com Ishihara foi decisiva. Ishihara era um jogador de Ingress — nível 11, jogava diariamente, conhecia o produto melhor que a maioria dos funcionários da Niantic. Ele entendeu imediatamente o potencial. O acordo foi assinado.
+
+Quando a Niantic se separou do Google em agosto de 2015 — o Alphabet estava reorganizando a empresa e a Niantic não se encaixava em nenhuma unidade de negócios — Hanke escolheu investidores estratégicos em vez de VCs. Google, Nintendo e The Pokémon Company investiram US$ 20 milhões. Andreessen Horowitz e Kleiner Perkins avaliaram o negócio em US$ 150 milhões e passaram. Subestimaram o valor do banco de dados de portais do Ingress. Subestimaram o valor de uma franquia de vinte anos com um bilhão de fãs. Subestimaram o apelo primitivo de ver um Pikachu no seu quintal.
+
+O Pokémon GO foi construído sobre um motor completamente novo — não o motor do Ingress. Hanke insistiu nisso. O motor V1 do Ingress teria sido "absolutamente esmagado" pela escala de lançamento. A reconstrução levou meses adicionais, mas significou que o jogo aguentou — mal, com quedas constantes de servidor, mas aguentou — a demanda explosiva. Os PokéStops e Gyms foram extraídos diretamente do banco de dados de portais do Ingress: os melhores portais viraram Gyms, o resto virou PokéStops. Os habitats das espécies foram definidos por sobreposição de dados geográficos: corpos d'água geravam Pokémon aquáticos, parques geravam Pokémon de grama, dados climáticos e de solo influenciavam distribuições.
+
+Em um mês, o jogo faturou US$ 200 milhões. O valuation da Niantic saltou para mais de US$ 3 bilhões.
 
 ---
 
-## 3. As Inovações do Pokémon GO
+## 2. A Infraestrutura Que o Jogo Construiu: VPS, Lightship e o Modelo Geoespacial
 
-### 3.1 GPS + AR: O Mundo Inteiro Como "Mapa do Jogo"
+O Pokémon GO foi o caso de uso que financiou a construção de uma infraestrutura de AR muito mais ambiciosa do que o jogo sugeria. O **Visual Positioning System (VPS)** é um serviço de nuvem que localiza um dispositivo com precisão centimétrica — não por GPS, que tem erro de vários metros em áreas urbanas, mas por comparação da imagem da câmera com um mapa 3D global construído a partir de scans enviados por jogadores. Um único frame comprimido da câmera é suficiente para determinar a posição e orientação do dispositivo com seis graus de liberdade.
 
-Pokémon GO transformou o PLANETA no tabuleiro. Parques = biomas de grama. Praias = água. Cidades = elétrico.
+O mapa 3D que alimenta o VPS é construído por crowdsourcing. Jogadores que optam por escanear PokéStops contribuem clipes de quinze a trinta segundos — aproximadamente trezentos frames cada. O pipeline de processamento divide os scans em segmentos, corrige deriva de GPS, reconstrói geometria 3D via "Many-Depth" (estimativa de profundidade por frame), aplica segmentação semântica (árvore, prédio, chão, céu, água) e otimiza globalmente o resultado via bundle adjustment. O resultado são malhas 3D texturizadas e semanticamente anotadas de locais reais. Em 2024, a Niantic tinha mais de dez milhões de locais escaneados globalmente, um milhão de locais ativados para VPS, e recebia aproximadamente um milhão de novos scans por semana.
 
-**VPS (Visual Positioning System)**: precisão de CENTÍMETROS usando câmera + computer vision. "Pokémon Playgrounds" — Pokémon PERSISTENTES em locais fixos que outros jogadores também VEEM.
+O **Lightship ARDK** é a plataforma de desenvolvimento que expõe essa infraestrutura para terceiros. A versão 3.0, lançada em 2024, oferece meshing em tempo real usando apenas a câmera RGB — sem LiDAR — e segmentação semântica com mais de vinte classes. Suporta co-localização multiplayer (até dez jogadores no mesmo espaço AR, sincronizados via VPS).
 
-### 3.2 PokéStops e Gyms: O Dataset de $3.5 Bilhões
+O **Large Geospatial Model (LGM)** , anunciado em novembro de 2024, é a aposta mais ambiciosa. Treinado em bilhões de imagens de perspectiva de pedestre — coletadas via Pokémon GO, Ingress e Scaniverse — o LGM aprende características comuns entre localizações. Reconhece uma igreja vista por trás mesmo que todas as imagens de treinamento mostrem a fachada. Prevê a geometria de ambientes a partir de visões parciais. É um modelo de fundação para espaço físico: o equivalente geoespacial do que GPT é para texto.
 
-Os 5M de portais do Ingress viraram PokéStops. Jogadores enviaram MAIS. Comércios PAGARAM para virar PokéStops ("lures"). OpenStreetMap teve aumento de **17×** em contribuições diárias na Coreia do Sul.
+---
 
-### 3.3 Raids: A Mecânica Que SALVOU o Jogo (2017)
+## 3. Lições de Produto
 
-Depois do hype inicial de 2016, o jogo CAIU. Raids RESGATARAM: chefes LENDÁRIOS que exigem 10-20 jogadores FISICAMENTE JUNTOS. Isso CRIOU comunidades.
+### 3.1 O jogo pode ser a interface para construir infraestrutura
 
-### 3.4 Community Days: O Evento Que Viraliza Mensalmente
+Pokémon GO gerou bilhões em receita. Mas o ativo mais valioso que produziu não foram os Pokémon — foi o mapa 3D do mundo construído por jogadores que escaneavam PokéStops. A Niantic entendeu que um jogo de sucesso não é um fim em si mesmo; é um motor de coleta de dados que financia a construção de infraestrutura para a próxima plataforma. O mesmo padrão se aplica a Tesla (carros coletam dados para direção autônoma) e Google (buscas coletam dados para treinar modelos de AI).
 
-Um sábado por mês. Um Pokémon ESPECIAL. Bônus. Shiny rate aumentado. Parques LOTAM.
+### 3.2 O banco de dados de localizações pré-existente era o verdadeiro produto
+
+O Pokémon GO não teria funcionado sem os 5 milhões de portais do Ingress. Esses portais não foram criados por uma equipe de curadores — foram submetidos por jogadores ao longo de anos, de graça, por diversão. O banco de dados de localizações era o fosso competitivo que nenhum concorrente conseguiria replicar rapidamente. A lição é que dados geoespaciais gerados por usuários são extraordinariamente difíceis de copiar e extraordinariamente valiosos quando combinados com a propriedade intelectual certa.
+
+### 3.3 O timing de uma piada pode revelar um mercado
+
+O vídeo de April Fools' do Google Maps não era um estudo de mercado — era uma piada. Mas dezoito milhões de visualizações são um sinal tão forte quanto qualquer pesquisa de mercado. A Niantic tratou o sinal como real e construiu o produto.
 
 ---
 
@@ -97,43 +79,25 @@ Um sábado por mês. Um Pokémon ESPECIAL. Bônus. Shiny rate aumentado. Parques
 |---|---|
 | **Nome** | Pokémon GO |
 | **Lançamento** | 6 de julho de 2016 |
-| **Desenvolvedor** | Niantic (2016-2025) → Scopely (2025-) |
-| **Criador** | John Hanke |
-| **Receita vitalícia** | $6B+ |
-| **Venda** | Scopely, 2025. ~$3.5B. |
-| **Categoria** | AR / Gaming / Real-World |
-| **Concorrentes** | Monster Hunter Now (Niantic), Ingress, Minecraft Earth (RIP) |
+| **Desenvolvedor** | Niantic, Inc. (spin-off do Google, 2015) |
+| **Fundador** | John Hanke (CEO) |
+| **IPO** | Não (privada). Valuation: ~US$ 9B (pico). |
+| **Downloads** | 1 bilhão+ |
+| **Receita vitalícia** | US$ 6 bilhões+ |
+| **Locais VPS** | 10M+ escaneados, 1M ativados |
+| **Scans/semana** | ~1 milhão |
+| **Preço** | Gratuito. In-app purchases (PokéCoins). |
+| **Concorrentes** | Jurassic World Alive, Minecraft Earth (RIP), Monster Hunter Now |
 
 ---
 
-## 5. Lições do Pokémon GO
+## Fontes
 
-### 5.1 Piada de April Fools' Pode Ser Seu Próximo Produto
-
-Google Maps fez uma PIADA. 18M de views. Hanke transformou em REALIDADE.
-
-**Lição**: se uma piada de April Fools' viraliza, TALVEZ ela não devesse ser uma piada.
-
-### 5.2 O Mundo Real É o Melhor "Tabuleiro de Jogo"
-
-Pokémon GO não criou um mundo virtual. Usou o MUNDO REAL como tabuleiro. Isso gerou uma experiência que NENHUM jogo de console/PC pode replicar.
-
-**Lição**: realidade aumentada não é sobre "gráficos 3D." É sobre TRANSFORMAR o mundo real em algo MÁGICO.
-
-### 5.3 Dataset Construído por JOGADORES Vale Bilhões
-
-Os 5M de portais do Ingress foram enviados por JOGADORES. De GRAÇA. Esse dataset foi a BASE do Pokémon GO.
-
-**Lição**: se sua plataforma permite que usuários criem DADOS GEOGRÁFICOS VALIOSOS, você está construindo um ATIVO que vale BILHÕES.
-
----
-
-## Fontes e Referências
-
-- [CBC News — How Pokemon Go went from Google prank to mobile gaming phenomenon](https://www.cbc.ca/news/science/pokemon-google-origins-1.3690769)
 - [Game Developer — Tracing Pokémon GO's roots back to Meridian 59](https://www.gamedeveloper.com/design/tracing-i-pok-mon-go-i-s-roots-back-to-the-90s-mmorpg-i-meridian-59-i-)
-- [GamesBeat — The accidental history of Niantic's Pokémon GO, as told by John Hanke](https://gamesbeat.com/the-accidental-history-of-niantics-pokemon-go-as-told-by-john-hanke/)
+- [CBC News — How Pokémon Go went from Google prank to mobile gaming phenomenon](https://www.cbc.ca/news/science/pokemon-google-origins-1.3690769)
 - [Mashable — How the gurus behind Google Earth created Pokémon GO](https://mashable.com/article/john-hanke-pokemon-go)
-- [Niantic Labs — Engineering Pokémon Playgrounds (VPS)](https://nianticlabs.com/news/pokemon-playgrounds)
-- [Pokémon GO Hub — Niantic's Vision for 2024](https://pokemongohub.net/post/news/niantics-vision-for-pokemon-go-in-2024-unveiled-at-gamescom-latam/)
-- [Inner Reality — Why Pokémon GO Is the Blueprint for Addictive Digital Experiences (2025)](https://innereality.com/2025/08/27/addictive-digital-experiences-pokemon-ar/)
+- [GamesBeat — The accidental history of Niantic's Pokémon GO, as told by John Hanke](https://gamesbeat.com/the-accidental-history-of-niantics-pokemon-go-as-told-by-john-hanke/)
+- [Niantic Labs — Engineering Pokémon Playgrounds: VPS](https://nianticlabs.com/news/pokemon-playgrounds)
+- [Niantic Labs — Lightship VPS Part 2: Building Our 3D Map](https://nianticlabs.com/news/vps-part-2)
+- [Game Developer — Niantic's new AI model built by Pokémon GO players (2024)](https://www.gamedeveloper.com/business/niantic-pokemon-go-ai-model)
+- [PCMag — Pokémon GO players helped train AI for spatial intelligence (2024)](https://uk.pcmag.com/ai/155407/ever-played-pokemon-go-you-helped-train-an-ai-for-spatial-intelligence)
