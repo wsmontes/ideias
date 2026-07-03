@@ -58,7 +58,7 @@ O app trata a intenção como uma ESCOLHA ABSTRATA ("What are you here for? Brow
 
 ## 2. Sheets-Johnstone: O Movimento É Anterior ao Pensamento
 
-Maxine Sheets-Johnstone (*The Primacy of Movement*, 1999/2011) radicaliza Merleau-Ponty:
+Maxine Sheets-Johnstone (filósofa e dançarina), em *The Primacy of Movement* (John Benjamins Publishing, 1999; 2ª ed. expandida 2011, 620pp, vol. 14 da série Advances in Consciousness Research), radicaliza Merleau-Ponty. O livro é organizado em três seções: Foundations (história natural da consciência, crítica a visões materialistas do movimento como mero "output"), Methodology (Husserl, von Helmholtz, fenomenologia construtiva do aprender a se mover) e Applications (forma animada, percepção da fala e semântica evolutiva, "thinking in movement").
 
 > "Movement is not a mere effect of mental states but the generative source of our sense of self, others, and world."
 
@@ -95,7 +95,9 @@ A friction corporal seria:
 
 ## 3. Shusterman: Somaesthetics — O Corpo Como Prática de Liberdade
 
-Richard Shusterman (*Body Consciousness*, 2008) propõe a **somaesthetics**: o corpo como lugar de experiência estética e autoconhecimento sensorial. Não é "cuidar do corpo" (saúde, fitness) — é CULTIVAR a consciência corporal como prática de liberdade.
+Richard Shusterman (filósofo pragmatista, professor na Florida Atlantic University), em *Body Consciousness: A Philosophy of Mindfulness and Somaesthetics* (Cambridge UP, 2008, xv + 239pp), propõe a **somaesthetics**: o corpo como lugar de experiência estética e autoconhecimento sensorial. O livro engaja seis pensadores do século XX — Foucault, Merleau-Ponty, Beauvoir, Wittgenstein, William James e John Dewey — para construir uma filosofia do corpo como prática de liberdade. Shusterman distingue três ramos: **somaesthetics analítica** (descrição teórica da corporeidade), **pragmática** (crítica normativa de métodos de aperfeiçoamento somático) e **prática** (cultivo corpo-mente — ele usa o Método Feldenkrais e a meditação Zen como práticas exemplares). Mark Johnson chamou o livro de "deeply insightful and highly original"; Martin Jay disse que "makes a compelling case for the centrality of somaesthetics."
+
+Não é "cuidar do corpo" (saúde, fitness) — é CULTIVAR a consciência corporal como prática de liberdade.
 
 ### Atenção ao corpo É atenção:
 
@@ -180,9 +182,9 @@ Nada disso está na especificação de UX de 460 linhas.
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Maurice Merleau-Ponty — Fenomenologia da Percepção (1945)
-- Maxine Sheets-Johnstone — The Primacy of Movement (1999/2011)
-- Richard Shusterman — Body Consciousness: A Philosophy of Mindfulness and Somaesthetics (2008)
+- Maurice Merleau-Ponty — *Phénoménologie de la Perception* (Gallimard, 1945). Conceitos: arco intencional, corpo como veículo do ser-no-mundo, percepção como habilidade corporal.
+- Maxine Sheets-Johnstone — *The Primacy of Movement* (John Benjamins, 1999; 2ª ed. expandida 2011, 620pp, Advances in Consciousness Research Vol. 14). 3 seções: Foundations (história natural, crítica ao materialismo), Methodology (Husserl, von Helmholtz, fenomenologia construtiva), Applications (forma animada, semântica evolutiva, thinking in movement). Também: *The Roots of Thinking* (1990), *The Roots of Power* (1994).
+- Richard Shusterman — *Body Consciousness: A Philosophy of Mindfulness and Somaesthetics* (Cambridge UP, 2008, 239pp). 3 ramos da somaesthetics: analítica, pragmática, prática. 6 pensadores: Foucault, Merleau-Ponty, Beauvoir, Wittgenstein, William James, John Dewey. Práticas exemplares: Método Feldenkrais, meditação Zen. Também: *Pragmatist Aesthetics* (1992).
 
 ### Conexões com o Repositório
 - Liberation Client UX Philosophy — Intent over Engagement, Friction as a Feature
@@ -200,3 +202,10 @@ Nada disso está na especificação de UX de 460 linhas.
 ---
 
 *Fim do Loop 6. O Loop 7 lerá, criticará, e avançará. Cron 93154435 continua.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 6.** Pesquisa web verificou e expandiu:
+- Sheets-Johnstone: John Benjamins Publishing, 2ª ed. 2011, 620pp, Advances in Consciousness Research Vol. 14, 3 seções (Foundations/Methodology/Applications), semântica evolutiva, *The Roots of Thinking* (1990)
+- Shusterman: Cambridge UP 2008, 239pp, 3 ramos da somaesthetics (analítica/pragmática/prática), 6 pensadores (Foucault, Merleau-Ponty, Beauvoir, Wittgenstein, James, Dewey), Feldenkrais e Zen como práticas exemplares, recepção (Mark Johnson, Martin Jay)
