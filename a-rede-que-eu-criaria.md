@@ -27,6 +27,17 @@ A rede que eu criaria não começa perguntando "como protegemos os usuários do
 algoritmo?" — começa perguntando **"que tipo de pessoa queremos nos tornar quando
 estamos juntos?"**
 
+Há uma segunda pergunta, mais antiga e mais perigosa, que também precisa ser feita:
+**"O que você ama?"** Porque você só presta atenção verdadeira ao que ama. Trinta
+e sete loops se passaram até alguém escrever a palavra "amor" no centro de um
+documento (Loop 37). O projeto estava mais confortável com Heidegger, Foucault e
+Freud do que com o amor. Isso é revelador: o amor não é "analisável" — é vivido.
+E o feed é, no fundo, uma **fábrica de pseudo-amor**: likes que parecem afeto,
+seguidores que parecem comunidade, notificações que parecem "alguém pensou em
+você". A rede que eu criaria não simula o amor — ela cria condições para que o
+amor real (atenção assinada, concreta, custosa, irreversível) aconteça entre
+pessoas reais.
+
 ---
 
 ## 1. Os 12 Princípios
@@ -206,7 +217,7 @@ geram. A pergunta Amish inverte o critério: o que importa não é se a feature
 
 ---
 
-### 8. Cooperativa, Não Feudo
+### 8. Cooperativa, Não Feudo — E o Dinheiro?
 
 > "Most online spaces train us to accept 'implicit feudalism' — we choose among
 > lords rather than practice governance." — Nathan Schneider
@@ -224,9 +235,25 @@ democrática, um membro = um voto.
 - Construída para **durar, não para escalar** (Scholz). A métrica de sucesso não
   é MAU — é "esta comunidade de 20.000 pessoas está prosperando há 10 anos"
 
+**O modelo financeiro** — porque uma cooperativa não sobrevive de boas intenções:
+
+- **Assinatura mensal**: cada membro paga o que pode (modelo sliding scale: $5,
+  $15 ou $30/mês). Quem pode mais paga mais; quem não pode pagar não é excluído —
+  a comunidade cobre
+- **Caixa de axé**: 15% da receita vai para um fundo comunitário. Membros propõem
+  e votam como usar: infraestrutura, moderação, eventos, bolsas para quem não pode
+  pagar
+- **Sem anúncios. Sem dados como mercadoria. Sem investidores.** O crescimento é
+  orgânico. Quando a receita excede o custo, o excedente volta para a comunidade
+  (redução de mensalidade, melhorias, fundo de reserva)
+- **Transparência radical**: o balanço financeiro é público. Cada membro sabe
+  quanto entra, quanto sai, e para onde vai
+
 **Por que isso importa:** O design pode criar condições, mas não resolve a economia
 política. Enquanto a plataforma for propriedade de acionistas, a atenção será
-mercadoria. A propriedade determina para onde o valor flui.
+mercadoria. A propriedade determina para onde o valor flui. E o dinheiro precisa
+ser pensado — uma cooperativa que não se sustenta financeiramente não liberta
+ninguém, só fracassa com pureza ideológica.
 
 ---
 
@@ -278,9 +305,14 @@ A rede **desacelera**. O feed te mantém no "agora" constante — achatamento te
 consumo do tempo. Krenak ensina que prestar atenção é **adiar**: interromper o
 fluxo e criar um intervalo onde o futuro pode ser diferente do passado.
 
+*(O princípio 6 e este são irmãos: o Silêncio é a pausa curta — o respiro, o
+domingo sem app, a refeição sem telefone. O Adiamento é a pausa longa — a estação
+de pousio, o arquivo ancestral, a desaceleração do tempo. Um é o dia; o outro é
+a estação. Ambos são o oposto do scroll.)*
+
 ---
 
-### 11. O Outro Que Me Tira de Mim
+### 11. O Outro Que Me Tira de Mim — Com Cuidado
 
 > "The digital is eliminating the Other. Everything becomes the Same." —
 > Byung-Chul Han
@@ -289,21 +321,36 @@ O feed te mostra mais do mesmo: o algoritmo prevê o que você "vai gostar" e te
 alimenta com variações do que você já é. O **Outro** — o que resiste, o que é
 diferente, o que te tira de você mesmo — desaparece.
 
-A rede **cultiva o encontro com o Outro**:
+A rede **cultiva o encontro com o Outro**, mas não é ingênua sobre isso. Jogar
+pessoas com visões radicalmente diferentes sem estrutura não gera compreensão —
+gera conflito destrutivo. O encontro com o Outro precisa de **recipiente**: regras,
+facilitação, consentimento e a possibilidade real de sair.
 
-- Uma vez por semana: **O Post Que Você Não Quer Ver**. Alguém que pensa
-  radicalmente diferente de você — não um troll, não um extremista, mas alguém
-  cuja visão de mundo é legítima e **desconfortável** para você
-- **Círculo de Estranhos**: a cada mês você é colocado num círculo com 5 pessoas
-  que não conhece, com origens, idades e visões diferentes. Vocês têm 48 horas
-  para encontrar algo que **todos** consideram belo e apresentar ao círculo
-- O algoritmo (sim, tem um) não otimiza para "permanência" — otimiza para
-  **diversidade de exposição**. "Esta semana você passou 80% do tempo com pessoas
-  que pensam como você. Aqui estão 3 perspectivas diferentes."
+- **O Post Que Você Não Quer Ver**: uma vez por semana, o digest inclui uma
+  perspectiva que desafia a sua — não um troll, não um extremista, mas alguém cuja
+  visão de mundo é legítima e **desconfortável**. Você pode pular. Mas se ler, só
+  pode responder depois de um cooldown de 2 horas (o tempo de o afeto imediato
+  baixar e o pensamento entrar)
+- **Círculo de Estranhos**: a cada mês, 5 pessoas que não se conhecem, com
+  origens, idades e visões diferentes, são convidadas (não obrigadas) a um círculo
+  temporário de 48 horas. A tarefa: encontrar algo que **todos** consideram belo.
+  Não debater política — encontrar beleza juntos. O belo como território comum
+  antes do difícil
+- O algoritmo de descoberta não otimiza para "permanência" — otimiza para
+  **diversidade de exposição com segurança**. "Esta semana você passou 80% do tempo
+  com pessoas que pensam como você. Quer ver 3 perspectivas diferentes?" A escolha
+  é sempre sua
+- **Direito de sair de qualquer encontro.** Se um Círculo de Estranhos ou um Post
+  Que Você Não Quer Ver te faz mal, você fecha e pronto. O encontro com o Outro é
+  um convite, não uma imposição. A rede não te obriga a ser "iluminado" — ela te
+  oferece pontes, não te empurra delas
 
 **Por que isso importa:** A atenção É a capacidade de ser afetado pelo que não sou
 eu (Murdoch, Haraway). Uma rede que elimina o Outro não é uma rede de atenção —
-é uma sala de espelhos.
+é uma sala de espelhos. Mas o encontro com a diferença é uma prática, não um
+evento — requer habilidade, segurança e voluntariedade. O feed eliminou o Outro
+por conveniência; a minha rede o convida de volta, mas bate na porta antes de
+entrar.
 
 ---
 
@@ -391,6 +438,45 @@ chama.
    círculos, seus silêncios — tudo em markdown. A rede não te prende. Ela te
    agradece e te diz: "Vá viver."
 
+### Conflito e Reparo: O Que Acontece Quando Dá Errado
+
+Toda comunidade real tem conflito. Uma rede que finge que o conflito não existe é
+uma rede que **expulsa pessoas em vez de transformar rupturas**. O Terraço precisa
+de ferramentas para quando as coisas quebram.
+
+**Quando uma carta machuca alguém:**
+- Quem se sentiu machucado pode sinalizar: "Isto me machucou." Não é um "report"
+  para um moderador externo — é um sinal **para o círculo**
+- O autor da carta é notificado e convidado a **ler de novo** depois de um
+  cooldown. Não para se defender — para tentar ver o que o outro viu
+- Se ambos concordarem, um **círculo de reparo** é aberto: um espaço temporário
+  (24 horas, máximo 3 trocas) onde as duas pessoas conversam com a pergunta: "O
+  que aconteceu aqui?" Não é tribunal — é escuta
+
+**Quando um círculo se rompe:**
+- Círculos podem se dividir. Se a tensão é irreparável, o círculo se biparte. Cada
+  pessoa escolhe para qual metade vai. As duas metades podem continuar existindo
+  separadamente — ou uma pode ser arquivada
+- A divisão não é "expulsão" — é **diferenciação celular**. O círculo cresceu,
+  criou tensões internas, e se dividiu para sobreviver. Como uma célula. Como um
+  grupo de amigos que já não cabe mais na mesma sala
+- O arquivo do círculo original fica disponível para todos os membros. "Isto foi
+  o que vivemos juntos. Agora somos dois."
+
+**Quando alguém precisa ser removido:**
+- Remoção de um membro do círculo exige **consenso de todos os outros** menos a
+  pessoa em questão. Não é maioria simples — é consenso. Se uma pessoa discorda
+  da remoção, o círculo não remove — ele se divide (a pessoa que discorda e a
+  pessoa que seria removida formam um novo círculo, ou seguem separadas)
+- Remoção da plataforma (banimento) é decisão da **assembleia geral** da
+  cooperativa, com direito a defesa, testemunhas e voto. Não é um "admin" que
+  decide sozinho — é a comunidade
+
+**Por que isso importa:** Redes sociais convencionais tratam conflito como
+"moderação de conteúdo" — um problema técnico a ser resolvido por remoção. Mas
+conflito é **matéria-prima da vida em comum**. Uma rede que não sabe lidar com
+ruptura não é uma comunidade — é um condomínio com regras de silêncio.
+
 ---
 
 ## 3. O Que a Rede NÃO É (E Por Que Tudo Bem)
@@ -442,6 +528,10 @@ Toda a jornada dos 125 loops me ensinou que contradições não são bugs — s�
 5. **É para poucos**. Sim. É uma cooperativa de atenção para quem quer e pode.
    Não vai substituir o Instagram. Mas 20.000 pessoas prosperando por 10 anos
    valem mais que 1 bilhão scrollando
+6. **Cobrar é uma barreira.** A assinatura, mesmo sliding scale, exclui quem não
+   pode pagar nada. A comunidade cobre alguns, mas não todos. É uma cooperativa,
+   não um serviço público universal — e isso dói. A tensão entre sustentabilidade
+   financeira e acesso universal não tem solução limpa no capitalismo
 
 ---
 
