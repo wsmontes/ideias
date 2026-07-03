@@ -93,7 +93,7 @@ O máximo que um app pode fazer é: **criar condições para que a atenção com
 
 ## 3. Gravidade e Graça: O Feed Como Gravidade Espiritual
 
-Weil desenvolve uma metafísica da GRAVIDADE e da GRAÇA:
+Weil (1909-1943, morreu aos 34 anos de tuberculose e inanição em Londres, recusando-se a comer mais do que as rações dos soldados franceses na ocupação) foi filósofa, mística e ativista política. Suas obras principais foram publicadas postumamente: *Attente de Dieu* (1950, trad. *Waiting for God*, 1951 — que inclui o ensaio "Reflections on the Right Use of School Studies with a View to the Love of God"), *La Pesanteur et la Grâce* (1947, trad. *Gravity and Grace*, 1952), e *L'Enracinement* (1949, trad. *The Need for Roots*, 1952). Weil argumenta que até exercícios escolares difíceis e desinteressantes são uma "ginástica da atenção" — cada exercício abordado corretamente é "like a sacrament." O esforço MALSUCEDIDO (tentar resolver um problema de geometria e falhar) traz "more light into the soul" do que o esforço bem-sucedido sem atenção. Isso conecta diretamente ao design: a fricção do Liberation Client não é apenas obstáculo — é GINÁSTICA DA ATENÇÃO. O cooldown de 24h, a confirmação para publicar, o "long-press to commit" não são "friction" — são EXERCÍCIOS ESPIRITUAIS.
 
 - **Gravidade (pesanteur)**: o movimento natural da alma para baixo. A força, o poder, a avareza, a ilusão, o ego que acredita ser o centro do universo. "All the natural movements of the soul are controlled by laws analogous to those of physical gravity. Grace is the only exception."
 
@@ -225,8 +225,7 @@ Dez loops. Hora de uma decisão. Duas opções:
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Simone Weil — Gravity and Grace (1947), Waiting for God (1950), First and Last Notebooks (1970)
-- Conceitos: atenção como generosidade, atenção como oração, gravidade e graça, decriação, espera (attente), vazio
+- Simone Weil (1909-1943) — *La Pesanteur et la Grâce* (1947, pub. póstuma; trad. *Gravity and Grace*, 1952); *Attente de Dieu* (1950, pub. póstuma; trad. *Waiting for God*, 1951 — inclui "Reflections on the Right Use of School Studies with a View to the Love of God"); *L'Enracinement* (1949; trad. *The Need for Roots*, 1952). Morreu aos 34 anos de tuberculose e inanição voluntária em Londres. Yale Center for Faith & Culture: série "How to Read Simone Weil" (Eric O. Springsted). Frase: "Attention is the rarest and purest form of generosity." Frase: "Attention, taken to its highest degree, is the same thing as prayer. It presupposes faith and love." Frase: "Every school exercise, approached rightly, is like a sacrament." Conceitos: gravidade (pesanteur), graça (grâce), decriação (décréation), espera (attente), vazio.
 
 ### Conexões com o Repositório
 - App como Ritual (Iteração 6) — Shabbat digital, Hora do Silêncio, luto. Práticas quase-espirituais que poderiam ser aprofundadas com Weil.
@@ -241,3 +240,9 @@ Dez loops. Hora de uma decisão. Duas opções:
 ---
 
 *Fim do Loop 9. Nove camadas. O projeto continua. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 9.** Pesquisa web verificou e expandiu:
+- Weil: bio completa (1909-1943, morte aos 34 por tuberculose + inanição voluntária), datas de publicação póstuma (1947, 1949, 1950), "Reflections on the Right Use of School Studies" (em Waiting for God), ginástica da atenção via exercícios escolares, Yale Center for Faith & Culture (Springsted), "contradiction is the mark of truth"
