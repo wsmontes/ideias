@@ -406,18 +406,16 @@ A rede não é um feed — é uma **constelação de círculos**:
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     SEU JARDIM                           │
-│                                                         │
+│  (tela inicial)                                         │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐              │
 │  │ Círculo  │  │ Círculo  │  │ Círculo  │              │
 │  │ Família  │  │ Amigos   │  │Terreiro  │   ...até 7   │
 │  │  (8)p    │  │  (12)p   │  │  (6)p    │              │
 │  └──────────┘  └──────────┘  └──────────┘              │
 │                                                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │                    PRAÇA                          │   │
-│  │  Cartas Públicas · Check-in da Cidade · Círculos  │   │
-│  │  Abertos · (visita máx. 15 min)                   │   │
-│  └──────────────────────────────────────────────────┘   │
+│              [Quero explorar → Praça]                    │
+│              (só depois de visitar                      │
+│               um Círculo hoje)                          │
 │                                                         │
 │           "Você está em dia aqui."                       │
 └─────────────────────────────────────────────────────────┘
@@ -1038,7 +1036,73 @@ Círculos.
 
 ---
 
-## 7. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 7. Quinto Ataque: A Praça Vira Feed — e os Círculos Murcham
+
+A Praça resolveu a descoberta. Mas criou o problema inverso do ataque 3 (frequência).
+
+No ataque 3, o Terraço era especial demais — espaço de ritual que ninguém usa no
+dia a dia. A solução foi o check-in diário. Agora, com a Praça, o perigo é outro:
+**a Praça é mais interessante que os Círculos.**
+
+Cartas Públicas bem escritas por pessoas que você não conhece. Check-ins da Cidade
+com respostas criativas. Círculos Abertos para espiar. Conteúdo novo, pessoas
+novas, ideias novas. Tudo que os Círculos (sua família, seus amigos de sempre)
+não têm: **novidade**.
+
+A Praça tem 15 minutos de limite. Mas 15 minutos todo dia é mais tempo do que a
+maioria das pessoas passa nos Círculos. E se a Praça é onde as coisas acontecem,
+os Círculos viram o lugar "especial" que você visita no Natal — exatamente o
+problema que o ciclo 4 tentou resolver.
+
+**A Praça compete com os Círculos pela mesma atenção**, e a Praça tem a vantagem
+da novidade. É mais fácil abrir a Praça e ver o que tem de novo do que entrar no
+Círculo da família e responder à carta da sua irmã. A Praça é o feed com limite de
+tempo — mas ainda é um feed.
+
+### O Que Torna Um Espaço Mais Atraente Que Uma Relação?
+
+A resposta está na **fricção**. A Praça tem baixa fricção: você entra, olha, sai.
+Os Círculos têm alta fricção: você precisa se importar, responder com Presença ou
+Carta, sustentar uma relação.
+
+Se o app oferece os dois, o comportamento humano padrão é: **passar 15 minutos na
+Praça e 30 segundos nos Círculos**. O design leva as pessoas para o lugar mais
+fácil. E o lugar mais fácil é sempre o que exige menos de você.
+
+### Síntese do Ciclo 7: A Praça Não Tem Check-in
+
+A solução não é remover a Praça — é **inverter a direção do fluxo**. Hoje, o
+fluxo natural é: abro o app → Praça (novidade) → talvez um Círculo. O fluxo
+deveria ser: abro o app → meus Círculos (pertencimento) → se estou aberto ao
+novo, Praça.
+
+**Mudança estrutural:**
+
+1. **A tela inicial não é a Praça — é o Jardim.** Você abre o app e vê seus
+   Círculos. Quem respondeu seu check-in hoje. Que Cartas chegaram. A Praça é um
+   **destino secundário**, acessível por um gesto explícito: "Quero explorar."
+
+2. **A Praça não tem check-in próprio.** O check-in diário só existe nos Círculos.
+   A Praça tem Cartas Públicas e Círculos Abertos — mas não tem o ritual diário
+   de baixa voltagem que mantém os Círculos vivos. O hábito se forma nos Círculos,
+   não na Praça.
+
+3. **A Praça só abre depois dos Círculos.** Você só pode entrar na Praça depois
+   de ter visitado pelo menos um Círculo hoje. Não é uma prisão — é um convite à
+   prioridade. "Tem gente que te ama esperando. A Praça continua aqui depois."
+
+4. **Cartas Públicas expiram.** Uma Carta Pública fica visível na Praça por 7
+   dias. Depois, some da Praça (mas continua existindo no Círculo de origem). Isso
+   evita o acúmulo infinito de "conteúdo" e mantém a Praça como lugar de
+   **passagem**, não de arquivo.
+
+O Terraço não é uma Praça com Círculos anexos. É uma **constelação de Círculos**
+com uma Praça para quando você quer se aventurar. A direção do fluxo define o que
+é centro e o que é periferia.
+
+---
+
+## 8. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
