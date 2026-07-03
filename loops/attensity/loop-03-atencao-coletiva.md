@@ -36,7 +36,7 @@ Durkheim e Canetti mostram que isso é falso — ou, no mínimo, incompleto.
 
 ### Durkheim: A Atenção Que Só Existe No Grupo
 
-Em *As Formas Elementares da Vida Religiosa* (1912), Durkheim descreve o que acontece quando os Arunta (Austrália) se reúnem para seus rituais:
+Em *As Formas Elementares da Vida Religiosa* (1912, considerada a obra mais influente da sociologia da religião), Durkheim descreve o que acontece quando os Arunta (Austrália) se reúnem para seus rituais. Pesquisas contemporâneas (Konvalinka et al. 2011; Xygalatas et al. 2011) confirmaram empiricamente o insight de Durkheim: rituais coletivos produzem **sincronização fisiológica** — os batimentos cardíacos de performers e espectadores se alinham. Randall Collins (2004) estendeu Durkheim com sua teoria de "cadeias de rituais de interação" (interaction ritual chains), mostrando como a efervescência se acumula e se transmite entre encontros:
 
 > "Uma espécie de eletricidade é formada pela sua reunião que os transporta rapidamente a um grau extraordinário de exaltação. [...] As paixões que o agitam são tão intensas que não podem ser satisfeitas senão por atos violentos, desmedidos: gritos, gestos desordenados, danças, cantos."
 
@@ -53,7 +53,7 @@ A atenção coletiva tem propriedades que a atenção individual não tem:
 
 ### Canetti: A Massa Que Dissolve o Medo
 
-Canetti, em *Massa e Poder* (1960), vai ainda mais longe. Sua tese fundamental:
+Elias Canetti (1905-1994, Nobel de Literatura 1981), em *Massa e Poder* (*Masse und Macht*, 1960) — obra que J.S. McClelland chamou de "the one masterpiece in the whole tradition of crowd theory since Plato" — vai ainda mais longe. Canetti rejeita toda a tradição anterior de psicologia das massas (Le Bon, Freud, Tarde) e reconstrói o fenômeno *ab initio*. Sua tese fundamental:
 
 > "Nada o homem teme mais do que o toque do desconhecido."
 
@@ -65,12 +65,14 @@ Canetti descreve o momento decisivo da formação da massa — a **descarga**:
 
 Isso não é metáfora. É uma descrição fenomenológica precisa do que acontece quando indivíduos se tornam massa: a atenção individual se dissolve numa atenção coletiva. Você não "presta atenção" — você É a atenção da massa.
 
-Canetti classifica as massas por emoção dominante:
+Canetti identifica quatro atributos essenciais de toda massa: (1) impulso de crescer, (2) igualdade entre os membros, (3) amor à densidade, (4) necessidade de direção comum. E distingue **massa aberta** (existe apenas enquanto cresce — dispersa quando o crescimento para) de **massa fechada** (renuncia ao crescimento, aceita limites — igreja, estádio — e ganha permanência pela expectativa de reencontro). Classifica as massas por emoção dominante:
 - **Massa de caça** (baiting crowd): forma-se em torno de um alvo rapidamente alcançável (linchamento, cancelamento online)
 - **Massa de fuga**: criada por uma ameaça compartilhada (pânico, êxodo)
 - **Massa de proibição**: formada pela recusa coletiva (greve, boicote)
 - **Massa de inversão**: os oprimidos se voltam contra os comandantes (revolução)
 - **Massa de festa**: reunida em torno da abundância (carnaval, festival)
+
+Canetti também descreve a **matilha** (pack, 10-20 pessoas) como precursor da massa: matilha de caça, de guerra, de lamento (forma-se ao redor de um moribundo) e de aumento (movida pelo desejo de mais). Quando essas transmutações se fixam como rituais, tornam-se a substância da religião.
 
 Cada tipo de massa tem uma FORMA de atenção diferente. A atenção da massa de caça é focal e agressiva. A atenção da massa de festa é difusa e expansiva. A atenção da massa de fuga é varredura constante do horizonte. **A forma da atenção depende da forma do grupo.**
 
@@ -168,7 +170,7 @@ Isso é efervescência coletiva às avessas: o que é compartilhado não é o co
 
 ### Exemplo 4: A Atenção Como Bem Comum (Ostrom)
 
-Elinor Ostrom (Nobel de Economia 2009) estudou como comunidades gerenciam recursos comuns (água, pastos, florestas) sem privatização nem controle estatal. Ela identificou 8 princípios de design para commons bem-sucedidos.
+Elinor Ostrom (1933-2012, Nobel de Economia 2009 — primeira mulher a recebê-lo) estudou como comunidades gerenciam recursos comuns (água, pastos, florestas, pesca) sem privatização nem controle estatal. Em *Governing the Commons: The Evolution of Institutions for Collective Action* (Cambridge UP, 1990), ela desafiou a narrativa da "tragédia dos comuns" (Hardin, 1968) com centenas de estudos de caso. Uma meta-análise de 2010 (Cox, Arnold & Villamayor Tomás, 91 estudos) confirmou empiricamente os princípios e propôs expandi-los de 8 para 10. Ela identificou 8 princípios de design para commons bem-sucedidos:
 
 **A atenção como commons:** se a atenção não é um recurso individual (Schmidt) nem uma commodity (economia da atenção), mas um **bem comum** — algo que uma comunidade GERENCIA COLETIVAMENTE.
 
@@ -319,10 +321,9 @@ Isso não é uma feature. É uma inversão de arquitetura.
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Émile Durkheim — As Formas Elementares da Vida Religiosa (1912)
-- Elias Canetti — Massa e Poder (1960)
-- Elinor Ostrom — Governing the Commons (1990)
-- Psicologia contemporânea da efervescência coletiva (meta-análise 2026, PES — Perceived Emotional Synchrony)
+- Émile Durkheim — *Les Formes Élémentaires de la Vie Religieuse* (1912). Confirmação empírica: Konvalinka et al. (2011), Xygalatas et al. (2011) — sincronização cardíaca em rituais. Extensão: Randall Collins, *Interaction Ritual Chains* (2004). Contraste: William James focava o êxtase individual; Durkheim focava o coletivo.
+- Elias Canetti (1905-1994, Nobel 1981) — *Masse und Macht* (1960); trad. *Crowds and Power* (1962, trad. Carol Stewart). J.S. McClelland: "the one masterpiece in the whole tradition of crowd theory since Plato." Rejeita Le Bon, Freud, Tarde. Recepção inicial controversa; revival nos anos 1980 e 2020s (Lerer, *LARB*, 2020).
+- Elinor Ostrom (1933-2012, Nobel 2009, primeira mulher) — *Governing the Commons* (Cambridge UP, 1990). Meta-análise: Cox, Arnold & Villamayor Tomás (2010), *Ecology and Society* 15(4) — princípios bem sustentados empiricamente, proposta de expansão para 10.
 
 ### Conexões com o Repositório
 - App como Ritual (Iteração 6) — Círculo, A Hora do Silêncio, Shabbat digital
@@ -338,3 +339,11 @@ Isso não é uma feature. É uma inversão de arquitetura.
 ---
 
 *Fim do Loop 3. O Loop 4 lerá, criticará, e avançará. Cron 93154435 continua.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 3.** Pesquisa web verificou e expandiu:
+- Durkheim: confirmação empírica contemporânea (Konvalinka, Xygalatas — sincronização cardíaca em rituais), Randall Collins (interaction ritual chains, 2004), contraste com William James (individual vs coletivo)
+- Canetti: Nobel 1981, recepção (McClelland: "masterpiece since Plato"), atributos essenciais da massa (4), massa aberta vs fechada, matilha (pack) como precursor (4 tipos), rejeição de Le Bon/Freud/Tarde
+- Ostrom: Nobel 2009 (primeira mulher), meta-análise de Cox et al. (2010, 91 estudos), expansão de 8 para 10 princípios, desafio à "tragédia dos comuns" de Hardin
