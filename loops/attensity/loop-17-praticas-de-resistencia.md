@@ -164,3 +164,12 @@ Antes das práticas, alguns princípios extraídos dos 16 loops:
 ---
 
 *Fim do Loop 17. Dezessete loops. Finalmente: práticas. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 17.** Este loop é propositalmente "ultraprático" — síntese de 16 camadas de diagnóstico em 10 práticas. Referências externas ao movimento contemporâneo de resistência digital:
+- Cal Newport — *Digital Minimalism* (Portfolio, 2019): "digital declutter", solitude deprivation, high-quality leisure
+- Catherine Price — *How to Break Up with Your Phone* (Ten Speed Press, 2018): plano de 30 dias, trial separation
+- Tiffany Shlain — *24/6: The Power of Unplugging One Day a Week* (Gallery Books, 2019): "Technology Shabbat" (conecta diretamente com Iteração 6 do repo)
+- As 10 práticas do Loop 17 são originais — sintetizadas das camadas dos loops anteriores, não copiadas de manuais existentes
