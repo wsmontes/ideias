@@ -563,17 +563,18 @@ Círculo — 30 segundos, todo dia, mantém o espaço respirando.
 o autor: "Wagner, Clara e Pedro estiveram aqui." Não é um número — são nomes.
 Reconhecimento sem extração. O "eu te vi" que o like promete e não entrega.
 
-**Carta.** O formato principal. Você escreve para seu Círculo. Tem começo, meio e
-fim. Pode ser uma memória, uma ideia, uma pergunta, um desabafo. Não tem
-comentário infinito — cada resposta é outra Carta, ou uma Presença. Cartas não
-"engajam" — elas **chegam**.
+**Carta.** O formato principal. Endereçada ao seu Círculo. Tem começo, meio e fim.
+Pode ser uma memória, uma ideia, uma pergunta, um desabafo. Pode ser **texto,
+voz, uma imagem ou um vídeo de até 60 segundos**. O meio importa menos que o
+contexto: sua voz carrega o corpo que o texto perde, sua foto mostra o que você
+viu, seu vídeo é um momento — não uma esteira. O que corrompe a imagem não é a
+imagem — é o palco infinito. Aqui o palco tem 12 pessoas que te conhecem. Não
+tem "próximo vídeo", não tem filtro de performance, não tem scroll vertical. A
+Carta **chega** — no digest, junto com as outras.
 
 **Carta Pública.** A exceção consciente. O autor escolhe explicitamente tornar uma
-Carta visível na **Praça** — o único espaço público do Terraço. Não é "post
-público" por default. É uma decisão: "isto que escrevi para meus amigos talvez
-Sirva para outros." Cartas Públicas permitem que pessoas se encontrem, descubram
-novos Círculos, tragam o Outro para dentro. Mas a conversa que começa na Praça
-**não fica na Praça** — ela migra para dentro de um Círculo.
+Carta visível na **Praça**. Não é "post público" por default — é uma decisão. A
+conversa que começa na Praça **migra para dentro de um Círculo**. Expira em 7 dias.
 
 Quatro formatos. Nenhum deles é um post. Nenhum tem métrica pública.
 Nada é público por default — o movimento de se tornar visível além do Círculo é
@@ -1102,7 +1103,78 @@ com uma Praça para quando você quer se aventurar. A direção do fluxo define 
 
 ---
 
-## 8. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 8. Sexto Ataque: Texto Puro É Elitista
+
+O Terraço tem 4 formatos: Check-in, Presença, Carta, Carta Pública. Todos textuais.
+Isso não é um detalhe — é uma **exclusão estrutural**.
+
+O Loop 27 (Voz) foi explícito: "a atenção humana evoluiu para a VOZ, não para o
+texto. O texto é uma tecnologia de 5.000 anos. A voz é uma tecnologia de 200.000
+anos." O app prioriza a mais recente — e exclui quem:
+
+- Não gosta de escrever (a maioria das pessoas)
+- Tem barreiras de alfabetização ou idioma
+- Se expressa melhor com imagem, som, corpo
+- Está cansado demais para articular uma frase e só queria mandar um abraço sonoro
+- Vem de culturas onde a oralidade é o modo primário de transmissão (terreiro,
+  roda de samba, contação de histórias)
+
+O WhatsApp ganhou o mundo com **áudio**. Não foi com texto — foi com a capacidade
+de mandar um recado de 15 segundos falado, sem digitar nada. O Terraço, ao se
+definir contra o feed, se definiu implicitamente como **texto** — e o texto é o
+meio da elite letrada.
+
+### Mas Imagem Não Vira Instagram?
+
+O medo é legítimo: adicionar fotos e o app vira vitrine de performances visuais
+(corpos ideais, vidas editadas). Adicionar vídeos e vira TikTok (scroll infinito
+de estímulo curto). O feed explorou cada meio:
+
+- **Texto** → rage-bait, threads de polêmica, "hot takes"
+- **Imagem** → comparação social, corpo como mercadoria, "estética" como pressão
+- **Vídeo curto** → dopamina de 15 segundos, scroll infinito vertical
+- **Áudio** → podcasts a 2x, "ouvir enquanto faz outra coisa" (não é escuta, é
+  preenchimento)
+
+Cada meio foi intoxicado. A resposta do Terraço até agora foi: **remover o meio**.
+Só texto. Mas isso é amputação, não cura.
+
+### Síntese do Ciclo 8: O Meio Não É o Problema — A Fricção É
+
+O que torna uma foto "Instagram" não é a foto — é o **contexto de recepção**:
+métrica pública (likes), audiência invisível (seguidores), algoritmo de comparação
+("pessoas parecidas com você"), pressão de performance (filtros, edição, pose).
+
+Uma foto num Círculo de 8 pessoas que te conhecem não é a mesma foto num feed de
+10.000 seguidores. A imagem não é o problema — o **palco** é.
+
+**Formatos expandidos (a mesma regra de ouro):**
+
+- **Voz.** Você grava um áudio. Não é um "podcast" — é sua voz falando para as 8
+  pessoas do Círculo. Elas ouvem quando recebem o digest. Não tem 2x. Não tem
+  "ouvir enquanto faz outra coisa" como sugestão. Seu pai ouve sua voz. Sua filha
+  ouve o timbre, a pausa, a respiração. A voz carrega o corpo que o texto perde.
+- **Imagem.** Você mostra uma foto. Não é um "post" — é "olhem o que eu vi". A
+  imagem aparece com seu contexto (onde, quando, por que você está mostrando
+  isso). As pessoas respondem com Presença ou Carta, não com "like". A foto não
+  tem filtro — não porque filtro é proibido, mas porque as pessoas que te conhecem
+  não precisam do filtro.
+- **Vídeo.** Máximo 60 segundos. Não tem "próximo vídeo". Não tem scroll vertical.
+  Quando o vídeo acaba, a tela mostra: "O que você quer fazer? Responder com
+  Presença? Escrever uma Carta? Voltar?" O vídeo é um momento, não uma esteira.
+
+A regra de ouro se mantém: **tudo tem destinatário explícito.** Uma foto enviada
+ao Círculo Família não "engaja" — ela **chega**. Como uma foto no grupo de
+WhatsApp, mas sem a expectativa de resposta imediata, sem o "●●●" da digitação,
+sem a ansiedade do "já viram?".
+
+O que corrompe a imagem não é a imagem — é o palco infinito. O Terraço mantém o
+palco pequeno e deixa a imagem ser o que ela é: **um jeito de mostrar o que você
+viu para quem você ama.**
+
+---
+
+## 9. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
