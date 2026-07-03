@@ -1242,7 +1242,94 @@ lugar que existe.
 
 ---
 
-## 10. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 10. Oitavo Ataque: Quem Governa de Verdade?
+
+"Um membro, um voto." Soa bem. Mas cooperativas reais têm um problema documentado:
+**a minoria ativa governa, a maioria silenciosa obedece.**
+
+Em qualquer comunidade, ~10% das pessoas participam ativamente da governança. Os
+outros 90% querem usar o produto, não administrá-lo. Isso não é apatia — é
+**prioridade**. As pessoas têm vidas. Governar uma plataforma dá trabalho. Quem
+tem tempo e energia para participar de assembleias, ler propostas, debater
+orçamentos?
+
+A resposta, em quase todas as cooperativas reais, é: **quem tem privilégio.**
+Pessoas com tempo livre, segurança financeira, capital cultural, fluência nos
+jargões da governança. A "democracia" da cooperativa, se não for desenhada com
+cuidado, reproduz as mesmas desigualdades que ela pretende combater.
+
+### O Que Acontece na Prática
+
+- **Captura pela minoria ativa:** 200 membros votam. 2.000 não. Os 200 decidem
+  por todos. Com o tempo, os 200 desenvolvem uma cultura interna, um vocabulário,
+  alianças. Viram uma **elite de governança** — tão distante do membro médio
+  quanto o conselho de administração de uma big tech.
+- **Stacksy United (cooperativa de fotografia):** resolveu isso com quórum mínimo:
+  toda votação precisa de 30% de participação para ser válida. Resultado: quase
+  nada é aprovado, as decisões travam, a plataforma não evolui. O remédio matou
+  o paciente.
+- **Resonate (cooperativa de streaming musical):** resolveu com delegação: você
+  vota em representantes que votam por você. Resultado: virou uma democracia
+  representativa tradicional — com todos os problemas de uma democracia
+  representativa tradicional (distância do eleitor, campanhas, concentração de
+  poder).
+
+### O Terraço É Particularmente Vulnerável
+
+O Terraço não é uma cooperativa de trabalhadores (como uma lavanderia ou um
+delivery). É uma cooperativa de **atenção**. O "trabalho" que os membros fazem é
+**conversar, escrever, estar presente**. Quem governa são as mesmas pessoas que
+usam. Não há separação entre "trabalhador" e "usuário".
+
+Isso parece bom. Mas cria um problema específico: **as pessoas mais ativas na
+plataforma têm mais poder.** Quem escreve mais Cartas, participa de mais Círculos,
+passa mais tempo no app — essas pessoas naturalmente dominam a governança. E o
+membro que usa o Terraço uma vez por semana para trocar check-ins com a família?
+Esse não vai participar de assembleia nenhuma.
+
+O resultado é uma plataforma governada pelos **heavy users** — exatamente o
+público que o Terraço foi desenhado para NÃO cultivar. O Terraço quer que você use
+menos. Mas a governança favorece quem usa mais.
+
+### Síntese do Ciclo 10: Governança Mínima Viável
+
+A resposta não é "consertar a democracia" — é **reduzir o escopo do que é
+governado**. Quanto menos decisões precisam ser tomadas coletivamente, menos a
+minoria ativa pode distorcer o resultado.
+
+**Princípios de governança para o Terraço:**
+
+1. **A constituição é difícil de mudar.** Os 12 princípios (seção 1) são a
+   constituição. Mudá-los exige 75% de participação e 75% de aprovação. Quórum
+   alto para coisas fundamentais. Isso protege contra captura: a minoria ativa
+   não consegue desfigurar os princípios fundantes.
+
+2. **O orçamento é a única decisão recorrente.** A cada trimestre, os membros
+   votam: como gastar o caixa de axé? As opções são preparadas por um conselho
+   rotativo (membros sorteados, não eleitos — como um júri). Você vota em 3
+   minutos, como quem responde um check-in. Sem debate infinito.
+
+3. **Cada Círculo se governa sozinho.** As regras de um Círculo (quem entra, quem
+   sai, qual o propósito) são decididas pelas 12 pessoas dele. A cooperativa não
+   governa os Círculos — só provê a infraestrutura. Isso é **federalismo**: o
+   poder está na menor unidade possível.
+
+4. **Features são decididas por quem as usa.** Um Círculo pode ativar ou desativar
+   features para si mesmo. Quer check-in diário? Ativa. Prefere só Cartas? Desativa.
+   A cooperativa não decide "o que o Terraço tem" — cada Círculo decide.
+
+5. **Voto por inércia.** Se você não votar, seu voto vai para "manter como está."
+   Isso resolve o problema do quórum sem paralisar a plataforma: a mudança exige
+   participação ativa; a continuidade não.
+
+Isso não resolve todos os problemas de governança. Mas reduz o escopo do que a
+minoria ativa pode capturar. A plataforma é um **território federal**, não um
+estado centralizado. Cada Círculo é autônomo. A cooperativa é o mínimo necessário
+para manter as luzes acesas.
+
+---
+
+## 11. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
