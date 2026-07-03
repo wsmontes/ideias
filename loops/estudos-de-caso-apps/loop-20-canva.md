@@ -1,204 +1,142 @@
-# Estudo de Caso 20 — Canva: O App Que Democratizou o Design (E Agora Quer Substituir o Office)
+# Estudo de Caso 20 — Canva: A Plataforma Que Começou Com Anuários Escolares e Foi Rejeitada Por 100 Investidores
 
-> **Data:** 2026-07-02
-> **Loop:** 20 de ∞ (Fase 2: Design & Criação)
-> **Categoria:** Design / Produtividade / Plataforma Criativa
-> **Tema:** 2007. Melanie Perkins, uma australiana de 19 anos, dá aulas de design na University of Western Australia. Ela observa seus alunos SOFRENDO com Photoshop e InDesign — um semestre INTEIRO só para aprender onde ficam os botões. "Isso é RIDÍCULO." Com o namorado Cliff Obrecht, ela lança a **Fusion Books** — uma plataforma online para criar anuários escolares com drag-and-drop. Foi o MAIOR publisher de anuários da Austrália. Mas Perkins queria MAIS. Em 2012, após **100 investidores dizerem NÃO**, ela convence Cameron Adams (ex-Google, ex-Wave) a entrar como CPO. Em agosto de 2013, lançam o **Canva.** Dia 1: 500 usuários. Hoje: **260M+ MAUs, 95% das Fortune 500, $3.5B de receita, valuation de $42B.** A maior empresa de software da Austrália. Esta é a história do app que transformou "design" de uma habilidade de ELITE em algo que QUALQUER UM faz em 5 minutos — e agora está de olho no Microsoft Office.
+> **Data:** 2026-07-03
+> **Loop:** 20 de ∞ (Reescrita — Fase 2)
+> **Categoria:** Design / Plataforma Criativa / Democratização
+> **Tema:** 2007. Melanie Perkins, uma estudante de 19 anos na University of Western Australia, dá aulas de design e observa seus alunos sofrendo com o Photoshop. "Eles passavam um semestre inteiro aprendendo onde ficavam os botões", ela lembraria mais tarde. "Isso não é sobre criatividade — é sobre decorar interfaces." Perkins e seu namorado Cliff Obrecht lançam a Fusion Books, uma plataforma online de design de anuários escolares. A operação é minúscula — eles mesmos imprimem e encadernam os livros na sala de estar — mas resolve um problema real: escolas precisam criar anuários bonitos sem contratar designers. A Fusion Books cresce até se tornar a maior empresa de anuários da Austrália, expandindo para França e Nova Zelândia. Mas Perkins quer mais. Ela quer construir uma plataforma onde qualquer pessoa possa criar qualquer coisa visual — apresentações, cartazes, posts para redes sociais, currículos, logotipos — com a mesma simplicidade de arrastar e soltar. Entre 2010 e 2012, ela e Obrecht apresentam essa visão para mais de cem investidores. Todos dizem não. Os motivos variam: "vocês são um casal — e se terminarem?", "a Austrália não tem ecossistema de startups", "vocês não têm formação técnica", "ninguém vai pagar por design simples". Perkins descobre que o investidor Bill Tai organiza retiros de kitesurf no Havaí. Ela e Obrecht passam meses aprendendo o esporte para conseguir convites e construir relacionamentos. Em 2012, finalmente levantam US$ 980 mil em seed, incluindo uma subvenção do governo australiano. Os investidores exigem um cofundador técnico: Cameron Adams, ex-engenheiro do Google que trabalhava no Google Wave, entra como CPO. Em janeiro de 2013, o Canva é lançado publicamente em Sydney. No primeiro ano, atrai 750 mil usuários. Em 2021, atinge valuation de US$ 40 bilhões. Em 2024, adquire a Affinity (suíte profissional de design) e a Leonardo AI. Em 2025, lança o Creative OS — sua maior evolução de produto — e torna a Affinity gratuita para sempre. Hoje, o Canva tem 260 milhões de usuários ativos mensais e US$ 3,5 bilhões em receita anualizada. Está presente em 95% das empresas da Fortune 500 e compete diretamente com Adobe, Microsoft e Google.
 
 ---
 
-## 0. A Linhagem: Como o Design Era Antes do Drag-and-Drop
+## 0. A Linhagem: Como o Design Deixou de Ser Profissional e Virou Infraestrutura
 
 ```
-Adobe Photoshop (1990), Illustrator (1987), InDesign (1999): PROFISSIONAIS. $50+/mês. Curva de aprendizado: MESES.
+Arte-final manual (pré-digital): mesa de luz, letras transferíveis, nanquim. Profissional.
       ↓
-Microsoft Publisher (1991): "Design para amadores." RUIM. Limitado.
+Adobe Creative Suite (1990-2010): padrão profissional. Caro. Curva de aprendizado íngreme.
       ↓
-Fusion Books (2007): anuários escolares online. Drag-and-drop. Funcionou. AUSTRÁLIA.
+Microsoft Publisher (1991): "design para amadores". Limitado. Nunca ganhou tração.
       ↓
-Canva (2013): drag-and-drop + templates + fotos + ícones + fonts. GRÁTIS. "Design para os 99%."
+Fusion Books (2007): anuários escolares online. Drag-and-drop. Austrália. Prova de conceito.
       ↓
-Canva hoje (2026): 260M MAUs. AI design brain. Docs, Sites, Whiteboards, Video. "Creative OS."
+Canva (2013): templates + drag-and-drop + biblioteca de assets. Freemium. Navegador.
+      ↓
+Canva Creative OS (2025): design + vídeo + email + forms + código + publicação + analytics.
 ```
 
-O Canva não inventou o drag-and-drop, nem os templates, nem o design "fácil." Inventou o PACOTE: templates PROFISSIONAIS + interface SIMPLES + biblioteca ENORME de assets + colaboração + freemium. E fez isso num mercado que a Adobe IGNORAVA: os 99% das pessoas que precisam criar algo bonito mas NÃO são designers.
+O Canva não inventou templates, drag-and-drop nem design online. O que ele fez foi identificar um mercado que os incumbentes (Adobe, Microsoft) ignoravam sistematicamente: os 99% das pessoas que precisam produzir conteúdo visual regularmente mas não são designers profissionais. Essas pessoas não queriam aprender Photoshop; queriam um resultado bonito em quinze minutos. O Canva resolveu esse problema com um modelo de negócios que tornava a simplicidade o produto, não a limitação.
 
 ---
 
-## 1. A Origem: 100 "NÃOs" e Um Ex-Googler
+## 1. A Origem: Kitesurf, Subvenção do Governo e Cem Portas Fechadas
 
-### Melanie Perkins: A Professora Que Viu o Problema
+O período entre 2010 e 2012 é o mais instrutivo da história do Canva — não pelo que deu certo, mas pelo que revela sobre os vieses do ecossistema de venture capital. Perkins e Obrecht tinham uma empresa lucrativa (Fusion Books), um mercado endereçável global (qualquer pessoa que precisa criar conteúdo visual) e uma visão de produto clara (drag-and-drop, templates, navegador). Nenhum desses fatores importou para os investidores. O que importou foram os descritores demográficos dos fundadores: um casal, sem formação técnica, operando a partir de Perth — uma cidade que nenhum VC americano conseguia localizar no mapa.
 
-- **19 anos.** Dando aula de design na University of Western Australia (Perth).
-- Alunos passavam UM SEMESTRE aprendendo onde ficam os BOTÕES no Photoshop.
-- "Isso é ridículo. Design deveria ser ACESSÍVEL."
-- **2007**: com o namorado **Cliff Obrecht**, lança a **Fusion Books** — plataforma de anuários escolares. Drag-and-drop. Templates.
-- Virou a MAIOR editora de anuários da Austrália. Mas era um NICHO.
+A estratégia de aprender kitesurf para se infiltrar nos retiros de Bill Tai não foi um golpe de marketing. Foi uma resposta racional a um mercado de capital que precifica founders com base em padrões, não em fundamentos. Quando o funding finalmente veio — US$ 980 mil, uma fração do que uma startup equivalente levantaria em San Francisco — veio com condições: os investidores exigiram um cofundador técnico. Cameron Adams, que havia passado anos no Google e entendia profundamente os desafios de construir ferramentas criativas baseadas em navegador, foi a contratação que transformou o Canva de uma visão de produto em um produto.
 
-### A Busca Por Investimento (2010-2012)
+O lançamento de janeiro de 2013 foi modesto. O Canva não explodiu em adoção como o Instagram ou o ChatGPT. Cresceu de forma constante, alimentado por três mecanismos: templates gratuitos que funcionavam como isca de SEO, compartilhamento social (cada design produzido no Canva carregava a marca d'água da plataforma), e um modelo freemium que convertia usuários gratuitos em pagantes à medida que suas necessidades de design se tornavam mais complexas.
 
-Perkins queria escalar a Fusion Books para "design para TODO MUNDO." Precisava de:
-- **Dinheiro.** Pitchou para 100+ investidores. **100+ NÃOs.**
-- **Time técnico.** Precisava de um CTO/CPO de PESO.
-
-### Cameron Adams: O "Third Wheel" Que Virou Bilionário
-
-**Cameron Adams** era um "rockstar" web designer conhecido como "The Man In Blue." Tinha trabalhado no Google Wave. Tinha fundado sua própria startup de email (Fluent) que FALHOU.
-
-**Lars Rasmussen** (co-criador do Google Maps) conectou Perkins a Adams. Perkins ficou HORAS tentando convencê-lo. Adams inicialmente RECUSOU — estava focado na Fluent.
-
-A Fluent não conseguiu funding. Adams ligou para Perkins: "Ainda precisa de um CPO?"
-
-Trouxe junto **Dave Hearnden** (ex-Google) como CTO. O time técnico estava COMPLETO.
-
-### O Primeiro Dinheiro (2012)
-
-- **Bill Tai** (investidor anjo, ex-Twitter/Zoom) foi o PRIMEIRO a apostar — depois que Rasmussen VOUCHOU pelo time técnico.
-- **$2M no valuation de $8M.** Seed round.
-- Governo australiano deu um GRANT.
-
-### Agosto de 2013: O Lançamento Anticlimático
-
-- **Dia 1: 500 usuários.** Um FRACASSO? Não. CRESCIMENTO ORGÂNICO.
-- Social media managers foram os EARLY ADOPTERS. Criavam posts para Facebook, Instagram, Twitter. O Canva era PERFEITO para isso.
-- Boca a boca. Templates compartilháveis. Link mágico: "crie seu design AGORA."
-
-### A Explosão
-
-| Ano | Usuários | Valuation |
-|---|---|---|
-| 2013 | ~500 (dia 1) | $8M |
-| 2015 | 10M | — |
-| 2019 | — | $4.7B |
-| 2021 | 60M | $40B |
-| 2023 | 170M | $26B |
-| 2024 | 220M+ | $32B |
-| 2025 | 260M+ | $42B |
-
-Perkins é uma das MAIS JOVENS bilionárias self-made do mundo.
+Em 2017, o Canva atingiu rentabilidade em base de fluxo de caixa livre — uma anomalia no ecossistema de startups que queimam capital para crescer. Esse marco permitiu que a empresa financiasse sua expansão internacional e aquisições com receita própria, em vez de diluir os fundadores em rodadas sucessivas.
 
 ---
 
-## 2. A Filosofia do Produto: "Design Para os 99%"
+## 2. A Filosofia do Produto: Simplicidade Não É Ausência de Funcionalidade — É Design de Informação
 
-### Democratizar o Design — De Verdade
+O problema que o Canva resolve não é técnico. É cognitivo. O Photoshop e o Illustrator são produtos que expõem sua complexidade interna ao usuário: camadas, canais, máscaras, modos de mesclagem, curvas de Bézier. Para um designer profissional, essa exposição é poder. Para os outros 99% da população, é paralisia. O Canva entendeu que o caminho não era simplificar a interface do Photoshop, mas inverter a premissa: em vez de uma tela em branco com ferramentas, oferecer um template pronto que o usuário modifica incrementalmente.
 
-> *"We wanted to take design from this intimidating thing that only 1 percent of the world could do and make it accessible to the other 99 percent."* — Cameron Adams
+Cameron Adams articulou essa filosofia em termos de psicologia cognitiva: "As pessoas não querem criar do zero. Elas querem partir de algo que já está 80% pronto e ajustar os 20% que fazem diferença para elas." O template não é uma muleta — é a interface de onboarding mais eficiente já projetada para ferramentas criativas.
 
-O Canva não quer ser "o Photoshop para amadores." Quer ser o LUGAR onde TODO MUNDO cria — do estudante ao CEO.
+Essa filosofia se manifesta em três decisões de produto que definem o Canva:
 
-### Os Pilares
+1. **A biblioteca de assets é parte do produto, não um complemento.** O Canva investiu pesadamente em fotografia (adquiriu Pexels e Pixabay), ilustração, tipografia e templates. O usuário não precisa sair da plataforma para encontrar uma imagem, uma fonte ou um ícone. Essa integração elimina o atrito de buscar, baixar, converter e importar assets — que, em ferramentas tradicionais, pode consumir mais tempo do que o design em si.
 
-| Pilar | Significado |
-|---|---|
-| **Simplicidade radical** | Zero toolbars intimidantes. Zero "curva de aprendizado." Um canvas. Drag. Drop. Pronto. |
-| **Templates como ponto de partida** | Milhões de templates PROFISSIONAIS. Você não começa do ZERO. Começa 80% PRONTO. |
-| **Biblioteca integrada** | Fotos, vídeos, ícones, fonts, ilustrações, músicas — TUDO dentro do Canva. Sem sair para baixar assets. |
-| **Freemium generoso** | Gratuito faz MUITO. Premium ($12.99/mês) desbloqueia templates premium, branding, AI features. |
-| **Colaboração** | Times editam JUNTOS. Comentários. Revisões. "Google Docs do design." |
+2. **A colaboração é nativa, não adicionada.** O Canva foi construído como um produto web desde o início, o que significa que múltiplos usuários editando o mesmo arquivo simultaneamente não é uma feature — é o estado padrão. Comentários, sugestões e compartilhamento por link funcionam como no Google Docs, não como no pacote Adobe, onde a colaboração foi adicionada décadas depois sobre uma arquitetura originalmente projetada para um único usuário.
 
-### O "Creative OS" (2025)
-
-O Canva não quer ser "um app de design." Quer ser o **Creative Operating System**:
-- **Canva Docs**: processador de texto (rival do Google Docs).
-- **Canva Sites**: websites (rival do Squarespace/Wix).
-- **Canva Whiteboards**: colaboração visual (rival do Miro/FigJam).
-- **Canva Presentations**: slides (rival do PowerPoint/Google Slides).
-- **Canva Video**: edição de vídeo (rival do CapCut).
-
-> *"Your team can literally get on the same page."* — Melanie Perkins
+3. **A monetização é progressiva, não binária.** O plano gratuito do Canva é generoso o suficiente para que milhões de usuários nunca precisem pagar — e isso é intencional. Cada usuário gratuito que cria um design e o compartilha está distribuindo a marca Canva. Quando esse usuário atinge um ponto em que precisa de funcionalidades profissionais (redimensionamento mágico, kits de marca, remoção de fundo), a conversão para o plano pago é natural, não forçada.
 
 ---
 
-## 3. As Inovações Que o Canva Trousse ao Mundo
+## 3. O Creative OS: A Virada de Ferramenta para Infraestrutura
 
-### 3.1 Templates Como Interface
+Em outubro de 2025, o Canva anunciou o Creative OS — uma plataforma que integra design, vídeo, email marketing, formulários, planilhas interativas, geração de código, publicação em redes sociais e analytics de performance em uma única superfície. A arquitetura do Creative OS tem três camadas:
 
-Antes do Canva, "template" era algo GENÉRICO e FEIO (Microsoft Publisher, WordArt). O Canva transformou templates em DESIGN DE VERDADE — criados por designers PROFISSIONAIS. Você parte de algo BONITO. Só CUSTOMIZA.
+1. **A camada de plataforma**: a biblioteca de conteúdo (fotos, vídeos, ilustrações, templates), o motor de design colaborativo, e o ecossistema de aplicativos de terceiros. É a fundação sobre a qual tudo opera.
+2. **A camada de AI**: modelos proprietários treinados especificamente para entender design — layout, hierarquia visual, tipografia, espaçamento, branding. Diferentemente de geradores de imagem como DALL-E ou Midjourney, o modelo do Canva produz designs com camadas editáveis: o texto pode ser modificado, as cores podem ser alteradas, os elementos podem ser reposicionados. Não é uma imagem plana — é um arquivo de design funcional.
+3. **A camada de superfície**: Docs, Photo Editor, Video 2.0, Email, Forms, Canva Code, Canva Sheets, Canva Grow (publicação e analytics). Cada superfície compartilha o mesmo motor de renderização, o mesmo sistema de AI e a mesma biblioteca de assets.
 
-**Isso MUDOU a psicologia da criação.** Você não "cria do zero." Você "parte de algo pronto e deixa com a sua cara."
+A decisão estratégica mais significativa do Creative OS não é técnica — é econômica. O Canva tornou a Affinity — a suíte profissional de design que adquiriu em 2024 por um valor estimado em várias centenas de milhões de libras — completamente gratuita. A suíte inclui Affinity Photo (edição de fotos), Affinity Designer (ilustração vetorial) e Affinity Publisher (diagramação). É o equivalente funcional ao pacote principal da Adobe, que custa US$ 59,99 por mês. A gratuidade remove a última barreira que separava o Canva do mercado profissional: um designer que precisasse de ferramentas de precisão podia usar a Affinity sem abandonar o ecossistema Canva.
 
-### 3.2 AI "Design-Aware" (2025) — O Cérebro de Design
-
-O Canva construiu o PRIMEIRO modelo de AI "design-aware" do mundo:
-- **Sabe o que é layout, hierarquia, margem, espaçamento.**
-- **Não gera uma imagem JPEG plana** (como DALL-E/Midjourney). Gera um TEMPLATE MULTI-CAMADA e EDITÁVEL.
-- **Entende contexto**: pôster educacional vs. anúncio de marketing vs. currículo.
-- **Treinado em MILHÕES de designs anonimizados** do ecossistema Canva.
-
-### 3.3 Magic Switch: Adaptação Instantânea Entre Formatos
-
-Criou um post para Instagram? **Magic Switch.** Vira um slide de apresentação. Vira um banner de LinkedIn. Vira um post de blog. MESMO conteúdo. ADAPTADO automaticamente.
-
-### 3.4 Canva Code: Design → HTML/CSS/JS
-
-"Descreva o app que você quer." O Canva gera o código. No-code vira FULL-CODE.
-
-### 3.5 Brand Kit (2015)
-
-Empresas cadastram SUAS cores, SUAS fonts, SEU logo. TUDO que criam no Canva já sai ON-BRAND. Isso fez o Canva entrar nas EMPRESAS — e competir com a Adobe.
+O Creative OS posiciona o Canva não como um "Photoshop simplificado", mas como uma alternativa arquiteturalmente diferente ao pacote Adobe. A Adobe construiu seu império sobre aplicativos independentes que se comunicam via arquivos; o Canva está construindo uma plataforma unificada onde as superfícies compartilham estado. Um ativo criado no Canva Photo Editor pode ser usado no Canva Video, publicado via Canva Grow, e ter seu desempenho medido no mesmo painel. Isso não é uma diferença de funcionalidades — é uma diferença de paradigma.
 
 ---
 
-## 4. Identidade Visual (Rebrand 2024)
+## 4. A Estratégia Competitiva: Envelopamento por Baixo
 
-| Elemento | Especificação |
-|---|---|
-| **Cor primária** | Gradiente "blueberry" (azul → roxo). Inconfundível. |
-| **Paleta 2024** | Simplificada. AA accessible. "Museum of Ice Cream candy colors." |
-| **Tipografia** | Custom sans-serif proprietária. Clean. Global. |
-| **Emojis** | Set custom (criado com Buck). Cursors, drag-and-drop, comentários. |
-| **Motion** | Sistema de animação com Vucko. "Work in progress" — design em ATO, não produto final. |
-| **Tom** | "Playful, entusiasmado, anti-buzzwords corporativos." |
+A teoria do "envelopamento" — desenvolvida por Kevin Boudreau e Andrei Hagiu — descreve como plataformas que começam em camadas inferiores do mercado podem expandir-se para camadas superiores, capturando clientes que antes pertenciam a incumbentes. O Canva é um caso de livro-texto. Começou com templates para posts de Instagram — a camada mais simples do design. Expandiu-se para apresentações, cartazes, currículos. Depois para edição de fotos, vídeo, email marketing. Depois para ferramentas profissionais (Affinity). Depois para publicação e analytics (Canva Grow).
+
+Cada expansão capturava uma necessidade que antes era atendida por um produto separado — Figma para design de interfaces, CapCut para edição de vídeo, Mailchimp para email, Hootsuite para publicação. A Adobe tentou fazer o mesmo movimento com o Adobe Express, mas o Express é um retrofit sobre uma arquitetura que não foi projetada para simplicidade. O Canva foi projetado para simplicidade desde a primeira linha de código. Essa é uma vantagem arquitetural que não pode ser replicada adicionando features a um produto existente.
 
 ---
 
-## 5. Ficha Técnica
+## 5. Lições de Produto
+
+### 5.1 O maior obstáculo para seu produto pode ser o viés dos investidores, não a qualidade da sua ideia
+
+Perkins e Obrecht tinham uma empresa lucrativa, um mercado global e uma visão de produto clara. Foram rejeitados por mais de cem investidores. Os motivos das rejeições — "vocês são um casal", "Perth não é o Vale do Silício", "vocês não são engenheiros" — não tinham relação com a qualidade do negócio. Eram projeções de vieses que o ecossistema de VC trata como sabedoria. A lição não é "persista e será recompensado" — é que o mercado de venture capital é um mecanismo imperfeito de alocação de recursos, e founders que não se encaixam no molde precisam encontrar caminhos alternativos. Perkins encontrou o dela aprendendo kitesurf para acessar uma rede informal de investidores.
+
+### 5.2 O template é a interface de onboarding mais eficiente já projetada
+
+O Photoshop entrega uma tela em branco. O Canva entrega um cartaz pronto com a foto, o texto e as cores que o usuário escolheu. A diferença não é cosmética — é uma inversão do modelo mental. Na tela em branco, o usuário precisa tomar dezenas de microdecisões antes de ver qualquer resultado. No template, o usuário vê o resultado nos primeiros segundos e faz ajustes incrementais. Isso reduz a ansiedade, acelera a conclusão e aumenta a probabilidade de retorno. É o mesmo princípio que fez as playlists do Spotify substituírem a construção manual de coleções de músicas.
+
+### 5.3 Uma plataforma com superfícies integradas vence um conjunto de aplicativos independentes
+
+A Adobe construiu seu império quando a computação era local e cada tipo de mídia exigia um aplicativo diferente. O Canva está construindo sua plataforma na era da nuvem, onde o estado pode ser compartilhado entre superfícies. A consequência é que um ativo criado no Canva flui entre Photo, Video, Email e Grow sem exportação, conversão ou upload. Essa fluidez é o fosso competitivo que torna a troca de plataforma proibitivamente custosa — não por lock-in contratual, mas porque o custo de coordenação de um stack de ferramentas separadas é maior do que o custo de permanecer em uma plataforma integrada.
+
+---
+
+## 6. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Canva |
-| **Fundação** | 2012. Lançamento público: agosto de 2013. |
-| **Fundadores** | Melanie Perkins, Cliff Obrecht, Cameron Adams |
-| **IPO** | NÃO. Privado. $42B valuation. |
-| **Categoria** | Design / Produtividade / Plataforma Criativa |
-| **Plataformas** | iOS, Android, Web, Desktop |
-| **MAUs** | 260M+ |
-| **Receita** | $3.5B (2025) |
-| **Preço** | Free. Pro: $12.99/mês. Teams: $29.99/mês (5 pessoas). |
-| **Design System** | Gradiente blueberry, custom typeface, AA accessible, "candy colors" |
-| **Concorrentes** | Adobe (Express, Photoshop), Figma, Microsoft (Office, Designer), CapCut |
+| **Fundação** | 2013 (lançamento público). Fusion Books: 2007. |
+| **Fundadores** | Melanie Perkins (CEO), Cliff Obrecht (COO), Cameron Adams (CPO) |
+| **IPO** | Não. Privado. Último valuation: US$ 42 bilhões (2025). |
+| **Categoria** | Design / Plataforma Criativa |
+| **Plataformas** | Web, iOS, Android, Desktop (Windows/Mac) |
+| **MAUs** | 260 milhões (2025) |
+| **Assinantes pagos** | 29 milhões |
+| **Receita anualizada** | US$ 3,5 bilhões |
+| **Penetração Fortune 500** | 95% |
+| **Preços** | Free, Pro (US$ 12,99/mês), Teams (US$ 29,99/mês para 5), Enterprise (custom) |
+| **Principais aquisições** | Pexels, Pixabay, Affinity, Leonardo AI, MagicBrief |
+| **Concorrentes** | Adobe (Express, Creative Cloud), Figma, Microsoft Designer, CapCut |
 
 ---
 
-## 6. Lições do Canva
+## 7. Linha do Tempo
 
-### 6.1 "100 NÃOs" Não Significa Que Sua Ideia É Ruim
-
-Perkins ouviu NÃO de 100+ investidores. Seu valuation HOJE é $42 BILHÕES. Se ela tivesse DESISTIDO no investidor #50, o Canva não existiria.
-
-**Lição**: investidores erram. MUITO. O NÃO deles não é um veredito sobre sua ideia. É um reflexo da IMAGINAÇÃO LIMITADA deles.
-
-### 6.2 Templates São a Interface de Onboarding Definitiva
-
-O Canva entendeu que "começar do zero" é o MAIOR obstáculo à criação. Templates resolvem isso: você começa 80% PRONTO.
-
-**Lição**: o melhor onboarding é ELIMINAR a necessidade de começar do zero.
-
-### 6.3 AI Que ENTENDE Design > AI Que Gera Imagem
-
-O Canva não fez "mais um gerador de imagem." Fez AI que ENTENDE layout, hierarquia, contexto. O output não é um JPEG — é um TEMPLATE EDITÁVEL.
-
-**Lição**: AI generativa é commoditizada. O diferencial é AI que ENTENDE o DOMÍNIO.
+```
+2007 — Perkins e Obrecht fundam a Fusion Books. Anuários escolares online.
+2010 — Começam a apresentar o Canva para investidores. Mais de 100 rejeições.
+2012 — Levantam US$ 980K em seed. Cameron Adams entra como CPO.
+2013 Jan — Canva é lançado publicamente. 750K usuários no primeiro ano.
+2015 — Canva for Work (depois Canva Pro) é lançado.
+2017 — Canva atinge rentabilidade em fluxo de caixa livre.
+2021 — Valuation atinge US$ 40 bilhões.
+2024 — Adquire Affinity (suíte profissional) e Leonardo AI.
+2025 Out — Lança o Creative OS. Affinity se torna gratuita.
+2025 — 260M MAUs. US$ 3,5B receita. US$ 42B valuation.
+```
 
 ---
 
-## Fontes e Referências
+## Fontes
 
-- [CNBC — Canva Disruptor 50 (2025)](https://www.cnbc.com/2025/06/10/canva-cnbc-disruptor-50.html)
-- [Forbes Australia — Inside the Canva Juggernaut](https://www.forbes.com.au/covers/billionaires/inside-the-canva-juggernaut-with-cameron-adams/)
-- [First Round Review — Canva's Path to Product-Market Fit](https://review.firstround.com/canvas-path-to-product-market-fit-2/)
-- [Fast Company — Canva unveils biggest redesign in 13 years](https://www.fastcompany.com/91313361/canva-unveils-its-biggest-redesign-in-13-years)
-- [Fast Company — Canva's brand hides bigger ambitions](https://www.fastcompany.com/91169221/canva-new-brand-hides-bigger-ambitions)
-- [Observer — Building a $49B Design Powerhouse: Cameron Adams interview](https://observer.com/2025/05/canva-cofounder-ai-design-interview/)
-- [Fast Company ME — Canva aims to destroy Microsoft Office and Google Workspace](https://fastcompanyme.com/co-design/canvas-radical-overhaul-aims-to-destroy-microsoft-office-and-google-workspace/)
+- [Fortune — Melanie Perkins: 100 VC rejections to $26B startup](https://fortune.com/longform/melanie-perkins-canva-founder-ceo-interview/)
+- [Financial Express — Canva founder's 100 investor rejections](https://www.financialexpress.com/business/brandwagon-canva-founders-proposal-was-rejected-by-100-investors-now-shes-competing-with-microsoft-and-google-3917298/)
+- [Hustle Fund — Melanie Perkins: Rejected by 100 VCs, built a $42B company](https://www.hustlefund.vc/post/angel-squad-melanie-perkins-investments-the-australian-founder-who-got-rejected-by-100-vcs-and-built-canva-into-a-42-billion-company)
+- [Canva Newsroom — A transformative year for Canva: 2025 in review](https://www.canva.com/newsroom/news/canva-2025-wrap/)
+- [TechRadar — Canva reveals Creative OS philosophy and why Affinity is free](https://www.techradar.com/pro/software-services/interview-canva-reveals-what-creativity-in-the-age-of-ai-and-why-affinity-is-free-for-all)
+- [The Drum — Canva's Creative OS enters the crowded modern content stack](https://www.thedrum.com/news/canva-s-creative-os-enters-a-crowded-race-for-the-modern-content-stack)
+- [PetaPixel — Canva's Creative OS promises biggest evolution yet](https://petapixel.com/2025/10/30/canvas-new-creative-os-promises-to-be-its-biggest-evolution-yet/)
+- [Aragon Research — Canva Creative OS: Rethinking marketing tools](https://aragonresearch.com/canva-creative-os-rethinking-marketing-tools/)
