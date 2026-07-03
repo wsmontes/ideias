@@ -34,7 +34,7 @@ Antes de avançar, o Loop 1 tem problemas que preciso nomear:
 
 ### O conceito original (Schafer)
 
-R. Murray Schafer cunhou **schizophonia** em 1969 para descrever a separação entre um som e sua fonte original — condição criada pela gravação e reprodução eletroacústica:
+R. Murray Schafer (1933-2021), compositor canadense, fundador do **World Soundscape Project** na Simon Fraser University (final dos anos 1960), cunhou **schizophonia** em 1969 para descrever a separação entre um som e sua fonte original — condição criada pela gravação e reprodução eletroacústica. Sua obra principal é *The Tuning of the World* (1977, republicado como *The Soundscape* em 1994), considerado a "bíblia" dos soundscape studies. Schafer foi o primeiro recipiente do Jules Léger Prize (1978) e recebeu dois JUNO Awards. Foi nomeado Companion of the Order of Canada em 2013:
 
 > "We have split the sound from the maker of the sound. Sounds have been torn from their natural sockets and given an amplified and independent existence."
 
@@ -110,7 +110,7 @@ O Liberation Client tenta criar uma **paisagem atencional hi-fi**:
 
 ### O conceito original (Oliveros)
 
-Pauline Oliveros desenvolveu **Deep Listening** como uma prática de vida — "listening in every possible way to everything possible to hear, no matter what you are doing." Distinções fundamentais:
+Pauline Oliveros (1932-2016) desenvolveu **Deep Listening** como uma prática de vida — "listening in every possible way to everything possible to hear, no matter what you are doing." O termo nasceu em 1989 após uma sessão de gravação numa cisterna subterrânea em Port Townsend, Washington — um espaço com 45 segundos de reverberação. Oliveros também criou as **Sonic Meditations** (1971) — partituras textuais para grupos, abertas a qualquer pessoa independentemente de treinamento musical. Exemplos: "Teach Yourself to Fly" (sentar em círculo, observar a respiração, introduzir a voz gradualmente), "Re Cognition" ("Listen to a sound until you no longer recognize it"). Influenciada por Tai Chi Chuan e Kinetic Awareness, Oliveros via a escuta como prática somática — o som como forma de tato, uma onda de compressão/rarefação que o corpo sente antes da mente analítica. Mantinha diários de escuta e diários de sonhos. Citada por Jenny Odell em *How to Do Nothing* (2019) como antídoto contra a distração digital. Distinções fundamentais:
 
 | Hearing (ouvir) | Listening (escutar) |
 |---|---|
@@ -126,7 +126,7 @@ A prática consiste em **mover-se flexivelmente entre esses modos**, equilibrand
 
 ### Scrolling não é Listening
 
-O scroll do feed NÃO É escuta — é audição passiva. Você "ouve" posts como quem ouve o trânsito: os sinais estão lá, seus olhos passam por eles, mas você não está *escutando*. Está num estado de **semi-atenção contínua** (termo de Linda Stone, 1998): atenção parcial a múltiplos sinais, sem profundidade em nenhum.
+O scroll do feed NÃO É escuta — é audição passiva. Você "ouve" posts como quem ouve o trânsito: os sinais estão lá, seus olhos passam por eles, mas você não está *escutando*. Está num estado de **semi-atenção contínua** (Continuous Partial Attention, termo de Linda Stone, 1998): atenção parcial a múltiplos sinais, sem profundidade em nenhum. Stone distingue CPA de multitasking: multitasking é motivado por produtividade (fazer mais); CPA é motivado por conexão (não perder nada — "the desire to be a live node on the network"). Stone depois propôs "conscious computing" como antídoto.
 
 A economia da atenção depende disso: se você ESCUTASSE cada post, leria 5 por dia. Se você "ouve" posts, scrolla 500 por dia. O volume é inversamente proporcional à profundidade.
 
@@ -159,11 +159,11 @@ Se adaptarmos Oliveros para a atenção digital, "Deep Scrolling" não seria um 
 
 ### O conceito original (Cage)
 
-John Cage entrou numa câmara anecoica em Harvard — uma sala projetada para absorver todo som. Em vez de silêncio, ouviu dois sons: o grave do seu sistema nervoso e o agudo do seu sangue circulando. Concluiu:
+John Cage (1912-1992) entrou numa câmara anecoica em Harvard (1951, não 1952 — a experiência é anterior à composição) — uma sala projetada para absorver 99.8%+ do som. Em vez de silêncio, ouviu dois sons: o grave do seu sistema nervoso e o agudo do seu sangue circulando. O engenheiro confirmou: "The high one was your nervous system in operation, the low one your blood in circulation." Cage concluiu:
 
-> "No silence exists that is not pregnant with sound."
+> "There is no such thing as silence. Until I die there will be sounds."
 
-Dessa experiência nasceu **4'33"** (1952) — uma peça em três movimentos onde o performer NÃO TOCA NADA. A "música" são os sons ambientes: o vento, a chuva, as pessoas tossindo, o ar condicionado. Cage emoldurou o mundo como música.
+Dessa experiência nasceu **4'33"** — estreada em 29 de agosto de 1952 no Maverick Concert Hall em Woodstock, NY, com o pianista David Tudor ao piano. Três movimentos de silêncio intencional, cronometrados. Cage também citou as **pinturas brancas de Robert Rauschenberg** (telas em branco que refletem a luz cambiante do ambiente) como influência visual. O insight: o silêncio não é ausência — é uma moldura que revela o que já está lá.
 
 Implicações filosóficas:
 - **Atenção não-hierárquica**: nenhum som é mais importante que outro. O tossir do vizinho É a música, tanto quanto o violino.
@@ -328,10 +328,10 @@ Isso importa porque: se você não tem uma teoria da mediação, você não cons
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Pauline Oliveros — Deep Listening (1989+), Sonic Meditations (1971)
-- John Cage — 4'33" (1952), Silence: Lectures and Writings (1961)
-- R. Murray Schafer — The Tuning of the World (1977), The New Soundscape (1969)
-- Linda Stone — Continuous Partial Attention (1998)
+- Pauline Oliveros (1932-2016) — *Deep Listening* (1989, termo cunhado após gravação na cisterna de Port Townsend, WA, com 45s de reverb); *Sonic Meditations* (1971). Site oficial: deeplistening.rpi.edu. Citada em Jenny Odell, *How to Do Nothing* (2019).
+- John Cage (1912-1992) — *4'33"* (estreada 29 ago 1952, Maverick Concert Hall, Woodstock, NY, piano: David Tudor). Experiência na câmara anecoica de Harvard (1951). *Silence: Lectures and Writings* (Wesleyan UP, 1961). Também influenciado pelas pinturas brancas de Robert Rauschenberg.
+- R. Murray Schafer (1933-2021) — *The Tuning of the World* (1977, republicado como *The Soundscape*, 1994). Fundador do World Soundscape Project (Simon Fraser University). Schizophonia (1969). Críticas: Francisco López (1997) acusa Schafer de confundir saúde com estética; Wayde Compton cunhou "schizophonophilia" como contraponto positivo.
+- Linda Stone — Continuous Partial Attention (1998). Distingue CPA de multitasking: CPA = motivação de conexão ("live node on the network"); multitasking = motivação de produtividade. Propôs depois "conscious computing."
 
 ### Conexões com o Repositório
 - App como Terceiro Lugar (Iteração 1) — "sinais ambientais", praça, presença
@@ -348,3 +348,12 @@ Isso importa porque: se você não tem uma teoria da mediação, você não cons
 ---
 
 *Fim do Loop 2. O Loop 3 lerá este documento, o criticará, e avançará. O cron job 93154435 continua.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 2.** Pesquisa web verificou e expandiu:
+- Oliveros: bio completa (1932-2016), origem do termo (cisterna de Port Townsend, 1989, 45s reverb), Sonic Meditations (1971) com exemplos de partituras, influência do Tai Chi, diários de escuta/sonhos, citada por Odell
+- Schafer: bio (1933-2021), World Soundscape Project, *The Tuning of the World* (1977), schizophonia (1969), críticas (Francisco López, Wayde Compton "schizophonophilia")
+- Cage: câmara anecoica em 1951 (não 1952), frase exata do engenheiro, estreia de 4'33" (29 ago 1952, Maverick Concert Hall, David Tudor), influência das pinturas brancas de Rauschenberg
+- Stone: CPA (1998), distinção explícita de multitasking, "live node on the network", conscious computing como antídoto
