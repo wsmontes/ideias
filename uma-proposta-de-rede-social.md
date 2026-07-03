@@ -96,25 +96,46 @@ assunto do próximo ciclo.
 
 ### Isso não é só um grupo de WhatsApp?
 
-O WhatsApp é para **comunicação**. Rápida, funcional, descartável. "Me busca na
-escola?" "Olha esse meme."
+O WhatsApp tem **85-98% de penetração** nos smartphones brasileiros, **99% de
+instalação** e **97% de uso diário** (CADE, jan/2026). Não é um concorrente — é
+infraestrutura digital do país. O brasileiro médio passa 33-38 minutos por dia no
+WhatsApp. É onde estão os grupos da família, do trabalho, dos amigos, da escola.
 
-Isto aqui é para **presença**. Lenta, sem pressa, permanente. "Hoje lembrei do
-dia em que você me ensinou a andar de bicicleta."
+O WhatsApp já faz várias coisas que o Terraço propõe: **grupos com pessoas
+nomeadas** (você sabe quem está no grupo), **áudios que carregam presença** (o
+Loop 27 identificou o áudio de WhatsApp como "presença diferida — nem ao vivo nem
+morta, algo entre"), **conversas privadas sem algoritmo**.
 
-O WhatsApp resolve a logística do dia a dia. Este app resolve o que o WhatsApp
-não resolve: a carta que você não precisava mandar mas mandou. O check-in que
-mantém o Círculo respirando. O silêncio que você compartilha com quem importa.
+A diferença não está na tecnologia — está no **enquadramento**.
 
-Não é um substituo do WhatsApp — é uma **camada de ritual** sobre ele.
+O WhatsApp é **comunicação**: rápida, funcional, orientada a resposta. A mensagem
+chega e pede algo de você (resposta, risada, confirmação). O áudio de WhatsApp é
+presença, sim — mas uma presença que demanda. Você vê a bolinha vermelha, o
+contador de mensagens não lidas, o "●●●" da pessoa digitando. Há urgência
+embutida no design.
+
+O Terraço é **ritual**: lento, sem pressa, orientado à presença. A Carta chega
+no digest da manhã — não no seu bolso vibrando às 22h. Você ouve a voz do seu
+pai quando está pronto para ouvir, não quando o WhatsApp decidiu notificar. Não
+tem bolinha vermelha. Não tem "●●●". Não tem "visualizada às 21:43". A pessoa
+que te enviou a Carta não sabe se você já leu — e isso é libertador.
+
+**O WhatsApp resolve a logística.** "Me busca na escola?" "Qual o endereço da
+festa?" "Olha esse meme."
+
+**O Terraço resolve o que o WhatsApp não resolve:** a carta que você não
+precisava mandar mas mandou. O check-in diário que mantém o Círculo respirando.
+A voz do seu pai que você vai guardar para sempre. O silêncio compartilhado.
+
+Você continua usando WhatsApp para a vida. O Terraço é para o que merece mais
+que 10 segundos — e menos que uma ligação.
 
 ### Quanto custa?
 
-O app é grátis para até 3 Círculos com 6 pessoas cada. Para Círculos de até 12
-pessoas, mídia (foto, vídeo, áudio), e histórico de busca: R$ 15 por mês.
-
-Grátis o suficiente para ser útil. Pago o suficiente para não precisar vender
-seus dados.
+Nada. O Terraço é gratuito para todos, sempre. A atenção é um direito, não uma
+mercadoria. A receita vem de patronos voluntários, patrocínio de Círculos (R$ 30/mês
+cobre até 10 pessoas), e clientes institucionais (ONGs, sindicatos, universidades).
+Nenhum usuário individual paga para entrar. Nenhum dado é vendido. Zero anúncios.
 
 ### O que os 10 agentes discordaram?
 
