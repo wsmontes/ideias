@@ -1,145 +1,106 @@
-# Estudo de Caso 23 — DoorDash: O App Que Começou com um PDF e um Honda (E Dominou o Delivery Americano)
+# Estudo de Caso 23 — DoorDash: O Marketplace de Três Lados Que Usa Reinforcement Learning Para Balancear Velocidade e Custo
 
 > **Data:** 2026-07-03
-> **Loop:** 23 de ∞ (Fase 2: Food & Delivery)
+> **Loop:** 23 de ∞ (Reescrita — Fase 2)
 > **Categoria:** Food Delivery / Marketplace / Logística
-> **Tema:** Fevereiro de 2013. Quatro estudantes de Stanford — Tony Xu, Stanley Tang, Andy Fang e Evan Moore — entrevistam donos de pequenos negócios no Bay Area. Uma loja de macarons em Palo Alto mostra uma PILHA de pedidos de entrega não atendidos. "Entregas são um PESADELO." Os 4 constroem um site em algumas horas: **PaloAltoDelivery.com.** Upload de PDFs de cardápio de 8 restaurantes — SEM avisar os restaurantes. Um número de Google Voice no rodapé. Em 45 minutos, o PRIMEIRO pedido: um restaurante tailandês. Tony Xu pegou seu Honda e entregou. Os founders fizeram os **primeiros 200 pedidos** eles mesmos — dirigindo, codando, atendendo telefone durante a aula. Por 5 MESES. Hoje: DoorDash processa 10 BILHÕES de pedidos, $230B+ em vendas para merchants, 67% de market share nos EUA, IPO de $60B, robôs autônomos (Dot) fazendo entregas. Esta é a história do app que foi de "um PDF e um Honda" a "o FedEx local da economia física."
+> **Tema:** Fevereiro de 2013. Quatro estudantes de Stanford — Tony Xu, Andy Fang, Stanley Tang e Evan Moore — entrevistam donos de pequenos negócios em Palo Alto para um projeto de faculdade. Uma loja de macarons mostra uma pilha de pedidos de entrega que não consegue atender. A proprietária não tem volume para contratar um motorista dedicado, mas perde vendas todos os dias porque não entrega. Os quatro constroem um protótipo em um dia: PaloAltoDelivery.com, com cardápios em PDF de oito restaurantes que não autorizaram o uso de seus nomes. Em 45 minutos, o primeiro pedido chega — comida tailandesa — e Tony Xu pega seu carro para entregar. Os fundadores fazem os primeiros duzentos pedidos pessoalmente, alternando entre programar, atender telefone e dirigir. Em março de 2013, entram no Y Combinator. Na demo day, rebatizam o projeto como DoorDash. Tony Xu passa dez semanas apresentando para investidores sem sucesso — o dinheiro está acabando. Keith Rabois (Khosla Ventures) e Saar Gur (CRV) finalmente lideram uma rodada seed de US$ 2,4 milhões. O insight que diferencia o DoorDash de Grubhub e Seamless é estrutural, não cosmético: em vez de apenas listar restaurantes que já tinham entrega própria, o DoorDash contrata e gerencia seus próprios motoristas — os Dashers. Isso abre um mercado que os concorrentes ignoravam: restaurantes de subúrbio, lanchonetes, pequenos comércios que nunca tiveram entrega. Em 2020, o IPO avalia a empresa em US$ 60 bilhões. Hoje, o DoorDash processa mais de dez bilhões de pedidos, opera robôs autônomos (Dot) e drones (Wing) na mesma plataforma de logística que os Dashers humanos, e treina agentes de reinforcement learning para ajustar os pesos do otimizador de dispatch em tempo real.
 
 ---
 
-## 1. A Origem: Um PDF, Um Honda e 200 Entregas
+## 0. A Linhagem: Como o Subúrbio Americano Ficou Sem Entrega Até 2013
 
-### Os Fundadores
+```
+Pizza delivery (1960s-): a única comida que chegava na sua porta. Domino's. 30 minutos ou grátis.
+      ↓
+Grubhub/Seamless (2004-): marketplaces que listavam restaurantes. Mas o restaurante fazia a entrega.
+      ↓
+Postmates (2011), Caviar (2012): entrega de qualquer coisa. Premium. Cidades grandes.
+      ↓
+DoorDash (2013): entrega gerenciada. Motoristas próprios. Subúrbio. O mercado que ninguém via.
+      ↓
+DoorDash hoje (2026): 10B+ pedidos. Restaurantes, mercado, farmácia, flores, conveniência.
+```
 
-| Fundador | Background |
-|---|---|
-| **Tony Xu** (CEO) | Nasceu em Nanjing, China. Imigrou para os EUA aos 4. Mãe era MÉDICA na China, virou GARÇONETE nos EUA. Tony lavava PRATOS no restaurante da mãe. |
-| **Stanley Tang** | Stanford. 19 anos na época. |
-| **Andy Fang** | Stanford. Taiwanês-americano. |
-| **Evan Moore** | O "quarto founder esquecido." Saiu em 2014. Não está no IPO. |
-
-### A Entrevista Que Mudou Tudo
-
-Os 4 visitaram dezenas de pequenos negócios no Bay Area. Uma pergunta: "Qual o maior problema de vocês?"
-
-Uma loja de MACARONS mostrou uma pilha de pedidos que não conseguia entregar. Não tinha volume para contratar um entregador DEDICADO. Mas perdia VENDAS todo dia.
-
-**"Entregas são um pesadelo."**
-
-### PaloAltoDelivery.com (Fevereiro de 2013)
-
-Construíram um site em ALGUMAS HORAS:
-- PDFs de cardápio de 8 restaurantes (SEM permissão).
-- Número de Google Voice.
-- Zero automação.
-
-**Primeiro pedido: 45 minutos.** Restaurante tailandês. Tony Xu pegou seu Honda e entregou.
-
-### 200 Entregas, 5 Meses
-
-Os founders fizeram TUDO: dirigir, codar, atender telefone, entregar panfletos. Iam para a aula, saíam para entregar, voltavam para codar. 5 meses. DORMIRAM? Pouco.
-
-**O hack de recrutamento de entregadores**: pediam pizza para ELES MESMOS. Quando o entregador chegava, CONTRATAVAM ele.
-
-### O Diferencial: Ter OS PRÓPRIOS Entregadores
-
-Grubhub e Seamless só LISTAVAM restaurantes que JÁ TINHAM entrega própria. DoorDash CONTRATAVA seus próprios motoristas. Isso ABRIU um mercado ENORME: restaurantes de subúrbio, lanchonetes, lojinhas — lugares que NUNCA tiveram delivery.
+O DoorDash não inventou o delivery de comida. O que ele fez foi perceber que o modelo de marketplace — onde a plataforma conecta cliente e restaurante, mas não toca na logística — só funciona em cidades densas onde os restaurantes já têm frota própria. Nos subúrbios americanos, onde a densidade é baixa e quase nenhum restaurante entrega, o modelo de marketplace é inútil. O DoorDash resolveu isso internalizando a logística: contratando motoristas, roteirizando entregas, gerenciando a experiência ponta a ponta. Isso é mais caro de operar, mas abre um mercado que os concorrentes estruturalmente não conseguem acessar.
 
 ---
 
-## 2. A Filosofia do Produto: "Sistemas, Não Produtos"
+## 1. A Origem: Um Site Feito em Um Dia e Duzentos Pedidos Entregues Pelos Fundadores
 
-> *"We build systems, not products. A system orchestrates multiple products to deliver a complete experience."* — Tony Xu, 2025
+Tony Xu nasceu em Nanjing, China, e imigrou para os Estados Unidos aos quatro anos. Sua mãe era médica na China, mas seu diploma não foi reconhecido nos EUA. Ela trabalhou em três empregos — incluindo lavar pratos num restaurante onde Tony, ainda criança, ajudava — por doze anos até conseguir pagar a recertificação. A carta de abertura do IPO do DoorDash, em dezembro de 2020, é endereçada a ela.
 
-### Os Três Lados do Marketplace
+O projeto de faculdade que virou o DoorDash começou com uma observação trivial: pequenos comerciantes de Palo Alto recebiam pedidos de entrega que não podiam atender. A dona da loja de macarons guardava uma pilha de pedidos não realizados. Ela não tinha escala para pagar um motorista dedicado, mas aqueles pedidos representavam receita que ela estava deixando na mesa.
 
-| Lado | App | Necessidade |
-|---|---|---|
-| **Consumidor** | DoorDash app | "Quero comida. Rápido. Quente. Barato." |
-| **Dasher** | Dasher app | "Quero ganhar dinheiro. Flexível. Justo." |
-| **Merchant** | Merchant tools | "Quero vender MAIS. Sem dor de cabeça." |
+O protótipo que os quatro estudantes construíram em fevereiro de 2013 — PaloAltoDelivery.com — era primitivo. Oito restaurantes, cardápios em PDF, um número de Google Voice. A primeira refeição entregue foi comida tailandesa. Tony Xu dirigiu até o restaurante, pagou com dinheiro, colocou a sacola no banco do passageiro e entregou. Durante meses, os fundadores alternavam entre escrever código e fazer entregas. Atendiam o telefone durante a aula e saíam para dirigir entre os turnos. Fazer duzentas entregas pessoalmente ensinou mais sobre os problemas de logística de última milha do que qualquer pesquisa de mercado.
 
-### "Operate at the Lowest Level of Detail"
+O Y Combinator aceitou o projeto no verão de 2013. Na demo day, o nome PaloAltoDelivery foi substituído por DoorDash. Tony Xu passou dez semanas apresentando o negócio para investidores. Ninguém queria investir. O dinheiro estava acabando. Keith Rabois, da Khosla Ventures, e Saar Gur, da CRV, lideraram uma rodada seed de US$ 2,4 milhões — valor modesto para o que se tornaria uma empresa de US$ 60 bilhões.
 
-O mantra do DoorDash: CONHECER o detalhe mais ÍNFIMO de cada problema:
-- Onde o entregador ESTACIONA em prédios grandes?
-- Qual ENTRADA usar?
-- Sobremesas são as mais ESQUECIDAS — destacar para o Dasher.
-- Se um item está FORA de estoque, TODOS os componentes (catálogo, reembolso, ETA, promoções) precisam refletir isso.
-
-### "1% Better Every Day"
-
-Milhares de experimentos. Melhorias incrementais. TODO DIA. Esse é o motor de crescimento.
+O ativo estratégico que o DoorDash construiu nos primeiros anos não era tecnológico — era geográfico. A empresa focou em subúrbios e cidades médias que Grubhub e Uber Eats ignoravam por terem densidade baixa demais para o modelo de marketplace tradicional. Nessas regiões, o DoorDash era frequentemente a única opção de entrega. Quando os concorrentes tentaram entrar, já era tarde: os restaurantes estavam integrados, os Dashers estavam na rua, e os consumidores tinham o aplicativo instalado. O mercado não era "delivery de comida nos EUA" — era "delivery no subúrbio de Columbus, Ohio". E nesse mercado, o DoorDash era o incumbente.
 
 ---
 
-## 3. As Inovações do DoorDash
+## 2. O Problema Técnico Central: Otimização Multi-Objetivo em Tempo Real
 
-### 3.1 DashPass (2018): "Amazon Prime do Delivery"
+O problema de engenharia que o DoorDash resolve não é de banco de dados, nem de escalabilidade de servidores. É um problema de otimização combinatória com três funções objetivo em conflito, resolvido sob restrições de tempo real e com informação incompleta.
 
-$9.99/mês. Entrega GRÁTIS em milhares de restaurantes. Taxa de serviço REDUZIDA. É o motor de RETENÇÃO e RECORRÊNCIA.
+Quando um consumidor faz um pedido, o sistema precisa decidir qual Dasher vai atendê-lo. Essa decisão envolve prever quanto tempo o restaurante vai levar para preparar o pedido, quanto tempo o Dasher vai levar para chegar ao restaurante, quanto tempo a entrega vai levar até o consumidor, qual o impacto de agrupar este pedido com outros no trajeto do Dasher, e como todas essas variáveis interagem com as metas do marketplace: velocidade de entrega (importa para o consumidor), taxa de ocupação do Dasher (importa para o motorista), e volume de pedidos processados (importa para o restaurante).
 
-### 3.2 DoubleDash: "Já Que Você Vai..."
+A arquitetura que o DoorDash desenvolveu para resolver esse problema — publicada em um paper no ICML 2026 — tem duas camadas. A camada interna é um otimizador combinatório determinístico: dado um conjunto de pedidos, motoristas, restrições e pesos de objetivo, ele calcula a atribuição ótima. A camada externa é um agente de reinforcement learning (chamado OWA-RL) que ajusta os pesos do otimizador em tempo real, por loja. O agente foi treinado offline com dados históricos de marketplace e aprendeu a modular o trade-off entre velocidade de entrega e eficiência de agrupamento (batching) sem degradar a qualidade percebida pelo consumidor. Em experimentos de produção, o sistema aumentou a taxa de batching em 0,5 pontos percentuais e reduziu o tempo de espera do motorista em aproximadamente 0,86 segundos — ganhos marginais que, na escala do DoorDash, representam economias de dezenas de milhões de dólares.
 
-Pediu comida? O app sugere: "Quer adicionar algo da 7-Eleven? Da loja de conveniência ao lado? Mesmo entregador. Sem taxa extra de entrega."
-
-### 3.3 Dot (2025): O Robô Autônomo
-
-- 1.37m de altura. 160 kg. 20 mph.
-- 8 câmeras + radar. Visão-first.
-- Leva 15 kg. 6 caixas de pizza.
-- Roda em ruas, ciclovias, CALÇADAS.
-- **ADP (Autonomous Delivery Platform)**: AI que escolhe o MELHOR método de entrega — humano, robô, drone.
-
-### 3.4 "Going Out" (2025): Do Delivery ao Restaurante FÍSICO
-
-Reserva de mesa. Check-in no restaurante. Recompensas in-app. DashPass perks. "Nós não entregamos só comida. Nós te LEVAMOS ao restaurante."
+A previsão de ETA é outro componente crítico. O DoorDash precisa prever três durações diferentes — preparo do restaurante, deslocamento do Dasher até o restaurante, e deslocamento até o consumidor — com informação parcial (o restaurante pode estar mais lotado do que o sistema sabe, o trânsito pode mudar). Modelos de machine learning treinados em bilhões de entregas históricas alimentam essas previsões, que por sua vez alimentam o otimizador de dispatch.
 
 ---
 
-## 4. Ficha Técnica
+## 3. Dot e a Plataforma de Entrega Autônoma: Por Que o Robô Não É o Produto
+
+Em setembro de 2025, o DoorDash anunciou o Dot — um robô de entrega autônomo de 1,37 metros de altura, 160 quilos, capaz de transportar quinze quilos de carga a 32 km/h. Mas o produto que o DoorDash construiu não é o robô. É a **Autonomous Delivery Platform (ADP)** — uma camada de orquestração que decide, para cada pedido, qual método de entrega é ótimo: Dasher humano, Dot, drone Wing, ou robô de calçada da Coco Robotics.
+
+A ADP é uma extensão natural do otimizador de dispatch. A diferença é que agora a matriz de decisão inclui uma nova dimensão — o tipo de veículo — com restrições próprias. Um drone pode carregar pouco peso e tem alcance limitado. Um Dot pode operar em subúrbios planos mas não em prédios. Um humano é caro mas flexível. O sistema precisa decidir, em menos de cem milissegundos, qual combinação de veículos atende um conjunto de pedidos com o menor custo total respeitando todas as restrições de qualidade.
+
+O Dot foi projetado para ser "bom o suficiente" — não o robô mais avançado do mundo, mas o robô que faz sentido econômico para entregar um tubo de pasta de dente ou um pacote de fraldas. É pequeno o suficiente para calçadas, rápido o suficiente para manter a comida quente, e barato o suficiente para ser viável em escala. A aposta do DoorDash é que a vantagem competitiva em entrega autônoma não está em construir o melhor robô, mas em construir a melhor plataforma de orquestração que utilize múltiplos tipos de robôs e humanos como recursos intercambiáveis.
+
+---
+
+## 4. Lições de Produto
+
+### 4.1 O mercado que você cria é mais valioso do que o mercado que você disputa
+
+O DoorDash não competiu com Grubhub pelo mercado de delivery em Manhattan. Criou o mercado de delivery em subúrbios onde ele não existia. Quando os concorrentes perceberam o valor desse mercado, o DoorDash já havia integrado os restaurantes, recrutado os motoristas e educado os consumidores. A lição é que mercados novos são menos contestados do que mercados existentes, e a vantagem de ser o primeiro em um mercado novo é estrutural: você define as expectativas de preço, velocidade e qualidade antes que exista uma referência.
+
+### 4.2 O problema de dispatch não é um problema de banco de dados — é um problema de otimização combinatória
+
+A maioria das startups de marketplace constrói um CRUD com matching simples e itera a partir daí. O DoorDash entendeu desde cedo que o problema central do negócio era matemático: atribuir N pedidos a M motoristas minimizando tempo de espera e maximizando eficiência, com informação incompleta e restrições de tempo real. Investir em otimização — primeiro com heurísticas, depois com machine learning, depois com reinforcement learning — não foi um luxo. Foi a diferença entre um marketplace que funciona e um que perde dinheiro em cada entrega.
+
+### 4.3 Entregar os primeiros pedidos pessoalmente é a melhor pesquisa de produto que você pode fazer
+
+Tony Xu e seus cofundadores fizeram duzentas entregas antes de contratar o primeiro Dasher. Isso é ineficiente como operação, mas extraordinariamente eficiente como pesquisa. Cada entrega era uma observação direta dos pontos de falha do sistema: o restaurante demorou mais do que o esperado, o endereço estava errado, o cliente não atendia. Nenhuma ferramenta de analytics substitui o fundador carregando uma sacola de comida tailandesa no banco do passageiro e descobrindo, em primeira pessoa, o que está quebrado.
+
+---
+
+## 5. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | DoorDash |
-| **Fundação** | Julho de 2013. Protótipo: fevereiro de 2013. |
-| **Fundadores** | Tony Xu, Stanley Tang, Andy Fang, Evan Moore |
-| **IPO** | Dezembro de 2020 (NYSE: DASH). ~$60B. |
+| **Fundação** | 2013 (PaloAltoDelivery). Y Combinator verão 2013. |
+| **Fundadores** | Tony Xu (CEO), Andy Fang (CTO), Stanley Tang (Product), Evan Moore (saída em 2014) |
+| **IPO** | 9 de dezembro de 2020 (NYSE: DASH). Preço: US$ 102. Valor de mercado: ~US$ 60B. |
 | **Categoria** | Food Delivery / Marketplace / Logística |
-| **Market share (US)** | 67% |
 | **Pedidos processados** | 10 bilhões+ |
-| **Preço** | Gratuito. DashPass: $9.99/mês. |
-| **Concorrentes** | Uber Eats, Grubhub, iFood (Brasil), Wolt (Europa) |
+| **Receita de comerciantes** | US$ 230 bilhões+ (acumulado) |
+| **Dashers** | Milhões. Ganhos acumulados: US$ 80 bilhões+. |
+| **Preço** | Gratuito. DashPass: US$ 9,99/mês. Comissão para restaurantes: 15-30%. |
+| **Concorrentes** | Uber Eats, Grubhub, Instacart |
 
 ---
 
-## 5. Lições do DoorDash
+## Fontes
 
-### 5.1 Faça Você Mesmo os Primeiros 200
-
-Os founders DIRIGIRAM e ENTREGARAM por 5 meses. Nenhum research substitui FAZER o trabalho.
-
-**Lição**: nos primeiros meses, o founder DEVE fazer o "trabalho sujo." Entregar. Atender. Dirigir. Não terceirize o APRENDIZADO.
-
-### 5.2 Sistemas, Não Produtos
-
-O app do consumidor é INÚTIL se o app do Dasher é RUIM. O Dasher é INÚTIL se o merchant não recebe pedidos. "Um sistema orquestra múltiplos produtos."
-
-**Lição**: marketplaces são SISTEMAS. Otimize o TODO, não as PARTES.
-
-### 5.3 "1% Melhor Todo Dia" — Milhares de Experimentos
-
-O crescimento do DoorDash não veio de UMA grande ideia. Veio de MILHARES de experimentos incrementais.
-
-**Lição**: crescimento sustentável é COMPOSTO. Não procure a bala de prata. Melhore 1% TODO DIA.
-
----
-
-## Fontes e Referências
-
-- [Business Insider — DoorDash's 10-year march to dominance](https://www.businessinsider.com/doordash-history-milestones-food-delivery-2023-7)
-- [TechCrunch — DoorDash Delivers Food Quickly in South Bay (2013)](https://techcrunch.com/2013/07/26/y-combinator-backed-doordash-delivers-food-quickly-in-south-bay-hopes-to-expand-beyond-food/)
-- [Fortune — How DoorDash became an $85 billion behemoth and won the delivery wars](https://fortune.com/article/doordash-delivery-wars-ceo-tony-xu-fortune-500-grubhub-uber-eats-suburbs-mark-zuckerberg/)
-- [DoorDash — Dash Forward 2025: Delivering The Future of Local Commerce](https://about.doordash.com/en-us/news/dash-forward-2025)
-- [DoorDash Careers — Design at DoorDash](https://careersatdoordash.com/career-areas/design/)
-- [DoorDash — Engineering Autonomy: Building Dot and ADP (2025)](https://careersatdoordash.com/blog/doordash-engineering-autonomy-for-local-commerce-dot-and-autonomous-delivery-platform/)
+- [TechCrunch — Y Combinator-Backed DoorDash Delivers Food Quickly In South Bay (2013)](https://techcrunch.com/2013/07/26/y-combinator-backed-doordash-delivers-food-quickly-in-south-bay-hopes-to-expand-beyond-food/)
+- [Forbes — Andy Fang, Co-Founder Of DoorDash (2022)](https://www.forbes.com/sites/joannechen/2022/07/31/american-dreamers-andy-fang-co-founder--cto-of-doordash-on-turning-a-school-project-into-feeding-america/)
+- [Business Insider — Tony Xu said DoorDash seed round the hardest to raise (2020)](https://www.businessinsider.com/tony-xu-said-doordash-seed-round-the-harest-to-raise-2020-3)
+- [arXiv:2606.13604 — Multi-Agent RL for Three-Sided Dispatch (ICML 2026)](https://arxiv-org.ezproxy.obspm.fr/html/2606.13604v1)
+- [DoorDash Engineering — Engineering Autonomy: Building Dot and the ADP (2025)](https://careersatdoordash.com/blog/doordash-engineering-autonomy-for-local-commerce-dot-and-autonomous-delivery-platform/)
+- [DoorDash Engineering — Unleashing the power of LLMs at DoorDash (2024)](https://careersatdoordash.com/blog/unleashing-the-power-of-large-language-models-at-doordash-for-a-seamless-shopping-adventure/)
+- [O'Reilly — Spotlight on Data: DoorDash Global Optimality](https://www.oreilly.com/live-events/spotlight-on-data-how-doordash-solved-the-global-optimality-problem-with-raghav-ramesh/0636920284246/0636920284239/)
+- [DoorDash — Dash Forward 2025: Delivering The Future of Local Commerce](https://about.doordash.com/en-us/news/doordash-unveils-dot)
