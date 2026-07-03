@@ -64,7 +64,7 @@ Spinoza explica POR QUE a atenção se move (conatus) e COMO (afetos como transi
 
 ### O conceito original
 
-Sara Ahmed (*The Cultural Politics of Emotion*, 2004) argumenta que as emoções não ESTÃO nos sujeitos nem nos objetos — elas CIRCULAM. Elas "grudam" (stick) em certos objetos, corpos, signos — e deslizam sobre outros.
+Sara Ahmed (professora e escritora feminista independente, ex-Goldsmiths), em *The Cultural Politics of Emotion* (Edinburgh UP / Routledge, 2004) e no artigo relacionado "Affective Economies" (*Social Text* 22(2): 117-139, 2004), argumenta que as emoções não ESTÃO nos sujeitos nem nos objetos — elas CIRCULAM. Elas "grudam" (stick) em certos objetos, corpos, signos — e deslizam sobre outros. Ahmed formula isso como análogo ao capital marxiano: assim como o dinheiro acumula valor através da circulação, as emoções acumulam valor afetivo quanto mais circulam entre signos e corpos. Como ela escreve: "Affect does not reside in an object or sign, but is an effect of the circulation between objects and signs — the more they circulate, the more affective they become" (p. 120).
 
 > "Emotions are not 'in' the individual or the social, but produce the very surfaces and boundaries that allow the individual and the social to be delineated as if they are objects."
 
@@ -107,7 +107,7 @@ O Liberation Client ataca a economia da atenção com design: sem algoritmo, sem
 
 ### O conceito original
 
-Teresa Brennan (*The Transmission of Affect*, 2004) argumenta que o afeto é TRANSMISSÍVEL entre corpos — literalmente, fisiologicamente. Não é metáfora: o afeto de um corpo AFETA o afeto de outro corpo. Feromônios, expressões faciais, tom de voz, postura — tudo transmite afeto.
+Teresa Brennan (1952-2003, livro publicado postumamente), em *The Transmission of Affect* (Cornell UP, 2004, 7 capítulos), argumenta que o afeto é TRANSMISSÍVEL entre corpos — literalmente, fisiologicamente. O livro abre com: "Is there anyone who has not, at least once, walked into a room and 'felt the atmosphere'?" Não é metáfora: o afeto de um corpo AFETA o afeto de outro corpo. Feromônios, expressões faciais, tom de voz, postura — tudo transmite afeto. Brennan conecta a transmissão de afeto a "new maladies of the soul" contemporâneas — incluindo **attention deficit disorder**, fadiga crônica, codependência e fibromialgia — sugerindo que nossa capacidade historicamente reconhecida de "pegar" estados mentais de outros foi patologizada na modernidade. Os capítulos vão da clínica (The Transmission of Affect in the Clinic, Transmission in Groups) à teoria (The New Paradigm) e à restauração (The Education of the Senses, Interpreting the Flesh).
 
 > "The transmission of affect means that we are not self-contained in terms of our energies. There is no secure distinction between the 'individual' and the 'environment.'"
 
@@ -191,9 +191,9 @@ O Liberation Client é um projeto AFETIVAMENTE INGÊNUO. Ele trata a atenção c
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Baruch Spinoza — Ética (1677): conatus, afetos, alegria/tristeza/desejo
-- Sara Ahmed — The Cultural Politics of Emotion (2004): economias afetivas, "what sticks", circulação de afeto
-- Teresa Brennan — The Transmission of Affect (2004): transmissão fisiológica de afeto entre corpos
+- Baruch Spinoza — *Ethica* (1677, pub. póstuma). Ética III, Proposição 6: conatus. Ética III, Proposição 11: alegria como aumento da potência de agir, tristeza como diminuição.
+- Sara Ahmed — *The Cultural Politics of Emotion* (Edinburgh UP / Routledge, 2004). Também: "Affective Economies" (*Social Text* 22(2): 117-139, 2004). Conceitos: circulação, stickiness, economias afetivas. Citação: "Affect does not reside in an object or sign, but is an effect of the circulation" (p. 120). Citação: "Emotions show us how histories stay alive" (p. 202).
+- Teresa Brennan (1952-2003) — *The Transmission of Affect* (Cornell UP, 2004, pub. póstuma). 7 caps: Introduction, Transmission in the Clinic, Transmission in Groups, The New Paradigm, The Sealing of the Heart, The Education of the Senses, Interpreting the Flesh. Conexão com ADD e "new maladies of the soul."
 
 ### Conexões com o Repositório
 - Liberation Client UX Philosophy — princípios de design (todos precisam ser relidos através do afeto)
@@ -209,3 +209,10 @@ O Liberation Client é um projeto AFETIVAMENTE INGÊNUO. Ele trata a atenção c
 ---
 
 *Fim do Loop 8. Oito loops. Oito camadas. O projeto continua. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 8.** Pesquisa web verificou e expandiu:
+- Ahmed: Edinburgh UP/Routledge 2004, artigo "Affective Economies" (Social Text 2004), analogia marxiana (afeto como capital), citações exatas (p. 120, p. 202), stickiness como sedimentação via repetição
+- Brennan: Cornell UP 2004 (póstuma, falecida 2003), 7 capítulos, abertura célebre ("felt the atmosphere"), conexão com ADD e "new maladies of the soul"
