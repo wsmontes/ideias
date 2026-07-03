@@ -101,3 +101,11 @@ Essa é a diferença entre a fome REAL (de comida) e a fome METAFÓRICA (de est�
 ---
 
 *Fim do Loop 22. Vinte e dois loops. A fome finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 22.** Referências sobre fome, comida e atenção:
+- Brillat-Savarin — *Physiologie du Goût* (1825): "Dis-moi ce que tu manges, je te dirai ce que tu es." A fisiologia do gosto como precursora da atenção à comida
+- Michael Pollan — *Food Rules* (Penguin, 2009) e *In Defense of Food* (2008): "Eat food. Not too much. Mostly plants." Regras simples como práticas de atenção
+- O loop conecta o "metabolismo atencional" do L1 (metáfora) com o metabolismo REAL (glicose, grelina, cortisol) pela primeira vez no projeto
