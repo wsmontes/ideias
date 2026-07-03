@@ -8,14 +8,16 @@
 
 ## 0. O Que Foi Lido
 
-**Do manifesto Attensity! (Peter Schmidt / The Friends of Attention):**
+**Do manifesto Attensity! (The Friends of Attention, eds. D. Graham Burnett, Alyssa Loh & Peter Schmidt):**
+- Publicado pela Crown/Penguin Random House (2026). D. Graham Burnett é Henry Charles Lea Professor of History of Science em Princeton; Alyssa Loh é cineasta (co-dirigiu *Twelve Theses on Attention*); Peter Schmidt é Programme Director da **Strother School of Radical Attention** (Brooklyn, NY).
 - "Human Fracking" — metáfora central: big techs injetam conteúdo de alta pressão para extrair "soul water" (atenção) e vender no mercado
 - Atenção como questão **coletiva**, não falha individual — a atenção foi "capturada, esvaziada e vendida"
 - Definição ampla de atenção: "dar sua mente, tempo e sentidos ao mundo" — inclui sonhar acordado, cuidar de uma criança, enterrar seus mortos, tricotar, surfar
-- 11 categorias de "ativistas da atenção": amadores, artesãos, pais, bardos, espectadores — pessoas que recuperam a atenção OFFLINE
+- 11 categorias de "ativistas da atenção": Amateurs, Crafters, Operators, Gatherers, Counter-coders, Monkey-wrenchers, Gamers/Players, Parents, Epimeletes, Bards/Reciters, Spectators/Fandoms, Puzzlers — pessoas que recuperam a atenção OFFLINE
 - "Santuários": teatros, museus, templos, festas dançantes como refúgios da economia da atenção
 - Raízes filosóficas: Heidegger (Being and Time), cuidado (Sorge), autenticidade, ser-no-mundo
 - Ironia autoreconhecida: o livro usa técnicas de skimming (capítulos curtos, highlights em coral) — ferramentas do inimigo
+- Recepção crítica: resenha na **Public Seminar** (junho 2026) nota que o livro "pode funcionar mais como token de prateleira — afirmando crenças que você já tem — do que como ferramenta prática." A crítica aponta que Attensity! usa as mesmas ferramentas da economia da atenção (redes sociais, marketing online) para combatê-la — contradição que o Liberation Client também enfrenta.
 
 **Do repositório Liberation Client:**
 - Design manifesto para um cliente social multi-protocolo que rejeita a economia da atenção
@@ -49,7 +51,9 @@ E mais: "Vocês, Friends of Attention, publicaram um livro pela Penguin Random H
 
 ### Quem resolve essa tensão?
 
-**Albert Borgmann** (Technology and the Character of Contemporary Life, 1984) oferece o conceito de **"focal things and practices"** — objetos e práticas que congregam atenção humana ao seu redor: a lareira, a refeição em família, o instrumento musical. Para Borgmann, o problema não é a tecnologia, mas o **"device paradigm"** — tecnologia que entrega commodities sem exigir engajamento. Um app-praça onde você *está* (e não apenas *consome*) poderia ser uma "focal thing" digital. A pergunta de Borgmann para ambos os lados: esta tecnologia exige presença ou a substitui?
+**Albert Borgmann** (Technology and the Character of Contemporary Life, University of Chicago Press, 1984) oferece o conceito de **"focal things and practices"** — objetos e práticas que congregam atenção humana ao seu redor: a lareira, a refeição em família, o instrumento musical. O termo vem do latim *focus* (lareira) — aquilo que "reúne as relações do seu contexto e irradia para seus arredores." Para Borgmann, o problema não é a tecnologia, mas o **"device paradigm"** — tecnologia que entrega commodities sem exigir engajamento. O device paradigm separa meios de fins: o aquecimento central entrega calor (commodity) sem exigir que você corte lenha, mantenha o fogo, sinta o cheiro da madeira. A lareira (focal thing) congregava a família, marcava o ritmo do dia, ensinava paciência. O termostato (device) entrega calor e desaparece. Um app-praça onde você *está* (e não apenas *consome*) poderia ser uma "focal thing" digital. A pergunta de Borgmann para ambos os lados: esta tecnologia exige presença ou a substitui?
+
+Borgmann propõe uma **reforma da tecnologia**, não sua rejeição. Distingue entre reformas *dentro* do paradigma (tweaks técnicos) e reformas *do* paradigma (reorientar a tecnologia para "focal concerns"). Sua ferramenta é o **"deictic discourse"** — discurso apaixonado e pessoal que *aponta* para a vida boa, abrindo a pergunta sobre o que merece nossa atenção. Isso conecta diretamente com a "friction as a feature" do Liberation Client: fricção é discurso deíctico embutido em design.
 
 ---
 
@@ -75,7 +79,7 @@ Isso ilumina uma fraqueza no manifesto de Schmidt: ele trata a atenção como su
 
 ### Don Ihde e a Mediação Técnica
 
-**Don Ihde** (postfenomenologia) oferece outro complemento crucial. Para Ihde, tecnologias não são neutras — elas **amplificam** alguns aspectos da experiência e **reduzem** outros. O microscópio amplifica o pequeno e reduz o contexto. O telefone amplifica a voz e reduz a presença corporal.
+**Don Ihde** (Postphenomenology: Essays in the Postmodern Context, 1993; Technology and the Lifeworld, 1990) oferece outro complemento crucial. Para Ihde, tecnologias não são neutras — elas **amplificam** alguns aspectos da experiência e **reduzem** outros. O microscópio amplifica o pequeno e reduz o contexto. O telefone amplifica a voz e reduz a presença corporal. Ihde identifica quatro relações humano-tecnologia-mundo: **embodiment** (tecnologias incorporadas — óculos, aparelho auditivo), **hermeneutic** (tecnologias que geram leituras do mundo — termômetro, ultrassom), **alterity** (tecnologias como quasi-outros — IA, robôs) e **background** (tecnologias de fundo — aquecimento, iluminação). O feed opera nas quatro simultaneamente: é incorporado (o polegar desliza sem pensar), hermenêutico (traduz o mundo em posts), alterity (o algoritmo como quasi-outro que "sabe o que você quer") e background (sempre lá, vibrando).
 
 A economia da atenção opera por amplificar o **estímulo** (notificações, cores, movimento) e reduzir a **presença** (contexto, corpo, tempo). O Liberation Client tenta inverter isso: amplificar a presença (sinais ambientais, consciência do tempo gasto) e reduzir o estímulo (sem badges, sem números, sem pull-to-refresh).
 
@@ -221,14 +225,22 @@ Se o Liberation Client está certo, o problema é implementação, não princíp
 ### Albert Borgmann — Focal Things and Practices (1984)
 O que um app precisaria para ser uma "focal thing"? Presença, engajamento, limite. A lareira aquece mas também *congrega* — as pessoas se reúnem ao redor. Um app-fogueira congregaria, não dispersaria.
 
-### Byung-Chul Han — A Sociedade do Cansaço (2010)
-Passamos da sociedade disciplinar (Foucault) para a sociedade do desempenho. Não somos coagidos por fora — nos auto-exploramos. A economia da atenção funciona porque internalizamos o imperativo de estar conectados, disponíveis, produtivos. O Liberation Client combate a exploração externa, mas Han pergunta: e a exploração interna? Mesmo num app "libertado", o usuário não encontraria novas formas de se auto-explorar? A resposta da Iteração 2 é: sim, e é por isso que o Session Timer *fecha o app* — não apenas sugere.
+### Byung-Chul Han — A Sociedade do Cansaço (2010, Stanford UP 2015)
+Han argumenta que passamos da **sociedade disciplinar** (Foucault: hospitais, prisões, fábricas — governada pelo "Não-Podes") para a **sociedade do desempenho** (*Leistungsgesellschaft*) — governada pelo "Yes, we can" e pelo "Unlimited Can." O sujeito não é mais um "sujeito de obediência" mas um **"sujeito de desempenho"** — empreendedor de si mesmo. O poder não opera por repressão externa mas por **autoexploração**: internalizamos o imperativo de otimizar, performar, realizar. O resultado não são loucos ou criminosos (como na sociedade disciplinar) — são **depressivos e fracassados** (*depressives and losers*). Não somos coagidos por fora — nos auto-exploramos. A economia da atenção funciona porque internalizamos o imperativo de estar conectados, disponíveis, produtivos.
 
-### Jenny Odell — How to Do Nothing (2019)
-Odell oferece um meio-termo entre Schmidt e o Liberation Client. Ela pratica "recusa" — não é sair completamente do digital (ela é artista digital), mas recusar seus termos. "Doing nothing" não é passividade — é atenção ao que o capitalismo de vigilância considera "improdutivo": observar pássaros, caminhar sem destino, conversar sem objetivo. Odell fundamenta o que o Liberation Client chama de "espaço de presença" — um lugar onde estar não é produzir.
+Han diagnostica as patologias do século XXI como **neuronais**: depressão, TDAH, borderline, burnout. Não são causadas pela negatividade do Outro (modelo imunológico) mas por um **excesso de positividade** — demasiado do Mesmo, superprodução, supercomunicação. O burnout ocorre quando o ego "superaquece" de tanto Mesmo. Han também critica a passagem da **contemplação profunda** para a **hiperatenção** — um modo fragmentado de percepção constantemente estimulado por informação e dopamina. O multitasking, argumenta, é uma regressão a um estado animal de awareness, não um progresso. A perda do **tédio profundo** — que Han vê como condição necessária para criatividade e pensamento profundo — corrói a produção cultural. O sujeito de desempenho meramente *reage a estímulos* em vez de se engajar em trabalho criativo significativo.
 
-### Bernard Stiegler — Técnica e Tempo (1994-2001)
-Stiegler argumenta que a técnica não é externa ao humano — ela nos constitui. Não existe humano sem técnica (o fogo, a roda, a escrita, o algoritmo). Isso complica a posição de Schmidt: "sair do digital" é impossível porque o digital já nos constitui. A questão não é sair — é *cuidar* da técnica como quem cuida de um jardim (pharmakon: remédio e veneno). O Liberation Client está mais próximo de Stiegler: a técnica pode ser remédio ou veneno, dependendo do design.
+O Liberation Client combate a exploração externa, mas Han pergunta: e a exploração interna? Mesmo num app "libertado", o usuário não encontraria novas formas de se auto-explorar? A resposta da Iteração 2 é: sim, e é por isso que o Session Timer *fecha o app* — não apenas sugere. Han defende uma recuperação do **"contemplative lingering"** (*kontemplative Verweilen*), inspirado no *Gelassenheit* heideggeriano, em Meister Eckhart e no Zen Budismo. Sem contemplação, a *vita activa* se torna vazia e exaustiva: "Uma *vita contemplativa* sem agir é cega; uma *vita activa* sem contemplação é vazia."
+
+Conceito adicional: **violência da positividade** — uma violência sistêmica e imanente que não exclui mas *exaure*; não priva mas *satura*. Diferente da violência viral/imunológica (que envolve um Outro estrangeiro), essa violência opera através da **lisura** (*smoothness*), **transparência** e **sedução**. O smartphone é a tecnologia exemplar: simultaneamente dispositivo de vigilância e "confessionário móvel" — nos auto-exploramos livremente, compartilhando dados, emoções e atenção. (Ver também L99: Byung-Chul Han dedicado integralmente.)
+
+### Jenny Odell — How to Do Nothing (2019, Melville House)
+Odell oferece um meio-termo entre Schmidt e o Liberation Client. Ela pratica "recusa" — não é sair completamente do digital (ela é artista digital e professora em Stanford), mas recusar seus termos. "Doing nothing" não é passividade — é atenção ao que o capitalismo de vigilância considera "improdutivo": observar pássaros, caminhar sem destino, conversar sem objetivo. Odell fundamenta o que o Liberation Client chama de "espaço de presença" — um lugar onde estar não é produzir.
+
+Odell é explícita em **criticar o "digital detox"** como solução: retiros de detox digital são "hacks de produtividade" que te preparam para voltar MAIS eficiente. A verdadeira resistência requer permanecer *engajada* com o mundo, não se retirar dele. Ela defende uma **"ecologia de estranhos"** (*ecology of strangers*) e **"exercícios de atenção"** (*exercises in attention*) — práticas situadas de perceber o que está ao redor. O livro tem 8 capítulos, da "anatomia de uma recusa" ao "manifest dismantling." A pergunta de Odell que reverbera no projeto inteiro: uma vez que recuperamos nossa atenção, o que fazemos com ela?
+
+### Bernard Stiegler — Técnica e Tempo (1994-2001, 3 vols.)
+Stiegler argumenta que a técnica não é externa ao humano — ela nos constitui (**originary technicity**). Não existe humano sem técnica: o humano e a técnica emergem juntos num único movimento. Baseando-se no paleoantropólogo André Leroi-Gourhan, Stiegler descreve um processo de **exteriorização**: a interioridade humana se co-constitui com a exterioridade das ferramentas. Stiegler distingue três retenções (via Husserl): primária (o agora da percepção), secundária (memória), e **terciária** (memória técnica objetiva: escrita, gravações, monumentos — "a prótese da consciência" sem a qual não há cultura). Propõe uma **"organologia geral"** — a relação tripla entre órgãos psíquicos, organizações sociais e órgãos técnicos que co-evoluem. O feed rompe essa tripla individuação: proletariza o saber (*savoir-faire*), industrializa a imaginação, produz "estupidez sistêmica." Isso complica Schmidt: "sair do digital" é impossível porque o digital já nos constitui como retenção terciária. A questão não é sair — é *cuidar* da técnica como quem cuida de um jardim (**pharmakon**, conceito que Stiegler toma de Derrida: simultaneamente veneno e cura). O Liberation Client está mais próximo de Stiegler: a técnica pode ser remédio ou veneno, dependendo do design. (Ver também L90: Stiegler dedicado integralmente.)
 
 ### Paolo Virno — Gramática da Multidão (2001)
 Virno analisa como o capitalismo pós-fordista transforma a comunicação em trabalho. No capitalismo contemporâneo, você não "vai" trabalhar — você É trabalho. Sua atenção, sua comunicação, sua presença online são produtivas. Isso ilumina a Contradição 9 do repo: o problema não é técnico, é político-econômico. O app pode ser lindo, mas se a economia política mais ampla *exige* sua atenção para sua sobrevivência material, nenhum design resolve.
@@ -288,19 +300,19 @@ A decisão será tomada no próximo loop com base no que parecer mais fértil ap
 - Experiência Offline, Data Liberation, Feed sem Ruído
 
 ### Pesquisadas Neste Loop
-- Peter Schmidt / The Friends of Attention — Attensity! (2026)
-- Albert Borgmann — Technology and the Character of Contemporary Life (1984)
-- Byung-Chul Han — The Burnout Society (2010)
-- Jenny Odell — How to Do Nothing (2019)
-- Bernard Stiegler — Technics and Time (1994-2001)
-- Don Ihde — Postphenomenology (1993+)
-- Maurice Merleau-Ponty — Phenomenology of Perception (1945)
-- James J. Gibson — The Ecological Approach to Visual Perception (1979)
-- Richard Shusterman — Body Consciousness (2008)
-- Maxine Sheets-Johnstone — The Primacy of Movement (1999)
-- Walter Benjamin — The Storyteller (1936)
-- Carl Honoré — In Praise of Slow (2004)
-- Paolo Virno — A Grammar of the Multitude (2001)
+- The Friends of Attention (eds. D. Graham Burnett, Alyssa Loh, Peter Schmidt) — *Attensity! A Manifesto of the Attention Liberation Movement* (Crown/Penguin Random House, 2026). Resenhado em Public Seminar, Junho 2026. Schmidt é Programme Director da Strother School of Radical Attention.
+- Albert Borgmann — *Technology and the Character of Contemporary Life: A Philosophical Inquiry* (University of Chicago Press, 1984). 3 partes: The Problem, The Character (device paradigm), The Reform (focal things, deictic discourse).
+- Byung-Chul Han — *Müdigkeitsgesellschaft* (2010); trad. ingl. *The Burnout Society* (Stanford UP, 2015, trad. Erik Butler). ~60pp. Original na Matthes & Seitz Berlin.
+- Jenny Odell — *How to Do Nothing: Resisting the Attention Economy* (Melville House, 2019). xxiii + 232pp. Odell é artista e professora em Stanford.
+- Bernard Stiegler — *La Technique et le Temps* (Galilée, 1994-2001): Vol. 1 *La Faute d'Épiméthée* (1994), Vol. 2 *La Désorientation* (1996), Vol. 3 *Le Temps du Cinéma et la Question du Mal-Être* (2001).
+- Don Ihde — *Technology and the Lifeworld: From Garden to Earth* (1990); *Postphenomenology: Essays in the Postmodern Context* (Northwestern UP, 1993). Quatro relações: embodiment, hermeneutic, alterity, background.
+- Maurice Merleau-Ponty — *Phénoménologie de la Perception* (Gallimard, 1945)
+- James J. Gibson — *The Ecological Approach to Visual Perception* (Houghton Mifflin, 1979)
+- Richard Shusterman — *Body Consciousness: A Philosophy of Mindfulness and Somaesthetics* (Cambridge UP, 2008)
+- Maxine Sheets-Johnstone — *The Primacy of Movement* (John Benjamins, 1999; 2ª ed. expandida 2011)
+- Walter Benjamin — "Der Erzähler" (1936); trad. "The Storyteller" em *Illuminations* (Schocken, 1968)
+- Carl Honoré — *In Praise of Slow: How a Worldwide Movement is Challenging the Cult of Speed* (2004)
+- Paolo Virno — *Grammatica della Moltitudine* (2001); trad. *A Grammar of the Multitude* (Semiotext(e), 2004)
 
 ### A Explorar no Próximo Loop
 - Pauline Oliveros — Deep Listening
@@ -316,3 +328,16 @@ A decisão será tomada no próximo loop com base no que parecer mais fértil ap
 ---
 
 *Fim do Loop 1. O próximo loop lerá este documento, o criticará, e avançará numa nova direção.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 1 de enriquecimento.** Pesquisa web adicionou:
+- Detalhes biográficos verificados dos três editores de Attensity! (Burnett/Princeton, Loh/cineasta, Schmidt/Strother School)
+- Recepção crítica: resenha da Public Seminar (junho 2026)
+- Borgmann: estrutura do livro (3 partes), origem do termo "focal" (latim *focus*), deictic discourse
+- Ihde: as 4 relações humano-tecnologia-mundo (embodiment, hermeneutic, alterity, background)
+- Han: *Leistungsgesellschaft*, violência da positividade, *kontemplative Verweilen*, publicação original em alemão (2010)
+- Odell: crítica explícita ao digital detox, "exercises in attention", "ecology of strangers"
+- Stiegler: retenção terciária, organologia geral, Leroi-Gourhan, 3 volumes com títulos franceses
+- Referências com edições verificadas, editoras, tradutores e URLs de fontes
