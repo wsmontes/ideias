@@ -87,8 +87,8 @@ A economia da atenção está colonizando a noite:
 - **Sleep tracking**: o sono vira DADO. Quantas horas você dormiu? Qual a "qualidade" do seu sono? O sono vira métrica. O único estado não-métrico vira métrica.
 - **Dream incubation**: startups trabalhando em "induzir sonhos" com wearables. Inserir estímulos durante o sono REM para "plantar" sonhos. O ÚLTIMO refúgio da atenção livre está sendo invadido.
 
-**Jonathan Crary — 24/7: Late Capitalism and the Ends of Sleep (2013):**
-Crary argumenta que o capitalismo tardio elimina a distinção entre dia e noite, trabalho e descanso, público e privado. O sono é o ÚLTIMO obstáculo ao capitalismo 24/7 — porque o sono é INCOMPATÍVEL com o consumo, a produção e a atenção contínua. Dormir é um ato de RESISTÊNCIA POLÍTICA.
+**Jonathan Crary — *24/7: Late Capitalism and the Ends of Sleep* (Verso, 2013):**
+Crary argumenta que o capitalismo tardio elimina a distinção entre dia e noite, trabalho e descanso, público e privado. O sono é o ÚLTIMO obstáculo ao capitalismo 24/7 — porque o sono é INCOMPATÍVEL com o consumo, a produção e a atenção contínua. Dormir é um ato de RESISTÊNCIA POLÍTICA. Crary documenta como a privação de sono é usada como TORTURA (Guantánamo) e como os militares americanos pesquisam a ELIMINAÇÃO do sono para maximizar a produtividade humana. Antes da luz elétrica, humanos dormiam em dois períodos (sono bifásico) com um intervalo de vigília entre eles — a industrialização impôs o sono monofásico de 8 horas. A luz elétrica fez o custo da luz cair 6x enquanto o consumo quadruplicou (Reino Unido, 1950-2000). O app f.lux (ajuste de temperatura de cor à noite) é criticado como "technological fix for a social problem" — ele te ajuda a trabalhar MELHOR à noite, em vez de te encorajar a PARAR de trabalhar.
 
 > "Sleep is an uncompromising interruption of the theft of time from us by capitalism."
 
@@ -117,3 +117,12 @@ Crary argumenta que o capitalismo tardio elimina a distinção entre dia e noite
 ---
 
 *Fim do Loop 20. Vinte loops. A noite finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 20.** Pesquisa web expandiu a seção sobre Crary e a colonização da noite:
+- Crary (Verso 2013): privação de sono como tortura (Guantánamo), pesquisa militar para eliminar o sono
+- Sono bifásico pré-industrial (dois períodos com intervalo de vigília) → industrialização impôs 8h monofásico
+- Luz elétrica: custo caiu 6x, consumo quadruplicou (UK 1950-2000)
+- f.lux: criticado como "technological fix for a social problem" — ajuda a trabalhar melhor à noite, não a parar
