@@ -105,3 +105,11 @@ Pagar um escritor pelo seu artigo É dar atenção em forma de dinheiro. Pagar u
 ---
 
 *Fim do Loop 26. Vinte e seis loops. O dinheiro finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 26.** Referências sobre dinheiro e atenção:
+- Georg Simmel — *Philosophie des Geldes* (1900; trad. *The Philosophy of Money*, Routledge, 1978): o dinheiro como abstração suprema que transforma qualidades em quantidades. Edição inglesa traduzida por Tom Bottomore e David Frisby
+- David Graeber — *Debt: The First 5,000 Years* (Melville House, 2011): distinção entre economias de mercado (impessoais, quantitativas) e economias humanas (relacionais, qualitativas). A atenção pertence à economia humana, não à de mercado — mas o feed a força para a lógica do preço
+- A distinção do loop entre atenção-como-moeda e atenção-como-dádiva ecoa o debate Mauss (1925) vs. economia neoclássica
