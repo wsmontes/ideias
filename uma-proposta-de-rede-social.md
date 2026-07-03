@@ -591,7 +591,115 @@ burn rate com folga para reinvestimento.
 
 ---
 
-*Fim do Ciclo 5. O Ciclo 6 examina: moderação. Como moderar conteúdo público
-numa cooperativa com orçamento mínimo? Conselhos rotativos? Flagging? Quem decide
-o que é discurso de ódio?*
+---
+
+## Ciclo 6 — Síntese dos 10 Agentes: Moderação
+
+### O conflito central
+
+Dois agentes travaram o debate definidor do ciclo:
+
+**Wildcard:** A Praça já tem defesa estrutural embutida. 1 Carta/semana, máximo
+50 views, 7 dias de expiração, sem algoritmo, sem busca, sem hashtags. Com
+cooldown de 24h antes de publicar e co-assinatura opcional do Círculo, **não
+sobra nada para moderar.** A arquitetura substitui a moderação.
+
+**Cético:** Arquitetura não para CSAM, doxxing, ameaças de morte ou assédio
+coordenado. "Democratizar a vigilância não elimina a vigilância." Alguém precisa
+ler, julgar, remover. Isso exige moderadores pagos, PhotoDNA, botão de emergência.
+Sem isso, a Praça morre no primeiro ataque coordenado.
+
+**Os dois têm razão.** A arquitetura previne 80% dos problemas. Mas os 20%
+restantes exigem resposta humana rápida.
+
+### A solução: 3 camadas
+
+**Camada 1 — Arquitetura (previne 80%).** Cooldown de 24h entre escrever e
+publicar. Sem busca, sem hashtags, sem perfil público de autor. Cartas expiram em
+7 dias. Máximo 50 views. 1 Carta/semana por pessoa. Respostas vão para Círculos,
+não para a Praça. Isso elimina: spam, viralidade, dogpiling, cancelamento em
+massa, perfis de exposicao.
+
+**Camada 2 — Conselho da Praça (resolve 19%).** 5-7 membros rotativos (90 dias,
+sorteados entre voluntários). Revisam sinais da comunidade. Cada usuário tem 15
+"sinais" por mês (escassez previne abuso). Votação: 3 de 5 para remover. Resposta
+em 24h (48h para casos não urgentes). Sinalização é anônima — o autor nunca sabe
+quem reportou. O conselheiro vê: a Carta, o motivo do sinal, as regras relevantes
+(2-3 bullet points, não um documento de 20 páginas). Três botões: Violação,
+Dúvida, Sem Violação.
+
+**Camada 3 — Moderador pago (resolve 1%).** Uma pessoa, meio período, R$ 3.500/mês.
+Não revisa posts individuais. Suas funções: (a) agir em emergências (ameaça de
+morte, CSAM, doxxing) em minutos, não horas; (b) auditar decisões do Conselho;
+(c) treinar voluntários; (d) responder a ordens judiciais; (e) manter o pipeline
+de PhotoDNA. Sem essa pessoa, a cooperativa não consegue responder a uma ordem
+judicial em 24h — e o Marco Civil exige isso.
+
+### As ferramentas mínimas (do Engenheiro)
+
+- **PhotoDNA:** gratuito para organizações qualificadas. Roda apenas em imagens de
+  Cartas Públicas (nunca em Círculos E2EE). Hash matching local, sem envio para
+  terceiros. Implementação: 2 dias.
+- **Regex:** CPF, telefone, email, palavras-chave de spam em português. Roda no
+  momento em que a Carta é marcada como pública. Implementação: 1 dia.
+- **Fila de moderação:** PostgreSQL + LISTEN/NOTIFY. Sem Redis, sem message broker.
+  Um binário Go. Implementação: 2 semanas.
+
+### O fluxo de sinalização (do UX)
+
+**"Sinalizar", não "Denunciar".** Denunciar é polícia. Sinalizar é cuidado. O
+usuário faz long-press na Carta → escolhe "Sinalizar" → vê "Você está ajudando a
+Praça a ser um espaço onde todos se sintam bem. Nada muda para o autor — ninguém
+fica sabendo que foi você." → escolhe a categoria → envia. Feedback: "Sinal
+recebido. Se o Conselho identificar uma violação, a Carta será removida. Você não
+vai ficar sabendo quem era — porque isso importa menos do que manter a Praça
+inteira."
+
+**Bloqueio em 3 níveis:** Silenciar na Praça (não vê as Cartas da pessoa, ela não
+sabe) → Bloquear (mútuo, Círculos mantidos) → Bloquear + Sair dos Círculos
+(nuclear, parcialmente irreversível). Bloqueio é reversível com 48h de cooldown.
+
+### O que é específico do Brasil (do Contexto Brasileiro)
+
+- **Categorias de sinal:** Discurso de ódio (racismo, LGBTfobia, intolerância
+  religiosa), Golpe ou fraude (golpe do pix), Informação falsa, Conteúdo sexual
+  não consensual. Categorias brasileiras, não traduzidas do inglês.
+- **Linguagem:** Moderação em português coloquial. "Opa! Essa Carta foi sinalizada
+  pela comunidade. Dá uma olhada nas nossas regras." Não "Prezado usuário, sua
+  publicação foi removida por violar nossas diretrizes comunitárias."
+- **Marcos legais:** Marco Civil Art. 19 (notice-and-takedown via ordem judicial),
+  Art. 21 (imagem íntima sem consentimento: remoção em 24h sem ordem judicial).
+  STF: plataformas têm "dever de cuidado" — não podem alegar ignorância.
+- **Milícias de desinformação:** Detectáveis por padrões de metadados (crescimento
+  explosivo de Círculos, convites em massa) sem quebrar E2EE.
+
+### O que NÃO entra (e por quê)
+
+- **Consenso Quaker no Conselho (Auto-moderação Comunitária).** Bonito, mas lento
+  demais. Votação por maioria de 3/5 é mais rápida e já tem proteções (anonimato,
+  rotação, auditoria).
+- **Sistema de reparo em 4 fases (Psicólogo).** Importante, mas complexo demais
+  para o MVP. O Terraço terá mediação de conflitos via Círculo de Reparo (Ciclo 2)
+  para casos entre pessoas que se conhecem. Para estranhos na Praça, remoção +
+  notificação é suficiente.
+- **Zero moderação (Wildcard).** A arquitetura previne 80%, mas os 20% que sobram
+  incluem CSAM e ameaças de morte. Não dá para não ter ninguém.
+
+### O custo da moderação (mensal)
+
+| Item | R$/mês |
+|------|--------|
+| Moderador pago (meio período) | 3.500 |
+| PhotoDNA | 0 |
+| Infra (servidor da fila) | 200 |
+| Estipêndios do Conselho (simbólico) | 500 |
+| **Total** | **4.200** |
+
+8% do burn rate do Ano 2 (R$ 53k). Viável.
+
+---
+
+*Fim do Ciclo 6. O Ciclo 7 examina: a construção. Stack tecnológica, time inicial,
+roadmap dos primeiros 12 meses. Quem builda isso? Com qual dinheiro? Em quanto
+tempo?*
 
