@@ -530,7 +530,140 @@ ruptura não é uma comunidade — é um condomínio com regras de silêncio.
 
 ---
 
-## 3. Ataque Real: O Que Quebra Se Buildarmos Isso Amanhã
+## 3. Os Entregáveis: O Que Isso Realmente É?
+
+Chega de princípios. Aqui está o produto que você builda:
+
+### A Unidade Mínima
+
+O Twitter se construiu numa limitação, não numa liberdade: 140 caracteres. A
+restrição criou a criatividade. Qual é a limitação do Terraço?
+
+**Audiência, não caracteres.**
+
+No Twitter, você pode falar para o mundo, mas só 140 caracteres. No Terraço, você
+pode escrever o quanto quiser, mas **só para as pessoas do seu Círculo**. Máximo
+12. Nomeadas. Reais.
+
+A restrição não é "pouco texto" — é **"poucas pessoas"**. Isso muda tudo:
+
+- Você não performa para uma audiência invisível. Você escreve para pessoas que
+  conhecem sua voz, seu contexto, sua história
+- Você não é medido em números (likes, RTs, seguidores) — é **recebido** por
+  pessoas com nome
+- A pergunta não é "isto vai viralizar?" — é "isto importa para as 8 pessoas que
+  vão ler?"
+
+### O Que Você Compartilha (3 Formatos, Só Isso)
+
+**Check-in diário.** Todo dia de manhã, cada Círculo recebe uma pergunta. "O que
+você está carregando hoje?" "Que som te acordou?" Você responde em uma frase. Ou
+duas. Ou um emoji. As respostas de todo mundo aparecem juntas. É o "bom dia" do
+Círculo — 30 segundos, todo dia, mantém o espaço respirando.
+
+**Presença.** Você leu algo no seu Círculo. Tocou na tela. Seu nome aparece para
+o autor: "Wagner, Clara e Pedro estiveram aqui." Não é um número — são nomes.
+Reconhecimento sem extração. O "eu te vi" que o like promete e não entrega.
+
+**Carta.** O formato principal. Você escreve para seu Círculo. Tem começo, meio e
+fim. Pode ser uma memória, uma ideia, uma pergunta, um desabafo. Não tem
+comentário infinito — cada resposta é outra Carta, ou uma Presença. Cartas não
+"engajam" — elas **chegam**. No digest da manhã, tarde ou noite, junto com as
+outras cartas do seu Círculo.
+
+Só isso. Três formatos. Nenhum deles é um post. Nenhum tem métrica pública.
+Nenhum é efêmero (stories) nem eterno (feed infinito).
+
+### Não É Feed — É Uma Constelação de Salas
+
+Você não "abre a timeline" e scrolla. Você **entra num Círculo**. Como quem entra
+numa sala onde pessoas conhecidas estão conversando.
+
+Cada Círculo é independente: tem seu check-in diário, suas cartas, seu arquivo.
+Você visita um de cada vez. Quando termina de ler o que aconteceu naquele Círculo
+desde sua última visita, a tela mostra: "Você está em dia aqui." Você pode:
+
+- Ir para outro Círculo
+- Reler cartas antigas (o arquivo)
+- Sair do app
+
+O que você **não** pode: scrollar infinitamente por "mais conteúdo". Não existe
+"mais conteúdo". Existe o que as pessoas que você ama produziram. Só isso.
+
+### Não É Infinito — Mas E Se Eu Quiser Mais?
+
+A pergunta "e se eu quiser mais?" esconde outra pergunta: "mais o quê?"
+
+**Mais quantidade?** Não tem. Você leu tudo que seus Círculos produziram. Acabou.
+O app não fabrica "conteúdo relacionado", não sugere "pessoas que você talvez
+conheça", não preenche o vazio com anúncios. O vazio é real — e é seu.
+
+**Mais profundidade?** Tem. Cada Círculo tem um arquivo. Cartas de 2 anos atrás.
+Check-ins de quando algo importante aconteceu. Você pode entrar no arquivo e ler
+o que seu pai escreveu no dia em que sua filha nasceu. O "mais" é para dentro, não
+para frente.
+
+**Mais Círculos?** Tem. Você pode estar em até 7 Círculos. Cada um com no máximo
+12 pessoas. 7 × 12 = 84 pessoas. Isso é mais do que Dunbar sugere como limite
+cognitivo para relações significativas.
+
+### A Regra de Ouro: O Que Entra, Como Entra, Até Onde Vai
+
+Tudo que você compartilha no Terraço obedece a uma regra:
+
+> **Tudo tem destinatário explícito e limite de propagação.**
+
+- Um Check-in vai para **1 Círculo**. Fica visível para **no máximo 12 pessoas**.
+- Uma Presença vai para **1 autor**. Visível para o autor e para quem mais esteve
+  presente naquela Carta.
+- Uma Carta vai para **1 Círculo**. Pode ser respondida com Presença ou outra
+  Carta. Nenhuma Carta "escapa" do Círculo para onde foi escrita.
+- Um Toque (urgência) vai para **1 Círculo**. 3 por mês. Imediato.
+
+Não existe "compartilhar com todos os meus Círculos". Não existe "encaminhar".
+Não existe "tornar público". Se você quer contar algo para outro Círculo, você
+**re-escreve** — porque contar a mesma história para públicos diferentes é um ato
+diferente.
+
+**A restrição de propagação é a restrição fundamental do Terraço.** Assim como os
+140 caracteres definiram o Twitter, o "isto só chega até as 12 pessoas deste
+Círculo" define o Terraço.
+
+### O Que as Pessoas Buscam Numa Rede Social — E o Que Encontram
+
+Os 125 loops identificaram padrões claros. As pessoas **buscam**:
+
+1. **Ser vistas** — "eu existo, alguém me nota?" (Arendt L102: "aparecer uns aos
+   outros")
+2. **Pertencer** — "eu não estou sozinho, tem gente que se importa" (L37: amor
+   como fundamento da atenção)
+3. **Se expressar** — "isto é quem eu sou, isto é o que importa para mim" (Weil
+   L09: o eu que quer ser algo)
+4. **Se distrair** — "estou entediado, cansado, quero uma pausa" (Gambiarra L11:
+   as pessoas abrem o app por hábito, tédio, solidão)
+
+O feed **entrega** uma versão intoxicada de cada uma:
+
+1. Ser visto → **métricas** (likes, seguidores — um número, não uma pessoa)
+2. Pertencer → **pseudo-amor** (notificações que parecem afeto mas são estímulo
+   dopaminérgico)
+3. Se expressar → **performance** (você vira conteúdo, o algoritmo vira plateia)
+4. Se distrair → **captura** (a distração vira vício, o hábito vira compulsão)
+
+O Terraço **entrega** a versão não-intoxicada:
+
+1. Check-ins e Presenças → **nomes, não números**. Clara esteve aqui. Seu pai
+   respondeu "arroz com ovo". Você é visto por **quem te conhece**
+2. Cartas → **destinatário real**. Você não escreve para "a rede" — escreve para
+   as 8 pessoas do seu Círculo de família
+3. Arquivo → **memória, não performance**. O que você escreveu fica, mas não para
+   ser "viral" — para ser relido por quem importa
+4. Silêncio → **fim real**. Quando acabou, acabou. O tédio não é preenchido pelo
+   app — é devolvido para você
+
+---
+
+## 4. Ataque Real: O Que Quebra Se Buildarmos Isso Amanhã
 
 Antes de dizer o que a rede não é, preciso ser brutal com o que ela **não
 sobreviveria**. Não são contradições filosóficas — são os 7 golpes que matariam o
