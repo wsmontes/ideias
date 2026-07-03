@@ -56,7 +56,9 @@ Os animais NÃO USAM feeds. Mas a economia da atenção os AFETA:
 
 ## 3. O Que o Animal Ensina Sobre a Atenção Humana
 
-**1. A atenção NÃO É pensamento.** O cão não "pensa" sobre o cheiro — ele SEGUE o cheiro. A atenção animal é PRÉ-REFLEXIVA. Não há "eu" que presta atenção — há só o fluxo da atenção no mundo. O feed nos INTELLECTUALIZOU — até o scroll é uma atividade mental ("o que eu acho disso?", "como vou responder?"). A atenção animal é mais CORPORAL, mais DIRETA.
+**1. A atenção NÃO É pensamento.** O cão não "pensa" sobre o cheiro — ele SEGUE o cheiro. A atenção animal é PRÉ-REFLEXIVA. Jakob von Uexküll (1864-1944), biólogo estoniano-alemão, formulou o conceito de **Umwelt** — o mundo subjetivo, estruturado por significado, de cada organismo. Cada animal tem sua *Merkwelt* (mundo perceptivo — o que ele PERCEBE) e sua *Wirkwelt* (mundo de ação — o que ele PODE FAZER), unidas no "ciclo funcional" (Funktionskreis). O carrapato, exemplo célebre de Uexküll, percebe apenas três signos: o ácido butírico (cheiro do mamífero), o calor corporal e a textura da pele. Fora disso, NADA existe. Sua atenção é um universo de 3 signos. O feed nos EXPANDE para milhares de signos por minuto — mas será que isso é melhor? A atenção animal é mais CORPORAL, mais DIRETA, mais ADEQUADA ao seu mundo. A nossa é inflada, dispersa, intoxicada.
+
+Pesquisa contemporânea em zoosemiótica (Siiri Tarrikas, 2024, *Biosemiotics*; Tarrikas & Mäekivi, 2026, *Semiotica*) avança essa tradição: a atenção animal é "ecosemiotic scaffolding" — um sistema dinâmico que integra estados internos, pistas perceptivas, esquemas aprendidos e affordances ambientais. É uma "pequena bolha dinâmica dentro da grande bolha do Umwelt."
 
 **2. A atenção NÃO É produtiva.** O gato não "produz" nada quando fica olhando pela janela por 2 horas. Sua atenção é CONTEMPLATIVA sem ser "espiritual." É simplesmente ESTAR. Os humanos perderam essa capacidade — toda atenção precisa ter "propósito."
 
