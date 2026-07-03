@@ -20,7 +20,7 @@ O Loop 14 foi sobre beleza. Mas:
 
 ## 1. Huizinga: O Que É o Jogo?
 
-Em *Homo Ludens* (1938), Huizinga define o jogo por 5 características:
+Em *Homo Ludens* (1938, publicado às vésperas da Segunda Guerra — Huizinga escreveu parcialmente como posicionamento político CONTRA o totalitarismo), Huizinga define o jogo como "a free activity standing quite consciously outside 'ordinary' life as being 'not serious,' but at the same time absorbing the player intensely and utterly" (p. 13, ed. 1955). O jogo tem 5 características. Huizinga também introduz o conceito de **puerilismo** — a contaminação entre jogo e seriedade que ele via como "the evil of our time": jogos tratados com seriedade excessiva (esportes profissionais) OU assuntos sérios tratados como jogo (belicismo). A gamificação do feed É puerilismo — não é jogo verdadeiro nem trabalho honesto, mas uma fusão corrosiva dos dois. Características do jogo:
 
 **1. O jogo é LIVRE.** Ninguém é obrigado a jogar. O jogo é voluntário por definição. Se você é forçado, não é mais jogo — é trabalho ou coerção.
 
@@ -122,7 +122,7 @@ A atenção como TRABALHO é o feed (você produz valor para a plataforma). A at
 
 ## 6. Autocrítica Rápida
 
-**1. Huizinga escreveu em 1938.** Jogos digitais, gamificação, esports — nada disso existia. Usar Huizinga para criticar o feed é um anacronismo que funciona, mas que precisa de cuidado.
+**1. Huizinga escreveu em 1938.** Jogos digitais, gamificação, esports — nada disso existia. O conceito de "círculo mágico" foi estendido depois por Salen & Zimmerman (*Rules of Play*, 2003) e Erving Goffman. Roger Caillois (*Man, Play and Games*, 1958) refinou a tipologia: *agon* (competição), *alea* (sorte), *mimicry* (simulação), *ilinx* (vertigem). Usar Huizinga para criticar o feed é um anacronismo que funciona, mas que precisa de cuidado.
 
 **2. "Jogo" pode ser escapismo.** "Vamos jogar enquanto o mundo queima." O jogo como FUGA, não como resistência. Em tempos de crise, propor o jogo como solução pode ser obsceno.
 
@@ -131,3 +131,10 @@ A atenção como TRABALHO é o feed (você produz valor para a plataforma). A at
 ---
 
 *Fim do Loop 15. Quinze loops. O lúdico finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 15.** Pesquisa web verificou e expandiu:
+- Huizinga: definição completa do jogo (p. 13, ed. 1955), puerilismo como "the evil of our time" (gamificação = puerilismo), contexto político (escrito contra o totalitarismo em 1938), spoilsport vs cheater
+- Extensões: Salen & Zimmerman (*Rules of Play*, 2003), Goffman (membrana conceitual), Caillois (*Man, Play and Games*, 1958 — agon/alea/mimicry/ilinx)
