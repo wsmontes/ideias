@@ -404,23 +404,23 @@ armadilha.
 A rede não é um feed — é uma **constelação de círculos**:
 
 ```
-┌─────────────────────────────────────────────┐
-│                  SEU JARDIM                  │
-│                                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
-│  │ Círculo  │  │ Círculo  │  │ Círculo  │  │
-│  │ Família  │  │ Trabalho │  │ Amigos   │  │
-│  │  (8)p    │  │  (15)p   │  │  (12)p   │  │
-│  └──────────┘  └──────────┘  └──────────┘  │
-│                                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
-│  │Torreio   │  │ Círculo  │  │ Silêncio │  │
-│  │ Atenção  │  │Estranhos │  │  (hoje)  │  │
-│  │ (3 dias) │  │ (mensal) │  │          │  │
-│  └──────────┘  └──────────┘  └──────────┘  │
-│                                             │
-│         "Você leu tudo. Quer uma pausa?"       │
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│                     SEU JARDIM                           │
+│                                                         │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐              │
+│  │ Círculo  │  │ Círculo  │  │ Círculo  │              │
+│  │ Família  │  │ Amigos   │  │Terreiro  │   ...até 7   │
+│  │  (8)p    │  │  (12)p   │  │  (6)p    │              │
+│  └──────────┘  └──────────┘  └──────────┘              │
+│                                                         │
+│  ┌──────────────────────────────────────────────────┐   │
+│  │                    PRAÇA                          │   │
+│  │  Cartas Públicas · Check-in da Cidade · Círculos  │   │
+│  │  Abertos · (visita máx. 15 min)                   │   │
+│  └──────────────────────────────────────────────────┘   │
+│                                                         │
+│           "Você está em dia aqui."                       │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ### O Ritmo
@@ -554,7 +554,7 @@ A restrição não é "pouco texto" — é **"poucas pessoas"**. Isso muda tudo:
 - A pergunta não é "isto vai viralizar?" — é "isto importa para as 8 pessoas que
   vão ler?"
 
-### O Que Você Compartilha (3 Formatos, Só Isso)
+### O Que Você Compartilha (4 Formatos)
 
 **Check-in diário.** Todo dia de manhã, cada Círculo recebe uma pergunta. "O que
 você está carregando hoje?" "Que som te acordou?" Você responde em uma frase. Ou
@@ -568,11 +568,18 @@ Reconhecimento sem extração. O "eu te vi" que o like promete e não entrega.
 **Carta.** O formato principal. Você escreve para seu Círculo. Tem começo, meio e
 fim. Pode ser uma memória, uma ideia, uma pergunta, um desabafo. Não tem
 comentário infinito — cada resposta é outra Carta, ou uma Presença. Cartas não
-"engajam" — elas **chegam**. No digest da manhã, tarde ou noite, junto com as
-outras cartas do seu Círculo.
+"engajam" — elas **chegam**.
 
-Só isso. Três formatos. Nenhum deles é um post. Nenhum tem métrica pública.
-Nenhum é efêmero (stories) nem eterno (feed infinito).
+**Carta Pública.** A exceção consciente. O autor escolhe explicitamente tornar uma
+Carta visível na **Praça** — o único espaço público do Terraço. Não é "post
+público" por default. É uma decisão: "isto que escrevi para meus amigos talvez
+Sirva para outros." Cartas Públicas permitem que pessoas se encontrem, descubram
+novos Círculos, tragam o Outro para dentro. Mas a conversa que começa na Praça
+**não fica na Praça** — ela migra para dentro de um Círculo.
+
+Quatro formatos. Nenhum deles é um post. Nenhum tem métrica pública.
+Nada é público por default — o movimento de se tornar visível além do Círculo é
+sempre uma **escolha ativa do autor**.
 
 ### Não É Feed — É Uma Constelação de Salas
 
@@ -626,8 +633,9 @@ Não existe "tornar público". Se você quer contar algo para outro Círculo, vo
 diferente.
 
 **A restrição de propagação é a restrição fundamental do Terraço.** Assim como os
-140 caracteres definiram o Twitter, o "isto só chega até as 12 pessoas deste
-Círculo" define o Terraço.
+140 caracteres definiram o Twitter, o "isto só chega até estas pessoas" define o
+Terraço. A Carta Pública é a única exceção — e é sempre uma **decisão ativa**,
+nunca um default.
 
 ### O Que as Pessoas Buscam Numa Rede Social — E o Que Encontram
 
@@ -944,7 +952,93 @@ O Terraço não pode viver só de Natal. Precisa de terça-feira.
 
 ---
 
-## 6. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 6. Quarto Ataque: A Rede Congela — Não Tem Descoberta
+
+Os entregáveis definiram uma regra de ouro: nada escapa do Círculo. Toda Carta,
+todo Check-in, toda Presença — endereçado a no máximo 12 pessoas. Isso resolve o
+problema da performance (você não está "postando para o mundo") e da extração
+(não há feed público para o algoritmo monetizar).
+
+Mas cria um problema novo e talvez pior: **a rede é estática.** No dia 1, você
+convida as pessoas que já conhece. Depois disso, como alguém novo entra na sua
+vida?
+
+Redes sociais saudáveis têm **laços fracos** (Granovetter, 1973): o amigo do
+amigo, o colega do trabalho antigo, a pessoa que você encontrou num evento. São
+esses laços que trazem diversidade, oportunidade, informação nova. Os laços fortes
+(sua família, seus melhores amigos) são essenciais — mas são uma bolha. Os laços
+fracos conectam bolhas.
+
+O Terraço elimina os laços fracos. Você só interage com quem já está nos seus
+Círculos. Não há "amigo do amigo". Não há "pessoa que você talvez conheça". Não
+há encontro com o Outro (princípio 11) — exceto no Círculo de Estranhos mensal,
+que é artificial e opt-in.
+
+**Uma rede sem descoberta é um álbum de fotos compartilhado.** Bonito, útil, mas
+não é uma rede — é um arquivo familiar.
+
+### O Que as Pessoas Também Buscam: Novidade
+
+Os 125 loops identificaram 4 buscas (seção 3). Mas há uma quinta que ficou de
+fora: **novidade**. As pessoas abrem redes sociais para descobrir: uma ideia que
+não tiveram, uma pessoa que não conheciam, um mundo que não sabiam que existia.
+
+O feed entrega novidade intoxicada: viral, descontextualizada, schizophônica
+(L02). Mas **entrega**. O Terraço resolve a intoxicação removendo a novidade. Isso
+é como resolver o problema do açúcar proibindo toda comida que tem gosto bom.
+
+### Síntese do Ciclo 6: A Praça — O Espaço Público Que Não É Feed
+
+O Terraço precisa de um espaço de **descoberta** que não seja um feed de
+**extração**. A diferença:
+
+- **Feed**: você scrolla passivamente por conteúdo que um algoritmo escolheu para
+  maximizar seu "tempo de sessão". Você é consumidor. O conteúdo é mercadoria.
+- **Praça**: você entra voluntariamente num espaço onde **pessoas aparecem**, não
+  onde **conteúdo é entregue**. Você é participante. O que acontece é encontro.
+
+A Praça é o único espaço "público" do Terraço — e tem regras diferentes de tudo
+mais:
+
+**O que acontece na Praça:**
+- **Cartas Públicas**: uma Carta que o autor escolheu explicitamente tornar
+  visível além do seu Círculo. Não é "post público" por default — é uma exceção
+  consciente. "Isto que escrevi para meus amigos talvez sirva para outros."
+- **Círculos Abertos**: círculos que aceitam novos membros. Você vê o nome, o
+  propósito, quantas pessoas têm, e uma Carta Pública de exemplo. Pede para
+  entrar. Alguém do Círculo precisa aceitar.
+- **Check-ins da Cidade**: uma vez por dia, uma pergunta aparece na Praça.
+  Diferente do check-in dos Círculos (que é privado), este é público e anônimo? Não.
+  Público e **assinado** — mas efêmero. Some em 24 horas. "O que você faria se
+  não tivesse medo?" As respostas são visíveis para todos, mas desaparecem.
+
+**O que NÃO acontece na Praça:**
+- Não tem algoritmo. A ordem é: Cartas Públicas mais recentes primeiro. Check-ins
+  da Cidade mais respondidos primeiro. Filtros: "Cartas de hoje", "Check-in do
+  dia", "Círculos Abertos".
+- Não tem "permanência". A Praça tem **duração de visita**: 15 minutos. Depois
+  disso: "Você está na Praça há 15 minutos. Quer continuar ou voltar para seus
+  Círculos?" A Praça é um lugar de passagem, não de permanência.
+- Não tem like, não tem número, não tem "engajamento". Você lê uma Carta Pública.
+  Se algo te tocou, você pode **responder com uma Carta** — que aparece no
+  Círculo do autor, não na Praça. A conversa começa na Praça e **vai para dentro**.
+
+**A regra de ouro atualizada:**
+
+> Tudo tem destinatário explícito e limite de propagação — **exceto quando o autor
+> escolhe explicitamente tornar público.**
+
+A diferença é o **consentimento ativo**. No feed, tudo é público por default. No
+Terraço, tudo é privado por default — e o movimento de tornar público é uma
+**decisão**, não um acidente.
+
+A Praça resolve a descoberta sem criar um feed. É um espaço público **com porta**.
+Você entra, encontra, e sai. O que encontrou de valioso, leva para dentro dos seus
+Círculos.
+
+---
+
+## 7. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
