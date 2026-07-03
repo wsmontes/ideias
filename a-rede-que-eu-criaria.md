@@ -425,27 +425,34 @@ A rede não é um feed — é uma **constelação de círculos**:
 
 ### O Ritmo
 
-O Terraço não é onde você se comunica — é onde você ritualiza. A comunicação
-rápida ("me busca na escola?", "olha essa foto!") continua no WhatsApp. O
-Terraço é para o que merece mais que 10 segundos.
+O Terraço opera em três frequências:
+
+**Diária — o Check-in.** Uma vez por dia, às 9h, cada Círculo te faz uma pergunta
+simples. "O que você comeu ontem que estava gostoso?" "Que música grudou na sua
+cabeça?" "Para onde você olhou hoje?" Você responde se quiser — uma frase, duas,
+um emoji. Todo mundo no Círculo vê as respostas. É o "bom dia" que mantém o
+Círculo respirando entre os momentos maiores. Baixa voltagem. Alta frequência.
+
+**Semanal — as Cartas.** Três vezes por semana (manhã, tarde, noite), o digest
+traz as Cartas que seu Círculo produziu. Você lê com calma. Responde com Presença
+("eu te vi") ou com outra Carta ("isto que você escreveu me fez pensar em...").
+
+**Mensal — os Círculos Mágicos.** Torneios, Caças ao Tesouro, Jogos do Silêncio.
+Eventos com data marcada, duração definida, fim explícito.
 
 ```
-MANHÃ (7h-9h)     TARDE (13h-14h)      NOITE (18h-20h)
-     │                   │                    │
-     ▼                   ▼                    ▼
-  Digest do dia     Respostas às        Cartas longas
-  (o que seus       cartas da manhã     (você escreve
-  círculos                             para quem ama)
-  produziram)
+DIÁRIO (9h)           3x/SEMANA (digest)      MENSAL (eventos)
+     │                       │                      │
+     ▼                       ▼                      ▼
+  Check-in do          Cartas e Respostas     Círculos Mágicos
+  Círculo              (manhã/tarde/noite)    (data marcada,
+  (uma pergunta,                             inscrição voluntária)
+   resposta leve)
 ```
 
-Fora desses horários: o app **não notifica**. Você pode abri-lo, mas ele não te
-chama. A urgência da vida cotidiana corre em outro canal.
-
-**Exceção: o Toque.** Cada Círculo tem 3 Toques por mês. Um Toque fura o digest
-e notifica imediatamente. É para quando a logística precisa furar o ritual: "mãe
-no hospital", "alguém pode buscar as crianças". 3 por mês é escasso o suficiente
-para não ser abusado. Toques não usados expiram — não acumulam. Para todo o resto,
+**Exceção: o Toque.** Cada Círculo tem 3 Toques por mês. Um Toque fura qualquer
+frequência e notifica imediatamente. É para quando a logística precisa furar o
+ritual. 3 por mês é escasso o suficiente para não ser abusado. Para todo o resto,
 existe o WhatsApp.
 
 ### A Jornada do Usuário
@@ -455,20 +462,25 @@ existe o WhatsApp.
    pessoas — não para substituir o grupo de WhatsApp, mas para ter um espaço onde
    a conversa não é logística. O Círculo tem um **propósito**: "Família — o que
    importa", "Amigos — o que nos marcou", "Terreiro — o que o axé trouxe"
-2. **Presença**: você escreve sua primeira carta. Não é um post — é uma carta.
-   Endereçada ao seu Círculo. Tem começo, meio e fim. As pessoas respondem com
-   outras cartas. Não há "thread" infinita — cada carta é um objeto completo
-3. **Jogo**: você se inscreve no Torneio de Atenção. 7 dias, 3 sessões de 15
+2. **Cotidianidade**: todo dia de manhã, o check-in. "O que você está levando
+   para o almoço?" Seu pai responde "arroz com ovo". Sua irmã responde
+   "sanduíche". Sua mãe manda um emoji de alface. Não é profundo — é **vida**. É
+   como você sabe que eles estão lá. O Círculo respira
+3. **Ritual**: você escreve sua primeira carta. Não é um post — é uma carta.
+   Endereçada ao seu Círculo. Tem começo, meio e fim. Pode ter sido provocada por
+   algo que alguém disse no check-in de terça. As pessoas respondem com Presença
+   ("eu te vi") ou com outras Cartas
+4. **Jogo**: você se inscreve no Torneio de Atenção. 7 dias, 3 sessões de 15
    minutos, 5 leituras profundas, 1 resposta. Você conhece pessoas de outros
    círculos. Quando o torneio acaba, você sente que **viveu** algo
-4. **Silêncio**: um domingo por mês, o app não abre. Você caminha sem fones. Come
-   em silêncio. Sente seu corpo. Na segunda-feira, você escreve: "O que eu ouvi
-   no silêncio?"
-5. **Governo**: a cada trimestre, a comunidade vota. Quais features ficam? Quais
-   saem? O algoritmo de descoberta está nos unindo ou nos separando? Você não é
-   "usuário" — é **membro-proprietário**
-6. **Partida**: se um dia você quiser sair, exporta tudo. Suas cartas, seus
-   círculos, seus silêncios — tudo em markdown. A rede não te prende. Ela te
+5. **Silêncio**: um domingo por mês, o app sugere não abrir. Você caminha sem
+   fones. Come em silêncio. Sente seu corpo. Na segunda-feira, o check-in
+   pergunta: "O que você ouviu no silêncio?"
+6. **Governo**: a cada trimestre, a comunidade vota. Quais features ficam? Quais
+   saem? As perguntas do check-in estão funcionando? Você não é "usuário" — é
+   **membro-proprietário**
+7. **Partida**: se um dia você quiser sair, exporta tudo. Suas cartas, seus
+   check-ins, seus silêncios — tudo em markdown. A rede não te prende. Ela te
    agradece e te diz: "Vá viver."
 
 ### Conflito e Reparo: O Que Acontece Quando Dá Errado
@@ -730,7 +742,76 @@ existem.
 
 ---
 
-## 5. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 5. Terceiro Ataque: O Problema da Frequência
+
+O ciclo 3 posicionou o Terraço como "camada de ritual": WhatsApp para a logística
+do dia a dia, Terraço para o que importa. Mas ritual é **baixa frequência por
+natureza**.
+
+A missa é uma vez por semana. O Shabbat é uma vez por semana. O jantar de família
+é uma vez por semana — se tanto. As pessoas não ritualizam todo dia. Quando
+ritualizam, é em momentos especiais: um aniversário, uma conquista, uma perda, uma
+data que importa.
+
+Um produto que só é usado em momentos especiais é um produto que **some da mente
+do usuário**. Você esquece que ele existe. Quando finalmente acontece algo que
+merece uma Carta, você não pensa "vou abrir o Terraço" — você pensa "vou mandar
+uma mensagem no WhatsApp" porque é o que está na sua memória muscular.
+
+### O Paradoxo do Conteúdo Significativo
+
+Se cada interação no Terraço precisa ser significativa, as pessoas **não terão
+nada a dizer**. Significado é escasso por definição. A maioria da vida humana é
+mundana — e é no mundano que as relações acontecem.
+
+O grupo de WhatsApp da família é 90% "bom dia" com sticker de café, foto do gato,
+"alguém viu meu carregador?". Isso não é "superficial" — é **a textura da
+intimidade**. É como você sabe que as pessoas estão vivas, presentes, se importando.
+Remova o mundano e você fica com uma sala vazia onde as pessoas sentem que **só
+podem entrar quando tiverem algo profundo a dizer**.
+
+O Terraço corre o risco de virar a sala de jantar que só é usada no Natal:
+impecável, especial, e vazia 364 dias por ano.
+
+### Síntese do Ciclo 4: O Terraço Precisa de um Cotidiano
+
+A distinção entre "comunicação" (WhatsApp) e "ritual" (Terraço) é útil, mas
+precisa de uma terceira camada: **o cotidiano**. Algo que não é nem logística nem
+carta profunda — é **presença leve**. O equivalente digital de "bom dia" com um
+sticker de café.
+
+A Presença (princípio 3) já é uma tentativa disso — o toque rápido que diz "eu te
+vi". Mas talvez precise de mais. Algo que:
+
+- Não exige articulação (você não precisa formular uma frase)
+- Não é anônimo (quem esteve aqui tem nome)
+- É frequente o suficiente para manter o hábito (uma vez por dia)
+- Não vicia (não tem "streak", não tem número, não tem recompensa variável)
+
+**O que é o "bom dia" do Terraço?**
+
+Uma vez por dia, cada Círculo que você faz parte te mostra uma **pergunta**.
+Simples, concreta, sem pretensão:
+
+- "O que você comeu hoje que estava gostoso?"
+- "Que música tocou na sua cabeça esta manhã?"
+- "Olhou para o céu hoje? Como estava?"
+- "O que seu corpo está sentindo agora?"
+
+Você responde, se quiser. Uma frase. Duas. Pode ser um emoji — mas **não anônimo**.
+Todo mundo no Círculo vê as respostas. Não há "certo", não há "profundo". É o
+**check-in diário**: um ritual de baixa intensidade que mantém o Círculo vivo
+entre as Cartas.
+
+Isso não é o feed — não tem algoritmo, não tem infinite scroll, não tem
+engajamento como métrica. É um **ritual cotidiano de baixa voltagem**. Como acender
+uma vela. Como dar bom dia para quem mora com você. Como regar uma planta.
+
+O Terraço não pode viver só de Natal. Precisa de terça-feira.
+
+---
+
+## 6. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
