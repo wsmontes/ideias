@@ -20,15 +20,15 @@ O Loop 17 deu práticas. Mas:
 
 ## 1. O Que É Axé?
 
-**Axé** (do iorubá àṣẹ) é a força vital que circula. Não é uma "energia" abstrata — é um PODER DE REALIZAÇÃO que se acumula, se transmite, se gasta e se renova.
+**Axé** (do iorubá àṣẹ) é a força vital que circula. Não é uma "energia" abstrata — é um PODER DE REALIZAÇÃO que se acumula, se transmite, se gasta e se renova. A cosmologia nagô descreve uma *creatio ex materia*: o axé não é criado do nada — ele se DIFERENCIA de uma substância divina preexistente (ar, água, lama). Como argumenta José Eduardo Porcher (2026, *Sophia*), o Candomblé opera por "graded immanence" — entidades participam do axé em diferentes intensidades, não em níveis ontológicos separados. O cosmos é dual: *aiyê* (mundo físico) e *órum* (mundo espiritual), mas não são opostos — são contínuos. A matéria NÃO se opõe ao espírito: é seu meio. Ferramentas de ferro enferrujadas têm MAIS axé porque carregam mais energia do orixá (Marques, 2023).
 
-> "Axé é o poder de fazer as coisas acontecerem." (Juana Elbein dos Santos, *Os Nagô e a Morte*)
+> "Axé é o poder de fazer as coisas acontecerem." (Juana Elbein dos Santos, *Os Nagô e a Morte*, 1976 — texto fundacional da cosmogonia nagô no Brasil)
 
-O axé:
+Hannah Lesshafft (2017, *Circles of Care*, tese de doutorado, Universidade de Edinburgh) mostra que "the circulation of axé and cuidado (care) between humans and gods (orixás) is an essential part of Candomblé healing." O cuidado é fundamental para cultivar axé. O axé:
 - **Circula**: não pertence a ninguém — ele PASSA. Entre pessoas, objetos, ancestrais, orixás. Você não "tem" axé — você o RECEBE e o TRANSMITE.
-- **Se acumula**: em lugares (o terreiro, o assentamento), em objetos (as pedras, os otás), em pessoas (o iniciado, a mãe-de-santo), em momentos (a festa, o ritual).
+- **Se acumula**: em lugares (o terreiro, o assentamento), em objetos (as pedras, os otás, os ferros — "assentamentos" que Capponi (2019) descreve como "cyborg gods": artefatos feitos por humanos para condensar e manipular axé), em pessoas (o iniciado, a mãe-de-santo), em momentos (a festa, o ritual).
 - **Se gasta**: toda atividade consome axé. Falar gasta axé. Cantar gasta axé. Dançar gasta axé. Viver gasta axé.
-- **Se renova**: o axé se repõe através do RITUAL. A oferenda (ebó) repõe o axé. O toque (a festa com atabaques) repõe o axé. O transe repõe o axé. A comunidade reunida repõe o axé.
+- **Se renova**: o axé se repõe através do RITUAL. A oferenda (ebó) repõe o axé. O toque (a festa com atabaques) repõe o axé. O transe repõe o axé. A comunidade reunida repõe o axé. O *bori* (alimentar a cabeça) estabelece "actions of cooperation and solidarity" que mantêm a circulação do axé.
 
 ### Axé e Atenção:
 
@@ -131,3 +131,13 @@ Exu é o mensageiro, o senhor dos caminhos, o princípio dinâmico. Sua atençã
 ---
 
 *Fim do Loop 18. Dezoito loops. O axé finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 18.** Pesquisa web adicionou referências acadêmicas sobre Candomblé e axé:
+- Juana Elbein dos Santos — *Os Nagô e a Morte* (1976): texto fundacional da cosmogonia nagô no Brasil, creatio ex materia
+- José Eduardo Porcher (2026, *Sophia*): "entitology", graded immanence, crítica ao enquadramento monoteísta, aiyê/órum
+- Hannah Lesshafft (2017, U. Edinburgh): "Circles of Care" — circulação de axé e cuidado entre humanos e orixás
+- Giovanna Capponi (2019): assentamentos como "cyborg gods", condensação material de axé
+- Marques (2023): ferros enferrujados = mais axé
