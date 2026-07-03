@@ -36,7 +36,7 @@ A dor É um mecanismo de atenção: ela te DIZ que algo está errado e te OBRIGA
 
 ## 2. Elaine Scarry: A Dor Destrói o Mundo
 
-Em *The Body in Pain* (1985), Elaine Scarry (a mesma do L14 — beleza) argumenta que a dor intensa DESTRÓI o mundo:
+Em *The Body in Pain: The Making and Unmaking of the World* (Oxford UP, 1985), Elaine Scarry (a mesma do L14 — beleza) argumenta que a dor intensa DESTRÓI o mundo. O livro examina não só a dor física mas também a tortura e a guerra como "unmaking of the world" — a destruição deliberada do mundo compartilhado de outra pessoa:
 
 > "A dor física não simplesmente resiste à linguagem — ela a destrói ativamente."
 
@@ -54,7 +54,7 @@ A dor:
 
 ## 3. A Spoon Theory e a Economia da Atenção
 
-A **spoon theory** (Christine Miserandino, 2003) é uma metáfora usada por pessoas com doenças crônicas: você tem um número limitado de "colheres" (spoons) de energia por dia. Cada atividade (levantar, tomar banho, trabalhar, responder mensagens) GASTA colheres. Quando as colheres acabam, ACABOU. Você não tem mais energia para nada.
+A **spoon theory** (Christine Miserandino, 2003, originalmente publicada em seu blog *But You Don't Look Sick*) é uma metáfora usada por pessoas com doenças crônicas — Miserandino, que tem lúpus, criou-a explicando a uma amiga num restaurante, usando colheres como unidade de energia: você tem um número limitado de "colheres" (spoons) de energia por dia. Cada atividade (levantar, tomar banho, trabalhar, responder mensagens) GASTA colheres. Quando as colheres acabam, ACABOU. Você não tem mais energia para nada.
 
 **Spoon theory da atenção:**
 - Você tem um número limitado de "colheres atencionais" por dia.
