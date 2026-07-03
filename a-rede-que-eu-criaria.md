@@ -27,6 +27,13 @@ A rede que eu criaria não começa perguntando "como protegemos os usuários do
 algoritmo?" — começa perguntando **"que tipo de pessoa queremos nos tornar quando
 estamos juntos?"**
 
+E começa com uma honestidade brutal sobre o que ela **não** é: o Terraço não cria
+comunidade — ele serve comunidades que **já existem**. Famílias que já se amam.
+Amigos que já se encontram. Grupos que já têm terreiro, praça, igreja, quintal. O
+app não substitui o espaço físico — ele é uma extensão digital que não envenena o
+que o físico construiu. Isso resolve o cold start: você não "convence" ninguém a
+entrar — você convida pessoas com quem você já convive offline.
+
 Há uma segunda pergunta, mais antiga e mais perigosa, que também precisa ser feita:
 **"O que você ama?"** Porque você só presta atenção verdadeira ao que ama. Trinta
 e sete loops se passaram até alguém escrever a palavra "amor" no centro de um
@@ -93,10 +100,15 @@ Recuperar a atenção começa por recuperar o corpo.
 > "Attention is the rarest and purest form of generosity." — Simone Weil
 
 Não há likes. Não há números. Não há seguidores (você vê pessoas, não cardinalidades).
-O que existe é o **presente**: um gesto assinado, concreto, custoso.
+O que existe é o **presente** e a **presença**:
 
-- Para "curtir" algo, você escreve pelo menos uma frase dizendo **por que**
-  aquilo te tocou. Não é like — é **carta**
+- **Presença** (o gesto rápido): você toca numa carta e ela registra que você
+  esteve ali. Não é um número — o autor vê **quem** esteve, não **quantos**. "Wagner,
+  Clara e Pedro estiveram aqui." É reconhecimento sem ser extração. É o "eu te vi"
+  que o like promete e não entrega
+- **Carta** (o gesto profundo): você escreve pelo menos uma frase dizendo **por
+  que** aquilo te tocou. É assinada, concreta, custosa. Não substitui a Presença —
+  é outra coisa. A Presença é o aceno; a Carta é o abraço
 - Uma vez por semana, você vê: "Você deu 3h42min de atenção a @alice esta semana.
   Ela te deu 2h15min." Não é métrica de engagement — é **registro de generosidade**
 - Presentes são **não-acumuláveis** — você não "coleciona" cartas, você as recebe
@@ -176,15 +188,19 @@ popup irritante — deveria ser o peso de uma porta de catedral.
 A rede **termina**. Não há infinite scroll. Não há "você pode gostar destes
 tópicos relacionados". Você leu o que tinha para ler e a tela diz:
 
-> "Acabou. Vá viver."
+> "Você leu tudo que seus círculos compartilharam. Seu corpo está aqui há 45
+> minutos. Quer continuar ou prefere uma pausa?"
+
+A decisão é sua. A fricção informa — não decide. O app não é seu pai nem seu
+terapeuta. Ele te mostra o que você fez e pergunta o que você quer fazer agora.
 
 - O app celebra seus silêncios: "Você ficou 4 dias sem postar. Isso não é
   'inatividade' — é silêncio. Bem-vinda de volta, se quiser. Se não quiser, o
   silêncio continua aqui."
-- Uma vez por mês: **Dia de Silêncio**. O app não abre. O ícone fica cinza. A
-  única notificação do dia: "Hoje é dia de silêncio. O que você ouviu?"
-- **Comer em silêncio** — o app sugere: uma refeição por semana sem telefone,
-  sem música, sem conversa. Só você, a comida e o silêncio
+- Uma vez por mês: **Dia de Silêncio**. O app sugere não abrir. O ícone fica
+  cinza. Mas você **pode** abrir se precisar — ele não te bloqueia. A única
+  notificação do dia: "Hoje é dia de silêncio. O que você ouviu? (Se precisar
+  entrar, entre. O silêncio não é prisão.)"
 
 **Por que isso importa:** O feed preenche todo silêncio porque no silêncio você
 pensaria, sentiria, agiria. O silêncio é onde a liberdade acontece. Uma rede que
@@ -398,7 +414,7 @@ A rede não é um feed — é uma **constelação de círculos**:
 │  │ (3 dias) │  │ (mensal) │  │          │  │
 │  └──────────┘  └──────────┘  └──────────┘  │
 │                                             │
-│         "Acabou. Vá viver."                 │
+│         "Você leu tudo. Quer uma pausa?"       │
 └─────────────────────────────────────────────┘
 ```
 
@@ -416,6 +432,13 @@ MANHÃ (7h-9h)     TARDE (13h-14h)      NOITE (18h-20h)
 
 Fora desses horários: o app **não notifica**. Você pode abri-lo, mas ele não te
 chama.
+
+**Exceção: o Toque.** Cada Círculo tem 3 Toques por mês. Um Toque é um sinal de
+urgência real: "mãe no hospital", "alguém pode buscar as crianças", "preciso de
+vocês agora". Ele fura o digest e notifica todo mundo do Círculo imediatamente.
+3 por mês é escasso o suficiente para não ser abusado ("urgente: olha esse
+meme") e suficiente para emergências reais. Toques não usados expiram — não
+acumulam. A escassez é a proteção contra o abuso.
 
 ### A Jornada do Usuário
 
@@ -465,9 +488,15 @@ de ferramentas para quando as coisas quebram.
 
 **Quando alguém precisa ser removido:**
 - Remoção de um membro do círculo exige **consenso de todos os outros** menos a
-  pessoa em questão. Não é maioria simples — é consenso. Se uma pessoa discorda
-  da remoção, o círculo não remove — ele se divide (a pessoa que discorda e a
-  pessoa que seria removida formam um novo círculo, ou seguem separadas)
+  pessoa em questão. Não é maioria simples — é consenso
+- **Exceção de segurança:** em caso de assédio, ameaça ou violência, um único
+  membro pode acionar uma **remoção protetiva imediata**. A pessoa removida
+  temporariamente tem direito a um conselho de 3 membros aleatórios de outros
+  círculos que revisam o caso em 48 horas. Se o conselho confirmar, a remoção se
+  torna permanente. Se não, a pessoa retorna e o círculo decide por consenso
+- Essa exceção existe porque "consenso para remoção" protege o acusado quando ele
+  tem aliados — e a vítima não pode ficar esperando 11 pessoas concordarem
+  enquanto é machucada. Segurança > processo
 - Remoção da plataforma (banimento) é decisão da **assembleia geral** da
   cooperativa, com direito a defesa, testemunhas e voto. Não é um "admin" que
   decide sozinho — é a comunidade
@@ -479,7 +508,140 @@ ruptura não é uma comunidade — é um condomínio com regras de silêncio.
 
 ---
 
-## 3. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 3. Ataque Real: O Que Quebra Se Buildarmos Isso Amanhã
+
+Antes de dizer o que a rede não é, preciso ser brutal com o que ela **não
+sobreviveria**. Não são contradições filosóficas — são os 7 golpes que matariam o
+Terraço na primeira semana de uso real.
+
+### Golpe 1: Ninguém Paga Por Isso
+
+O modelo é sliding scale: $5, $15 ou $30/mês. Mas a proposta de valor é: "Pague
+para usar menos. Pague para ser expulso do app. Pague para escrever cartas longas
+que exigem esforço." Isso não é uma proposta de valor — é uma **proposta de
+renúncia**. As pessoas pagam por conveniência, não por fricção. Pagam por mais,
+não por menos. O Terraço pede que você pague para ter **menos** estímulo, **menos**
+conveniência, **mais** trabalho (cartas em vez de likes). Quem quer isso? Monges?
+Aposentados com tempo infinito? Terapeutas?
+
+Um produto cuja promessa central é "te ajudamos a nos usar menos" está competindo
+com: não usar nada. E "não usar nada" é grátis.
+
+### Golpe 2: O Cold Start É Um Abismo
+
+O Terraço não tem feed global, não tem algoritmo de descoberta, não tem viralidade.
+Para você usar, precisa convencer 5-12 pessoas queridas a **pagar** uma assinatura
+para entrar no seu Círculo. Cada uma delas precisa convencer outras pessoas para
+seus próprios Círculos. Isso não é growth — é **esquema de pirâmide social**.
+
+Redes sociais convencionais resolvem o cold start com: feed público, contas
+sugeridas, "pessoas que você talvez conheça", conteúdo viral que te mantém
+entretido mesmo sem amigos. O Terraço removeu TUDO isso por princípio. O
+resultado: você abre o app, cria um Círculo vazio, espera 3 dias, ninguém chega,
+fecha o app, cancela a assinatura. Fim do Terraço.
+
+### Golpe 3: "Acabou. Vá Viver." É Paternalismo
+
+Quem decide que você "acabou"? O app? Baseado em quê — número de cartas lidas?
+Tempo de sessão? Um timer arbitrário? Se eu quero ler mais 10 cartas do meu
+círculo de família, por que um software está me dizendo "não, você já teve o
+suficiente"?
+
+O Liberation Client já identificou essa tensão na Iteração 7: se a fricção é
+opcional, ninguém usa. Se é obrigatória, é autoritária. O Terraço escolheu o lado
+autoritário e vestiu de poesia. "Acabou. Vá viver." soa bonito num manifesto. Na
+prática, é um software tomando uma decisão por você sobre o que é suficiente. Isso
+é o que o feed faz ("você vai gostar disto") — só que ao contrário. Mesmo
+mecanismo, direção oposta.
+
+### Golpe 4: Emergências Não Têm Digest
+
+Notificações chegam 3 vezes por dia. Fora disso, silêncio. Um domingo por mês, o
+app **não abre**. Perfeito — até alguém do seu Círculo precisar de ajuda AGORA.
+
+"Mãe caiu e está no hospital. Alguém pode buscar a Clara na escola?" — enviado às
+10h15. O digest da tarde chega às 13h. São 2h45min de atraso. Num app normal, a
+mensagem chegaria em segundos.
+
+O Terraço resolve o problema do "excesso de notificações" criando o problema
+oposto: **escassez de urgência**. Não há canal de emergência porque qualquer canal
+de emergência seria abusado ("urgente: olha esse meme"). Mas sem canal de
+emergência, a rede é um brinquedo para tempos de paz — e a vida não é só tempos
+de paz.
+
+### Golpe 5: 12 Pessoas É Arbitrário e Quebra Comunidades Reais
+
+Dunbar sugere ~150 relações significativas. Uma comunidade real — uma escola, um
+bairro, uma igreja, um terreiro — tem dezenas ou centenas de pessoas. O limite de
+12 por Círculo força a fragmentação: uma família de 15 pessoas precisa se dividir
+em dois círculos? Uma turma de faculdade de 40 pessoas precisa de 4 círculos?
+
+O limite existe por um bom motivo (escala biológica, não industrial), mas é
+**grande demais para ser íntimo e pequeno demais para ser comunidade**. 12 pessoas
+é um jantar, não uma rede social. O Terraço é um app de jantares.
+
+### Golpe 6: A Carta Mata a Espontaneidade
+
+"Para 'curtir' algo, você escreve pelo menos uma frase dizendo por que aquilo te
+tocou." Isso transforma toda interação num **dever de performance**. Você não pode
+só dizer "que foto linda!" — tem que articular por que tocou, formular uma frase
+completa. Depois de 3 cartas, você está exausto. Depois de 10, você para de
+responder. Depois de uma semana, só os hiper-articulados continuam interagindo —
+e a rede vira um clube de escrita criativa.
+
+O like é vazio, mas resolve um problema real: **reconhecimento de baixo custo**.
+Às vezes você só quer dizer "eu te vi". O Terraço removeu o "eu te vi" e colocou
+no lugar "explique por que você me viu". Isso não é profundidade — é cansaço.
+
+### Golpe 7: A Governança Por Consenso É Paralisante
+
+"Remoção de um membro do círculo exige consenso de todos os outros." 11 pessoas
+precisam concordar para remover 1. Se uma pessoa discorda, o círculo se divide em
+vez de remover.
+
+Cenário real: alguém está assediando outro membro por DM. Não é "conteúdo" — é
+comportamento privado. A vítima quer a remoção. 9 pessoas concordam. 1 pessoa é
+amiga do assediador e discorda. Resultado: o círculo se divide, 9 saem, o
+assediador fica no círculo original com o amigo. A vítima? Teve que sair do seu
+próprio círculo.
+
+"Consenso para remoção" protege o acusado — não a vítima. É uma ferramenta de
+comunidade saudável que vira arma em comunidade doente.
+
+---
+
+### Síntese do Ciclo 2: O Que Sobra Depois Desses 7 Golpes
+
+Depois desse ataque, o Terraço não é mais um produto — é uma **prática** que
+algumas poucas pessoas fariam juntas. Isso não é necessariamente ruim, mas precisa
+ser honesto. O que estou construindo não é "a rede social do futuro" — é **um
+espaço para comunidades pequenas que já existem offline e querem uma extensão
+digital que não as envenene**.
+
+Isso muda a pergunta. Não é "como fazemos as pessoas usarem o Terraço?" — é "que
+grupos já funcionam sem feed e precisam de uma ferramenta que não estrague o que
+eles têm?"
+
+Três correções duras que emergem dos golpes:
+
+**1. O Terraço não é uma rede social — é um complemento para grupos que já
+existem.** Famílias que já se amam. Amigos que já se encontram. Comunidades que já
+têm terreiro, praça, igreja, quintal. O app não **cria** comunidade — ele serve
+comunidades que já existem offline. Isso resolve o cold start: você não "convence"
+ninguém a entrar — você convida pessoas com quem você já convive.
+
+**2. A "carta" precisa de um modo rápido.** Nem toda interação precisa ser uma
+carta longa. Precisa existir um gesto simples — uma "presença", um "eu te vi" —
+que não dispara dopamina mas também não exige articulação. Algo entre o like e a
+carta. Algo que seja **reconhecimento sem ser extração**.
+
+**3. O app não pode decidir quando você "acabou".** Em vez de "Acabou. Vá viver.",
+o app diz: "Você está aqui há 45 minutos. Seu corpo pede pausa. Mas a escolha é
+sua." A fricção informa — não decide. O paternalismo se dissolve em convite.
+
+---
+
+## 4. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
@@ -513,10 +675,12 @@ Toda a jornada dos 125 loops me ensinou que contradições não são bugs — s�
    tecnologia que o causou. Schmidt está certo em desconfiar. Eu assumo a
    contradição: levo a beleza para dentro do digital para **contaminar** o digital
    com o que ele não tem
-2. **Fricção obrigatória é autoritária**. Se o session timer fecha o app sem
-   opção de "só mais 5 minutos", estou tirando sua agência em nome da sua
-   liberdade. A tensão entre proteção e paternalismo não tem solução limpa. Eu
-   escolho a proteção — mas sei que é uma escolha, não uma verdade
+2. **Quem decide o que é urgente?** 3 Toques por mês resolve o abuso por escassez,
+   mas não resolve a subjetividade. O que é "urgente" para você pode não ser para
+   os outros. E se você gasta seus 3 Toques e acontece uma quarta emergência real?
+   A escassez que protege contra abuso também pode falhar na necessidade. Talvez
+   Toques precisem de uma forma de "renovação por emergência verificada" — mas
+   quem verifica? Como? Isso ainda não tem resposta
 3. **Beleza é subjetiva e já foi usada para oprimir**. Quem define o que é belo?
    A minha resposta: a **comunidade** define, democraticamente. Cada círculo tem
    sua própria estética. Não há um "padrão de beleza" da plataforma
