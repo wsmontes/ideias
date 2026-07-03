@@ -57,7 +57,7 @@ Resistir à economia da atenção é, fundamentalmente, **recuperar outras escal
 
 ## 2. Tempo Profundo: O Conceito
 
-John McPhee cunhou "deep time" em *Basin and Range* (1981):
+John McPhee cunhou "deep time" em *Basin and Range* (1981, primeiro de 5 volumes depois reunidos em *Annals of the Former World*, vencedor do Pulitzer de 1999). O livro narra uma travessia geológica pela Interstate 80 com o geólogo de Princeton Kenneth S. Deffeyes — cujo curso introdutório era apelidado "Rocks for Jocks" — estudando cortes de estrada e formações expostas. McPhee descreve como o tempo profundo afeta os próprios geólogos: "Geologists, dealing always with deep time, find that it seeps into their being and affects them in various ways... They think in two languages, function on two different scales." Um geólogo citado no livro conclui: "If you free yourself from the conventional reaction to a quantity like a million years, you free yourself a bit from the boundaries of human time. And then in a way you do not live at all, but in another way you live forever." A metáfora da unha lixada foi popularizada por Stephen Jay Gould em *Time's Arrow, Time's Cycle* (1987). McPhee também credita James Hutton (séc. XVIII) como fundador filosófico do tempo profundo:
 
 > "Numbers do not seem to work well with regard to deep time. Any number above a couple of thousand years — fifty thousand, fifty million — will with nearly equal effect astonish the imagination."
 
@@ -95,7 +95,7 @@ O tempo profundo restaura o CICLO: você não é o primeiro a sentir o que sente
 
 ## 3. Anna Tsing: Atenção nas Ruínas do Capitalismo
 
-Anna Tsing (*The Mushroom at the End of the World*, 2015) estuda o cogumelo matsutake — um fungo que cresce em florestas destruídas por ação humana — para perguntar:
+Anna Lowenhaupt Tsing (professora em UC Santa Cruz, vencedora do Bateson Prize 2016), em *The Mushroom at the End of the World: On the Possibility of Life in Capitalist Ruins* (Princeton UP, 2015), estuda o cogumelo matsutake — um fungo que cresce em florestas destruídas por ação humana — para perguntar:
 
 > "What manages to live in the ruins we have made?"
 
@@ -111,9 +111,9 @@ Isso desafia o Liberation Client: o app-jardim (Iteração 2) pressupõe que a a
 
 **3. "Collaborative survival" em vez de soberania individual.** Tsing substitui a ideia de "sobrevivência do mais apto" por "sobrevivência colaborativa": espécies que sobrevivem juntas, sem harmonia, sem projeto comum, sem garantia. A atenção, nesse quadro, não é um recurso individual a ser "protegido" (Liberation Client) — é uma prática de SOBREVIVÊNCIA COMPARTILHADA. Você presta atenção PORQUE outros prestam atenção COM você. Não é posse — é mutualismo.
 
-**4. "Latent commons" — commons que emergem sem intenção.** Tsing mostra que os forrageadores de matsutake no Oregon não "decidiram" criar um commons. O commons EMERGIU da prática compartilhada de colher cogumelos em florestas públicas, com normas tácitas (não revelar seu spot, deixar alguns para o próximo). É um "latent commons" — latente, não planejado. A atenção poderia funcionar assim: não como um recurso gerenciado por regras explícitas (Ostrom, Loop 3), mas como uma prática que GERA commons sem que ninguém tenha DECIDIDO gerar.
+**4. "Latent commons" — commons que emergem sem intenção.** Tsing define latent commons por quatro afirmações negativas: (i) não são exclusivos de enclaves humanos — são sempre multiespécie; (ii) não são bons para todo mundo; (iii) não se institucionalizam bem; (iv) não podem nos redimir. Os forrageadores de matsutake no Oregon não "decidiram" criar um commons — o commons EMERGIU da prática compartilhada, com normas tácitas. A atenção poderia funcionar assim: não como recurso gerenciado por regras explícitas (Ostrom, Loop 3), mas como prática que GERA commons sem que ninguém tenha DECIDIDO gerar.
 
-**5. "The art of noticing" como prática de resistência.** Tsing pratica e defende "the art of noticing" — prestar atenção ao que está nas margens, ao que não é espetacular, ao que não é "conteúdo". Não é mindfulness — é uma prática POLÍTICA de atenção ao que o capitalismo descarta. O cogumelo. O entulho. A ruína. O que a economia da atenção descarta? O silêncio. A pausa. O tédio. A atenção não-produtiva. "Noticing" essas coisas é resistência.
+**5. "The art of noticing" como prática de resistência.** Tsing pratica e defende "the art of noticing" — prestar atenção ao que está nas margens, ao que nunca coube na linha do tempo do progresso ("because it never fit the time line of progress"). Não é mindfulness — é "listening politically" para "detect the traces of not-yet-articulated common agendas" (p. 254). É uma prática POLÍTICA de atenção ao que o capitalismo descarta. Tsing também adota a crítica de Ursula Le Guin à "carrier bag theory of fiction": em vez de histórias de herói (caçador, linear, progressiva), histórias de "bolsa coletora" — pequenas, dispersas, não-lineares, que "armazenam energia." O livro de Tsing é ele mesmo um **"polyphonic assemblage"** — composto por capítulos curtos e entrelaçados que performam a polifonia que descrevem. O que a economia da atenção descarta? O silêncio. A pausa. O tédio. A atenção não-produtiva. "Noticing" essas coisas é resistência.
 
 ---
 
@@ -192,12 +192,12 @@ Características:
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- John McPhee — Basin and Range (1981), Annals of the Former World (1998)
-- Stephen Jay Gould — Time's Arrow, Time's Cycle (1987)
-- Anna Lowenhaupt Tsing — The Mushroom at the End of the World (2015)
-- Richard D. G. Irvine — An Anthropology of Deep Time (2020)
-- Robert Macfarlane — Underland: A Deep Time Journey (2019)
-- Jeffrey Jerome Cohen — Stone: An Ecology of the Inhuman (2015)
+- John McPhee — *Basin and Range* (Farrar, Straus and Giroux, 1981). Originalmente serializado no *The New Yorker*. Primeiro de 5 vols. reunidos em *Annals of the Former World* (1998, Pulitzer 1999). Termo "deep time" cunhado aqui. Geólogo acompanhante: Kenneth S. Deffeyes (Princeton, curso "Rocks for Jocks"). Citação: "Geologists... think in two languages, function on two different scales." Fundador filosófico: James Hutton (séc. XVIII).
+- Stephen Jay Gould — *Time's Arrow, Time's Cycle* (Harvard UP, 1987). Popularizou a metáfora da unha lixada de McPhee.
+- Anna Lowenhaupt Tsing — *The Mushroom at the End of the World: On the Possibility of Life in Capitalist Ruins* (Princeton UP, 2015). Bateson Prize 2016. Conceitos: polyphonic assemblages, arts of noticing, latent commons (4 afirmações negativas), third nature, collaborative survival, "listening politically" (p. 254), carrier bag stories (via Ursula Le Guin).
+- Richard D. G. Irvine — *An Anthropology of Deep Time* (Cambridge UP, 2020)
+- Robert Macfarlane — *Underland: A Deep Time Journey* (Hamish Hamilton, 2019)
+- Jeffrey Jerome Cohen — *Stone: An Ecology of the Inhuman* (U of Minnesota Press, 2015)
 
 ### Conexões com o Repositório
 - App como Jardim (Iteração 2) — estações, ciclos, compostagem
@@ -215,3 +215,10 @@ Características:
 ---
 
 *Fim do Loop 5. O Loop 6 lerá, criticará, e avançará. Cron 93154435 continua.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 5.** Pesquisa web verificou e expandiu:
+- McPhee: Deffeyes (Princeton, "Rocks for Jocks"), Interstate 80, Pulitzer 1999 (Annals of the Former World), James Hutton como fundador, citação "think in two languages", serializado no New Yorker
+- Tsing: Bateson Prize 2016, polyphonic assemblages, latent commons (4 afirmações negativas), third nature, "listening politically" (p. 254), carrier bag stories (Le Guin), UC Santa Cruz
