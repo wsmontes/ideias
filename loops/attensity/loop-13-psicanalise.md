@@ -89,6 +89,8 @@ Exemplos: a voz (objeto vocal), o olhar (objeto escópico), o seio, as fezes. Ob
 
 **Implicação brutal:** você não vai "curar" o vício em scroll com design — porque o design não pode curar a estrutura do desejo humano. O máximo que o design pode fazer é: não EXPLORAR essa estrutura. Não oferecer um "próximo post" infinito. Não ser um sujeito-suposto-saber. Não ser uma máquina de objet petit a.
 
+**Atualização 2026:** Mariana Salles Kehl e Heloisa Caldas, em "From the Unconscious to the Algorithm: Platform Mediation" (*International Journal of Applied Psychoanalytic Studies*, 2026), formalizam essa análise: algoritmos de plataforma funcionam como "socio-technical operators that reorganize, accelerate, and intensify pre-existing drive circuits." O algoritmo ocupa o que chamam de **"algorithmic Other"** — "a semblance of consistency, predictability, and seamless responsiveness" — que radicaliza o discurso do capitalista (Lacan). A "metricização do reconhecimento" (likes, seguidores, views) cria um "superegoic imperative of exposure and productivity" — não basta estar no feed; você precisa PERFORMAR no feed. E a exposição vira obrigação.
+
 ---
 
 ## 4. O Olhar (Gaze) e a Vigilância Invertida
@@ -169,8 +171,11 @@ Se o design não resolve a pulsão, o que resolve?
 ## Referências Deste Loop
 
 ### Conceitos Utilizados
-- Sigmund Freud — Além do Princípio do Prazer (1920): compulsão à repetição (Wiederholungszwang), pulsão de morte (Todestrieb), fort-da
-- Jacques Lacan — Seminário 11: Os Quatro Conceitos Fundamentais da Psicanálise (1964): desejo do Outro, sujeito-suposto-saber (sujet supposé savoir), objeto petit a, olhar (gaze), sujeito barrado ($), travessia da fantasia
+- Sigmund Freud — *Jenseits des Lustprinzips* (1920; trad. *Beyond the Pleasure Principle*, Standard Edition Vol. XVIII). Conceitos: Wiederholungszwang (compulsão à repetição), Todestrieb (pulsão de morte), fort-da (carretel — jogo de desaparecimento/retorno).
+- Jacques Lacan — *Le Séminaire, Livre XI: Les Quatre Concepts Fondamentaux de la Psychanalyse* (1964, pub. Seuil 1973; trad. W.W. Norton 1978). Conceitos: désir de l'Autre, sujet supposé savoir, objet petit a, regard (gaze), sujet barré ($), traversée du fantasme. Cena da lata de sardinha (petit-a como olhar do objeto).
+- Mariana Salles Kehl & Heloisa Caldas — "From the Unconscious to the Algorithm: Platform Mediation" (*International Journal of Applied Psychoanalytic Studies*, 2026). Conceito: "algorithmic Other" — semblance of consistency. Superegoic imperative of exposure.
+- LAB36 — "Object a. Derivatives of Capitalist Desire" (exposição, Barcelona). Mark Fisher: "depressive hedonia" — ditadura da felicidade.
+- Sergio J. Aguilar Alcalá — *A Contemporary Return to the Lacanian Mirror* (Routledge, 2026). Selfies como introjeção do desejo do Outro.
 
 ### Conexões com os Loops Anteriores
 - Loop 4 (Foucault): o olhar — Foucault (vigiar) + Lacan (ser olhado) = camada dupla
@@ -181,3 +186,12 @@ Se o design não resolve a pulsão, o que resolve?
 ---
 
 *Fim do Loop 13. Treze loops. Cinco adiamentos. A psicanálise finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 13.** Pesquisa web adicionou referências contemporâneas de psicanálise aplicada a plataformas:
+- Kehl & Caldas (2026): "algorithmic Other", discurso do capitalista radicalizado, superegoic imperative of exposure
+- Aguilar Alcalá (Routledge 2026): selfies como introjeção do desejo do Outro, crítica da "agência" no espelho digital
+- LAB36 / Mark Fisher: "depressive hedonia" — ditadura da felicidade, objet a como produto algorítmico
+- Freud/Lacan: edições verificadas (Standard Edition Vol. XVIII, Norton 1978)
