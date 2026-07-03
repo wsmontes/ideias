@@ -35,7 +35,9 @@ Foucault, Deleuze e Terranova mostram que essa metáfora é errada — ou, no m�
 
 ### Foucault: A Atenção É Produzida, Não Extraída
 
-O poder disciplinar (Foucault, *Vigiar e Punir*, 1975) não REPRIME — PRODUZ. A disciplina não tira algo de você; ela te transforma em algo. O soldado não é "privado" de sua liberdade — ele é FABRICADO como soldado: postura, marcha, obediência, reflexos. A disciplina produz corpos dóceis e úteis.
+O poder disciplinar (Foucault, *Vigiar e Punir*, 1975) não REPRIME — PRODUZ. Mas é nos cursos do Collège de France — *Segurança, Território, População* (1977-78) e *Nascimento da Biopolítica* (1978-79) — que Foucault desenvolve o conceito de **governamentalidade**: o governo não age sobre indivíduos (disciplina) nem sobre populações como espécie (biopolítica), mas sobre o MEIO — o ambiente onde circulam pessoas, mercadorias, informações. A atenção, nesse quadro, não é uma capacidade individual — é um MEIO que pode ser governado. A economia da atenção é uma governamentalidade atencional: ela não te disciplina (não te pune por não prestar atenção) — ela organiza o AMBIENTE para que sua atenção flua para onde gera mais valor.
+
+A disciplina não tira algo de você; ela te transforma em algo. O soldado não é "privado" de sua liberdade — ele é FABRICADO como soldado: postura, marcha, obediência, reflexos. A disciplina produz corpos dóceis e úteis.
 
 Aplicado à atenção: a economia da atenção não "extrai" sua atenção como quem extrai petróleo. Ela TE TREINA para prestar atenção de determinadas formas. Ela produz um **sujeito atencional**: alguém que:
 - Verifica o telefone a cada 4 minutos (intervalo médio documentado)
@@ -76,7 +78,7 @@ Na sociedade de controle, o poder não te ENCLausura — ele te MODULA. Não há
 
 ### Terranova: Sua Atenção É Trabalho Não-Pago
 
-Tiziana Terranova (*Free Labor*, 2000; *Network Culture*, 2004; *After the Internet*, 2022) dá o golpe final:
+Tiziana Terranova (professora na Universidade de Nápoles "L'Orientale"), em *Free Labor: Producing Culture for the Digital Economy* (2000), *Network Culture: Politics for the Information Age* (Pluto Press, 2004), *After the Internet* (Semiotext(e), 2022) e no ensaio diretamente relevante *Attention, Economy and the Brain* (Culture Machine, Vol 13, 2012), dá o golpe final:
 
 > "The Internet is simultaneously a playground and a factory."
 
@@ -88,7 +90,7 @@ Você não está "usando" uma rede social. Você está TRABALHANDO nela. Cada po
 
 Terranova chama isso de **free labor** — trabalho gratuito que é simultaneamente exploração E expressão. Não é que você é "enganado" — você genuinamente GOSTA de postar, comentar, compartilhar. O problema é que o valor disso é apropriado por uma plataforma que não te remunera e não te dá controle.
 
-**Em 2024, Terranova atualizou o conceito para a era da IA**: seu "free labor" agora alimenta LLMs. Seus posts, comentários, fotos — tudo foi scrapeado para treinar ChatGPT, Claude, Gemini. Você trabalhou de graça para treinar a IA que vai substituir seu trabalho pago. Ela chama isso de "o plágio do intelecto geral."
+**Em 2024, Terranova atualizou o conceito em conversa com Daniël de Zeeuw** (Institute of Network Cultures): seu "free labor" agora alimenta LLMs. Seus posts, comentários, fotos — tudo foi scrapeado para treinar ChatGPT, Claude, Gemini. Você trabalhou de graça para treinar a IA que vai substituir seu trabalho pago. Ela descreve o atual momento como **"Corporate Platform Complex"** — o imaginário emancipatório da internet foi capturado por enormes concentrações de poder (tecnoliberalismo). O conceito de **"biopolitical public domain"** (de Julie E. Cohen) descreve como dados pessoais e conteúdo público da web são livremente apropriados como insumos da produção econômica. Terranova também propôs o conceito da **"Red Stack"** — uma infraestrutura pós-capitalista do comum operando em três camadas: dinheiro virtual (criptomoedas além da especulação), redes sociais (sequestradas dos monopólios capitalistas para cooperação) e bio-hipermídia (assemblagens corpo-dispositivo reapropriadas para fins autônomos).
 
 ---
 
@@ -247,10 +249,10 @@ Isso é o que a Iteração 6 do repo (App como Ritual) e a Iteração 5 (App com
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Michel Foucault — Vigiar e Punir (1975), A Vontade de Saber (1976)
-- Gilles Deleuze — Post-scriptum sobre as Sociedades de Controle (1990)
-- Tiziana Terranova — Free Labor (2000), Network Culture (2004), After the Internet (2022), Undead Digital Labor and the General Intellect (2024)
-- Brian Brown — Will Work For Free: The Biopolitics of Unwaged Digital Labour (2012)
+- Michel Foucault — *Surveiller et Punir* (1975). Cursos no Collège de France: *Sécurité, Territoire, Population* (1977-78) e *Naissance de la Biopolitique* (1978-79, trad. Graham Burchell, Palgrave Macmillan, 2008). Conceitos: governamentalidade, mercado como "lieu de véridiction", liberalismo e disciplina como contemporâneos. Análise topológica (Collier, 2009).
+- Gilles Deleuze — "Post-scriptum sur les Sociétés de Contrôle" (1990, *L'Autre Journal*). Tradução em *October* 59 (1992).
+- Tiziana Terranova — "Free Labor: Producing Culture for the Digital Economy" (*Social Text* 63, 2000); *Network Culture* (Pluto Press, 2004, 5 caps: Informational Cultures, Open Networks, Free Labor, Soft Control, Communications' Biopower); "Attention, Economy and the Brain" (*Culture Machine* Vol 13, 2012); *After the Internet* (Semiotext(e), 2022 — "Corporate Platform Complex"); conversa com Daniël de Zeeuw (Institute of Network Cultures, 2024 — "Undead Digital Labor and the General Intellect"); "Algorithms, Capital, and the Automation of the Common" (2014, conceito da "Red Stack").
+- Brian Brown — *Will Work For Free: The Biopolitics of Unwaged Digital Labour* (2012)
 
 ### Conexões com o Repositório
 - Liberation Client UX Philosophy — Intent over Engagement, Ownership by Default, Radical Transparency
@@ -268,3 +270,11 @@ Isso é o que a Iteração 6 do repo (App como Ritual) e a Iteração 5 (App com
 ---
 
 *Fim do Loop 4. O Loop 5 lerá, criticará, e avançará. Cron 93154435 continua.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 4.** Pesquisa web verificou e expandiu:
+- Foucault: cursos do Collège de France (1977-79), governamentalidade (o governo age sobre o MEIO, não sobre indivíduos), mercado como lieu de véridiction, análise topológica (Collier 2009), liberalismo e disciplina como contemporâneos
+- Terranova: "Attention, Economy and the Brain" (Culture Machine 2012), "Corporate Platform Complex" (After the Internet 2022), "biopolitical public domain" (Julie E. Cohen via Terranova), "Red Stack" (3 camadas: virtual money, social networks, bio-hypermedia), conversa com de Zeeuw (2024)
+- Deleuze: "Post-scriptum" publicado originalmente em L'Autre Journal (1990), tradução em October 59 (1992)
