@@ -27,12 +27,12 @@ O Loop 9 foi o mais radical. Mas:
 
 ## 1. Quem É Ailton Krenak
 
-Ailton Krenak (n. 1953) é um líder indígena, escritor, filósofo e ativista do povo Krenak, do Vale do Rio Doce (Minas Gerais). Em 1987, fez um discurso histórico na Assembleia Constituinte pintando o rosto com tinta de jenipapo — um gesto que paralisou o plenário e se tornou um marco da luta indígena no Brasil.
+Ailton Alves Lacerda Krenak (n. 1953) é um líder indígena, escritor, filósofo, jornalista e ativista do povo Krenak, do Vale do Rio Doce (Minas Gerais). Em 4 de setembro de 1987, fez um discurso histórico na Assembleia Constituinte pintando o rosto com tinta de jenipapo — um gesto que paralisou o plenário e se tornou marco da luta indígena. Participou da redação da Constituição de 1988 como representante dos povos indígenas. Em 2023, foi eleito o **primeiro indígena** para a **Academia Brasileira de Letras**. Possui doutorados honoris causa pela UFJF e UnB.
 
 Suas obras principais:
-- *Ideias para Adiar o Fim do Mundo* (2019)
-- *A Vida Não É Útil* (2020)
-- *Futuro Ancestral* (2022)
+- *Ideias para Adiar o Fim do Mundo* (Companhia das Letras, 2019; trad. inglesa 2020 — 4 textos: "Amanhã Não Está à Venda", "Ideias para Adiar o Fim do Mundo", "Sobre Sonhos e a Terra", "A Humanidade Que Pensamos Ser"). Traduzido para 10+ idiomas.
+- *A Vida Não É Útil* (Companhia das Letras, 2020; trad. inglesa 2023 — compilação de lives durante a pandemia de COVID-19). Conceitos: "humanidade zumbi", "instituição do sonho", "a febre do planeta" (Gaia reagindo à predação humana), crítica ao utilitarismo.
+- *Futuro Ancestral* (Companhia das Letras, 2022)
 
 Ele não é um "filósofo da atenção" no sentido acadêmico. Mas sua cosmologia implica uma teoria radical da atenção: **a atenção como escuta da Terra, como adiamento do fim, como sonho coletivo.**
 
@@ -184,7 +184,7 @@ Krenak critica o "humano genérico" — a ideia de que existe UMA humanidade, co
 ## Referências Deste Loop
 
 ### Pesquisadas Neste Loop
-- Ailton Krenak — Ideias para Adiar o Fim do Mundo (2019), A Vida Não É Útil (2020), Futuro Ancestral (2022)
+- Ailton Alves Lacerda Krenak (n. 1953, povo Krenak, Vale do Rio Doce/MG) — *Ideias para Adiar o Fim do Mundo* (Companhia das Letras, 2019; trad. inglesa *Ideas to Postpone the End of the World*, 2020, 4 textos); *A Vida Não É Útil* (Companhia das Letras, 2020; trad. inglesa *Life Is Not Useful*, 2023 — compilação de lives da pandemia); *Futuro Ancestral* (Companhia das Letras, 2022). Eleito primeiro indígena à Academia Brasileira de Letras (2023). Discurso na Constituinte: 4 set 1987 (jenipapo). Doutorados honoris causa: UFJF, UnB. Conceitos: humanidade zumbi, instituição do sonho, febre do planeta. Citação: "A Terra pode nos deixar para trás e seguir seu próprio caminho."
 
 ### Conexões com o Repositório
 - App como Jardim (Iteração 2) — Buen Vivir, Ma, mutirão, gambiarra, antropofagia, axé
@@ -200,3 +200,9 @@ Krenak critica o "humano genérico" — a ideia de que existe UMA humanidade, co
 ---
 
 *Fim do Loop 10. Dez loops. O projeto continua. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 10.** Pesquisa web verificou e expandiu:
+- Krenak: ABL 2023 (primeiro indígena), doutorados honoris causa (UFJF, UnB), estrutura de *Ideias* (4 textos), *A Vida Não É Útil* compilado de lives da pandemia (trad. inglês 2023, não 2020), conceitos (humanidade zumbi, instituição do sonho, febre do planeta como resposta imune de Gaia), citação: "A Terra pode nos deixar para trás e seguir seu próprio caminho"
