@@ -135,3 +135,136 @@ seus dados.
 *Fim do Ciclo 1. O próximo ciclo traz 10 novos agentes para examinar a Praça:
 como encontrar gente nova sem criar um feed.*
 
+---
+
+## Ciclo 2 — Síntese dos 10 Agentes: A Praça (Ou Não)
+
+### O que os agentes discordaram
+
+Este ciclo foi o mais conflituoso até agora. Os 9 agentes que completaram não
+chegaram a um consenso — chegaram a **três visões inconciliáveis** sobre como
+resolver a descoberta:
+
+**Visão A: Construir a Praça (maioria).** A Praça é um espaço público limitado —
+15 minutos, cronológico, sem métricas, sem algoritmo. Cartas Públicas opt-in,
+Círculos Abertos. A conversa migra para dentro. Os agentes de design, psicologia,
+negócios, moderação e first-time discoverer defenderam variações disso.
+
+**Visão B: Matar a Praça (cético).** A Praça é um feed com training wheels. Vai
+canibalizar os Círculos, criar uma elite de performers, e reintroduzir todos os
+problemas que o Terraço foi desenhado para resolver. No lugar: guest passes,
+Circle Collabs, questionnaire-based matching — descoberta **dentro** da lógica
+dos Círculos, não fora dela.
+
+**Visão C: O Sarau (dissidente).** Nem Praça nem Circles-only. Um mecanismo
+completamente diferente: cada semana, um membro do Círculo vira anfitrião e
+convida UMA pessoa de fora. Um tópico, 60 minutos, conversa efêmera. Descoberta
+como jantar, não como feed. "O que um amigo achou que você gostaria de conhecer."
+
+### A decisão (com custos assumidos)
+
+Depois de pesar os 9 argumentos, a decisão é: **Construir a Praça — mas com o
+Sarau como mecanismo complementar.** E com uma mudança estrutural que o sociólogo
+propôs e que ninguém contestou: a Praça não pode ser ao mesmo tempo praça e
+estação de trem. Tem que escolher uma identidade.
+
+**A Praça é uma estação de trem — não uma praça.** Um lugar de passagem, não de
+permanência. Você entra, encontra, e sai. O valor está no que você **leva** para
+seus Círculos, não no que você **vive** na Praça.
+
+Isso significa:
+
+### O que a Praça É (depois do Ciclo 2)
+
+**Uma estação de descoberta com quatro mecanismos:**
+
+**1. Cartas Públicas (a unidade mínima).** Uma vez por semana, você pode tornar
+pública uma Carta que escreveu para um Círculo. Não é um "post público" — é uma
+Carta que você decide que pode servir para outros. Máximo 50 pessoas vão vê-la.
+Ela expira em 7 dias. Não tem comentário, não tem like, não tem métrica. Se
+alguém se emocionar, a resposta vai para o Círculo dessa pessoa — não para a
+Praça. O autor da Carta Pública só fica sabendo se a resposta chegar até ele via
+alguém do Círculo dele.
+
+**2. Círculos Abertos (a porta de entrada).** Círculos que aceitam novos membros
+aparecem na Praça como cartões postais: nome, uma frase sobre o propósito, uma
+Carta Pública de exemplo. Você pede para entrar. Alguém do Círculo aceita ou não.
+Sem algoritmo decidindo "Círculos que você vai gostar."
+
+**3. O Sarau (a descoberta por convite).** Uma vez por semana, cada Círculo pode
+receber um convidado externo — alguém que um membro conhece e quer apresentar. O
+convidado participa de uma conversa, um tópico, 60 minutos. Depois, some. Se o
+Círculo quiser que ele fique, alguém precisa sair. A descoberta é **pessoa a
+pessoa**, não conteúdo a conteúdo.
+
+**4. A Noite da Praça (o evento).** Uma vez por semana, num horário imprevisível
+revelado no check-in diário, a Praça abre por 60 minutos em modo expandido. O
+limite de 15 minutos some. Uma pergunta coletiva aparece: "O que você carregou
+esta semana?" Você pode deixar Presença nas Cartas dos outros (um toque — seu
+nome aparece, só isso). No fim dos 60 minutos, a Praça fecha com uma animação
+coletiva e volta ao ritmo normal. É o **respiro** — o momento em que a estação
+de trem vira praça de verdade, por uma hora, uma vez por semana.
+
+### O que a Praça NÃO É (depois do Ciclo 2)
+
+- **Não é um feed.** A interface não é uma lista vertical infinita — é uma
+  **planta baixa espacial**. Você vê pessoas (avatares), não posts. Você "caminha"
+  (swipe horizontal), não "scrolla". Quando chega ao fim do espaço, chegou.
+- **Não tem timer de contagem regressiva.** O limite de 15 minutos é um **ciclo
+  de luz**: a Praça escurece gradualmente, como um mercado que fecha as barracas
+  ao entardecer. Aos 14 minutos, uma mensagem: "A Praça está se despedindo. Leve
+  o que encontrou para seus Círculos." Você pode estender por mais 5 minutos se
+  estiver no meio de algo. O ciclo de luz informa — não expulsa.
+- **Não é o centro do app.** A tela inicial continua sendo o Jardim (seus
+  Círculos). A Praça só abre depois que você visitou ao menos um Círculo hoje.
+  O fluxo é: pertencimento → descoberta, nunca o contrário.
+- **Não tem comentários públicos.** Você lê uma Carta Pública. Se algo te tocou,
+  você faz um gesto: long-press na Carta, arrasta para um dos seus Círculos, e
+  escreve uma resposta. Sua resposta vai para seu Círculo — não para a Praça. A
+  conversa **migra para dentro**.
+
+### Questões que o Ciclo 3 precisa atacar
+
+O cético e o dissidente levantaram objeções que não foram totalmente resolvidas:
+
+1. **A Praça vai canibalizar os Círculos?** Se a Noite da Praça for boa demais,
+   as pessoas podem começar a viver para ela e negligenciar os Círculos. O design
+   tenta evitar isso (Praça depois dos Círculos, 15 minutos, sem permanência) —
+   mas design não vence o comportamento humano se a Praça for genuinamente mais
+   interessante.
+
+2. **A Praça precisa de massa crítica.** Se só 3% dos usuários postam Cartas
+   Públicas, a Praça parece vazia. O Sarau resolve parcialmente (descoberta
+   pessoa-a-pessoa não depende de massa), mas as Cartas Públicas dependem. Em
+   redes pequenas, a Praça pode ser um deserto.
+
+3. **O Sarau depende de anfitriões corajosos.** Convidar um estranho para seu
+   Círculo exige vulnerabilidade. Se ninguém quiser ser anfitrião, o Sarau morre.
+   Precisa de incentivo — talvez o anfitrião ganhe um "Toque" extra naquele mês?
+
+4. **Moderação.** O agente de segurança deu recomendações claras (bloqueio,
+   emergência, fricção de publicação). Mas a pergunta mais dura — o que acontece
+   quando um grupo coordenado usa a Praça para assediar alguém — não tem resposta
+   fácil sem análise de rede (que a cooperativa não pode pagar).
+
+### O que mudou do Ciclo 1 para o Ciclo 2
+
+O Ciclo 1 estabeleceu que a rede é baseada em Círculos nomeados de até 12 pessoas.
+Mas o veterano sentia falta de descoberta.
+
+O Ciclo 2 estabelece que a descoberta existe — mas como **passagem**, não como
+**destino**. A Praça não é onde você vive — é por onde você passa a caminho de
+relações mais profundas. E para quem não quer nem passar por espaço público nenhum,
+o Sarau oferece descoberta pessoa-a-pessoa: um amigo te apresenta a alguém, como
+num jantar.
+
+A grande questão que fica para o Ciclo 3: **quem modera a Praça quando ela crescer?**
+Ou, mais radicalmente: **a Praça deveria ser adiada até que a base de Círculos
+esteja sólida o suficiente para sustentá-la?**
+
+---
+
+*Fim do Ciclo 2. O Ciclo 3 vai examinar: construir a Praça desde o dia 1 ou
+esperar os Círculos atingirem massa crítica primeiro? E se esperar, como os
+usuários descobrem gente nova enquanto isso?*
+
