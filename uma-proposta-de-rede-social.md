@@ -478,6 +478,120 @@ e Estantes são o jardim que cresce nele.
 
 ---
 
-*Fim do Ciclo 4. O Ciclo 5 examina: o modelo de assinatura. R$ 15/mês é viável?
-Quanto custa rodar isso? O que acontece quando a cooperativa precisa contratar?*
+## Ciclo 5 — Síntese dos 8 Agentes: O Dinheiro
+
+### O consenso duro
+
+**R$ 15/mês por usuário individual não fecha a conta.** Esse foi o veredito unânime
+do Treasurer, do Cético, do Alternative Funding e do Comparative. Mesmo com 5.000
+usuários e 20% de conversão (otimista), a receita cobre 28% do burn rate no Year 2.
+O empate só vem no Year 3 com 50.000 usuários — se tudo der certo.
+
+O Cético foi mais longe: **nenhuma rede social cooperativa é financeiramente
+autossustentável sem subsídio.** Coomappa morreu em 8 meses. Resonate faliu.
+Social.coop sobrevive com 800 membros. Mastodon instances operam no vermelho.
+
+**Mas o Comparative encontrou uma exceção crucial: Are.na.** 4 pessoas, ~40k MAU,
+~50% de conversão, ~US$ 1.5M/ano de receita, 10 anos de sustentabilidade. Cobra
+desde o dia 1. Não tem VC. Não tem anúncio. Não tem dados vendidos. É o modelo.
+
+### Os dois caminhos (e a decisão)
+
+**Caminho A — O Are.na:** Time mínimo (3-4 pessoas), pago desde o dia 1, comunidade
+de nicho, crescimento lento, sustentável com ~1.000 pagantes a R$ 15/mês =
+R$ 180k/ano. Não escala para 1 milhão de usuários — mas não precisa.
+
+**Caminho B — O Marketplace:** Plataforma gratuita. Círculos podem cobrar
+assinatura própria (R$ 5-50/mês). Terraço fica com 10%. Modelo Substack/Patreon.
+A plataforma provê descoberta, pagamento, infraestrutura. Receita vem de milhares
+de micro-transações.
+
+**A decisão do Ciclo 5: Caminho A nos anos 1-3, com transição para o Caminho B
+no ano 3+.**
+
+- **Anos 1-2:** Time de 3-4 pessoas. App gratuito por 28 dias, depois R$ 15/mês
+  ou R$ 12/mês no plano anual. Plano Solidário de R$ 25/mês (cobre você + 1
+  cadeira vazia). Quem não pode pagar: fica de graça, sem distinção.
+- **Ano 3+:** Círculos podem ativar assinatura própria. Terraço fica com 10%.
+  Isso diversifica a receita e alinha incentivos: a plataforma ganha quando os
+  Círculos prosperam.
+
+### A estrutura jurídica (do Legal)
+
+**Fase 1 (0-12 meses): SLU ou LTDA.** 1-2 sócios. Simples Nacional (~6-15%
+de imposto sobre receita). Permite receber investimento. Contrato social com
+governança cooperativa (um membro = um voto).
+
+**Fase 2 (12-24 meses): LTDA com múltiplos quotistas.** Usuários-membros viram
+sócios formais. Governança cooperativa no acordo de quotistas.
+
+**Fase 3 (24+ meses, 20+ membros): Cooperativa plena (Lei 5.764/71).** Isenção
+de IRPJ/CSLL sobre atos cooperativos. Distribuição de sobras. Assembleia geral.
+
+### O fluxo de pagamento (do Pricing UX)
+
+**Dia 0-28:** Acesso completo. Zero menção a dinheiro. O usuário forma hábito.
+
+**Dia 28:** Primeira tela de transição. "Terraço é sustentado por quem usa. Quem
+pode, paga. Quem não pode, fica." Duas opções: Ver Planos ou Continuar Grátis.
+
+**Gatilho de conversão:** Contextual, não genérico. "Seu Círculo Família tem 6
+pessoas. Para adicionar seu tio, vire membro." O convite fica pendente. A pessoa
+vê o nome do tio esperando. Não é punitivo — é afetivo.
+
+**Planos:** Mensal R$ 15 / Anual R$ 12/mês / Solidário R$ 25/mês. PIX, cartão
+ou boleto.
+
+**Cancelamento:** Uma tela. "Você escreveu 47 Cartas. Esteve presente 203 vezes.
+A porta fica aberta." Dados preservados por 6 meses.
+
+### Os custos reais (do Treasurer)
+
+| Ano | Time | Burn mensal | Burn anual |
+|-----|------|-----------|-----------|
+| **1 (pré-lançamento)** | 5 (3 devs + designer + community) | R$ 43k | R$ 519k |
+| **2 (0-5.000 usuários)** | 7 (+ moderação + suporte) | R$ 53k | R$ 633k |
+| **3 (5.000-50.000)** | 13 (+ mobile, DevOps, T&S) | R$ 137k | R$ 1.65M |
+
+**Ano 1 exige ~R$ 520k com zero receita.** Isso vem de grants (NLnet, Mozilla,
+Ford Foundation), crowdfunding, e quotas dos membros fundadores.
+
+### O que o Cético acertou (e o que não)
+
+**Acertou:** Cooperativas de plataforma têm histórico ruim. WhatsApp pode matar
+com um feature. VCs estão financiando concorrentes. R$ 15/mês não fecha a conta
+com 5.000 usuários. App.net morreu tentando cobrar por "Twitter sem anúncios."
+
+**Errou:** O Terraço não compete com WhatsApp. WhatsApp é comunicação; Terraço é
+ritual. O Terraço não compete com Instagram. Instagram é palco; Terraço é sala.
+App.net morreu porque não tinha diferenciação real. O Terraço tem: Círculos
+nomeados, Praça como passagem, curadoria sem algoritmo.
+
+**A resposta ao ceticismo não é "você está errado" — é "você está certo, e é
+por isso que o modelo não pode ser assinatura individual como única fonte."**
+
+### O modelo híbrido final
+
+| Fonte | Peso | Quando |
+|-------|------|--------|
+| **Assinaturas individuais** | 50% | Ano 1+ |
+| **Grants (NLnet, Ford, etc.)** | 40% | Ano 1-2 |
+| **Clientes institucionais** | 10% | Ano 2+ |
+| **Marketplace (Círculos pagos)** | 0% → 30% | Ano 3+ |
+| **Doações / Crowdfunding** | 10% | Contínuo |
+
+A diversificação é a defesa. Nenhuma fonte sozinha sustenta. Juntas, cobrem o
+burn rate com folga para reinvestimento.
+
+### O mantra financeiro
+
+> **"Prefira o dinheiro do usuário aos dados do usuário. Cobre o justo. Se não
+> puder pagar, fica de graça. Se puder pagar mais, cubra uma cadeira vazia. A
+> porta fica aberta para quem sai. O balanço é público. Zero vai para anúncios."**
+
+---
+
+*Fim do Ciclo 5. O Ciclo 6 examina: moderação. Como moderar conteúdo público
+numa cooperativa com orçamento mínimo? Conselhos rotativos? Flagging? Quem decide
+o que é discurso de ódio?*
 
