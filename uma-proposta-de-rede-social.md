@@ -375,5 +375,109 @@ Como curar sem algoritmo?
 
 ---
 
-*Fim do Ciclo 3.*
+---
+
+## Ciclo 4 — Síntese dos 7 Agentes: Como Curar Sem Algoritmo
+
+### O problema
+
+O Data Scientist do Ciclo 3 mostrou que com 20.000+ usuários, a Praça terá 100+
+Cartas Públicas por dia. Cronologia pura vira mangueira de incêndio. Mas a regra
+segue: **sem algoritmo**. Sem ML, sem "Para Você", sem otimização de engajamento.
+
+Os 7 agentes produziram 4 famílias de solução. Nenhuma usa algoritmo. Todas têm
+falhas. A síntese combina o melhor de cada uma.
+
+### As 4 famílias de curadoria (e o que ficou de cada)
+
+**Família 1: Taxonomia (Bibliotecário).** Cada Carta Pública é classificada pelo
+autor em 4 facetas: Gênero (obrigatório, ~12 opções: Memória, Reflexão, Crônica,
+Desabafo...), Tema (opcional, ~50 termos controlados: luto, cidade, corpo...),
+Formato (automático: texto/voz/imagem/vídeo), e Contexto do Círculo (opcional:
+anônimo ou "círculo de amigos" etc.). Os termos evoluem em assembleia trimestral.
+
+**O que ficou:** Gênero e Formato são obrigatórios e entram no produto. São 2
+dropdowns no momento de tornar uma Carta pública. Tema é opcional e os termos
+evoluem democraticamente. Isso resolve 60% da navegação: você filtra por "só
+quero ler Crônicas em voz hoje."
+
+**Família 2: Curadoria Social (Social Curation + Regulars).** Quatro mecânicas:
+- **Dispatcher**: você envia uma Carta para até 3 pessoas específicas com uma
+  nota pessoal. Custa 1 view da Carta (dos 50). 3 dispatches por semana.
+- **Estante do Círculo**: 7 slots. Qualquer membro nomina, outro secunda.
+- **Sala de Leitura**: evento de 24-48h com anotações coletivas.
+- **Regulars**: sistema de stewards voluntários (90 dias, rotativos) que podem
+  destacar Cartas, propor temas, organizar coleções.
+
+**O que ficou:** Dispatcher e Estante do Círculo entram no produto. São as
+mecânicas de curadoria social do dia a dia. Sala de Leitura e Regulars ficam
+para depois dos 5.000 usuários (quando a Praça ativar).
+
+**Família 3: Sementes (Algorithm Skeptic).** Cada usuário recebe 3 Sementes por
+semana — tokens escassos, não-acumuláveis, que podem ser dados a uma Carta Pública
+para dizer "isto tem valor para a comunidade." O autor NÃO vê quem deu Sementes
+(sem dopamina de validação). As Cartas com Sementes ganham destaque visual suave.
+Não é um algoritmo — é um sinal comunitário transparente e auditável.
+
+**O que ficou:** Sementes entram como a ÚNICA forma de "destaque" na Praça. Sem
+"em alta", sem "mais lidos", sem "recomendados". Só Sementes. 3 por semana por
+pessoa = escassez que previne abuso. O destaque é visual (moldura diferente), não
+posicional (não fura a cronologia).
+
+**Família 4: Vouchers de Atenção (Economist).** Cada visita à Praça te dá 5
+vouchers. Cada Carta custa 1-3 vouchers (baseado no comprimento). Você gasta
+conscientemente. 30s grátis em qualquer Carta — se fechar antes, recupera o
+voucher.
+
+**O que NÃO ficou:** Vouchers são complexos demais para o MVP. Introduzem
+ansiedade de "gastar bem". Ficam como ideia para quando a Praça tiver 10.000+
+usuários e o volume for realmente incontrolável. Por enquanto, a combinação de
+cronologia + filtros de taxonomia + Sementes resolve.
+
+### A solução integrada: como a Praça organiza conteúdo
+
+**Tela 1: O Mural (default).** Cronologia pura. As Cartas mais recentes primeiro.
+Cada Carta mostra: Gênero (badge colorido), Formato (ícone), primeiras linhas,
+nome do autor, Temas (se preenchidos). Cartas com Sementes têm uma moldura
+dourada sutil. Nada mais. Sem "popular", sem "em alta".
+
+**Tela 2: Explorar (filtros).** Você escolhe: "quero ver só Crônicas" ou "só
+áudio" ou "só Cartas do tema 'cidade'". Os filtros combinam. A ordem é sempre
+cronológica. Você não "descobre" por relevância — você **escolhe** por
+curiosidade.
+
+**Tela 3: Dispatches (seu correio).** As 3 pessoas que você escolheu esta semana
+receberam Cartas com notas pessoais suas. E você recebeu dispatches de outros.
+Esta tela mostra só isso — o correio humano. É a curadoria mais poderosa:
+"alguém que me conhece achou que eu precisava ler isto."
+
+**Tela 4: Estantes (coleções).** Cada Círculo tem sua Estante pública. 7 Cartas
+que o Círculo decidiu coletivamente que merecem ser vistas. As Estantes são o
+cartão de visita de cada Círculo — e uma forma de descobrir Círculos Abertos.
+
+### A regra que unifica tudo
+
+> **A ordem base é sempre cronológica. Qualquer destaque é visual (moldura, cor,
+> ícone), nunca posicional. Nada fura a fila.**
+
+Isso preserva a transparência da cronologia (o Cético tinha razão: cronologia é
+honesta) enquanto adiciona camadas de significado (o Algorithm Skeptic tinha
+razão: cronologia pura é pobre). A cronologia é o chão. As Sementes, Dispatches
+e Estantes são o jardim que cresce nele.
+
+### O que NÃO entra
+
+- **Sem "Mais Lidos".** Views são limitadas a 50 — não faz sentido ranquear por
+  visualizações.
+- **Sem "Em Alta".** Não há algoritmo para detectar "alta".
+- **Sem "Recomendados Para Você".** Nem hoje, nem nunca.
+- **Sem busca por palavra-chave.** A Praça é navegada, não pesquisada. (Se a
+  comunidade pedir, search é adicionado como full-text simples, sem ranking.)
+- **Sem Regulars no MVP.** O sistema de stewards rotativos é poderoso mas complexo.
+  Fica para quando a comunidade atingir maturidade de governança.
+
+---
+
+*Fim do Ciclo 4. O Ciclo 5 examina: o modelo de assinatura. R$ 15/mês é viável?
+Quanto custa rodar isso? O que acontece quando a cooperativa precisa contratar?*
 
