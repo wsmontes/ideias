@@ -52,7 +52,7 @@ Padrões relevantes para a atenção:
 
 ## 3. Marc Augé: O Feed Como Não-Lugar
 
-Marc Augé (*Não-Lugares: Introdução a uma Antropologia da Sobremodernidade*, 1992) define o NÃO-LUGAR como um espaço que:
+Marc Augé (1935-2023, antropólogo francês), em *Non-Lieux: Introduction à une Anthropologie de la Surmodernité* (Seuil, 1992; trad. Verso, 1995), define o NÃO-LUGAR como um espaço que:
 - **Não é identitário**: você não É daquele lugar. Um aeroporto não é "seu."
 - **Não é relacional**: as pessoas não se relacionam ali — apenas TRANSITAM.
 - **Não é histórico**: o lugar não tem passado, não tem memória, não tem narrativa.
@@ -111,3 +111,10 @@ Este lugar — esta sala, este canto, esta cama, esta mesa — está MOLDANDO su
 ---
 
 *Fim do Loop 21. Vinte e um loops. O espaço finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 21.** Verificação de referências arquitetônicas:
+- Augé (1935-2023): *Non-Lieux* (Seuil 1992, Verso 1995). Falecido em 2023.
+- Alexander, Ishikawa & Silverstein — *A Pattern Language* (Oxford UP, 1977): 253 padrões. *The Timeless Way of Building* (Oxford UP, 1979). Já citado no Loop 101 (dedicado integralmente a Alexander)
