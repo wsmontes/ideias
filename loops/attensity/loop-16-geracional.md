@@ -45,7 +45,7 @@ Crianças que crescem com tablets estão desenvolvendo uma atenção DIFERENTE. 
 - **Esperar** (a espera é onde o desejo se elabora — o tablet elimina a espera)
 - **Prestar atenção ao que NÃO É ESTIMULANTE** (uma flor, uma pedra, uma formiga — a atenção ao sutil, ao pequeno, ao quieto)
 
-**Isso não é "pânico moral."** É uma transformação REAL da arquitetura atencional de uma geração inteira. Não sabemos o que vai resultar disso.
+**Isso não é "pânico moral."** É uma transformação REAL da arquitetura atencional de uma geração inteira. A pesquisa contemporânea confirma: pais usam três estratégias de mediação — **ativa** (conversar sobre o conteúdo), **restritiva** (limites de tempo) e **co-uso** (usar junto). Mas há um paradoxo atencional documentado: pais QUEREM que crianças estejam atentas às telas (engajadas, aprendendo) E simultaneamente temem que estejam ATENTAS DEMAIS ("zombificadas", passivas). A distinção moral entre "bom" screen time (social, educativo, familiar) e "mau" screen time (isolado, "mindless", individual) é altamente marcada por classe: pais de classe média são mais ansiosos e restritivos (Clark, 2013). Avós frequentemente fazem esforços extras para aprender tecnologias e manter conexão com netos — criando uma dinâmica de três gerações onde os pais MEDIAM enquanto os avós PONTAM.
 
 ---
 
@@ -128,3 +128,12 @@ Como a atenção é TRANSMITIDA entre gerações?
 ---
 
 *Fim do Loop 16. Dezesseis loops. A transmissão geracional da atenção finalmente foi tematizada. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 16.** Pesquisa web adicionou referências de media studies e sociologia da família:
+- Prensky (2001): "Digital Natives vs Digital Immigrants" (framework original)
+- Mediação parental: estratégias ativa/restritiva/co-uso. Paradoxo atencional: querer crianças atentas às telas mas temer que estejam atentas demais
+- Clark (2013): ansiedade de screen time marcada por classe — classe média mais restritiva
+- Dinâmica de três gerações: avós aprendendo tecnologias para conectar com netos, crianças "navegando" restrições parentais com agência (Mukherjee, "childing")
