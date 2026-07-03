@@ -102,3 +102,11 @@ Em cuidados paliativos, fala-se em "boa morte": morrer com dignidade, sem dor, c
 ---
 
 *Fim do Loop 24. Vinte e quatro loops. A morte finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 24.** Referências sobre morte e atenção:
+- Atul Gawande — *Being Mortal: Medicine and What Matters in the End* (Metropolitan Books, 2014): a medicina pode prolongar a vida ou preservar sua qualidade; a "boa morte" requer conversas corajosas (atenção compartilhada)
+- Cicely Saunders (1918-2005) — fundadora do moderno movimento hospice (St. Christopher's, Londres, 1967): "total pain" (físico, emocional, social, espiritual). A atenção do moribundo precisa de CUIDADO em todas essas dimensões
+- O loop conecta L7 (Heidegger, Sein-zum-Tode como estrutura) com a experiência REAL do processo de morrer (cuidados paliativos)
