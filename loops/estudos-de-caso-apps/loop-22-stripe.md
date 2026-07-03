@@ -1,196 +1,149 @@
-# Estudo de Caso 22 — Stripe: O App Que Virou o Cano de Pagamentos da Internet (Com 7 Linhas de Código)
+# Estudo de Caso 22 — Stripe: O Cano de Pagamentos da Internet Que Processa 1,3% do PIB Global
 
 > **Data:** 2026-07-03
-> **Loop:** 22 de ∞ (Fase 2: Fintech / Infraestrutura)
-> **Categoria:** Pagamentos / Infraestrutura Financeira / API-first
-> **Tema:** 2010. Dois irmãos irlandeses — Patrick e John Collison — largam MIT e Harvard. Eram GÊNIOS: Patrick ganhou o Young Scientist of the Year irlandês aos 16 anos (trabalho sobre Lisp). John o seguiu para os EUA aos 15. Venderam sua primeira startup (Auctomatic) por $5M quando ainda eram ADOLESCENTES. Mas havia algo que os OBSECAVA: por que era TÃO DIFÍCIL aceitar pagamentos na internet? "Parecia um ecossistema PROJETADO para reduzir o número de negócios na internet." Abrir uma conta de comerciante levava SEMANAS. Integrar um gateway de pagamento era um PESADELO. PayPal existia mas não era feito para DEVELOPERS. Os Collison entraram no Y Combinator. Construíram uma API. **7 linhas de código.** Um developer copiava, colava, e em MINUTOS aceitava pagamentos. Stripe processa hoje **$1.9 trilhão/ano** (~1.6% do PIB global). Valuation: **~$159 bilhões.** 90% dos adultos americanos já usaram Stripe sem saber. Esta é a história do app que NÃO é um "app" — é a CAMADA de pagamentos que roda a economia da internet.
+> **Loop:** 22 de ∞ (Reescrita — Fase 2)
+> **Categoria:** Infraestrutura Financeira / API / Pagamentos
+> **Tema:** 2010. Patrick Collison e John Collison, dois irmãos irlandeses de Dromineer — um vilarejo de cem habitantes no Condado de Tipperary — abandonam MIT e Harvard para construir uma empresa de pagamentos. Eles já haviam fundado e vendido uma startup antes: a Auctomatic, uma plataforma SaaS para vendedores do eBay, vendida por US$ 5 milhões quando Patrick tinha dezenove anos e John, dezessete. A experiência de integrar pagamentos na Auctomatic os deixou furiosos. Para aceitar cartões de crédito online, uma empresa precisava abrir uma conta de comerciante num banco, configurar um gateway de pagamento separado, navegar por décadas de software legado e esperar semanas. "Era como se a indústria de pagamentos online tivesse sido projetada para reduzir o número de negócios na internet", Patrick diria depois. Os irmãos entram no Y Combinator no verão de 2009. Constroem uma API que faz em minutos o que levava semanas: sete linhas de código, e qualquer site pode aceitar pagamentos. A rodada seed de US$ 2 milhões em 2011 incluiu Peter Thiel, Elon Musk, Sequoia Capital e Andreessen Horowitz. Hoje, o Stripe processa US$ 1,4 trilhão por ano — aproximadamente 1,3% do PIB global. Em 2025, lançou o Agent Commerce Protocol (ACP) e os Shared Payment Tokens (SPT), posicionando-se como a camada financeira para a economia de agentes de AI.
 
 ---
 
-## 0. A Linhagem: Como a Internet Aceitava Dinheiro Antes das 7 Linhas
+## 0. A Linhagem: Como a Internet Aceitava Dinheiro Antes do Stripe
 
 ```
-Conta de comerciante (pré-internet): vá ao BANCO. Preencha PAPELADA. Espere SEMANAS.
-      ↓
-PayPal (1998): pagamentos online para CONSUMIDORES. "Envie dinheiro para um email." Fácil. Mas RÍGIDO.
-      ↓
-Authorize.net, Braintree (2000s): gateways de pagamento. Funcionavam. Mas integração HORRÍVEL. XML. SOAP.
-      ↓
-Stripe (2011): API REST. JSON. 7 linhas de código. Developer-first. "Pagamentos para a internet."
-      ↓
-Stripe hoje (2026): $1.9T/ano processado. Atlas, Radar, Capital, Tax, Climate, Agent Commerce Protocol.
+Comerciante → banco (conta merchant) → gateway de pagamento → processador → bandeira → banco emissor
 ```
 
-O Stripe não inventou pagamentos online (PayPal, Authorize.net). Inventou os pagamentos online que DEVELOPERS AMAM — API limpa, documentação IMACULADA, 7 linhas de código em qualquer linguagem. E fez isso num momento em que "vender para developers" NÃO era uma categoria de produto.
+Antes do Stripe, cada etapa dessa cadeia exigia contratos, softwares e integrações diferentes. O PayPal havia resolvido pagamentos entre pessoas físicas, mas não entre empresas e clientes. O Authorize.net funcionava, mas sua integração era baseada em XML e exigia certificados. O Braintree era melhor, mas ainda exigia semanas de configuração. Nenhuma dessas soluções havia sido projetada para desenvolvedores. Eram produtos financeiros com interfaces de programação; o Stripe foi o primeiro produto de programação com infraestrutura financeira embutida.
 
 ---
 
-## 1. A Origem: Dois Irlandeses, Uma API e 7 Linhas de Código
+## 1. A Origem: Dois Irlandeses, Cinco Milhões de Dólares e Uma API Que Ninguém Pediu
 
-### Os Irmãos Collison: Prodígios desde Crianças
+Patrick e John Collison cresceram programando. Patrick ganhou o prêmio de Jovem Cientista da Irlanda aos dezesseis anos com um sistema de IA conversacional escrito em Lisp — a mesma linguagem que Paul Graham, fundador do Y Combinator, havia ajudado a popularizar. John obteve as maiores notas já registradas no exame nacional irlandês. Auctomatic, a primeira empresa dos dois, foi uma lição prática sobre o estado da infraestrutura de pagamentos em 2007. Eles passaram semanas integrando gateways de pagamento para que os vendedores do eBay pudessem aceitar cartões de crédito. A experiência foi tão frustrante que, quando venderam a empresa por US$ 5 milhões, já sabiam qual seria o próximo problema a atacar.
 
-| Irmão | Background |
-|---|---|
-| **Patrick Collison** | Irlandês. Vencedor do Young Scientist of the Year aos 16 (Lisp). SAT aos 13. MIT aos 17. |
-| **John Collison** | Irlandês. Seguiu Patrick para os EUA aos 15. Harvard. |
-| **Auctomatic** (2007) | Primeira startup. Ferramenta para vendedores do eBay. Vendida por **$5M.** Eram ADOLESCENTES. |
+No Y Combinator, no verão de 2009, os irmãos começaram a construir o que inicialmente chamaram de `/dev/payments` — um nome que refletia a mentalidade do projeto: pagamentos como primitiva de sistema, não como produto financeiro. O nome "Stripe" veio depois — uma palavra que não significava nada em particular, não tinha conotação financeira e estava disponível como domínio.
 
-### O Problema: Aceitar Pagamentos Era Um Pesadelo
-
-Nos anos 2000, se você quisesse VENDER algo na internet:
-1. Ir ao BANCO abrir uma conta de comerciante (merchant account). **Semanas.**
-2. Escolher um gateway de pagamento (Authorize.net, Braintree). **Integração complicada.**
-3. Lidar com XML, SOAP, documentação CONFUSA. **Semanas de desenvolvimento.**
-
-> *"It seemed like a prevailing ecosystem designed to reduce the number of Internet businesses."* — Patrick Collison
-
-PayPal existia. Mas era para CONSUMIDORES ("envie dinheiro para um email"), não para NEGÓCIOS que precisavam de controle total, customização e integração limpa.
-
-### Y Combinator e o Nascimento (2010-2011)
-
-- **2009**: entram no **Y Combinator.**
-- **2010**: largam MIT e Harvard. Trabalham FULL-TIME.
-- Nome original: **`/dev/payments`.** Depois: **Stripe.**
-- Primeiro pitch: "Pagamentos para developers." Investidores NÃO ENTENDIAM. "Developer NÃO decide ferramenta de pagamento. O CFO decide."
-
-ERRADO. Developers decidem TUDO.
-
-### 2011: O Lançamento Que Mudou a Internet
-
-Stripe lança com uma API REST. JSON. Clean. Documentação IMACULADA. Code snippets em Python, Ruby, PHP, JavaScript, Java, Go.
-
-**O pitch**: "Copie estas 7 linhas. Cole no seu código. Você está aceitando pagamentos."
+O produto que lançaram em 2010 era uma API REST que retornava JSON. Isso parece banal hoje, mas em 2010 era uma declaração de guerra contra uma indústria que ainda operava com XML, SOAP e terminais dedicados. O pitch de vendas do Stripe era o próprio `curl`:
 
 ```
-Stripe.api_key = "sk_test_..."
-Stripe::Charge.create(
-  amount: 2000,
-  currency: "usd",
-  source: "tok_...",
-  description: "My First Charge"
-)
+curl https://api.stripe.com/v1/charges \
+  -u sk_test_xxx: \
+  -d amount=2000 \
+  -d currency=usd \
+  -d source=tok_visa
 ```
 
-**MINUTOS.** De semanas para MINUTOS.
+Nenhum slide. Nenhuma reunião com o CFO. O desenvolvedor copiava esse comando, colava no terminal e, em segundos, via uma transação de teste ser processada. Depois disso, ninguém precisava convencê-lo de nada — ele já estava convencido. O Stripe não vendeu para executivos. Vendeu para desenvolvedores, que implementaram a solução e depois forçaram a adoção de baixo para cima.
 
-### O Crescimento Bottom-Up
-
-Stripe fez algo INÉDITO: vendeu para DEVELOPERS, não para executivos.
-- Devs experimentavam. Gostavam. Implementavam.
-- Startups CRESCIAM com Stripe. Quando viravam GRANDES (Shopify, Lyft, Slack), já estavam NO Stripe.
-- O CFO não ESCOLHIA Stripe. O CFO CHEGAVA e o Stripe JÁ ESTAVA lá.
-
-**Resultado**: Amazon, Shopify, Lyft, Slack, Zoom, milhões de pequenos negócios — todos no Stripe.
+A rodada de 2011 foi um who's who do Vale do Silício. Peter Thiel liderou. Elon Musk — que havia co-fundado o PayPal — entrou como investidor. Sequoia e Andreessen Horowitz participaram. A mensagem era clara: as pessoas que mais entendiam de pagamentos no mundo estavam apostando que o Stripe substituiria o PayPal como infraestrutura padrão da internet.
 
 ---
 
-## 2. A Filosofia do Produto: "Developer-First" Não É Slogan — É Estratégia
+## 2. A Filosofia do Produto: "Roofshots", Não "Moonshots"
 
-### Os 4 Pilares do Developer-First UX
+Patrick Collison articulou a filosofia de produto do Stripe no Retool Summit de 2025 em uma frase: *"Toda vez que há um jeito super elegante de fazer as coisas e um jeito prático e pragmático, a gente vai pelo pragmático — pelo menos até validar que há valor real para o usuário."* O Stripe chama isso de "roofshots": melhorias que resolvem problemas reais hoje, com a tecnologia disponível hoje, em vez de projetos de pesquisa de múltiplos anos que pintam uma visão empolgante do futuro mas não movem a agulha agora. A metáfora é deliberada: um moonshot é inspirador, mas um roofshot você pode alcançar com uma escada.
 
-| Pilar | Como o Stripe Aplica |
-|---|---|
-| **Clear Documentation** | Docs são PRODUTO, não suporte. Interativas. Copy-paste-ready. Exemplos em 7+ linguagens. |
-| **Fast API Integration** | Primeira charge bem-sucedida em MINUTOS. Hosted Checkout como default (75+ métodos de pagamento). |
-| **Clean UI** | Dashboard funciona como extensão da API. Não-técnicos inspecionam pagamentos sem engenharia. |
-| **Strong Error Handling** | HTTP codes familiares + mensagens ACIONÁVEIS + idempotência garantida. "Declined: try another card" — não "Error 0x8F3A." |
+Essa filosofia se manifesta em três decisões de produto que definem o Stripe:
 
-### Os Princípios de Produto
+**1. Abstração progressiva, não simplificação.** O Stripe oferece níveis crescentes de abstração — desde a API bruta (máximo controle) até o Stripe Checkout (uma página de pagamento hospedada que funciona com zero código). O desenvolvedor escolhe o nível de abstração que corresponde à sua necessidade, e pode mover-se entre níveis sem abandonar a plataforma. Isso é diferente de "simplificar pagamentos": é construir uma escada de abstrações onde cada degrau resolve um problema específico.
 
-- **"First use = first win."** Um developer obtém resposta funcional em minutos — sem sales call, sem paperwork.
-- **Layered abstraction.** Checkout (hosted, zero-code) → Elements (modular UI) → Raw API (controle total). Você ESCOLHE o nível.
-- **Docs as go-to-market.** Documentação NÃO é material de suporte. É o CANAL DE DISTRIBUIÇÃO PRIMÁRIO.
-- **"No breaking changes."** Endpoints antigos da API são suportados INDEFINIDAMENTE. Se funcionava em 2015, funciona HOJE.
+**2. Idempotência como propriedade do sistema, não como middleware.** Toda requisição `POST` ao Stripe aceita um cabeçalho `Idempotency-Key`. Se a mesma chave for enviada duas vezes, o Stripe retorna a resposta original sem executar a operação novamente. Isso não é um recurso — é uma propriedade arquitetural. A chave de idempotência é armazenada atomicamente junto com a transação no ledger; não há janela de corrida. Para um sistema financeiro, onde uma cobrança duplicada pode significar um cliente furioso e um estorno, essa garantia é existencial.
+
+**3. Zero breaking changes. Para sempre.** Uma integração com o Stripe escrita em 2015 funciona sem modificações em 2025. A API evolui por adição — novos campos, novos endpoints, novas versões de API — mas nunca por remoção ou alteração de comportamento existente. Isso é extraordinariamente caro de manter e extraordinariamente valioso para os clientes. Cada breaking change que o Stripe evita é uma organização que não precisa mobilizar uma equipe de engenharia para atualizar sua integração de pagamentos.
 
 ---
 
-## 3. As Inovações Que o Stripe Trousse ao Mundo
+## 3. Arquitetura Técnica: O Ledger Imutável e o DocDB Que Move Dados Sem Parar a Máquina
 
-### 3.1 7 Linhas de Código (2011)
+O backend do Stripe é organizado em torno de um princípio que vem da contabilidade, não da engenharia de software: **correção sobre disponibilidade**. Para uma rede social, mostrar um post com cinco segundos de atraso é aceitável. Para um sistema de pagamentos, perder uma transação ou cobrar um cliente duas vezes não é.
 
-O pitch INTEIRO do Stripe em 7 linhas. Isso era IMPOSSÍVEL antes. Gateways de pagamento exigiam CENTENAS de linhas de XML, SOAP, certificados, redirects.
+O coração dessa arquitetura é o **Ledger** — um sistema de contabilidade de partida dupla que registra cada movimento de dinheiro como um par de lançamentos de débito e crédito. O Ledger é imutável: registros financeiros nunca são sobrescritos. Correções usam lançamentos de compensação — uma segunda transação que reverte o efeito da primeira — em vez de alterar a transação original. O sistema processa cinco bilhões de eventos por dia e garante que 99,99% do volume em dólares seja ingerido e verificado em até quatro dias, com mais de 99,9999% de explicabilidade do movimento de dinheiro.
 
-### 3.2 Stripe Atlas (2016): Incorporar uma Empresa Pelo Celular
+A camada de API é construída sobre uma máquina de estados explícita. Um `PaymentIntent` — o objeto central da API moderna do Stripe — transita por estados bem definidos: `requires_payment_method → requires_confirmation → processing → succeeded` ou `failed`. Cada transição é guardada por condições que precisam ser satisfeitas. Isso elimina ambiguidade: o estado do pagamento é sempre conhecido e sempre determinístico.
 
-Você quer ABRIR uma empresa nos EUA? Stripe Atlas cuida de TUDO: Delaware C-Corp, EIN, conta bancária, cartão corporativo. Para founders no BRASIL, Índia, Nigéria — que NUNCA teriam acesso a isso. "A internet deveria permitir que QUALQUER UM no mundo abrisse um negócio global."
+O **DocDB** — um banco de dados proprietário construído sobre MongoDB — resolve um problema que a maioria dos sistemas de pagamento resolve com downtime programado: mover dados entre shards sem interromper o serviço. O DocDB processa mais de cinco milhões de consultas por segundo distribuídas em mais de dois mil shards. Durante a Black Friday de 2025, o Stripe manteve disponibilidade de 99,9999% — um número que significa menos de trinta segundos de downtime em um ano inteiro.
 
-### 3.3 Stripe Radar: Anti-Fraude Como Serviço
-
-Machine learning treinado em TRILHÕES de transações. Adapta-se a NOVOS padrões de fraude em TEMPO REAL. Oferecido como feature NATIVA — não como "integração externa."
-
-### 3.4 Stripe Elements: UI de Pagamento Customizável
-
-Componentes de UI modulares que processam dados de cartão NO LADO DO STRIPE (PCI-compliant). O developer MONTA o checkout com a CARA da marca. Zero responsabilidade com PCI.
-
-### 3.5 Agent Commerce Protocol (2025): Pagamentos Para AI Agents
-
-Quando um AI agent (ChatGPT, Claude) quiser COMPRAR algo para você — como ele PAGA? O Stripe criou o **ACP (Agent Commerce Protocol):**
-- AI agent consulta inventário, preço, disponibilidade.
-- **SPT (Shared Payment Token)**: "sub-conta digital" para AI agents com limites de gasto, restrições de categoria, validade temporal.
-- Radar adaptado para transações machine-to-machine.
-
-O futuro dos pagamentos NÃO é humano. É AGENTE.
+A segurança segue o mesmo princípio de correção. Números de cartão de crédito nunca entram nos bancos de dados gerais do Stripe. São tokenizados no momento da captura — via Stripe.js no navegador ou via SDK no mobile — e armazenados em um cofre PCI isolado. O comerciante nunca vê, armazena ou transmite dados de cartão. Isso transfere o ônus da conformidade PCI do comerciante para o Stripe — uma decisão de produto que eliminou a principal barreira para pequenos negócios aceitarem pagamentos online.
 
 ---
 
-## 4. Identidade Visual
+## 4. A Economia de Agentes: ACP, SPT e a Próxima Fronteira
 
-| Elemento | Especificação |
-|---|---|
-| **Cor primária** | Electric Violet `#533AFD`. ÚNICO botão filled por página. "One CTA voltage per band." |
-| **Fundo** | Canvas `#FFFFFF`, Soft `#F6F9FC`, Cream `#F5E9D4` |
-| **Texto** | Ink `#0D253D` (nunca preto puro). |
-| **Tipografia** | **Sohne** (Klim Type Foundry). Proprietária. Weight 300 como assinatura. `ss01` (single-story 'a'). |
-| **Gradiente assinatura** | Mesh: cream → sherbet → lavender → indigo → ruby. Faixa horizontal no topo de toda página. |
-| **Botões** | Pill-shaped (radius: 9999px). Padding: 8px 16px. |
-| **Logo** | Wordmark tipográfico. FF Fago. "i" e "t" com cortes (homenagem a `/dev/payments`). |
+Em 2025, o Stripe começou a posicionar-se para um mundo onde transações financeiras não são iniciadas por humanos preenchendo formulários em navegadores, mas por agentes de inteligência artificial chamando APIs. O **Agent Commerce Protocol (ACP)** — desenvolvido em parceria com a OpenAI — é uma tentativa de criar um padrão de comunicação entre agentes e comerciantes. Em vez de um agente tentar parsear o HTML de uma página de checkout, o ACP permite que ele consulte diretamente o backend do comerciante: produtos disponíveis, preços, inventário, prazos de entrega. ACP é para comércio o que o TCP/IP foi para redes: uma camada de abstração que permite que sistemas heterogêneos se comuniquem sem conhecer os detalhes internos uns dos outros.
+
+Os **Shared Payment Tokens (SPT)** resolvem o problema de autorização em transações iniciadas por agentes. Um usuário não quer dar os dados do seu cartão de crédito para um agente de AI. Em vez disso, o SPT cria um token de pagamento com permissões granulares: "válido apenas para café", "máximo US$ 50 por transação", "expira em dez minutos". O agente pode iniciar pagamentos dentro dessas restrições sem nunca acessar o número do cartão. É uma inovação de produto que resolve um problema que não existia até 2024 — o tipo de roofshot que define a abordagem do Stripe.
+
+Internamente, o Stripe treinou um modelo de AI proprietário para detecção de fraude usando BERT — um encoder, não um decoder generativo — sobre dezenas de bilhões de transações históricas. O modelo aumentou a taxa de detecção de fraude de 59% para 97% e opera em produção com confiabilidade de 99,999%. Três engenheiros de machine learning construíram o sistema trabalhando em uma "bolha de pesquisa". Essa combinação de escala massiva de dados, time mínimo e foco em melhoria incremental é a expressão mais pura da filosofia do Stripe.
 
 ---
 
-## 5. Ficha Técnica
+## 5. Lições de Produto
+
+### 5.1 Vender para o desenvolvedor, não para o executivo
+
+O Stripe ignorou o CFO. Ignorou o VP de Vendas. Construiu uma API que um desenvolvedor podia testar em trinta segundos — e deixou que esse desenvolvedor convencesse sua organização a adotá-la. Isso inverteu o ciclo de vendas tradicional de software empresarial, onde o executivo compra e o desenvolvedor é forçado a usar. No Stripe, o desenvolvedor adota e o executivo descobre depois — quando a integração já está em produção e funcionando. A lição é que, para produtos de infraestrutura, a adoção bottom-up é um fosso competitivo mais profundo do que qualquer contrato enterprise.
+
+### 5.2 Idempotência não é uma feature — é uma propriedade arquitetural
+
+O Stripe trata idempotência como um requisito do sistema financeiro, não como uma conveniência de API. A chave de idempotência é armazenada atomicamente no ledger — ela é parte da transação, não um cabeçalho HTTP opcional. Isso significa que redes instáveis, timeouts e retentativas não produzem cobranças duplicadas. Para qualquer sistema que lida com dinheiro, essa garantia deveria ser o padrão, não a exceção.
+
+### 5.3 Roofshots, não moonshots
+
+A indústria de tecnologia premia narrativas ambiciosas. O Stripe premia melhorias incrementais que resolvem problemas reais. O Agent Commerce Protocol não é uma tentativa de reinventar o comércio — é uma tentativa de fazer com que agentes de AI consigam consultar inventário e preços de forma estruturada. É um roofshot: você pode ver o telhado, e você pode alcançá-lo com uma escada.
+
+### 5.4 A complexidade que você absorve é o valor que você entrega
+
+O Stripe absorveu a complexidade de conformidade PCI, negociação com adquirentes, integração com bandeiras, gestão de estornos, prevenção de fraude e reconciliação contábil. Para o comerciante, tudo isso desaparece atrás de sete linhas de código. Cada camada de complexidade que o Stripe absorveu é uma camada de valor que o comerciante recebeu. A profundidade da abstração é diretamente proporcional à complexidade que a plataforma está disposta a gerenciar em nome do usuário.
+
+---
+
+## 6. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Stripe |
-| **Fundação** | 2010 (YC). Lançamento público: setembro de 2011. |
-| **Fundadores** | Patrick Collison, John Collison |
-| **IPO** | NÃO. Privado. ~$159B valuation. |
-| **Categoria** | Pagamentos / Infraestrutura Financeira / API |
-| **Volume processado** | ~$1.9 trilhão/ano |
-| **Preço** | 2.9% + $0.30 por transação (standard). Custom para enterprise. |
-| **Design System** | Electric Violet `#533AFD`, Sohne (Klim), gradient mesh, pill buttons |
-| **Concorrentes** | Adyen, PayPal/Braintree, Square, Checkout.com |
+| **Fundação** | 2010. Lançamento público: setembro de 2011. |
+| **Fundadores** | Patrick Collison (CEO), John Collison (President) |
+| **IPO** | Não. Privado. Último valuation: ~US$ 95 bilhões. |
+| **Categoria** | Infraestrutura de Pagamentos / API |
+| **Volume processado** | US$ 1,4 trilhão/ano (~1,3% do PIB global) |
+| **Países** | 195+; 135+ moedas |
+| **Clientes** | Milhões. Inclui Shopify, Amazon, Lyft, DoorDash, Salesforce, Figma. |
+| **Preço** | 2,9% + US$ 0,30 por transação (standard). Preços customizados para enterprise. |
+| **Tech Stack** | Ruby (early), Java/Scala/Go (core services), MongoDB/DocDB (database), Kafka (streaming) |
+| **API** | REST/JSON. SDKs em 7 linguagens. Zero breaking changes. |
+| **Concorrentes** | Adyen, PayPal/Braintree, Checkout.com, Square |
 
 ---
 
-## 6. Lições do Stripe
+## 7. Linha do Tempo
 
-### 6.1 Vender Para o Developer, Não Para o Executivo
-
-O Stripe IGNOROU o CFO. Vendeu para o DEV. Quando o CFO chegou, o Stripe já estava IMPLEMENTADO.
-
-**Lição**: identifique QUEM realmente adota seu produto. Venda para ESSA pessoa. O top-down vem DEPOIS.
-
-### 6.2 7 Linhas de Código > 100 Slides de Vendas
-
-O pitch do Stripe não era um deck. Era `curl https://api.stripe.com/v1/charges`. Copia. Cola. Funcionou. VENDEU.
-
-**Lição**: se seu produto é para developers, seu PITCH é seu `curl`. Se `curl` não funciona em 2 minutos, seu produto NÃO funciona.
-
-### 6.3 "No Breaking Changes" — Confiança É Infraestrutura
-
-O Stripe NUNCA quebra um endpoint antigo. Código de 2015 funciona HOJE. Isso gera CONFIANÇA ABSOLUTA. Ninguém tem medo de atualizar a API.
-
-**Lição**: cada breaking change é uma QUEBRA DE CONFIANÇA. Trate sua API como uma PROMESSA.
+```
+2007 — Patrick (19) e John (17) fundam a Auctomatic. Vendem por US$ 5M em 2008.
+2009 — Entram no Y Combinator. Começam a construir o Stripe.
+2010 — Abandonam MIT e Harvard. Lançam a primeira versão.
+2011 — Série A de US$ 2M liderada por Peter Thiel. Elon Musk, Sequoia, a16z participam.
+2015 — Stripe atinge US$ 5B de valuation.
+2016 — Lança o Stripe Atlas (incorporação de empresas). Stripe Radar (anti-fraude).
+2019 — Série G: valuation de US$ 35B.
+2021 — Série H: valuation de US$ 95B.
+2023 — Lança o Stripe Workbench (debugging de integrações).
+2024 — Payment Orchestration. Extension Points para terceiros.
+2025 — Agent Commerce Protocol (ACP). Shared Payment Tokens (SPT). Stripe Workflows. AI-native fraud model.
+```
 
 ---
 
-## Fontes e Referências
+## Fontes
 
-- [Forbes — How Stripe Created A $35 Billion Giant](https://www.forbes.com/sites/tomtaulli/2019/09/20/startup-lessons-how-stripe-created-a-35-billion-giant/)
-- [Raw.Studio — How Stripe Uses 4 Developer-First UX Principles (2025)](https://raw.studio/blog/how-stripe-uses-4-developer-first-ux-principles-to-drive-massive-adoption/)
-- [Koder.ai — How Stripe Put Developers First (2025)](https://koder.ai/blog/how-stripe-put-developers-first-and-reshaped-online-payments)
-- [Dev.to — Stripe System Design Deep Dive (2024)](https://dev.to/satyam_chourasiya_99ea2e4/stripe-system-design-deep-dive-engineering-for-scale-reliability-and-velocity-d56)
-- [VoltAgent — Stripe DESIGN.md](https://github.com/VoltAgent/awesome-design-md/blob/main/design-md/stripe/DESIGN.md)
-- [brandcolor.dev — Stripe HEX Colors](https://brandcolor.dev/brands/stripe)
-- [Stripe — Agent Commerce Protocol (2025)](https://stripe.com/blog/agent-commerce)
+- [Forbes — Stripe: The App Paymaster (2015)](https://www.forbes.com/sites/samanthasharf/2015/12/09/stripe-the-app-paymaster/)
+- [The Guardian — How two Irish brothers started a £70bn company (2021)](https://amp.theguardian.com/commentisfree/2021/mar/20/how-two-irish-brothers-started-a-70bn-company-stripe-john-patrick-collison)
+- [MicroVentures — Stripe's History and Milestones](https://microventures.com/microventures-portfolio-company-stripes-history-and-milestones)
+- [Stripe Engineering Blog — Building rock-solid Stripe integrations](https://stripe.dev/blog/building-solid-stripe-integrations-developers-guide-success)
+- [Stripe Engineering Blog — Ledger: Tracking and validating money movement](https://stripe.dev/blog/ledger-stripe-system-for-tracking-and-validating-money-movement)
+- [Stripe Engineering Blog — How API changes flow into Stripe's developer products](https://stripe.dev/blog/how-api-changes-flow-into-stripes-developer-products)
+- [QCon SF 2025 — Stripe's DocDB: Zero-downtime data movement](https://qconsf.com/presentation/nov2025/stripes-docdb-how-zero-downtime-data-movement-powers-trillion-dollar-payment)
+- [Retool Blog — Stripe's CEO on the Future of Software: Patrick Collison on AI Agents (2025)](https://retool.com/blog/stripe-ceo-ai-agents-and-the-future-of-software)
+- [Stripe Sessions 2025 — Developer keynote](https://stripe.com/ae/sessions/2025/developer-keynote)
+- [MAD Podcast — The Rise of Agentic Commerce: Emily Glassberg Sands (Stripe)](https://podscan.fm/podcasts/the-mad-podcast-with-matt-turck/episodes/the-rise-of-agentic-commerce-emily-glassberg-sands-stripe)
+- [澎湃新闻 — 从"七行代码"到"智能体商业" Stripe开启下一代支付的价值"熵增" (2025)](https://m.thepaper.cn/newsDetail_forward_32148163)
