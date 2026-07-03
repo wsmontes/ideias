@@ -27,12 +27,17 @@ A rede que eu criaria não começa perguntando "como protegemos os usuários do
 algoritmo?" — começa perguntando **"que tipo de pessoa queremos nos tornar quando
 estamos juntos?"**
 
-E começa com uma honestidade brutal sobre o que ela **não** é: o Terraço não cria
-comunidade — ele serve comunidades que **já existem**. Famílias que já se amam.
-Amigos que já se encontram. Grupos que já têm terreiro, praça, igreja, quintal. O
-app não substitui o espaço físico — ele é uma extensão digital que não envenena o
-que o físico construiu. Isso resolve o cold start: você não "convence" ninguém a
-entrar — você convida pessoas com quem você já convive offline.
+E começa com uma honestidade brutal sobre o que ela **não** é: o Terraço não compete
+com WhatsApp. Não tenta substituir a comunicação rápida do dia a dia. As pessoas
+já têm ferramentas para logística ("me busca na escola?"), para o rápido ("olha
+essa foto!"), para o imediato. O WhatsApp resolve isso — e resolve bem.
+
+O Terraço é outra coisa: é uma **camada de ritual** para grupos que já existem e
+já se comunicam em outro lugar. O WhatsApp resolve a logística. O Terraço resolve
+o que o WhatsApp não resolve: a carta que você não precisava mandar mas mandou, o
+torneio de atenção que você jogou com seus amigos, o silêncio que vocês
+compartilharam. Não é comunicação funcional — é **presença que não serve para nada
+além de estar junto**.
 
 Há uma segunda pergunta, mais antiga e mais perigosa, que também precisa ser feita:
 **"O que você ama?"** Porque você só presta atenção verdadeira ao que ama. Trinta
@@ -420,6 +425,10 @@ A rede não é um feed — é uma **constelação de círculos**:
 
 ### O Ritmo
 
+O Terraço não é onde você se comunica — é onde você ritualiza. A comunicação
+rápida ("me busca na escola?", "olha essa foto!") continua no WhatsApp. O
+Terraço é para o que merece mais que 10 segundos.
+
 ```
 MANHÃ (7h-9h)     TARDE (13h-14h)      NOITE (18h-20h)
      │                   │                    │
@@ -431,20 +440,21 @@ MANHÃ (7h-9h)     TARDE (13h-14h)      NOITE (18h-20h)
 ```
 
 Fora desses horários: o app **não notifica**. Você pode abri-lo, mas ele não te
-chama.
+chama. A urgência da vida cotidiana corre em outro canal.
 
-**Exceção: o Toque.** Cada Círculo tem 3 Toques por mês. Um Toque é um sinal de
-urgência real: "mãe no hospital", "alguém pode buscar as crianças", "preciso de
-vocês agora". Ele fura o digest e notifica todo mundo do Círculo imediatamente.
-3 por mês é escasso o suficiente para não ser abusado ("urgente: olha esse
-meme") e suficiente para emergências reais. Toques não usados expiram — não
-acumulam. A escassez é a proteção contra o abuso.
+**Exceção: o Toque.** Cada Círculo tem 3 Toques por mês. Um Toque fura o digest
+e notifica imediatamente. É para quando a logística precisa furar o ritual: "mãe
+no hospital", "alguém pode buscar as crianças". 3 por mês é escasso o suficiente
+para não ser abusado. Toques não usados expiram — não acumulam. Para todo o resto,
+existe o WhatsApp.
 
 ### A Jornada do Usuário
 
-1. **Chegada**: você cria seu primeiro Círculo. Máximo 12 pessoas. Convida quem
-   ama. O círculo tem um **propósito**: "Família", "Amigos de infância",
-   "Companheiros de projeto"
+1. **Chegada**: você tem um grupo de WhatsApp da família. Ou dos amigos de
+   infância. Ou do terreiro. Você cria um Círculo no Terraço e convida as mesmas
+   pessoas — não para substituir o grupo de WhatsApp, mas para ter um espaço onde
+   a conversa não é logística. O Círculo tem um **propósito**: "Família — o que
+   importa", "Amigos — o que nos marcou", "Terreiro — o que o axé trouxe"
 2. **Presença**: você escreve sua primeira carta. Não é um post — é uma carta.
    Endereçada ao seu Círculo. Tem começo, meio e fim. As pessoas respondem com
    outras cartas. Não há "thread" infinita — cada carta é um objeto completo
@@ -641,7 +651,86 @@ sua." A fricção informa — não decide. O paternalismo se dissolve em convite
 
 ---
 
-## 4. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 4. Segundo Ataque: Competindo Com o "Bom o Suficiente"
+
+O ciclo 2 resolveu o cold start dizendo: o Terraço não cria comunidades — serve
+as que já existem. Famílias, amigos, grupos com terreiro, praça, igreja.
+
+Mas essas pessoas **já se falam**. Elas usam WhatsApp. Ou Signal. Ou iMessage. Ou
+grupos de Telegram. Ferramentas que são:
+
+- **Grátis** (WhatsApp não cobra $15/mês)
+- **Instantâneas** (a mensagem chega na hora, não no digest das 18h)
+- **Familiares** (todo mundo já sabe usar)
+- **Sem fricção** (você manda um áudio de 10 segundos em vez de escrever uma carta)
+
+O Terraço se diferencia por ser **mais saudável**. Mas "saudável" é uma
+característica de produto, não um produto. É como abrir um restaurante cujo único
+pitch é "nossa comida não te envenena". É verdade — mas não é o suficiente para
+alguém trocar o restaurante onde já come todo dia.
+
+### O Que WhatsApp Já Faz Melhor Que o Terraço
+
+| Dimensão | WhatsApp | Terraço |
+|---|---|---|
+| **Preço** | Grátis | $5-30/mês |
+| **Imediatismo** | Mensagem chega em segundos | Digest 3x/dia |
+| **Facilidade** | Áudio de 10s, emoji, GIF | Carta com frase completa |
+| **Base instalada** | 2 bilhões de usuários | 0 |
+| **Confiança** | Criptografia ponta-a-ponta | Criptografia + transparência |
+| **Grupos** | Até 1024 pessoas | 12 por círculo |
+
+O Terraço ganha em **saúde atencional** e perde em **tudo que faz uma ferramenta
+de comunicação ser adotada**: preço, velocidade, conveniência, base instalada.
+
+A pergunta não é "o Terraço é melhor para sua atenção?" — isso ele é. A pergunta é:
+**"O ganho de saúde atencional justifica o custo (dinheiro + esforço + isolamento
+de quem não está no Terraço)?"** Para a maioria das pessoas, a resposta é não.
+
+### A Verdadeira Concorrência Não É o Instagram
+
+O Terraço se define contra o feed (Instagram, TikTok, X). Mas seu concorrente
+real é o **grupo de WhatsApp da família**. Porque é lá que as comunidades que já
+existem estão conversando. O Terraço não está disputando atenção com o algoritmo —
+está disputando **utilidade** com a ferramenta de comunicação mais ubíqua do
+planeta.
+
+O feed é o inimigo filosófico. O WhatsApp é o inimigo real.
+
+### Síntese do Ciclo 3: O Que o Terraço Faz Que o WhatsApp Não Faz?
+
+Se a resposta for "nada, só é mais saudável", o Terraço morre. Tem que ter algo
+que as pessoas **querem** e que o WhatsApp não entrega.
+
+A resposta está nos Círculos Mágicos (princípio 4). O WhatsApp é uma ferramenta
+de **comunicação**. O Terraço é uma ferramenta de **ritual**. A diferença:
+
+- **WhatsApp**: "Mãe, busca a Clara na escola?" → comunicação funcional. Rápida,
+  útil, descartável. O grupo da família no WhatsApp é 90% logística, 10% afeto
+- **Terraço**: "Filha, hoje lembrei do dia em que você aprendeu a andar de
+  bicicleta..." → ritual de presença. Lento, inútil (no melhor sentido),
+  permanente. O Círculo da família no Terraço é 90% afeto, 10% logística
+
+O Terraço não compete com o WhatsApp em **comunicação** — perde feio. Compete em
+**ritual**. E ritual é algo que o WhatsApp **não faz e não foi projetado para
+fazer**.
+
+O Toque (3 por mês) é o canal de logística/urgência. O digest diário é o canal de
+presença. A Carta é o canal de ritual. O WhatsApp faz logística melhor que o
+Toque. Mas não faz ritual. Esse é o nicho.
+
+O Terraço não é "WhatsApp saudável". É **uma ferramenta de ritual para grupos que
+já se comunicam em outro lugar**. O WhatsApp resolve a logística do dia a dia. O
+Terraço resolve o que o WhatsApp não resolve: **a presença que não é funcional**.
+A carta que você não precisava mandar mas mandou. O torneio de atenção que você
+jogou com seus amigos. O silêncio compartilhado.
+
+Isso não é uma rede social. É uma **camada de ritual** sobre as redes que já
+existem.
+
+---
+
+## 5. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
