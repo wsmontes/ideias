@@ -264,7 +264,116 @@ esteja sólida o suficiente para sustentá-la?**
 
 ---
 
-*Fim do Ciclo 2. O Ciclo 3 vai examinar: construir a Praça desde o dia 1 ou
-esperar os Círculos atingirem massa crítica primeiro? E se esperar, como os
-usuários descobrem gente nova enquanto isso?*
+## Ciclo 3 — Síntese dos 10 Agentes: Quando a Praça Nasce?
+
+### O veredito (com números)
+
+A Praça **não existe no Dia 1**. Ela é construída desde o Dia 1 (a arquitetura
+de dados precisa estar pronta), mas só é **ativada** quando a rede atinge:
+
+- **5.000+ usuários ativos**
+- **DAU/MAU > 40%** (usuário abre o app pelo menos 12 dias por mês)
+- **Média de 2,5+ Círculos por usuário**
+- **>60% dos Círculos com atividade nas últimas 24h**
+
+O Data Scientist mostrou a matemática: com a regra 90-9-1 (90% lurkers, 9%
+contribuidores casuais, 1% criadores), 5.000 usuários geram ~25-30 Cartas
+Públicas por dia — o suficiente para a Praça parecer viva. Abaixo de ~2.500
+usuários, a Praça sofre da **Síndrome da Sala Vazia**: o novo usuário entra, vê
+3 posts de 2 dias atrás, e nunca mais volta. Pior: essa impressão contamina o
+aplicativo inteiro. "Se a Praça está vazia, o app está morto."
+
+O Product Strategist defendeu Ship Day 1 com um argumento forte: a Praça é o
+anzol de retenção enquanto os Círculos engrenam. Mas o Psicólogo mostrou que, até
+60 dias sem descoberta, os Círculos se aprofundam sem efeitos colaterais graves.
+Só depois de 60 dias começa a insularidade. Isso nos dá uma janela.
+
+O Cético atacou os dois lados e acertou nos dois: ship Day 1 = sala vazia
+(constatação confirmada pelos números). Delay = usuários entediados (constatação
+que o onboarding do UX Designer resolve).
+
+### O que existe no lugar da Praça (Dia 1 → Dia 5.000)
+
+Enquanto a Praça não é ativada, o produto usa 5 mecânicas de crescimento orgânico
+(do Growth Hacker):
+
+**1. Convite com Carta de Entrada.** Todo convite para um Círculo exige que você
+escreva 1-3 frases dizendo por que aquela pessoa deveria estar naquele Círculo. O
+convidado vê a carta antes de aceitar. Quando entra, a carta vira seu primeiro
+post fixado. Isso faz cada convite ser um ato de cuidado — não um spam de "entre
+no meu app".
+
+**2. Brotamento.** Quando um Círculo chega a 10+ membros, o sistema sugere uma
+divisão: um Círculo-filho com 3-5 pessoas do original + novos convidados, sobre
+um tema mais específico. "Família" pode brotar "Família — Fotos Antigas". O
+Círculo original permanece intacto. O brotamento é crescimento celular, não
+viral — a rede cresce por divisão, não por contaminação.
+
+**3. Convite Adjacente.** Você vê em quais outros Círculos as pessoas do seu
+Círculo estão. "Ana está no Círculo 'Fotografia'. Quer pedir um convite?" Você
+pede. A Ana aprova ou não. Não há algoritmo — há contexto humano.
+
+**4. Vitrine de Círculo.** Cada Círculo pode criar UMA página pública estática
+(não um feed): um manifesto, uma playlist, uma lista de recomendações. Essa
+página é compartilhável por link. É o cartão de visita do Círculo — e o embrião
+do que, um dia, será a Carta Pública na Praça.
+
+**5. Sementes.** Cada usuário ganha 3 "sementes" — convites para trazer alguém
+de fora. Se a pessoa convidada ficar inativa por 7 dias, você perde a semente
+permanentemente. Isso faz cada convite ser uma aposta cuidadosa, não um disparo
+em massa. As pessoas só convidam quem realmente vai participar.
+
+### O onboarding sem Praça (Dia 1-30)
+
+O UX Designer desenhou uma jornada que funciona sem descoberta pública:
+
+**Minuto 1-5:** O usuário não cria conta — ele chega via link de convite. Vê
+quem o convidou. Dá um nome. Entra no Círculo. Se o Círculo está ativo, vê
+conteúdo imediatamente. Se está silencioso, vê: "Você chegou primeiro. Plante
+uma semente — escreva algo para quando os outros chegarem." A sala nunca está
+vazia — o primeiro a chegar deixa algo.
+
+**Dia 1-7:** O "aha moment" não é "descobri algo novo" — é **"postei a mesma
+coisa em dois Círculos diferentes e recebi reações completamente diferentes."**
+O app mostra isso explicitamente: "No Círculo Família: 5 respostas. No Círculo
+Amigos: 3 respostas. Mesma você, sala diferente." Isso vicia mais que descoberta
+— vicia em **contexto**.
+
+**Dia 7-30:** Circle Streaks (coletivos, não individuais: o Círculo mantém a
+sequência, não você), convites adjacentes, brotamento. A retenção não vem de
+"quantos posts novos" — vem de "quantos Círculos diferentes eu habito."
+
+### A decisão irreversível (do Engenheiro)
+
+O Engenheiro identificou UMA decisão de arquitetura que precisa ser tomada agora,
+mesmo que a Praça só seja ativada depois:
+
+**Cartas Públicas precisam ser um campo no modelo de dados desde o Dia 1.**
+`is_public: false` por default. Quando a Praça ativar, vira `true` para as Cartas
+que o autor escolher. Se esse campo não existir desde o começo, fazer retrofit
+depois é doloroso — porque o modelo de permissões de visibilidade precisa ser
+refatorado, e todas as queries de "quem pode ver esta Carta?" precisam ser
+reescritas.
+
+**Decisão:** O schema de dados é construído como se a Praça já existisse. O
+botão de "Tornar Pública" fica cinza com um tooltip: "A Praça ainda não abriu.
+Quando abrir, você poderá tornar esta Carta visível para até 50 pessoas." Isso
+cria expectativa sem entregar uma sala vazia.
+
+### O que muda dos Ciclos 1-2 para o Ciclo 3
+
+- **Ciclo 1:** A rede é Círculos de 12 pessoas. Sem feed.
+- **Ciclo 2:** A Praça existe como conceito — estação de trem, não praça.
+- **Ciclo 3:** A Praça é **adiada estrategicamente**. Não existe no Dia 1. É
+  ativada quando a rede atinge ~5.000 usuários. Até lá, 5 mecânicas de
+  crescimento orgânico + onboarding sem descoberta mantêm o produto vivo.
+
+A pergunta do Ciclo 4: **a Praça não ter algoritmo — mas como o conteúdo é
+organizado quando há centenas de Cartas Públicas por dia?** Só cronologia
+inversa funciona com 30 posts/dia, mas com 300 é um rio que passa rápido demais.
+Como curar sem algoritmo?
+
+---
+
+*Fim do Ciclo 3.*
 
