@@ -482,39 +482,55 @@ e Estantes são o jardim que cresce nele.
 
 ### O consenso duro
 
-**R$ 15/mês por usuário individual não fecha a conta.** Esse foi o veredito unânime
-do Treasurer, do Cético, do Alternative Funding e do Comparative. Mesmo com 5.000
-usuários e 20% de conversão (otimista), a receita cobre 28% do burn rate no Year 2.
-O empate só vem no Year 3 com 50.000 usuários — se tudo der certo.
+**O problema não é só matemático — é filosófico.** O Loop 26 (Dinheiro)
+identificou a contradição: "a atenção RESISTE à abstração. Você pode abstrair o
+valor de uma maçã (R$2), mas não pode abstrair o valor de uma hora de atenção à
+sua filha. Essa hora NÃO TEM PREÇO — não porque 'vale muito', mas porque NÃO
+PERTENCE à lógica do preço. Pertence a OUTRA lógica."
 
-O Cético foi mais longe: **nenhuma rede social cooperativa é financeiramente
-autossustentável sem subsídio.** Coomappa morreu em 8 meses. Resonate faliu.
-Social.coop sobrevive com 800 membros. Mastodon instances operam no vermelho.
+Cobrar R$ 15/mês por "proteção da atenção" é transformar um direito em mercadoria.
+Quem pode pagar, protege sua atenção. Quem não pode, é bombardeado por anúncios
+e dark patterns. **A atenção vira bem de luxo.** Isso é exatamente o que o feed
+faz — só que ao contrário. O feed cobra sua atenção e te dá conteúdo grátis. O
+Terraço cobraria dinheiro e te daria atenção protegida. Ambos transformam atenção
+em transação.
 
-**Mas o Comparative encontrou uma exceção crucial: Are.na.** 4 pessoas, ~40k MAU,
-~50% de conversão, ~US$ 1.5M/ano de receita, 10 anos de sustentabilidade. Cobra
-desde o dia 1. Não tem VC. Não tem anúncio. Não tem dados vendidos. É o modelo.
+E os dados de mercado confirmam a inviabilidade prática: **pesquisa IAB Brasil /
+Offerwise (2025, 1.500 respondentes) mostra que 69% dos brasileiros preferem
+conteúdo gratuito com anúncios a pagar para removê-los** — tendência que CRESCEU
+de 61% (2022) para 69% (2025). **70% usariam menos o app se tivessem que pagar.**
+O teto é R$ 25/mês para 60% da população, e apenas R$ 10/mês para as classes D/E
+(49% dos domicílios).
 
-### Os dois caminhos (e a decisão)
+R$ 15/mês por usuário individual não fecha a conta — nem matematicamente (Ciclo 5)
+nem filosoficamente (Loop 26) nem mercadologicamente (dados IAB 2025).
 
-**Caminho A — O Are.na:** Time mínimo (3-4 pessoas), pago desde o dia 1, comunidade
-de nicho, crescimento lento, sustentável com ~1.000 pagantes a R$ 15/mês =
-R$ 180k/ano. Não escala para 1 milhão de usuários — mas não precisa.
+### O modelo corrigido: grátis para pessoas, pago por instituições
 
-**Caminho B — O Marketplace:** Plataforma gratuita. Círculos podem cobrar
-assinatura própria (R$ 5-50/mês). Terraço fica com 10%. Modelo Substack/Patreon.
-A plataforma provê descoberta, pagamento, infraestrutura. Receita vem de milhares
-de micro-transações.
+**Ninguém paga para usar o Terraço.** Ponto. A atenção é um direito, não uma
+mercadoria. Cobrar para proteger a atenção é como cobrar para proteger o ar que
+você respira — é uma solução de mercado para um problema que o mercado criou.
 
-**A decisão do Ciclo 5: Caminho A nos anos 1-3, com transição para o Caminho B
-no ano 3+.**
+A receita vem de quatro fontes, nenhuma delas é o usuário individual:
 
-- **Anos 1-2:** Time de 3-4 pessoas. App gratuito por 28 dias, depois R$ 15/mês
-  ou R$ 12/mês no plano anual. Plano Solidário de R$ 25/mês (cobre você + 1
-  cadeira vazia). Quem não pode pagar: fica de graça, sem distinção.
-- **Ano 3+:** Círculos podem ativar assinatura própria. Terraço fica com 10%.
-  Isso diversifica a receita e alinha incentivos: a plataforma ganha quando os
-  Círculos prosperam.
+| Fonte | Quem paga | Exemplo |
+|-------|-----------|---------|
+| **Patronos** | Pessoas que querem sustentar o projeto | R$ 200 uma vez (certificado de patrono), ou R$ 25/mês (plano solidário) |
+| **Círculos patrocinados** | Alguém paga pelo Círculo inteiro | R$ 30/mês cobre até 10 pessoas. "Eu pago o Terraço da minha família." |
+| **Clientes institucionais** | ONGs, sindicatos, universidades, coletivos | R$ 200-2.000/mês por instância privada. 50 clientes = R$ 10-100k/mês |
+| **Grants e filantropia** | Fundações, editais, fomento público | NLnet, Ford, FAPESP, Mozilla. R$ 500k-1M nos anos 1-2 |
+
+**Nenhuma receita vem de anúncios. Nenhuma receita vem de venda de dados. Nenhuma
+receita vem de cobrança de acesso ao usuário individual.**
+
+Isso não é caridade — é **economia da dádiva** (Mauss, Loop 1). Quem pode, dá.
+Quem recebe, retribui de outra forma (presença, cuidado, participação). O dinheiro
+não é a única moeda. A atenção também é — e ela circula em todos os níveis,
+independentemente de quem pagou.
+
+A inspiração é o **orçamento participativo de Porto Alegre** e as **rádios
+comunitárias**: o recurso é público, a gestão é coletiva, o acesso é universal.
+Ninguém paga ingresso para usar a praça.
 
 ### A estrutura jurídica (do Legal)
 
@@ -528,22 +544,25 @@ sócios formais. Governança cooperativa no acordo de quotistas.
 **Fase 3 (24+ meses, 20+ membros): Cooperativa plena (Lei 5.764/71).** Isenção
 de IRPJ/CSLL sobre atos cooperativos. Distribuição de sobras. Assembleia geral.
 
-### O fluxo de pagamento (do Pricing UX)
+### Como o dinheiro entra (sem cobrar ninguém)
 
-**Dia 0-28:** Acesso completo. Zero menção a dinheiro. O usuário forma hábito.
+**Não existe paywall.** Nenhum usuário individual é cobrado para usar o Terraço.
+O app é gratuito para todos, sempre. A receita vem de contribuições voluntárias
+e institucionais — como uma rádio comunitária ou uma praça pública.
 
-**Dia 28:** Primeira tela de transição. "Terraço é sustentado por quem usa. Quem
-pode, paga. Quem não pode, fica." Duas opções: Ver Planos ou Continuar Grátis.
+**Certificado de Patrono:** Uma vez por ano, o app pergunta (sem pop-up, sem
+pressão): "O Terraço é sustentado por quem pode e quer contribuir. Se você quiser
+ajudar, escolha um valor. Se não, tudo bem — sua presença já é suficiente."
+Opções: R$ 10 / R$ 25 / R$ 50 / Outro valor. Quem contribui ganha um certificado
+simbólico — nada muda na experiência do app.
 
-**Gatilho de conversão:** Contextual, não genérico. "Seu Círculo Família tem 6
-pessoas. Para adicionar seu tio, vire membro." O convite fica pendente. A pessoa
-vê o nome do tio esperando. Não é punitivo — é afetivo.
+**Patrocínio de Círculo:** Na tela de configuração de cada Círculo: "Quer
+patrocinar este Círculo? R$ 30/mês cobre você e até 10 pessoas. Ninguém além de
+você precisa pagar." É um ato social: "Eu pago o Terraço da minha família."
 
-**Planos:** Mensal R$ 15 / Anual R$ 12/mês / Solidário R$ 25/mês. PIX, cartão
-ou boleto.
-
-**Cancelamento:** Uma tela. "Você escreveu 47 Cartas. Esteve presente 203 vezes.
-A porta fica aberta." Dados preservados por 6 meses.
+**Clientes institucionais:** ONGs, sindicatos, coletivos e universidades pagam
+por instâncias privadas com gestão autônoma. R$ 200-2.000/mês dependendo do
+tamanho. Esta é a principal fonte de receita operacional.
 
 ### Os custos reais (do Treasurer)
 
@@ -553,8 +572,10 @@ A porta fica aberta." Dados preservados por 6 meses.
 | **2 (0-5.000 usuários)** | 7 (+ moderação + suporte) | R$ 53k | R$ 633k |
 | **3 (5.000-50.000)** | 13 (+ mobile, DevOps, T&S) | R$ 137k | R$ 1.65M |
 
-**Ano 1 exige ~R$ 520k com zero receita.** Isso vem de grants (NLnet, Mozilla,
-Ford Foundation), crowdfunding, e quotas dos membros fundadores.
+**Ano 1 exige ~R$ 520k.** Isso vem de grants (NLnet, Mozilla, Ford Foundation),
+campanhas de certificados de patrono, e quotas dos membros fundadores. A
+sustentabilidade de longo prazo vem das contribuições institucionais (ONGs,
+sindicatos, universidades) e dos patronos — não de assinaturas individuais.
 
 ### O que o Cético acertou (e o que não)
 
@@ -570,24 +591,12 @@ nomeados, Praça como passagem, curadoria sem algoritmo.
 **A resposta ao ceticismo não é "você está errado" — é "você está certo, e é
 por isso que o modelo não pode ser assinatura individual como única fonte."**
 
-### O modelo híbrido final
-
-| Fonte | Peso | Quando |
-|-------|------|--------|
-| **Assinaturas individuais** | 50% | Ano 1+ |
-| **Grants (NLnet, Ford, etc.)** | 40% | Ano 1-2 |
-| **Clientes institucionais** | 10% | Ano 2+ |
-| **Marketplace (Círculos pagos)** | 0% → 30% | Ano 3+ |
-| **Doações / Crowdfunding** | 10% | Contínuo |
-
-A diversificação é a defesa. Nenhuma fonte sozinha sustenta. Juntas, cobrem o
-burn rate com folga para reinvestimento.
-
 ### O mantra financeiro
 
-> **"Prefira o dinheiro do usuário aos dados do usuário. Cobre o justo. Se não
-> puder pagar, fica de graça. Se puder pagar mais, cubra uma cadeira vazia. A
-> porta fica aberta para quem sai. O balanço é público. Zero vai para anúncios."**
+> **"A atenção é um direito, não uma mercadoria. Ninguém paga para entrar. Quem
+> pode sustentar o projeto, sustenta. Quem não pode, retribui com presença. O
+> dinheiro flui de quem tem para quem constrói. O balanço é público. Zero vai
+> para anúncios. Zero vai para acionistas. A praça é de todos."**
 
 ---
 
