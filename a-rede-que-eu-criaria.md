@@ -1329,7 +1329,79 @@ para manter as luzes acesas.
 
 ---
 
-## 11. O Que a Rede NÃO É (E Por Que Tudo Bem)
+## 11. Nono Ataque: A Praça É um Buraco de Moderação
+
+A Praça é o único espaço público do Terraço. Cartas Públicas, Círculos Abertos,
+encontros com o Outro. Mas "público" significa que **qualquer membro pode postar
+algo que qualquer outro membro pode ver**. E alguns membros vão abusar disso.
+
+Não é uma questão de "se" — é de "quando". Spam, desinformação, discurso de ódio,
+assédio coordenado, golpes. Toda plataforma com espaço público enfrenta isso. As
+big techs gastam bilhões em moderação (automatizada + humana) e ainda assim falham.
+O Terraço é uma cooperativa com orçamento de $75k/mês.
+
+O documento até agora trata a Praça como espaço de descoberta e encontro — mas
+ignora que espaços públicos também são espaços de **conflito, abuso e má-fé**.
+
+### O Que Acontece Sem Moderação
+
+- **Spam:** 50 Cartas Públicas por dia promovendo criptomoedas, cursos, esquemas
+- **Desinformação:** Cartas Públicas bem escritas espalhando fake news sobre saúde,
+  política, eleições
+- **Assédio coordenado:** um grupo entra em Círculos Abertos para atacar membros
+  específicos. Escrevem Cartas Públicas nomeando a vítima. A vítima não tem como
+  se defender — o assédio é "público", a defesa é "privada" (nos Círculos)
+- **A Praça vira o feed.** As pessoas param de visitar porque o espaço público
+  ficou tóxico. Sem Praça, sem descoberta. Sem descoberta, a rede congela (ciclo 6)
+
+### O Que as Big Techs Fazem (E Por Que Não Funciona Aqui)
+
+- **Moderação automatizada (IA):** escala, mas comete erros. Remove conteúdo
+  legítimo, deixa passar abuso sofisticado. E custa caro desenvolver e manter.
+- **Moderação humana terceirizada:** traumática para os moderadores, inconsistente,
+  cara. Uma cooperativa não terceiriza trauma para o Sul Global.
+- **Conselhos de moderação:** especialistas, representantes da comunidade. Mas
+  quem escolhe os especialistas? E como escalar para milhares de decisões por dia?
+
+### Síntese do Ciclo 11: A Praça É Efêmera e Limitada Por Design
+
+A resposta não é "moderar melhor" — é **reduzir a superfície de ataque**. Se a
+Praça é pequena, efêmera e de baixo alcance, o incentivo para abusar despenca.
+
+**Regras estruturais (não dependem de enforcement humano):**
+
+1. **Uma Carta Pública por membro por semana.** Não é "post quanto quiser" — é
+   uma decisão semanal. Você pensa antes de tornar algo público. Spammers não
+   conseguem escala.
+
+2. **Cartas Públicas expiram em 7 dias.** Já estabelecido (ciclo 7). Mas com um
+   adendo: durante esses 7 dias, a Carta Pública é visível para **no máximo 50
+   pessoas** — as primeiras 50 que a encontrarem. Depois disso, ela sai da Praça
+   (mas continua no Círculo de origem). Alcance limitado = dano limitado.
+
+3. **Sem algoritmo de recomendação na Praça.** A ordem é cronológica reversa. Não
+   tem "em alta", não tem "recomendado para você", não tem curadoria que amplifica.
+   Conteúdo abusivo não ganha impulso algorítmico — morre na cronologia.
+
+4. **Responder uma Carta Pública exige um Círculo.** Você não "comenta" na Praça.
+   Se algo te tocou, você escreve uma Carta para um dos seus Círculos sobre aquilo.
+   A conversa **migra para dentro**. Isso impede linchamentos públicos e pilhas de
+   ódio coordenado.
+
+5. **Denúncia é local, não global.** Se uma Carta Pública é abusiva, qualquer
+   membro pode denunciar. A denúncia vai para um **conselho rotativo de 5 membros**
+   (sorteados entre quem visitou a Praça naquela semana). Se 4 dos 5 concordarem,
+   a Carta é removida da Praça (mas continua no Círculo de origem — a cooperativa
+   não deleta conteúdo, só decide o que aparece no espaço público). O conselho
+   muda toda semana — não cria elite de moderadores.
+
+A Praça não é uma praça de verdade (onde milhares se reúnem). É um **quadro de
+avisos**. Pequeno, efêmero, limitado. O suficiente para descoberta — insuficiente
+para abuso em escala.
+
+---
+
+## 12. O Que a Rede NÃO É (E Por Que Tudo Bem)
 
 A rede que eu criaria **não escala** para 1 bilhão de usuários. Ela é projetada
 para comunidades de nicho, crescendo organicamente, como um jardim. A métrica de
