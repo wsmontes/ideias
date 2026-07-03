@@ -1,135 +1,104 @@
-# Estudo de Caso 33 — Revolut: O Super-App Financeiro Que Vale $75B (E Ainda Não Tem Lucro Garantido)
+# Estudo de Caso 33 — Revolut: O Neobanco Que Substituiu Kafka Por PostgreSQL E Roda 1.200 Microserviços
 
 > **Data:** 2026-07-03
-> **Loop:** 33 de ∞ (Fase 2: Fintech Europeu)
-> **Categoria:** Fintech / Super-App Financeiro / Banco Digital
-> **Tema:** 2015. Nikolay Storonsky, um ex-trader russo do Lehman Brothers e Credit Suisse, está ENTEDIADO. "Investment banking é muito chato depois que você chega no topo." Ele viaja o mundo. Perde DINHEIRO em taxas de câmbio abusivas. Pensa: "Por que eu pago 3% para trocar libras por euros?" Convence Vlad Yatsenko, um engenheiro ucraniano que construiu sistemas para o Deutsche Bank, a montar uma fintech. Lançam a **Revolut** em Londres: um cartão pré-pago sem taxa de câmbio. Em 2021: valuation de $33B (SoftBank, Tiger Global). Em 2025: **$75 bilhões.** 69M+ clientes. £1B+ de lucro. Licença bancária no UK (depois de 3 ANOS de espera). 40 países. Expansão para Índia, México, Brasil. Cripto, ações, seguros, plano de celular, eSim, lounge de aeroporto. **"O super-app financeiro da Europa."** Esta é a história do app que transformou "trocar dinheiro para viajar" no SISTEMA OPERACIONAL financeiro de 69 milhões de pessoas.
+> **Loop:** 33 de ∞ (Reescrita — Fase 2)
+> **Categoria:** Fintech / Infraestrutura / Sistemas Distribuídos
+> **Tema:** O Revolut processa pagamentos para 45 milhões de clientes com uma arquitetura de 1.200 microserviços que deliberadamente evita Apache Kafka — a escolha padrão da indústria para streaming de eventos. Em vez disso, a empresa construiu um event store proprietário sobre PostgreSQL com cursores JDBC scrollables e entregou consistência transacional onde Kafka ofereceria consistência eventual. Essa decisão é o fio condutor da arquitetura do Revolut: sempre que possível, prefira consistência forte e simplicidade operacional sobre escalabilidade horizontal e complexidade de infraestrutura. O resultado é uma plataforma onde uma equipe de DevOps de quinze pessoas suporta 1.300 engenheiros, onde o motor de detecção de fraude Sherlock processa decisões em 50 milissegundos usando uma arquitetura Lambda com Couchbase na camada de velocidade e Spark na camada de batch, e onde um modelo de AI proprietário chamado PRAGMA — treinado em 40 bilhões de eventos de transação — alimenta agentes que processam 2 milhões de tarefas de fincrime por mês.
 
 ---
 
-## 1. A Origem: Um Trader Entediado, Um Engenheiro Ucraniano e Tarifas Abusivas
+## 1. Por Que PostgreSQL em Vez de Kafka: O Event Store Proprietário
 
-### Nikolay Storonsky: O Russo Que Virou Britânico
+A maioria dos neobanks adota Kafka como backbone de streaming de eventos. O Revolut conscientemente não o fez. A justificativa interna, documentada em apresentações de engenharia, envolve três argumentos:
 
-| Ano | Feito |
-|---|---|
-| **2006-2008** | Trader de derivativos no **Lehman Brothers** (SIM, o banco que QUEBROU). |
-| **2008-2013** | Trader no **Credit Suisse.** "Fiquei entediado." |
-| **2015** | Fundou a Revolut com Vlad Yatsenko. Londres. |
-| **2022** | Renunciou à cidadania RUSSA. Virou cidadão BRITÂNICO. |
+**Complexidade operacional**: Kafka exige manutenção de clusters ZooKeeper (ou KRaft em versões recentes), gerenciamento de partições, retenção de tópicos e monitoramento de lag de consumidores. Para uma empresa que estava escalando de startup para banco regulado, adicionar essa superfície operacional ao stack era um risco desproporcional.
 
-### Vlad Yatsenko: O Engenheiro Que Codava Desde os 15
+**Curva de aprendizado**: cada novo engenheiro precisaria aprender o modelo de consumo do Kafka — partições, offsets, grupos de consumidores, semânticas de entrega — antes de ser produtivo. Com PostgreSQL, virtualmente todo engenheiro backend já conhece a ferramenta.
 
-Ucraniano. Construiu sistemas para Deutsche Bank, UBS, Credit Suisse. O CÉREBRO técnico por trás do app.
+**Consultabilidade**: eventos em Kafka são efêmeros (retidos por N dias) e difíceis de consultar ad-hoc. No PostgreSQL, cada evento é uma linha em uma tabela — pode ser consultado, indexado, agregado e analisado com SQL padrão, sem mover dados para um data warehouse separado.
 
-### A Fagulha: Taxas de Câmbio
-
-Storonsky viajava MUITO. Trocava libras por euros, dólares, ienes. Cada troca, o banco COMIA 3%. "Isso é um ROUBO."
-
-Ele e Yatsenko construíram um app que oferecia câmbio instantâneo à taxa INTERBANCÁRIA (a taxa REAL, sem spread). Cartão pré-pago. Sem taxa de transação internacional.
-
-**Lançamento: julho de 2015.** Londres.
-
-### O Crescimento Explosivo
-
-| Ano | Valuation | Marco |
-|---|---|---|
-| 2015 | — | Lançamento. Cartão pré-pago sem FX fees. |
-| 2018 | — | Licença bancária europeia (Lituânia). |
-| 2020 | $5.5B | Série D. $500M. |
-| 2021 | $33B | Série E. $800M (SoftBank, Tiger Global). |
-| 2024 | $45B | Licença bancária UK (com restrições). |
-| 2025 | $75B | Licença UK PLENA. £1B+ lucro. 69M clientes. |
+O event store do Revolut funciona assim: antes de enviar um evento para outros serviços, o serviço emissor persiste o evento em uma tabela PostgreSQL — a `event_store`. Um `SingleEventConsumer` ou `MultiEventConsumer` se inscreve para receber eventos de tipos específicos. Um `event-processor` despacha eventos usando cursores JDBC scrollables sobre uma réplica de leitura da `event_store`, evitando sobrecarregar a instância primária. Um processo reconciliador verifica periodicamente se há eventos persistidos mas não entregues e os reenvia — garantindo entrega at-least-once sem depender de um broker de mensagens externo.
 
 ---
 
-## 2. A Filosofia: "Super-App Financeiro Com Toque Local"
+## 2. Consistência de Dados Em Três Camadas
 
-### O "Third Space" — Nem Challenger, Nem Incumbente
+O Revolut adota uma estratégia de consistência em três níveis, dependendo do escopo da operação:
 
-Gareth Morgan (Head de Brand Design) definiu em 2024: a Revolut não quer ser o "banco descolado" (Monzo, N26) nem o "banco seguro" (HSBC, Barclays). Quer ser o **"third space"** — inovador E confiável. Maduro MAS ousado.
+**Nível 1 — Transações ACID**: quando todas as operações de uma transação financeira estão dentro dos limites do sistema Revolut — débito de uma conta, crédito em outra, atualização de saldo — tudo ocorre dentro de uma transação PostgreSQL padrão. Se qualquer parte falhar, a transação inteira é revertida. Isso é possível porque o Revolut controla ambas as pontas da transação.
 
-### O Super-App Financeiro
+**Nível 2 — Job-based reconciliation**: quando a operação envolve sistemas externos (APIs de bancos, redes de cartão, SWIFT), uma transação ACID não é possível. O Revolut usa um Transaction Manager que inicia a transação, persiste o estado internamente, faz a chamada externa de forma assíncrona, e usa um job de reconciliação para verificar o resultado e corrigir inconsistências.
 
-| Recurso | O Que Faz |
-|---|---|
-| **Câmbio** | 30+ moedas. Taxa interbancária. SEM spread. |
-| **Cripto** | Compra/venda de BTC, ETH + dezenas de tokens. |
-| **Ações** | Trading de stocks US e EU. Fractional shares. |
-| **Orçamento** | Categorização automática. Insights. |
-| **Seguros** | Viagem, celular, saúde. |
-| **Plano de celular** | eSim. Dados em 100+ países. |
-| **Lounge de aeroporto** | Acesso VIP. |
-| **Revolut <18** | Conta para menores. Controle parental. |
+**Nível 3 — Eventual consistency para dados não-financeiros**: para dados que não afetam saldos — preferências de usuário, configurações de notificação, analytics — o Revolut aceita consistência eventual via propagação assíncrona de eventos.
 
-### "Snackable Adoption" — Use Uma Coisa, Depois Outra, Depois Outra
-
-O usuário NÃO "abre uma conta no Revolut." Ele BAIXA para trocar libras por euros na viagem. Depois compra cripto. Depois ações. Depois pega o plano de celular. Uma feature de cada vez.
+A migração planejada do core ledger de PostgreSQL para TigerBeetle — um banco de dados de transações financeiras projetado para processar mais de um milhão de transações por segundo com consistência forte e latência determinística — indica que a empresa está atingindo os limites do PostgreSQL para o workload de ledger.
 
 ---
 
-## 3. As Inovações do Revolut
+## 3. Sherlock: Arquitetura Lambda Para Detecção de Fraude em 50ms
 
-### 3.1 FX à Taxa Interbancária (2015)
+O motor de detecção de fraude do Revolut — Sherlock — opera com uma restrição de latência brutal: cada transação precisa ser avaliada em menos de 50 milissegundos. Para resolver isso, o Sherlock implementa uma arquitetura Lambda com duas camadas:
 
-NENHUM banco oferecia isso. Revolut ofereceu. O diferencial que CONQUISTOU os primeiros 10M de usuários.
+**Camada de velocidade (Speed Layer)** : modelos de machine learning leves rodando contra um cache em memória (Couchbase). Quando uma transação chega, o Sherlock consulta features pré-computadas no cache — padrões de gasto recentes, localização, valor, categoria do comerciante — e gera uma decisão (aprovar, bloquear, desafiar) em menos de 50ms. A latência é o requisito dominante; a precisão do modelo é secundária.
 
-### 3.2 Vaults: "Arredonda e Guarda"
+**Camada de batch (Batch Layer)** : pipelines noturnos em Apache Airflow, Dataflow e Spark processam o histórico completo de transações, treinam modelos de deep learning mais sofisticados, e atualizam as features no cache da camada de velocidade. Esses modelos consideram padrões de longo prazo — sazonalidade, mudanças graduais de comportamento, correlações entre contas — que não caberiam em uma decisão de 50ms.
 
-Cada compra é arredondada para cima. O troco vai para um "cofre" (Vault). Economia INVISÍVEL.
-
-### 3.3 Cartão Virtual Descartável
-
-Gere um cartão virtual para UMA compra online. Depois ele se AUTODESTRÓI. Segurança máxima contra fraudes.
-
-### 3.4 Revolut <18
-
-Conta para adolescentes. Controle parental. "A próxima geração de clientes ENTRA aqui."
+Os **FinCrime AI Agents** — nove agentes especializados — processam 2 milhões de tarefas por mês em 700.000 clientes, rodando em GPUs H100 dedicadas na Nebius AI Cloud. Esses agentes não são modelos de classificação binária; são sistemas que investigam transações suspeitas, coletam evidências, geram relatórios de atividade suspeita e escalam para analistas humanos quando necessário.
 
 ---
 
-## 4. Ficha Técnica
+## 4. PRAGMA: Um Modelo Fundacional Para Transações Financeiras
+
+O PRAGMA é um modelo de AI proprietário do Revolut treinado em 40 bilhões de eventos de transação de 25 milhões de usuários. Três variantes — 10 milhões, 100 milhões e 1 bilhão de parâmetros — são otimizadas para diferentes tarefas: detecção de fraude, credit scoring e cross-sell. O modelo é baseado em transformers e opera sobre sequências de transações, similar a como modelos de linguagem operam sobre sequências de tokens.
+
+A escolha do Nebius AI Cloud como infraestrutura de treinamento reflete uma decisão de soberania de dados: processar dados financeiros de cidadãos europeus em GPUs operadas por uma empresa europeia, mantendo conformidade com GDPR.
+
+---
+
+## 5. Plataforma de Desenvolvimento: 15 DevOps Para 1.300 Engenheiros
+
+Uma equipe de quinze engenheiros de DevOps suporta 1.300 engenheiros de produto. Essa proporção — ~87:1 — é possível porque a plataforma interna de desenvolvimento é construída no modelo self-service: engenheiros criam seus próprios ambientes, implantam seus próprios serviços e monitoram sua própria produção. Não há equipe de QA dedicada, não há equipe de on-call dedicada. O modelo é "you build, you run".
+
+A infraestrutura roda no Google Cloud Platform: Compute Engine para VMs, GKE para Kubernetes, Cloud APIs para serviços gerenciados. O provisionamento é totalmente automatizado via Infrastructure as Code. Snapshots incrementais de bancos de dados multi-terabyte são concluídos em aproximadamente cinco minutos — comparado a vinte horas com snapshots completos.
+
+---
+
+## 6. Lições de Engenharia
+
+### 6.1 Kafka não é obrigatório para event-driven architecture
+
+O Revolut provou que um event store sobre PostgreSQL com cursores JDBC scrollables e um processo reconciliador pode substituir Kafka para cargas de trabalho de fintech, com a vantagem adicional de consistência transacional (eventos e estado de negócio na mesma transação ACID). A troca é que isso não escala horizontalmente como Kafka — mas para a maioria das empresas, o limite de escala do PostgreSQL é mais alto do que sua carga de trabalho jamais atingirá.
+
+### 6.2 A latência da detecção de fraude define sua arquitetura
+
+Sherlock precisa decidir em 50ms. Isso força uma separação arquitetural entre a camada de velocidade (cache em memória, modelos leves) e a camada de batch (modelos pesados, atualização noturna). É um padrão que se repete em todo sistema de decisão em tempo real: a latência não é um requisito de performance — é o requisito que define a arquitetura.
+
+### 6.3 Consistência forte em transações financeiras não é negociável
+
+O Revolut usa transações ACID para operações internas e job-based reconciliation para operações externas. Em nenhum ponto uma transação financeira é tratada com consistência eventual. A complexidade adicional do modelo de reconciliação é o preço que se paga por não poder usar ACID em chamadas externas.
+
+---
+
+## 7. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Revolut |
-| **Fundação** | Julho de 2015. Londres. |
-| **Fundadores** | Nikolay Storonsky, Vlad Yatsenko |
-| **Valuation** | $75 bilhões (2025) |
-| **Clientes** | 69M+ |
-| **Receita** | $6 bilhões (2025) |
-| **Lucro** | £1B+ (antes de impostos, 2025) |
-| **Países** | 40+ |
-| **Concorrentes** | Nubank, N26, Monzo, Wise, PayPal |
+| **Fundação** | 2015 |
+| **Microserviços** | 1.200+ |
+| **Backend** | Java, Kotlin, Kotlin Coroutines |
+| **Event Store** | PostgreSQL (custom), JDBC scrollable cursors, sem Kafka |
+| **Fraude** | Sherlock: Lambda Architecture, Couchbase + Spark |
+| **AI** | PRAGMA (40B eventos, 3 variantes), FinCrime Agents (9 agentes, 2M tarefas/mês) |
+| **Infra** | GCP (Compute Engine, GKE), Nebius AI Cloud (200+ H100 GPUs) |
+| **DevOps** | 15 engenheiros para 1.300 devs |
 
 ---
 
-## 5. Lições do Revolut
+## Fontes
 
-### 5.1 "Trocar Dinheiro Barato" Foi a Porta de Entrada Para TUDO
-
-O Revolut não começou como "super-app." Começou como **cartão de viagem sem taxa.** Depois foi ADICIONANDO: cripto, ações, seguro, celular. Uma feature por vez. O usuário NÃO percebe que "mudou de banco."
-
-**Lição**: você não precisa vender o super-app. Venda UMA coisa que resolve uma DOR REAL. Depois expanda.
-
-### 5.2 Licença Bancária É TUDO (E Leva 3 Anos)
-
-O Revolut esperou 3 ANOS pela licença bancária do Reino Unido. Sem ela, era "só um app de câmbio." COM ela, é um BANCO.
-
-**Lição**: em fintech, a LICENÇA é o produto. Sem ela, você é um middleware.
-
-### 5.3 "Third Space" — Não Seja Nem o "Banco Descolado" Nem o "Banco Chato"
-
-O Revolut não copiou o design "divertido" do Monzo (cartão coral, emojis). Nem o "sóbrio" do HSBC. Criou um TERCEIRO espaço: moderno MAS confiável.
-
-**Lição**: em mercados maduros, a diferenciação NÃO é "somos os legais" vs. "somos os seguros." É encontrar um ESPAÇO NOVO.
-
----
-
-## Fontes e Referências
-
-- [CNBC — Revolut Disruptor 50 (2026)](https://www.cnbc.com/2026/05/19/revolut-cnbc-disruptor-50-ranking.html)
-- [Superside — Focus, not FOMO: How Revolut built an uncopyable brand (2025)](https://www.superside.com/blog/uncopyable-brand)
-- [Global Finance — Building A Global Financial Super-App With A Local Touch (2025)](https://gfmag.com/award/winner-insights/building-a-global-financial-super-app-with-a-local-touch-qa-with-revoluts-david-tirado/)
-- [ClickZ — Revolut's Relentless Climb: How a Fintech Built a Category of One (2025)](https://clickz.com/revoluts-relentless-climb-how-a-fintech-built-a-category-of-one/272205/)
-- [STRV — How FinTech UX Helps Challenger Apps Beat Big Banks (2025)](https://www.strv.com/blog/how-challenger-fintechs-use-ux-to-outperform-big-banks-and-what-legacy-players-ca)
+- [AbnAsia — Architecture of a Neobank: Revolut](https://news.abnasia.org/blog/posts/en-architecture-of-a-neobank-revolut-3689)
+- [Nebius — Revolut on the Inference Frontier](https://nebius.com/customer-stories/revolut)
+- [QCon London 2024 — Unveiling the Tech Underpinning FinTech's Revolution](https://d3s75c3xtnyqxt.cloudfront.net/presentation/apr2024/unveiling-tech-underpinning-fintechs-revolution)
+- [ECER — Revolut, Netflix Highlight Platform Engineering's Role in Developer Speed](https://ecweb.ecer.com/topic/en/detail-225632-revolut_netflix_highlight_platform_engineerings_role_in_developer_speed.html)
+- [Google Cloud — Revolut Case Study](https://cloud.google.com/customers/revolut)
