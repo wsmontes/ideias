@@ -27,7 +27,7 @@ Isso não invalida os 10 loops — mas revela seu ponto cego de classe, de gêne
 
 ## 1. Gambiarra Como Epistemologia
 
-A gambiarra não é "jeitinho" ou "improviso precário". É uma EPISTEMOLOGIA: um modo de conhecer e fazer que:
+A gambiarra não é "jeitinho" ou "improviso precário". É uma EPISTEMOLOGIA: um modo de conhecer e fazer que teóricos brasileiros (Ricardo Rosas, Rodrigo Boufleur — *Fundamentos da Gambiarra*; Carolina Dalla Chiesa & Leonardo Foletto — *Global Debates in the Digital Humanities*) conectam a Michel de Certeau (consumo criativo), Lévi-Strauss (bricoleur — "quem trabalha com o que tem à mão, usando meios desviantes"), e às "epistemologias do Sul" (Escobar, Mignolo). A gambiarra:
 - **Usa o que está disponível**, não o que seria ideal
 - **Não espera as condições perfeitas** — age com o que tem agora
 - **Improvisa soluções** para problemas que o design oficial não previu
@@ -164,6 +164,15 @@ Os 10 loops descreveram resistências IDEAIS: retiros, círculos, rituais, santu
 - Crítica das Contradições (Iteração 7) — "o Brasil não quer isso", zero-rating, "elite tech brasileira"
 - App como Bonsai (Iteração 9) — pequeno por design, suficiente
 
+### Referências Externas (Pesquisadas Neste Ciclo)
+- Ricardo Rosas — "Gambiarra" (teórico fundacional, conexão com bricolage de Lévi-Strauss)
+- Rodrigo Boufleur — *Fundamentos da Gambiarra* (genealogia histórica, improvisação de subsistência)
+- Carolina Dalla Chiesa & Leonardo Foletto — "Gambiarra and the Prototyping Perspective" (cap. 21, *Global Debates in the Digital Humanities*, U of Minnesota Press, conexão com epistemologias do Sul — Escobar, Mignolo)
+- Nettrice R. Gaskins — Techno-Vernacular Creativity (TVC, framework relacionado)
+- Anne Clinio — "Mídias Táticas no Brasil" (gambiarra como resignificação técnica)
+- Giuliano Obici — "Gambioluthiery" (gambiarra em arte sonora e design de instrumentos)
+- Coneito de Boufleur: gambiarra quebra a lógica dualista entre saber e fazer — concepção, projeto e execução ocorrem quase simultaneamente. "Insubordinação horizontal à racionalidade do projeto urbano hegemônico."
+
 ### Dos Loops Anteriores (tensionados)
 - Todos os 10 loops — a atenção ideal vs a atenção real
 - Loop 6 (corpo) — o corpo universal vs o corpo cansado, doente, com fome
@@ -172,3 +181,10 @@ Os 10 loops descreveram resistências IDEAIS: retiros, círculos, rituais, santu
 ---
 
 *Fim do Loop 11. Onze loops. O projeto continua. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 11.** Pesquisa web adicionou referências teóricas brasileiras sobre gambiarra:
+- Ricardo Rosas (teórico fundacional, bricolage), Rodrigo Boufleur (genealogia histórica), Dalla Chiesa & Foletto (DH Debates, epistemologias do Sul — Escobar/Mignolo/de Certeau), Anne Clinio (mídias táticas), Giuliano Obici (gambioluthiery), Nettrice Gaskins (Techno-Vernacular Creativity)
+- Conceito-chave: gambiarra quebra a separação saber/fazer — concepção e execução simultâneas. "Insubordinação horizontal à racionalidade do projeto hegemônico" (Boufleur)
