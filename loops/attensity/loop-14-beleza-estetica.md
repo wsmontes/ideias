@@ -20,7 +20,7 @@ O Loop 13 foi a psicanálise — necessário. Mas:
 
 ## 1. Elaine Scarry: A Beleza Como Convocação Ética
 
-Em *On Beauty and Being Just* (1999), Elaine Scarry argumenta que a beleza NÃO É um luxo ou uma distração da justiça — é um CAMINHO para a justiça. A experiência da beleza:
+Em *On Beauty and Being Just* (Princeton UP, 1999, 134pp), Elaine Scarry (Walter M. Cabot Professor of Aesthetics, Harvard) argumenta que a beleza NÃO É um luxo ou uma distração da justiça — é um CAMINHO para a justiça. O livro tem duas partes: "On Beauty and Being Wrong" e "On Beauty and Being Fair." Scarry responde a décadas de crítica política à beleza nas humanidades (a beleza como distração, privilégio, máscara ideológica). Suas influências incluem Simone Weil, Iris Murdoch (*The Sovereignty of Good* — atenção como central à vida moral) e John Rawls. A experiência da beleza:
 
 1. **Descentra o eu.** Quando você encontra algo belo — um rosto, uma paisagem, um poema — você PARA de ser o centro. Você é CONVOCADO para fora de si mesmo. "Beauty is a call to radical decentering."
 
@@ -47,7 +47,7 @@ Em *On Beauty and Being Just* (1999), Elaine Scarry argumenta que a beleza NÃO 
 
 ## 2. Byung-Chul Han: A Beleza no Tempo da Suavidade
 
-Em *A Salvação do Belo* (2015), Byung-Chul Han (já citado no Loop 1 por *A Sociedade do Cansaço*) argumenta que a beleza contemporânea foi sequestrada pelo "LISO" (das Glatte):
+Em *Die Errettung des Schönen* (S. Fischer, 2015; trad. *Saving Beauty*, Polity Press, 2017/2018, ~100pp, 14 capítulos), Byung-Chul Han argumenta que a beleza contemporânea foi sequestrada pelo "LISO" (*das Glatte*). Os capítulos vão do Smooth Body à estética do véu, da lesão e do desastre (*Aesthetics of Veiling, Aesthetics of Injury, Aesthetics of Disaster*), culminando em "Lingering on Beauty" e "Beauty as Reminiscence." Han defende que a verdadeira beleza requer *Verweilen* — contemplação demorada, pausa — precisamente o que a aceleração digital corrói:
 
 - **O liso**: superfícies sem resistência, sem profundidade, sem negatividade. A tela do smartphone. O design "clean". O corpo sem poros do Instagram. A interface "intuitiva" que não oferece resistência.
 - **O belo**: superfícies com resistência, profundidade, negatividade. Uma escultura de Michelangelo. Um poema de Emily Dickinson. Uma fachada desgastada. O belo TEM textura, rugosidade, história. O belo RESISTE ao toque.
@@ -141,3 +141,10 @@ Isso não é um detalhe — é O ARGUMENTO. O meio É a mensagem. Um livro sobre
 ---
 
 *Fim do Loop 14. Catorze loops. A beleza finalmente entrou. Cron 93154435 segue.*
+
+---
+## Enriquecimento Web (2026-07-02)
+
+**Ciclo 14.** Pesquisa web verificou e expandiu:
+- Scarry: Princeton UP 1999, 134pp, 2 partes, Walter M. Cabot Professor em Harvard, influências (Weil, Murdoch *The Sovereignty of Good*, Rawls), conceito de "undercrediting"
+- Han: *Die Errettung des Schönen* (S. Fischer 2015, trad. Polity 2017/2018, ~100pp, 14 capítulos), capítulos específicos (Aesthetics of Veiling, Injury, Disaster; Lingering on Beauty; Beauty as Reminiscence), *Verweilen* como resistência à aceleração digital
