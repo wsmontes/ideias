@@ -1,95 +1,91 @@
-# Estudo de Caso 34 — Calm: O App de Meditação Que Usa Redes Neurais Hierárquicas Para Recomendar Qual História Ouvir Antes de Dormir
+# Estudo de Caso 34 — Calm: A Evolução do Motor de Recomendação de Heurísticas de Popularidade → HRNN (Amazon Personalize) → LLMs Com Busca Vetorial (Bedrock + OpenSearch, +25% Acurácia, 100% Explicabilidade)
 
 > **Data:** 2026-07-03
-> **Loop:** 34 de ∞ (Reescrita — Fase 2)
+> **Loop:** 34 de ∞ (Reescrita)
 > **Categoria:** Bem-Estar / Sistemas de Recomendação / ML
-> **Tema:** O problema de engenharia central do Calm não é streaming de áudio — isso é essencialmente resolvido com CDN. O problema central é recomendação: dado um catálogo de centenas de meditações, histórias para dormir e sons ambientes, qual conteúdo mostrar para este usuário, neste momento, com base no seu histórico de escuta, hora do dia, humor auto-reportado e características acústicas do conteúdo? O Calm começou com um sistema simples baseado em popularidade mais remoção de itens já ouvidos — que funcionou até não funcionar mais, quando usuários começaram a clicar em conteúdo mas não completá-lo. A migração para um pipeline de ML baseado em Amazon Personalize com redes neurais hierárquicas — e depois para busca vetorial com LLMs generativos no Amazon Bedrock — é um caso de estudo em como sistemas de recomendação evoluem de heurísticas para deep learning para AI generativa em uma única empresa.
 
 ---
 
-## 1. Fase 1: Heurísticas Baseadas em Popularidade (2017-2020)
+## 0. Linhagem
 
-O primeiro sistema de recomendação do Calm era determinístico: mostrar o conteúdo mais popular, remover itens que o usuário já ouviu, aplicar algumas regras manuais de curadoria (não recomendar meditações para dormir às 10h da manhã, por exemplo). Para um catálogo pequeno e uma base de usuários em crescimento, isso funcionava.
-
-O ponto de ruptura veio com as Sleep Stories — histórias narradas por celebridades como Harry Styles e Matthew McConaughey. A popularidade explodia para algumas histórias (o "Harry Styles effect" gerava picos de tráfego que duravam semanas), mas a taxa de conclusão era baixa: usuários clicavam por curiosidade, ouviam dois minutos e abandonavam. O sistema baseado em popularidade continuava recomendando essas mesmas histórias para novos usuários, criando um ciclo de baixa satisfação. Ficou claro que popularidade global não era um bom preditor de satisfação individual.
-
----
-
-## 2. Fase 2: Amazon Personalize + HRNN-Metadata (2020-2024)
-
-O Calm considerou construir um sistema de deep learning in-house, mas optou por Amazon Personalize — um serviço gerenciado de recomendação — porque a equipe de engenharia era pequena e o custo de oportunidade de construir infraestrutura de ML do zero era alto.
-
-A arquitetura do pipeline:
-
-**Ingestão de dados**: Apache Airflow rodando sobre Kubernetes orquestra jobs diários que extraem dados de interação do Redshift (data warehouse) e os depositam no S3 (data lake). Três tipos de dados alimentam o modelo:
-
-- **Interações**: escutas, conclusões e favoritos. Conclusão de uma meditação tem peso maior que uma escuta parcial; favoritar tem peso maior que concluir. Visualizações sem escuta não são usadas como sinal.
-- **Metadados de itens**: narrador, duração do áudio, profundidade da voz, tópico (natureza, fantasia, atenção plena), adequação para crianças, data de lançamento. A profundidade da voz do narrador — uma feature acústica extraída automaticamente — revelou-se surpreendentemente preditiva para preferências de usuário.
-- **Metadados de usuário**: tempo de conta, horário favorito do dia, país.
-
-**Modelo**: o algoritmo usado é HRNN-Metadata — Hierarchical Recurrent Neural Network com metadados. HRNNs são variantes de RNNs que modelam sequências temporais de interações com uma estrutura hierárquica: sessões dentro de dias, dias dentro de semanas. Isso captura padrões como "este usuário ouve meditações de foco às 9h em dias úteis e histórias para dormir às 22h".
-
-**Inferência**: batch a cada 48 horas, gerando até 500 recomendações por usuário. O resultado é armazenado no ElastiCache (Redis) para acesso em sub-milissegundo pela API. Uma camada de lógica de negócios em Python pós-processa as recomendações: agrupa em coleções (como "7 Dias de Calma"), filtra por tipo de conteúdo, aplica shuffle para variabilidade e remove duplicatas.
-
-**Resultado**: aumento de 3,4% na prática diária de mindfulness entre membros — um ganho modesto mas significativo para um produto onde a métrica principal é hábito, não engajamento.
+```
+Meditação em estúdio — instrutor presencial. Sem tecnologia.
+Headspace (2010) — primeiro app de meditação mainstream.
+Calm (2012) — Sleep Stories. Celebridades. Recomendação por ML.
+Calm hoje (2026) — 100M+ downloads. Bedrock + OpenSearch. HRNN → LLM.
+```
 
 ---
 
-## 3. Fase 3: Bedrock + OpenSearch Vector Search (2024-2025)
+## 1. Arquitetura Técnica
 
-A limitação do HRNN-Metadata era que ele operava sobre metadados estruturados — narrador, tópico, duração. Não conseguia capturar similaridade semântica entre conteúdos. Duas meditações poderiam ser sobre "ansiedade" e usar palavras completamente diferentes para descrever a mesma sensação.
+### 1.1 O Problema: Recomendação Não É Sobre Cliques — É Sobre Completar Sessões
 
-A migração para **Amazon Bedrock** (LLMs como fundação) e **Amazon OpenSearch** (busca vetorial) resolveu isso:
+O Calm não é um app de música ou podcast onde engajamento se mede em minutos ouvidos. É um app de meditação e sono onde a métrica de sucesso não é "o usuário clicou" — é "o usuário completou a sessão e voltou amanhã." O sinal de treinamento não é click-through rate — é **completion rate**. Interações são ponderadas: completar > favoritar > ouvir parcialmente. Visualizações sem play são explicitamente excluídas — são ruído, não sinal.
 
-**Geração de embeddings de conteúdo**: um LLM no Bedrock processa cada meditação e história, gerando uma descrição contextual rica que captura tom emocional, ritmo narrativo e adequação situacional — informações que não existiam nos metadados originais. Essas descrições são convertidas em embeddings vetoriais e indexadas no OpenSearch.
+### 1.2 Fase 1: Heurísticas de Popularidade (2017-2020)
 
-**Busca híbrida**: uma consulta combina similaridade semântica (embedding do perfil do usuário vs. embedding do conteúdo) com filtros keyword (tipo de conteúdo, duração máxima, narrador). O OpenSearch suporta busca híbrida nativamente, combinando scores de relevância vetorial e textual.
+Popularidade global + remoção de itens já ouvidos + regras manuais (não recomendar meditações para dormir às 10h). O ponto de ruptura: **Sleep Stories** narradas por celebridades (Harry Styles, Matthew McConaughey) geravam picos de popularidade mas baixa taxa de conclusão — usuários clicavam por curiosidade, ouviam 2 minutos e abandonavam. O sistema de popularidade continuava recomendando essas mesmas histórias, criando ciclo de baixa satisfação.
 
-**Explicabilidade**: cada recomendação agora inclui uma justificativa gerada por LLM — "Recomendamos esta meditação porque você costuma ouvir sessões de foco matinais com narradores de voz grave" — substituindo o modelo de caixa-preta do Personalize. A explicabilidade não é cosmética: aumenta a confiança do usuário e a taxa de aceitação de recomendações.
+### 1.3 Fase 2: Amazon Personalize + HRNN-Metadata (2020-2024)
 
-**Resultado**: melhoria de 25% na acurácia de recomendação. Cem por cento das recomendações agora têm justificativa.
+**Pipeline.** Apache Airflow sobre Kubernetes orquestra jobs diários extraindo dados do Redshift → S3. Três datasets: interações (escutas, conclusões, favoritos — ponderados), metadados de itens (narrador, duração, profundidade da voz, tópico), metadados de usuário (tempo de conta, horário favorito, país).
+
+**Modelo: HRNN-Metadata (Hierarchical Recurrent Neural Network).** Modela sequências temporais com estrutura hierárquica — sessões dentro de dias, dias dentro de semanas. Captura padrões como "este usuário ouve meditações de foco às 9h em dias úteis e Sleep Stories às 22h." Mecanismo de gating controla pesos de recência.
+
+**Feature acústica surpreendente.** A profundidade da voz do narrador — extraída via análise de frequência fundamental do áudio — revelou-se um dos preditores mais fortes de preferência. Usuários tendem a preferir consistência de profundidade vocal entre sessões.
+
+**Inferência batch a cada 48h**, 500 recomendações por usuário, armazenadas em ElastiCache (Redis). **Resultado:** +3,4% em prática diária de mindfulness.
+
+**Limitação:** HRNN-Metadata operava sobre metadados estruturados. Não capturava similaridade semântica — duas meditações sobre "ansiedade" usando vocabulário diferente não eram reconhecidas como similares.
+
+### 1.4 Fase 3: Bedrock + OpenSearch Vector Search (2024-presente)
+
+Em parceria com a **Firemind** (consultoria AWS), o Calm reconstruiu o motor de recomendação sobre AI generativa:
+
+**Geração de embeddings de conteúdo.** LLM no **Amazon Bedrock** processa cada meditação e história, gerando descrição contextual rica: tom emocional, ritmo narrativo, adequação situacional, nível de energia. Essas descrições são convertidas em embeddings vetoriais e indexadas no **Amazon OpenSearch** (vector search).
+
+**Busca híbrida.** Similaridade semântica (embedding do perfil do usuário vs. embedding do conteúdo) + filtros keyword (tipo de conteúdo, duração máxima, narrador). OpenSearch combina scores vetoriais e textuais nativamente.
+
+**Explicabilidade.** Cada recomendação inclui justificativa gerada por LLM: "Recomendamos esta meditação porque você costuma ouvir sessões de foco matinais com narradores de voz grave." Explicabilidade não é cosmética — em produtos de bem-estar, onde confiança é o ativo central, o usuário precisa entender o porquê.
+
+**Stack AWS:** Bedrock (LLM), Lambda, DynamoDB, OpenSearch (vector search).
+
+**Resultados:** +25% de acurácia. 100% das recomendações com justificativa. 5 novas propriedades de metadados para personalização.
 
 ---
 
-## 4. A Infraestrutura de Streaming de Áudio
+## 2. Lições de Engenharia
 
-Embora a recomendação seja o problema de engenharia mais interessante, a entrega de áudio é o problema mais fundamental. O Calm usa CDN para streaming de arquivos de áudio pré-codificados — essencialmente o mesmo padrão de qualquer serviço de streaming de música ou podcast. O desafio específico do Calm é que as sessões de áudio são longas (meditações de 10-30 minutos, histórias de 20-45 minutos) e os usuários frequentemente baixam conteúdo para uso offline (modo avião, retiros, áreas sem conectividade). Isso exige um sistema de cache agressivo no cliente e pré-download inteligente baseado nas recomendações personalizadas.
+### 2.1 Um modelo não precisa ser state-of-the-art para gerar valor
 
----
+HRNN-Metadata entregou +3,4% com custo de engenharia mínimo. Serviços gerenciados vencem quando ML não é core business.
 
-## 5. Lições de Engenharia
+### 2.2 A métrica de sucesso define a arquitetura de recomendação
 
-### 5.1 Um modelo não precisa ser state-of-the-art para gerar valor de negócio
+Completion rate como target → ponderação de interações por qualidade de sinal. Click-through rate produziria recomendações de clickbait.
 
-O HRNN-Metadata do Amazon Personalize não é o algoritmo de recomendação mais avançado disponível. Mas entregou um aumento de 3,4% em prática diária com custo de engenharia mínimo — a alternativa teria sido uma equipe de ML de três a cinco pessoas mantendo infraestrutura de treinamento e serving. Para uma empresa onde engenharia de ML não é o core business, serviços gerenciados frequentemente superam soluções customizadas.
+### 2.3 Explicabilidade é funcionalidade de produto em domínios de confiança
 
-### 5.2 Features acústicas são surpreendentemente preditivas para conteúdo de áudio
-
-A profundidade da voz do narrador — uma feature que qualquer pipeline de processamento de áudio pode extrair automaticamente — foi um dos preditores mais fortes de preferência de usuário. É o tipo de feature que engenheiros de ML frequentemente ignoram porque não é "semântica", mas que usuários percebem fortemente.
-
-### 5.3 Explicabilidade não é cosmética — é funcionalidade de produto
-
-As justificativas geradas por LLM para recomendações aumentaram a taxa de aceitação porque transformaram recomendações de "o algoritmo decidiu" para "faz sentido para você". Em produtos de bem-estar, onde a confiança é o ativo central, explicabilidade é tão importante quanto acurácia.
+"Faz sentido para você" > "o algoritmo decidiu". Em bem-estar, confiança é o ativo central.
 
 ---
 
-## 6. Ficha Técnica
+## 3. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Calm |
 | **Lançamento** | 2012 |
-| **Plataforma** | iOS, Android, Web |
-| **Orquestração ML** | Apache Airflow sobre Kubernetes |
-| **Armazenamento** | S3 (data lake), Redshift (data warehouse), DynamoDB (metadados), ElastiCache (Redis) |
-| **Motor de Recomendação** | Amazon Personalize (HRNN-Metadata) → Amazon Bedrock (LLM) + OpenSearch (vector search) |
-| **Inferência** | Batch a cada 48h (Fase 2); batch + real-time (Fase 3) |
-| **Streaming** | CDN padrão para arquivos de áudio pré-codificados |
+| **Categoria** | Bem-Estar / Sistemas de Recomendação / ML |
+| **Fase 1 (2017-20)** | Heurísticas de popularidade + regras manuais |
+| **Fase 2 (2020-24)** | Amazon Personalize (HRNN-Metadata), Airflow/K8s, inferência batch 48h, +3,4% prática diária |
+| **Fase 3 (2024-)** | Amazon Bedrock (LLM embeddings) + OpenSearch (vector + keyword hybrid search), +25% acurácia, 100% explicabilidade |
+| **Concorrentes** | Headspace, Insight Timer, Apple Fitness+ Meditation |
 
 ---
 
 ## Fontes
 
-- [AWS ML Blog — Personalizing wellness recommendations at Calm with Amazon Personalize](https://aws.amazon.com/cn/blogs/machine-learning/personalizing-wellness-recommendations-at-calm-with-amazon-personalize/)
-- [Firemind — Calm enhances personalised recommendations with generative AI (2025)](https://firemind.com/calm-enhances-personalised-recommendations-with-generative-ai/)
-- [AWS — AWS customers use the cloud to make mental health and wellness resources more accessible](https://www.aboutamazon.com/news/aws/aws-customers-use-the-cloud-to-make-mental-health-and-wellness-resources-more-accessible)
+- [Firemind — Calm enhances personalised recommendations with generative AI (Bedrock, OpenSearch, +25%, 2025)](https://firemind.com/calm-enhances-personalised-recommendations-with-generative-ai/)
+- [AWS ML Blog — Personalizing wellness recommendations at Calm with Amazon Personalize (HRNN-Metadata, Airflow/K8s)](https://aws.amazon.com/cn/blogs/machine-learning/personalizing-wellness-recommendations-at-calm-with-amazon-personalize/)

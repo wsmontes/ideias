@@ -375,7 +375,7 @@ Não é PERFEITO. Databases complexas no mobile são APERTADAS. Mas funciona par
 | Componente | Tecnologia |
 |---|---|
 | **Backend** | Node.js monolith (não microservices). Data locality > desacoplamento. |
-| **Banco de dados** | PostgreSQL (480 logical shards, 96 physical instances). Shard key: workspace_id. |
+| **Banco de dados** | PostgreSQL (480 logical shards, 96 physical AWS RDS instances. Original: 32 nodes, escalado em 2023). Shard key: `space_id % 480`. Zero-downtime migration via "shadow write" (dual writes + backfill + consistency checks + cutover). PgBouncer para connection pooling. |
 | **Caching** | Redis Enterprise. Sub-ms retrieval para blocos frequentes. |
 | **Full-text search** | Elasticsearch |
 | **Filas/Streaming** | Kafka |
@@ -390,14 +390,19 @@ Cada bloco no Notion tem ESTA estrutura:
 
 ```
 Block {
-  id:         UUID v4 (globalmente único),
-  type:       enum (paragraph, heading_1, to_do, image, page, table...),
-  properties: { title, checked, color, ... },  // Key-value flexível
-  content:    [child_block_id_1, child_block_id_2, ...],  // Render tree
-  parent:     parent_block_id,  // Permission inheritance
-  version:    int (optimistic concurrency)
+  id:          UUID v4 (globalmente único, aparece nas URLs),
+  type:        string (paragraph, to_do, heading_1, callout, page, child_page...),
+  properties:  { title, checked, color, ... },    // Key-value flexível
+  content:     [child_block_id_1, ...],            // Render tree (downward)
+  parent:      parent_block_id,                    // Permission tree (upward)
+  version:     int (monotonic, optimistic concurrency),
+  created_time: timestamp,
+  last_edited_time: timestamp,
+  has_children: boolean,
+  type_specific: { checked: false }  // Payload específico do tipo (ex: to_do.checked)
 }
 ```
+**Por que `parent` e `content` são separados:** um bloco pode ser REFERENCIADO em múltiplos `content` arrays (linked databases, synced blocks), mas só pode ter UM `parent`. O `parent` é usado EXCLUSIVAMENTE para herança de permissões (caminho direto até o workspace root).
 
 **O segredo da flexibilidade**: `type` e `properties` são DESACOPLADOS.
 - Mudar `type: "to_do"` para `type: "heading_1"` NÃO apaga os dados da checkbox.
@@ -424,13 +429,15 @@ O Notion NÃO usa bibliotecas de editor padrão (Tiptap, Slate, ProseMirror). Co
 
 ### Colaboração em Tempo Real
 
-1. Usuário edita → Transaction criada → estado local atualizado IMEDIATAMENTE (otimismo).
-2. Transaction enviada ao `/saveTransactions` → validada → commit no PostgreSQL.
-3. MessageStore (WebSocket) notifica TODOS os clientes assinantes da página.
-4. Clientes detectam version mismatch → fazem `asyncRecordValues` → recebem dados atualizados.
-5. Custom render queue atualiza SÓ os blocos que mudaram.
+1. Usuário edita → **Transaction criada** com Operations atômicas → estado local atualizado IMEDIATAMENTE (otimismo). Transactions são enfileiradas em uma **TransactionQueue** (IndexedDB/SQLite) até o servidor confirmar.
+2. Transaction enviada ao `/saveTransactions` → servidor carrega snapshot "before" em memória → aplica operations → produz snapshot "after" → valida permissões e coerência → commit no PostgreSQL.
+3. **MessageStore** (WebSocket) notifica TODOS os clientes assinantes da página com a nova versão.
+4. Clientes detectam **version mismatch** → fazem `syncRecordValues` → recebem dados atualizados → **custom render queue** atualiza SÓ os blocos que mudaram (batching de `forceUpdate()`).
+5. **Background jobs**: version history snapshots, indexação de texto (Quick Find via Elasticsearch, migrado do PostgreSQL full-text quando blocos passaram de bilhões).
 
-**Conflitos**: OT (Operational Transformation) para texto (nível de caractere). Server-ordering para operações estruturais. Last-writer-wins para conflitos de propriedade.
+**Offline (2025-2026)**: páginas marcadas como offline são migradas dinamicamente para um **novo data model CRDT**. CEO Ivan Zhao: *"Construímos um dos maiores sistemas CRDT em produção já implantados. Migração de 100M+ usuários com zero downtime."* Cada página offline tem seu próprio canal pub/sub; clientes usam `lastDownloadedTimestamp` para sincronizar só o que mudou.
+
+**Conflitos**: O documento descreve OT para texto e server-ordering para operações estruturais. A realidade é mais complexa — o Notion está em TRANSIÇÃO. O sistema original usava um modelo OT-like com servidor central de ordenação + last-writer-wins. Para o modo offline (lançado recentemente), o Notion construiu **um dos maiores sistemas CRDT em produção do mundo**: migração de 100M+ usuários com zero downtime. O modelo híbrido atual usa **CRDT para merge de texto** (character-level, estilo Yjs/RGA) e **server-ordered OT para operações estruturais** (reordering, reparenting, deleção de blocos). Um engenheiro do Notion no Hacker News: *"Levamos o last-write-wins tão longe quanto possível, e agora estamos construindo CRDT text como base para novas features."*
 
 ---
 

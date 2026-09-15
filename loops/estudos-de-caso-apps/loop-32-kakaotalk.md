@@ -1,112 +1,104 @@
-# Estudo de Caso 32 — KakaoTalk: O Mensageiro Que Roda em 5.000 VMs Gerenciadas Por Dois Engenheiros
+# Estudo de Caso 32 — KakaoTalk: O Protocolo LOCO (BSON, AES-CFB Sem MAC, Sem Autenticação de Servidor, Sem Replay Protection), a Infraestrutura OpenStack Com 7.000 Clusters K8s + Cilium/eBPF e o Kanana MoE (64 Experts, 13,4B Parâmetros, TPU Trillium 2,7×)
 
 > **Data:** 2026-07-03
-> **Loop:** 32 de ∞ (Reescrita — Fase 2)
-> **Categoria:** Mensageria / Infraestrutura / Protocolo
-> **Tema:** O KakaoTalk é o mensageiro dominante da Coreia do Sul — 93% de penetração em uma população de 52 milhões. Mas o que torna sua engenharia notável não é a escala de usuários, e sim a densidade de automação: 5.000 máquinas virtuais em OpenStack gerenciadas por uma equipe de dois engenheiros. O protocolo de mensageria — LOCO — é uma implementação binária proprietária sobre BSON com criptografia AES-CFB que foi desenhada para velocidade, não para auditabilidade, e carrega vulnerabilidades documentadas que pesquisadores de segurança vêm apontando há mais de uma década. A migração recente de treinamento de modelos de AI de GPUs NVIDIA para TPUs do Google Cloud usando JAX — com modelos Mixture-of-Experts de 64 experts e throughput 2,7× maior — revela uma empresa que opera na fronteira da infraestrutura de computação.
+> **Loop:** 32 de ∞ (Reescrita)
+> **Categoria:** Mensageria / Infraestrutura / Protocolo / AI
 
 ---
 
-## 1. O Protocolo LOCO: BSON Binário Sobre TCP Com Criptografia No Transporte
+## 0. Linhagem
 
-O KakaoTalk não usa XMPP, MQTT, WebSocket ou qualquer protocolo de mensageria padrão. Em vez disso, opera sobre um protocolo binário proprietário chamado LOCO, documentado pela primeira vez em 2012 por engenharia reversa. O LOCO serializa mensagens em **BSON (Binary JSON)** — uma representação binária de documentos JSON que oferece parsing mais rápido e tamanho menor que JSON textual.
+```
+SMS (2000s) — texto pago por unidade. Coreia: operadoras cobravam caro.
+KakaoTalk (2010) — mensagens gratuitas via dados móveis. Adoção instantânea.
+Kakao (2014) — fusão com Daum. KakaoPay, KakaoBank, KakaoMobility.
+KakaoTalk hoje (2026) — 93% da Coreia do Sul. 7.000 clusters K8s. Kanana MoE. LOCO.
+```
 
-O fluxo de uma mensagem no LOCO segue o modelo store-and-forward: o cliente envia a mensagem ao servidor via TCP com autenticação de sessão; o servidor persiste a mensagem e notifica o destinatário; se o destinatário estiver online, a mensagem é entregue via push sobre a conexão persistente. Se estiver offline, a mensagem é armazenada e entregue na próxima conexão.
-
-A camada de criptografia no transporte usa **AES em modo CFB (Cipher Feedback)** . O modo CFB transforma uma cifra de bloco em uma cifra de fluxo, o que é útil para tráfego de mensageria — os dados chegam em rajadas de tamanho variável, e o CFB permite criptografar bytes individuais sem padding. Mas o CFB não oferece integridade de ciphertext: um atacante que pode modificar bits no trânsito pode produzir alterações previsíveis no texto plano descriptografado. O LOCO não implementa autenticação de mensagem (MAC) na camada de transporte.
-
-Pesquisadores de segurança documentaram três vulnerabilidades estruturais no protocolo LOCO:
-
-1. **Ausência de autenticação do servidor**: o cliente não verifica a identidade do servidor LOCO, tornando possível um ataque man-in-the-middle.
-2. **Ausência de integridade de ciphertext**: o AES-CFB é maleável; bits podem ser alterados no trânsito sem detecção.
-3. **Ausência de proteção contra replay**: o protocolo não implementa nonces ou timestamps, permitindo que mensagens capturadas sejam reenviadas.
-
-Essas vulnerabilidades não são bugs de implementação — são consequências do design do protocolo. Elas existem porque o LOCO foi projetado para velocidade e eficiência de banda em dispositivos móveis de 2012, não para segurança contra adversários sofisticados.
+O KakaoTalk não venceu por superioridade técnica — venceu porque entrou no mercado coreano no momento exato em que smartphones se massificavam e operadoras ainda cobravam por SMS. Uma vez que 93% da população estava na plataforma, o custo de troca tornou-se proibitivo. Desse monopólio de mensageria, a Kakao expandiu-se para pagamentos (KakaoPay), banco digital (KakaoBank), transporte (KakaoMobility) e AI (Kanana).
 
 ---
 
-## 2. O Modelo de Chat Duplo: Regular (Server-Side) vs. Secret (E2EE)
+## 1. Arquitetura Técnica
 
-O KakaoTalk opera dois modelos de criptografia radicalmente diferentes.
+### 1.1 O Protocolo LOCO: Velocidade Sobre Segurança
 
-**Regular Chat**: a mensagem é criptografada em trânsito via LOCO (AES-CFB), mas a chave de criptografia é compartilhada com a Kakao Corp. Isso significa que o servidor pode descriptografar, indexar e processar o conteúdo de todas as mensagens regulares. É uma escolha deliberada de arquitetura, não uma limitação técnica: o acesso ao conteúdo permite busca de mensagens no servidor, sugestões contextuais e moderação automatizada — funcionalidades que sistemas E2EE puros não conseguem oferecer sem processamento local pesado.
+O protocolo LOCO — a espinha dorsal da comunicação no KakaoTalk — é um protocolo binário proprietário documentado apenas por engenharia reversa. Opera sobre **TCP raw** (não HTTP), com payloads em **BSON (Binary JSON)** e criptografia **AES-CFB**. Foi projetado em 2010 para velocidade em redes móveis coreanas (3G, alta latência, baixa largura de banda).
 
-**Secret Chat**: introduzido em 2014, oferece criptografia ponta-a-ponta usando RSA. O remetente obtém a chave pública RSA do destinatário através de um banco de dados mantido pela Kakao que mapeia UUIDs de dispositivos para chaves públicas. O segredo compartilhado é derivado e usado para criptografar a mensagem no dispositivo do remetente; apenas o destinatário pode descriptografar.
+**Três vulnerabilidades estruturais** documentadas por Dawin Schmidt (HITB Bangkok, BSides Munich 2024):
 
-O Secret Chat tem limitações significativas comparado a implementações modernas de E2EE. Não oferece **forward secrecy**: usa RSA estático em vez de Diffie-Hellman efêmero — se a chave privada de um dispositivo for comprometida, todas as mensagens passadas e futuras podem ser descriptografadas. Não implementa o algoritmo **Double Ratchet** (usado por Signal, WhatsApp, LINE Letter Sealing), que gera novas chaves para cada mensagem e garante que o comprometimento de uma chave não exponha todo o histórico. A verificação de fingerprint é opcional e raramente usada por usuários. O código não é aberto nem auditado independentemente.
+1. **Sem autenticação de servidor.** O cliente LOCO não valida a identidade do servidor de mensageria. Um atacante capaz de executar MITM (Wi-Fi comprometida, DNS spoofing, BGP hijack) pode interceptar e modificar mensagens sem detecção — catastrófico para um app usado para banking e pagamentos.
 
----
+2. **AES-CFB sem MAC.** O modo CFB (Cipher Feedback) é malleable — bits do ciphertext podem ser flipados para produzir alterações previsíveis no plaintext, sem que o receptor detecte a modificação. A ausência de Message Authentication Code significa zero garantia de integridade. O ataque EFAIL de 2018 demonstrou que malleability de ciphertext era explorável em escala.
 
-## 3. Infraestrutura: 5.000 VMs OpenStack, Dois Engenheiros, Apache S2Graph
+3. **Sem prevenção de replay.** O protocolo não inclui nonces, timestamps ou contadores de mensagem. Um atacante que capture uma mensagem criptografada pode reenviá-la posteriormente.
 
-Em 2013, a Kakao migrou sua infraestrutura para OpenStack. Hoje, opera aproximadamente 5.000 máquinas virtuais sobre OpenStack — gerenciadas por uma equipe de dois engenheiros dedicados. Essa densidade de automação é possível porque a equipe investiu em três ferramentas internas:
+**Secret Chat (E2EE).** Não ativado por default. Sem forward secrecy (troca de chaves não é efêmera). Sem Double Ratchet Algorithm. Distribuição de chaves públicas confia no servidor Kakao — que pode substituir chaves sem detecção.
 
-- **Kengine**: gerencia automaticamente o ciclo de vida de VMs — provisionamento, scaling, health checks, descomissionamento. Operadores definem políticas; o Kengine executa.
-- **CUOTA**: identifica e recupera recursos subutilizados. VMs que operam abaixo de thresholds de CPU ou memória são sinalizadas e consolidadas.
-- **CROW**: plataforma unificada de métricas que coleta dados de todos os recursos físicos e virtuais, alimentando dashboards e sistemas de alerta.
+**Cronologia.** Vulnerabilidades reportadas pela primeira vez em 2016. Kakao começou a trabalhar em correções apenas em **julho de 2024** — oito anos depois. Um 1-click exploit foi reportado em dezembro 2023 via Bug Bounty (apenas cidadãos coreanos recebem recompensas).
 
-O **Apache S2Graph** — um banco de dados de grafos incubado pela Kakao e construído sobre HBase — é um componente central da infraestrutura. O S2Graph gerencia as relações sociais da plataforma: quem segue quem, quem está em qual grupo, qual o grafo de amigos de cada usuário. Essas consultas de grafo são críticas para o roteamento de mensagens (para quem entregar?), sugestões de amigos e detecção de spam. O S2Graph processa consultas de grafo em milissegundos usando índices distribuídos sobre HBase.
+### 1.2 Infraestrutura: 7.000 Clusters K8s, 120.000 Nós, OpenStack, Cilium/eBPF
 
-O stack de processamento de dados usa CDC (Change Data Capture) para capturar mudanças em bancos de dados e propagá-las via Apache Kafka para múltiplos datacenters, mantendo consistência eventual entre regiões. Essa arquitetura permite que o KakaoTalk opere com latência baixa para usuários na Coreia enquanto replica dados para datacenters de disaster recovery.
+O KakaoTalk opera sobre **OpenStack** on-premise com **7.000+ clusters Kubernetes** e **120.000+ nós** em múltiplas zonas de disponibilidade. **Cilium/eBPF** substituiu kube-proxy como CNI — iptables escala mal em clusters grandes; eBPF programa o kernel dinamicamente com programas verificados. **Cilium Cluster Mesh + Hubble** para gerenciamento multi-zona.
 
----
+A plataforma de engenharia oferece K8s como serviço sobre OpenStack: times de produto solicitam clusters via API; a plataforma provisiona networking (Cilium), storage, monitoring e logging automaticamente. A filosofia de automação — "se um humano precisa tocar numa VM, a automação falhou" — permitiu que 2 engenheiros gerenciassem 5.000 VMs em 2013, escalando para a infraestrutura atual sem crescimento proporcional da equipe.
 
-## 4. Stack de Tempo Real: Go, gRPC, Redis Streams
+### 1.3 AI Infrastructure: Kanana MoE Com 64 Experts em TPU Trillium
 
-Os serviços de tempo real do KakaoTalk são construídos em Go. O padrão de comunicação entre microserviços usa gRPC — chamadas de procedimento remoto com serialização Protobuf, que oferecem menor latência e maior throughput que REST/JSON. Para serviços que exigem ordenação estrita de eventos — como o KakaoLive, o serviço de streaming ao vivo — Redis Streams funciona como barramento de eventos, garantindo que eventos de sala sejam processados na ordem correta.
+Em 2024, a Kakao migrou treinamento de AI de GPUs NVIDIA para **Cloud TPUs do Google** usando framework **JAX**:
 
-Conexões WebSocket com clientes móveis são gerenciadas com heartbeats e estratégias de reconexão customizadas. A camada de sinalização WebSocket usa Go pela capacidade da linguagem de gerenciar centenas de milhares de goroutines — uma por conexão — com overhead de memória mínimo.
+**Kanana 2.1B**: modelo denso treinado do zero com MaxText + FSDP. Performance comparável ao pipeline GPU Megatron-LM. Depth upscaling: 8B → 9.8B com melhorias consistentes.
 
----
+**Kanana-MoE**: upcycling do modelo denso de 2.1B para **Mixture-of-Experts de 13,4B parâmetros** (2,3B ativos por token), **64 experts, 8 ativos por token**. Treinado em TPU v5e com kernels Megablocks MoE (Group GEMM) integrados ao JAX. Ganhos particularmente fortes em code e math.
 
-## 5. Migração de AI: De GPUs NVIDIA Para TPUs Google Cloud
+**TPU Trillium (v6e)**: **throughput 2,7× maior** que v5e, alterando apenas parâmetros de configuração do cluster XPK. Modelos Kanana-MoE open-source no Hugging Face.
 
-Em 2024-2025, a Kakao migrou o treinamento de seus modelos de linguagem — a família Kanana, com até 9,8 bilhões de parâmetros — de clusters de GPUs rodando Megatron-LM para TPUs do Google Cloud usando JAX. A migração envolveu:
-
-- Adoção do framework **MaxText** com personalizações para blending de dados multi-fonte e processamento de tokens.
-- Implementação de modelos **Mixture-of-Experts (MoE)** com 64 experts, onde apenas uma fração dos parâmetros é ativada por token, reduzindo o custo computacional de inferência.
-- Uso de **XPK** para gerenciamento de clusters Kubernetes e **Grain** para pipelines determinísticos de dados.
-- Ganho de throughput de 2,7× com TPUs Trillium comparado à infraestrutura anterior baseada em GPU.
-
-A decisão de migrar foi motivada pela disponibilidade de TPUs em escala na infraestrutura do Google Cloud — a Kakao já operava significativamente nessa nuvem — e pela eficiência das TPUs em operações de multiplicação de matrizes, que dominam o treinamento de transformers.
+**Avaliação de segurança (dezembro 2025):** MSIT + AI Safety Institute da Coreia conduziram primeira avaliação oficial de segurança de AI usando benchmark AssurAI (11.480 exemplos multimodais em coreano). Kanana Essence 1.5 mostrou "boa estabilidade técnica" em todas as categorias de risco.
 
 ---
 
-## 6. Lições de Engenharia
+## 2. Críticas
 
-### 6.1 A automação de infraestrutura é um multiplicador de força
+**2.1 LOCO como dívida técnica de segurança de oito anos.** Reportado em 2016, corrigido em 2024. A demora ilustra o custo de protocolos proprietários sem escrutínio público — vulnerabilidades foram descobertas por engenharia reversa, não por revisão de especificação.
 
-Dois engenheiros gerenciando 5.000 VMs não é resultado de heroísmo — é resultado de investimento em automação (Kengine, CUOTA, CROW) que remove o trabalho manual do ciclo de operações. A lição é que o tamanho da equipe de infraestrutura não precisa ser proporcional ao tamanho da infraestrutura — precisa ser proporcional à qualidade da automação.
-
-### 6.2 Protocolos proprietários acumulam dívida de segurança
-
-O LOCO foi projetado em 2012 para eficiência, não para segurança. Treze anos depois, suas vulnerabilidades estruturais — ausência de autenticação do servidor, ciphertext maleável, sem proteção contra replay — continuam sem correção porque corrigi-las exigiria reescrever o protocolo, o que quebraria compatibilidade com todos os clientes existentes. A lição é que decisões de protocolo tomadas nos primeiros anos de uma empresa têm consequências de segurança que duram décadas.
-
-### 6.3 E2EE como opt-in produz uma divisão de classes de segurança
-
-A vasta maioria das conversas no KakaoTalk usa Regular Chat — criptografado em trânsito, mas acessível ao servidor. Uma minoria usa Secret Chat — E2EE, mas sem forward secrecy e sem auditoria independente. Essa arquitetura de dois níveis reflete uma escolha de produto: funcionalidades ricas (busca, sugestões, moderação) exigem acesso ao conteúdo. É uma decisão legítima de engenharia, mas significa que o usuário médio do KakaoTalk tem menos proteção de privacidade do que o usuário médio do WhatsApp ou Signal.
+**2.2 Monopólio de mensageria como risco sistêmico.** 93% de penetração torna KakaoTalk infraestrutura crítica nacional. O incêndio no datacenter SK C&C em 2022 derrubou a plataforma por dias, paralisando comunicação, pagamentos e banking. O governo coreano iniciou investigações antitruste.
 
 ---
 
-## 7. Ficha Técnica
+## 3. Lições de Engenharia
+
+### 3.1 Protocolos proprietários acumulam dívida técnica de segurança mais rápido que protocolos abertos
+
+LOCO nunca foi auditado publicamente. Signal Protocol, MLS e TLS 1.3 recebem escrutínio contínuo; protocolos proprietários recebem escrutínio apenas de atacantes.
+
+### 3.2 Cilium/eBPF é a substituição correta para kube-proxy em clusters >1.000 nós
+
+Iptables escala linearmente com regras; eBPF escala com programas verificados no kernel. A diferença é existencial em 7.000 clusters.
+
+### 3.3 Upcycling de modelos densos para MoE é a estratégia de escala mais eficiente
+
+Treinar MoE do zero é caro e instável. Treinar denso → validar → upcycle para MoE preserva investimento. Mesma estratégia da Google (Gemini) e Anthropic.
+
+---
+
+## 4. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | KakaoTalk |
-| **Lançamento** | Março de 2010 |
-| **Desenvolvedor** | Kakao Corp. (Coreia do Sul) |
-| **Protocolo** | LOCO (BSON binário proprietário), AES-CFB |
-| **E2EE** | Secret Chat: RSA estático, sem forward secrecy, sem Double Ratchet |
-| **Backend** | Go + gRPC + Redis Streams, OpenStack (5.000 VMs), Apache Kafka + CDC |
-| **Graph DB** | Apache S2Graph (HBase) — processa consultas de relacionamentos em ms |
-| **AI/ML** | JAX + TPUs Google Cloud, MaxText, Mixture-of-Experts (64 experts) |
+| **Nome** | KakaoTalk (Kakao Corporation) |
+| **Fundação** | Março 2010. Fusão com Daum: 2014 |
+| **Categoria** | Mensageria / Super-App / Infraestrutura |
+| **Penetração** | 93% da Coreia do Sul (~49M de 52M) |
+| **Protocolo** | LOCO (proprietário): TCP raw, BSON, AES-CFB (sem MAC, sem server auth, sem replay). Secret Chat: ECDH sem forward secrecy |
+| **Infraestrutura** | OpenStack on-premise. 7.000+ clusters K8s. 120.000+ nós. Cilium/eBPF CNI |
+| **AI** | JAX + TPU v5e/Trillium v6e. Kanana-MoE: 13,4B params (2,3B ativos), 64 experts, 8 ativos. Trillium 2,7× throughput |
+| **Concorrentes** | WhatsApp, LINE, Telegram (mínima penetração na Coreia) |
 
 ---
 
 ## Fontes
 
-- [HITB SecConf 2024 — Leaking Kakao: LOCO protocol vulnerabilities analysis](https://conference.hitb.org/hitbsecconf2024bkk/materials/D1%20COMMSEC%20-%20Leaking%20Kakao.pdf)
-- [Kakao OpenInfra — KakaoTalk speaks volumes about the future of cloud services](https://superuser.openinfra.dev/articles/kakaotalk-speaks-volumes-about-the-future-of-cloud-services/)
-- [Google Cloud Blog — Kakao's journey with JAX and Cloud TPUs](https://cloud.google.com/blog/products/infrastructure-modernization/kakaos-journey-with-jax-and-cloud-tpus/)
-- [Apache S2Graph — Data Hub for Apache Big Data Europe 2016](http://events.linuxfoundation.org/sites/events/files/slides/s2graph_data_hub_apache_big_data_europe_2016.pdf)
-- [KoreaPlus — Inside Kakao: The Unified Messaging Pioneer the West Hasn't Noticed](https://dev.to/koreaplus-lifes/inside-kakao-the-unified-messaging-pioneer-the-west-hasnt-noticed-adn)
+- [HITB Bangkok 2024 / BSides Munich 2024 — Leaking Kakao: How a Combination of Bugs in KakaoTalk Compromises User Privacy (Dawin Schmidt, LOCO protocol analysis)](https://conference.hitb.org/hitbsecconf2024bkk/)
+- [Google Cloud Blog — Kakao's journey with JAX and Cloud TPUs (Ago 2025, Kanana MoE, Trillium 2,7×)](https://cloud.google.com/blog/products/infrastructure-modernization/kakaos-journey-with-jax-and-cloud-tpus)
+- [CNCF Case Study — Kakao: 7.000+ K8s clusters, 120.000+ nodes, Cilium/eBPF](https://www.cncf.io/case-studies/kakao/)
+- [Superuser OpenInfra — KakaoTalk speaks volumes about the future of cloud services (5.000 VMs, 2 engenheiros)](https://superuser.openinfra.dev/articles/kakaotalk-speaks-volumes-about-the-future-of-cloud-services/)

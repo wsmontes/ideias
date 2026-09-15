@@ -1,70 +1,59 @@
-# Estudo de Caso 48 — Candy Crush Saga: O Jogo Que Faturou $20 Bilhões (Com Apenas 2.3% de Pagantes)
+# Estudo de Caso 48 — Candy Crush Saga: O Motor de Level Design Com AI Bots Que Testam 18.700+ Fases, 65 Novas Por Semana, 95% Menos Ajustes Manuais e 50% Mais Rápido
 
 > **Data:** 2026-07-03
-> **Loop:** 48 de ∞ (Fase 3: Casual Gaming)
-> **Categoria:** Jogos Mobile / Casual / Freemium
-> **Tema:** 12 de abril de 2012. A **King** — uma empresa sueca que quase FALIU em 2003 (salva por um cheque de Natal na véspera) — lança **Candy Crush Saga** no Facebook. 4 milhões de jogadores nas primeiras semanas. Em novembro de 2012, lança no iOS e Android. O primeiro fim de semana foi **10× acima das estimativas internas.** Em 2013: 408 milhões de MAUs, $1.88 BILHÃO de receita. IPO em 2014: $7B. Activision Blizzard compra em 2016 por $5.9B. Microsoft compra a Activision em 2023 por $68.7B. Hoje: **$20 bilhões de receita vitalícia.** 5 bilhões de downloads. 15.000+ níveis. E o mais INCRÍVEL: apenas **~2.3% dos jogadores PAGAM.** O segredo? 5 vidas. 30 minutos para regenerar. E o botão "+5 movimentos" custando $0.99. Esta é a história do jogo que provou que "grátis para 97.7%" PODE ser o modelo de negócios mais LUCRATIVO da história do entretenimento.
+> **Loop:** 48 de ∞ (Reescrita)
+> **Categoria:** Casual Gaming / AI-Assisted Design / Live Ops
 
 ---
 
-## 1. A Origem: Suécia, Quase Falência e um Cheque de Natal
+## 0. Linhagem
 
-### A King: Quase Morta em 2003
-
-- Fundada como **Midasplayer.com** em Estocolmo (2003). Riccardo Zacconi, Toby Rowland, Mel Morris.
-- **Quase FALIU.** Salva por um CHEQUE de Natal de Mel Morris.
-- **2005**: rebrand para **King.com.** $43M em funding. 200+ jogos de browser.
-- **2011**: tráfego do portal CAI (Zynga + Facebook). King PIVOTA para Facebook.
-- **Outubro de 2011**: **Bubble Witch Saga.** 10M+ jogadores em 3 meses. O "modelo saga" NASCE.
-
-### O Modelo "Saga" — A Inovação Que Mudou TUDO
-
-Antes, jogos match-3 (como Bejeweled) eram INFINITOS. Você jogava até PERDER. Fim.
-
-A King INVENTOU o modelo **"saga"** : níveis DISCRETOS. Cada nível = um objetivo claro. Mapa LINEAR. "Em que nível VOCÊ está?"
-
-**Isso criou:**
-- Progresso VISÍVEL (mapa).
-- Competição SOCIAL ("meu amigo está no nível 847!").
-- Tensão MONETIZÁVEL ("você está a 1 movimento de vencer...").
-
-### Candy Crush Saga: 12 de Abril de 2012
-
-Lançamento no Facebook. **Match-3 colorido.** Doces. Combos explosivos. "Sweet!" "Delicious!"
-
-**Novembro de 2012**: iOS + Android. Cross-platform sync com Facebook. O primeiro fim de semana foi 10× MAIOR que o esperado.
+```
+Bejeweled (2001) — match-3. O gênero ancestral.
+Candy Crush Saga (2012) — Facebook → mobile. Freemium. Níveis progressivos. Vidas.
+King (2016) — Activision Blizzard: US$ 5,9B. Microsoft (2023): US$ 68,7B.
+Candy Crush hoje (2026) — 18.700+ níveis. US$ 20B+ receita vitalícia. 5B+ downloads.
+```
 
 ---
 
-## 2. A Filosofia: "Fácil de Aprender, IMPOSSÍVEL de Largar"
+## 1. Arquitetura de Level Design
 
-### O Octalysis: 8 Core Drives de Engajamento
+### 1.1 AI Bots Que Testam Cada Nível Milhares de Vezes
 
-| Drive | Como Candy Crush Aplica |
-|---|---|
-| **Realização** | 3 estrelas por nível. Mapa de progresso. Boss fights. |
-| **Criatividade** | Combos cascateando. "Eu FIZ isso!" |
-| **Escassez** | **5 vidas.** 30 min para regenerar. |
-| **Imprevisibilidade** | Recompensa VARIÁVEL (drops aleatórios = dopamina). |
-| **Perda** | "Dias preso no nível" (vergonha social). |
+A King desenvolveu um sistema de **AI playtesting bots** que jogam cada nível milhares de vezes antes do lançamento, medindo dificuldade, "shuffles" (resets de tabuleiro), taxa de vitória e outras métricas. A aquisição da startup **Peltarion** em 2022 trouxe a tecnologia de AI que acelerou este pipeline.
 
-### O Gênio do "+5 Movimentos"
+**Resultados**: 50% mais rápido para alterar níveis. 95% de redução em ajustes manuais. Os bots fornecem aos designers insights altamente precisos antes do shipping.
 
-Você está no nível 147. Resta **1 movimento.** O objetivo está ALI. Você PERDEU.
+**AI co-pilot para designers**: ferramenta que realiza tweaking automático por AI. Designers definem critérios; a AI sugere refinamentos. Designers anotam sugestões boas/ruins; o sistema aprende com o feedback.
 
-O jogo oferece: **"+5 movimentos por $0.99."**
+### 1.2 A Filosofia de Dificuldade: "Difficult ≠ Fun"
 
-Isso NÃO parece "paywall." Parece "eu estava TÃO PERTO."
+Pesquisadores de data science da King descobriram que dificuldade e diversão são conceitos distintos. Medem "fun" via combinação de **time to abandon** (tempo até desistir) e **time to pass** (tempo até vencer). Níveis difíceis podem ser divertidos; níveis fáceis podem ser entediantes. **Níveis longos têm menor probabilidade de serem divertidos**. Se um nível é muito difícil, deve ser muito curto.
 
-**Resultado**: ~95% da receita do jogo vem DESSE botão.
+**Player skill profiling**: a King mapeia habilidade individual do jogador (baseada em vitórias, derrotas, tentativas) contra designs de nível para entender como diferentes jogadores experienciam o mesmo nível. Dificuldade é **personalizada** por jogador — não é a mesma para todos.
 
-### O Modelo Freemium
+**Constant pruning**: a King identifica os 100 níveis menos divertidos do jogo e os corrige continuamente. "Very significant uplift in engagement." "Crazy hard levels never pay off" no longo prazo — retenção sempre vence.
 
-| Jogadores | O Que Fazem |
-|---|---|
-| **97.7%** | Jogam GRÁTIS. 5 vidas. Esperam 30 min. |
-| **2.3%** | PAGAM. Média de $23.42/mês. |
-| **"Whales"** | Uma FRAÇÃO desses 2.3%. Gastam CENTENAS/mês. |
+### 1.3 65 Níveis Por Semana, 18.700+ Total
+
+A King lança **65 novos níveis por semana**. Já lançou o **300º client version**. Manter 18.700+ níveis existentes enquanto adiciona 65 por semana exige um pipeline de **level tweaks automation**: ajustar parâmetros como move count, candy colors, blocker types ou objectives. É uma operação contínua que toca simultaneamente dificuldade, engajamento, retenção e monetização.
+
+---
+
+## 2. Lições de Engenharia
+
+### 2.1 AI testing bots são o único caminho para testar 18.700 níveis
+
+Teste manual seria impossível. Bots que jogam milhares de partidas por nível e retornam métricas de dificuldade e diversão são o que permite shipping de 65 níveis por semana com qualidade consistente.
+
+### 2.2 Dificuldade não é diversão — e medir a diferença é o trabalho do data scientist
+
+"Time to abandon" vs. "time to pass" como métricas separadas revelam que jogadores toleram níveis difíceis se forem curtos. Níveis longos e difíceis são onde a retenção quebra.
+
+### 2.3 Live ops de 12 anos exige pipeline de tweaks automatizado
+
+Manter 18.700 níveis enquanto adiciona 65 por semana requer um sistema de tweaking que mexe em parâmetros de difficulty, engagement e monetização simultaneamente — sem intervenção manual por nível.
 
 ---
 
@@ -72,45 +61,22 @@ Isso NÃO parece "paywall." Parece "eu estava TÃO PERTO."
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | Candy Crush Saga |
-| **Lançamento** | 12 de abril de 2012 (Facebook). Novembro de 2012 (mobile). |
-| **Desenvolvedor** | King (Estocolmo, Suécia) |
-| **IPO** | Março de 2014 (NYSE: KING). $7B. |
-| **Aquisições** | Activision Blizzard ($5.9B, 2016). Microsoft ($68.7B, 2023). |
-| **Receita vitalícia** | $20 bilhões+ |
-| **Downloads** | 5 bilhões+ |
-| **Preço** | Gratuito. +5 movimentos: $0.99-1.99. |
-| **Concorrentes** | Bejeweled, Royal Match, Toon Blast, Homescapes |
+| **Nome** | Candy Crush Saga (King / Microsoft) |
+| **Lançamento** | Abril 2012 (mobile) |
+| **Categoria** | Casual Gaming / Match-3 / Live Ops |
+| **Receita vitalícia** | US$ 20B+ |
+| **Downloads** | 5B+ |
+| **Níveis** | 18.700+ (65 novos/semana) |
+| **Testes** | AI bots (milhares de partidas/nível). Peltarion (2022). 95% menos ajustes manuais |
+| **Design** | Player skill profiling. Personalized difficulty. Constant pruning (100 piores níveis) |
+| **Adquirida** | Activision Blizzard: US$ 5,9B (2016). Microsoft: US$ 68,7B (2023) |
 
 ---
 
-## 4. Lições do Candy Crush Saga
+## Fontes
 
-### 4.1 "5 Vidas. 30 Minutos." — Escassez Como Ritual Diário
-
-5 vidas. Espera 30 minutos. Ou PAGA. Isso cria um RITMO. Você joga 5 níveis. Perde. Volta em 30 minutos.
-
-**Lição**: escassez NÃO É punição. É RITMO. O jogador NÃO abandona — ele VOLTA.
-
-### 4.2 "Você Estava TÃO PERTO" — Monetize o "Quase"
-
-O botão "+5 movimentos" representa 95% da receita. Por quê? Porque o jogador PERDEU por POUCO. "Eu quase consegui!" $0.99 parece JUSTO.
-
-**Lição**: o melhor momento para monetizar é quando o usuário está EMOCIONALMENTE INVESTIDO e a FRUSTRAÇÃO é MÍNIMA.
-
-### 4.3 "Apenas 2.3% Pagam" — E ISSO É O SUFICIENTE
-
-97.7% NUNCA pagam. Mas os 2.3% que PAGAM geram $20 BILHÕES.
-
-**Lição**: você NÃO precisa que TODO MUNDO pague. Precisa que uma FRAÇÃO dos usuários PAGUE MUITO.
-
----
-
-## Fontes e Referências
-
-- [KitGuru — Candy Crush Saga surpasses $20 billion in revenue](https://www.kitguru.net/lifestyle/mobile/apple/mustafa-mahmoud/candy-crush-saga-surpasses-20-billion-in-revenue/)
-- [BBC — Candy Crush Saga: Life beyond level 2,000 (2016)](https://www.bbc.co.uk/news/technology-37484114)
-- [Apple App Store — The Magical Making of Candy Crush](https://apps.apple.com/us/story/id1462263204)
-- [Naavik — Candy Crushing It: King's 10-Year Reign](https://naavik.co/deep-dives/candy-crush-10-year-reign/)
-- [Yu-kai Chou — Octalysis Analysis of Candy Crush Gamification](https://yukaichou.com/gamification-study/game-mechanics-research-candy-crush-addicting/)
-- [GDC Vault — Candy Crush Saga Postmortem: Luck in the Right Places](https://bh.gdcvault.com/play/1019062/Candy-Crush-Saga-Postmortem-Luck)
+- [MobileGamer.biz — How King balances human and AI-powered design in Candy Crush Saga (GDC 2025)](https://mobilegamer.biz/how-king-balances-human-and-ai-powered-design-in-candy-crush-saga/)
+- [MobileGamer.biz — How King defines a 'good' Candy Crush Saga level (GDC 2025)](https://mobilegamer.biz/how-king-defines-a-good-candy-crush-saga-level-and-why-it-constantly-prunes-the-bad-ones/)
+- [PocketGamer.biz — AI joins the team at King (2025)](https://www.pocketgamer.biz/ai-joins-the-team-at-king-our-challenge-is-to-create-the-right-amount-of-challenge/)
+- [Neurohive.io — How AI Helped King Studio Develop 13,755 Levels (Peltarion acquisition, 50% faster, 95% reduction)](https://neurohive.io/en/ai-apps/how-ai-helped-king-studio-develop-13-755-levels-for-candy-crush-saga/)
+- [MichaelChiu.io — Level Tweaks Automation at Scale (2024-2025 case study)](https://michaelchiu.io/case-study/content-engine)

@@ -276,14 +276,21 @@ A Tinder construiu um design system interno chamado **Obsidian**:
 | **Backend** | Go + Java (microservices. Migraram de monólito.) |
 | **Mobile** | Swift (iOS), Kotlin (Android). Nativo. |
 | **Banco de dados** | DynamoDB, Cassandra (NoSQL high-scale), MySQL (relacional) |
-| **Busca geo** | Elasticsearch (geo-queries de proximidade) |
+| **Busca geo** | Elasticsearch 8 com **GeoSharding via Google S2** (Hilbert curves). +90% das recomendações de UM cluster ES. Custom ES plugin (Java) para scoring. Multi-index, single-cluster. Dynamic replica scaling. ANN/KNN no ES8. |
 | **Chat** | WebSockets (tempo real) |
 | **ML** | Spark, Hadoop (offline). Modelos treinados em batch. |
 | **Infra** | AWS (EC2, S3, Lambda) |
 
 ### O Algoritmo de Recomendação
 
-A Tinder usa um motor de recomendação multi-fator. O ELO score foi oficialmente APOSENTADO em 2019, mas o conceito de **desirability relativa** continua.
+A Tinder usa um motor de recomendação multi-fator. O **Elo score foi oficialmente APOSENTADO em 15 de março de 2019** ("Elo is old news at Tinder"). Mas o conceito de desirability relativa continua.
+
+**O Elo original (2012-2019):**
+- Adaptação do sistema de rating do xadrez. Swipe direito = "vitória", esquerdo = "derrota."
+- **Voto ponderado**: um like de um usuário com Elo alto valia MAIS. O VP de Produto Jonathan Badeen comparou com World of Warcraft: *"quando você joga contra alguém com score muito alto, ganha mais pontos."*
+- Sean Rad (CEO) tinha Elo **946** ("upper end of average"). A média era ~800.
+- **Gini coefficient de 0.58** na distribuição de likes — pior que 95% das economias nacionais.
+- Blog post original em `tech.gotinder.com` (hoje offline). Versão canônica em `help.tinder.com`.
 
 **Fatores (em ordem de importância):**
 

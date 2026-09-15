@@ -33,7 +33,7 @@ Antes do Gmail, email era uma CAIXA POSTAL digital. Depois do Gmail, email virou
 - **2001**: Ele constrói um motor de busca para seu PRÓPRIO email em ~1 dia. O projeto interno se chamava **"Caribou"** (referência a uma tirinha do Dilbert).
 - Outros engenheiros do Google pedem acesso. O boca a boca interno explode.
 - Buchheit trabalha sozinho por 2 meses. Depois Sanjeev Singh se junta. No lançamento, o time tinha ~10 pessoas.
-- O Gmail rodava em **300 Pentium II velhos** que ninguém mais queria no Google.
+- O Gmail rodava em **300 Pentium III velhos** que ninguém mais queria no Google. (A lenda diz "Pentium II", mas as fontes mais confiáveis apontam Pentium III.)
 
 **A lendária "20% time":** reza a lenda que o Gmail nasceu do programa de 20% de tempo livre do Google. Buchheit desmente: *"Foi um projeto oficial. Me pediram para fazer email."*
 
@@ -85,10 +85,16 @@ O Gmail foi fundado como um **"email search engine"** — não como um "email cl
 
 ### 2.3 Speed (Velocidade)
 
-O Gmail foi um dos PRIMEIROS web apps a usar AJAX pesado — antes mesmo do termo "AJAX" existir.
+O Gmail foi um dos PRIMEIROS web apps a usar AJAX pesado — antes mesmo do termo "AJAX" existir (o termo foi cunhado por Jesse James Garrett só em fevereiro de 2005, quase um ano depois do lançamento do Gmail).
 
-- **Sem page reloads**: a interface carregava UMA vez. Interações subsequentes eram trocas de dados puras.
-- **DataPack**: formato proprietário do Google — chamadas de função JavaScript + objetos de dados. Leve, rápido.
+- **Sem page reloads**: a interface carregava UMA vez. Interações subsequentes eram trocas de dados puras via `XMLHttpRequest`.
+- **DataPack**: formato proprietário do Google para comunicação browser-servidor. Não era XML — era um "arquivo HTML base contendo apenas declarações de arrays JavaScript" que o UI engine parseava diretamente. Cada item era um array JavaScript envolto na função `D()`. Exemplo real (reverse-engineered por Johnvey Hwang em julho de 2004):
+  ```javascript
+  D(["ts",0,50,106,0,"Inbox","fd36721220",154]);
+  ```
+  Onde `"ts"` era o tipo do DataItem (timestamp/mailbox state), seguido pelos dados. Isso era MUITO mais leve que XML: sem parsing, sem DOM de XML, o JavaScript consumia os arrays diretamente.
+- **Otimização de timestamp**: o cliente enviava um timestamp a cada ~2 minutos. Se o servidor não tinha dados mais recentes, retornava um **DataPack vazio** — economizando banda em conexões lentas (comuns em 2004).
+- **Sucessor**: o DataPack evoluiu para o formato `VIEW_DATA` ("super-array") em versões posteriores, e eventualmente para JSON.
 - **A sensação era de APP NATIVO** rodando no navegador. Isso em 2004, quando a maioria dos sites ainda era HTML estático.
 
 **A velocidade como filosofia de produto:**
@@ -146,10 +152,17 @@ O Gmail aplicou machine learning (Bayesian filtering + comunidade de usuários r
 
 Isso se tornou padrão na indústria INTEIRA. Apple Mail, Outlook, Superhuman — todos copiaram.
 
-### 3.7 Smart Reply / Smart Compose (2017-2018)
+### 3.7 Smart Reply / Smart Compose (2015-2018)
 
-- **Smart Reply**: 3 respostas curtas sugeridas baseadas no conteúdo do email. "Obrigado!", "Confirmado!", "Vamos fazer isso!"
-- **Smart Compose**: o Gmail sugere a FRASE INTEIRA enquanto você digita. Cinza, fantasma, esperando o Tab para ser aceita.
+- **Smart Reply (2015)**: lançado PRIMEIRO no Inbox by Gmail (novembro de 2015), depois portado para o Gmail mobile (maio de 2017, Google I/O). 3 respostas curtas sugeridas baseadas no conteúdo do email. Em 2018, já representava **12% de todos os replies no mobile**.
+- **Smart Compose (2018)**: anunciado no Google I/O 2018 (8 de maio). O Gmail sugere a FRASE INTEIRA enquanto você digita — texto cinza fantasma, Tab para aceitar.
+
+**A arquitetura do Smart Compose (2018):**
+- Modelo híbrido **Bag-of-Words + RNN-LM** (não era um Transformer — um modelo seq2seq puro explodiu as restrições de latência "por ordens de magnitude").
+- Rodava em **TPUv2 Pods**, treinado em bilhões de emails em menos de 1 dia.
+- Latência alvo: **<100ms por keystroke**. Alcançado: dezenas de milissegundos.
+- Pesquisadores tinham **zero acesso** a emails brutos — treinamento com dados anonimizados.
+- Paper no KDD 2019: "Gmail Smart Compose: Real-Time Assisted Writing" (Mia Xu Chen et al.)
 
 **Filosofia**: reduzir o ATRITO de responder emails. Quanto mais rápido você responde, menos email se acumula.
 
@@ -170,9 +183,9 @@ Isso se tornou padrão na indústria INTEIRA. Apple Mail, Outlook, Superhuman �
   ↓
 2021-23 — Material You (M3). Cor dinâmica (Android). Cantos arredondados.
   ↓
-2025 — Material 3 Expressive. Containers, animações elásticas, search bar pill.
+2025 — Material 3 Expressive. Anunciado no Google I/O (13 de maio de 2025). Física de molas substitui easing curves. 35+ formas com morphing. "Your feeling" substitui "Your colors." Containers, animações elásticas, search bar pill. Baseado em 46 estudos com 18.000+ participantes. Gmail recebe em agosto (v2025.08.11.x).
   ↓
-2026 — Gradientes no logo Workspace. Vermelho reassumindo dominância. Era AI.
+2026 — Gradientes no logo Workspace. Vermelho reassumindo dominância. Era AI. Gemini integrado via side panel.
 ```
 
 ### O Logo e Sua Evolução
@@ -225,7 +238,8 @@ Isso se tornou padrão na indústria INTEIRA. Apple Mail, Outlook, Superhuman �
 | **Navigation Drawer** | Pastas, labels, configurações | Hamburger menu. AINDA usa Material 2 em algumas versões (!). Inconsistência notável. |
 | **Search Bar** | Busca global de emails | Pill-shaped (M3). Expansão animada ao tocar. Filtros e queries recentes. |
 | **Email Cards** | Cada email é um card | Containers individuais com cantos arredondados, gaps visíveis. Separadores entre cards. |
-| **Swipe Actions** | Archive / Delete / Snooze | Configuráveis. Animação elástica em pill. Feedback háptico. |
+| **Swipe Actions** | Archive / Delete / Snooze | Configuráveis. M3E: animação "gooey pill-shaped" com física de mola + feedback háptico. |
+| **Reply/Forward Buttons** | Ações na base da mensagem | M3E (ago 2025): mudaram de outline para solid filled-in usando Dynamic Color. Estudo do Google: usuários acharam o Send button até 4× mais rápido na nova posição. |
 | **App Bar** | Topo com search + avatar | Contém: hamburger menu, search bar, avatar do perfil. Layout slim no M3 Expressive. |
 | **Snackbar** | "Email arquivado. Desfazer." | Feedback de ações. Com botão UNDO. Padrão Material. |
 
@@ -244,6 +258,38 @@ Isso se tornou padrão na indústria INTEIRA. Apple Mail, Outlook, Superhuman �
 #### Gesture Navigation
 - **Barra de navegação transparente** (Android, Dez 2024): a barra de gestos DESAPARECE durante scroll. Mais espaço de tela.
 - **Predictive Back Gesture** (Android): swipe de voltar ANTECIPA o destino e mostra preview. Machine learning aprende padrões do usuário.
+
+### 5.4 Material 3 Expressive: A Filosofia "Your Feeling"
+
+O M3 Expressive — anunciado no Google I/O 2025 (13 de maio) — é a maior evolução do Material Design desde o lançamento do Material You em 2021. Não é "Material Design 4" — o Google explicitamente afirma que é uma extensão do M3, não uma substituição.
+
+**A pesquisa por trás:**
+
+O Google conduziu **46 estudos com mais de 18.000 participantes** usando eye-tracking, surveys, focus groups e testes de usabilidade. O resultado: **até 87% dos jovens de 18-24 anos preferiram designs expressivos**, com preferência líquida positiva em TODAS as faixas etárias. O Material You era celebrado por unificar a linguagem visual, mas criticado como "frio, plano e impessoal." O M3 Expressive é a resposta: injetar energia, calor e individualidade de volta à interface.
+
+**Os 3 pilares do M3 Expressive:**
+
+1. **Motion com Física de Molas**: substitui as antigas easing curves por um sistema baseado em física (stiffness, damping, initial velocity). Dois esquemas: **Expressive** (playful, com bounce) e **Standard** (funcional, bounce mínimo). Swipe actions no Gmail usam uma animação "gooey pill-shaped" com feedback háptico.
+
+2. **Cor com Paletas Expandidas**: até **13 tons** extraídos do wallpaper (vs menos no M3 baseline). Novo estilo **"Vibrant"** para componentes de alta ênfase (base terciária em vez de primária). Dois estilos de menu: Standard (surface) e Vibrant (tertiary).
+
+3. **Formas com Morphing**: biblioteca de **35+ formas** (círculo, coração, trevo, burst, flor, variantes "cookie" de 4 a 12 lados). Transições animadas entre formas (círculo → coração, quadrado → squircle). O M3RefreshIndicator cicla entre 7 formas.
+
+**Tipografia expandida**: 30 type styles (15 baseline + 15 emphasized), fontes variáveis (Google Sans Flex, Roboto Flex) com weight e width dinâmicos durante interações.
+
+**Três níveis de adoção para desenvolvedores:**
+
+| Nível | Escopo |
+|---|---|
+| **Basic** | Migração de componentes core, paleta básica, Roboto Flex |
+| **Great** (obrigatório) | Temas de cor dinâmica, shape library, animações expressivas (spring + morphing) |
+| **Transformative** (recomendado) | Componentes customizados, combinações de cor bold, motion customizado, layouts adaptativos |
+
+**M3 Expressive no Gmail (agosto 2025, versão 2025.08.11.x):**
+- Message list dentro de **um único container arredondado** (raised card motif) — como Google Messages
+- Reply/Forward buttons: de **outline para solid filled-in** com Dynamic Color
+- Swipe animations: **gooey pill-shaped com mola + háptico**
+- Search bar: hamburger menu e avatar movidos para **fora** do pill-shaped search field
 
 ---
 
@@ -283,9 +329,27 @@ No Android, o Gmail extrai cores do WALLPAPER do usuário:
 
 ## 7. Arquitetura Técnica
 
-### Cross-Platform: O Santo Graal
+### 7.1 A Web: Closure Compiler, Não GWT
 
-O Gmail (e especialmente o Inbox, o experimento-irmão) usou uma estratégia de compartilhamento de código que virou referência:
+**Um erro comum de atribuição**: muita gente acredita que o Gmail foi construído com GWT (Google Web Toolkit, que compila Java → JavaScript). Isso NÃO é verdade. O Gmail foi construído com **Closure Compiler** e **Closure Library** — JavaScript puro, compilado e otimizado.
+
+A distinção importa:
+
+| Ferramenta | Abordagem | Apps que usaram |
+|---|---|---|
+| **Closure Compiler** | Escreve em **JavaScript**, compila/otimiza JS | **Gmail**, Google Maps, Google Docs, Calendar |
+| **GWT** | Escreve em **Java**, compila para JS | Google Wave, AdWords, **Inbox by Gmail**, Google Flights |
+
+O Closure Compiler foi INVENTADO pelos times do Gmail e do Calendar como uma forma de gerenciar JavaScript em larga escala numa época em que JS era visto com desdém dentro do Google. Ele oferecia:
+- **Minificação agressiva** com dead-code elimination
+- **Type checking** via anotações JSDoc (o sistema de tipos que inspirou TypeScript)
+- **Otimizações de runtime** como inlining e reordenação de código
+
+O Gmail foi um dos primeiros apps a usar AJAX de forma pesada — e fez isso com JavaScript Closure, não com Java compilado.
+
+### 7.2 Inbox e a Lenda do Código Compartilhado
+
+Onde nasce a confusão: **o Inbox by Gmail (2014-2019) usou SIM uma arquitetura de código compartilhado baseada em Java** — e essa arquitetura se tornou referência na indústria:
 
 | Plataforma | Tecnologia | % de código compartilhado |
 |---|---|---|
@@ -294,15 +358,37 @@ O Gmail (e especialmente o Inbox, o experimento-irmão) usou uma estratégia de 
 | **Web** | GWT (Google Web Toolkit) | Cross-compila Java → JavaScript |
 | **iOS** | J2ObjC | Traduz Java → Objective-C |
 
-**66% do código total era compartilhado entre as 3 plataformas.**
+**66% do código total do Inbox era compartilhado entre as 3 plataformas.**
 
-O mesmo método `Reminder.snooze()` funcionava idêntico em Android, Web e iOS — porque ERA o mesmo código Java.
+O mesmo método `Reminder.snooze()` funcionava idêntico em Android, Web e iOS — porque ERA o mesmo código Java. Um feat arquitetural impressionante que mostrava o CAMINHO para apps multi-plataforma.
 
-### Camadas da Arquitetura (Web App)
+**O que aconteceu com essa arquitetura depois?** Quando o Inbox foi descontinuado em 2019, o Gmail já havia absorvido suas features (snooze, smart reply, nudges), mas NÃO absorveu sua arquitetura. O Gmail continuou Closure/JavaScript no web client.
+
+### 7.3 A Stack Moderna: J2CL + Closure Compiler
+
+Hoje, oGoogle evoluiu para uma arquitetura híbrida com **J2CL** (Java to Closure JavaScript):
+
+```
+┌──────────────────────────────────────┐
+│  Java Business Logic (shared)        │  ← Lógica de negócio em Java
+├──────────────────────────────────────┤
+│  J2CL Transpiler                     │  ← Java → Closure-style JavaScript
+├──────────────────────────────────────┤
+│  Closure Compiler                    │  ← Otimização, minificação, type check
+├──────────────────────────────────────┤
+│  JsInterop Layer                     │  ← Pontes entre Java e JS nativo
+├──────────────────────────────────────┤
+│  UI (Closure JS + Modern ES6+)       │  ← Renderização e interação
+└──────────────────────────────────────┘
+```
+
+**J2CL** é o sucessor espiritual do GWT: mais leve, integra-se nativamente com o Closure Compiler, e permite interoperabilidade bidirecional entre Java e JavaScript (JsInterop). Google Docs, Sheets, Slides e o próprio Gmail moderno usam essa stack. Não é um rewrite completo — é uma evolução gradual onde Java gerencia a lógica de negócio e JavaScript/Closure gerencia a UI, tudo otimizado pelo Closure Compiler.
+
+### 7.4 Camadas da Arquitetura (Web App)
 
 ```
 ┌──────────────────────────┐
-│  UI Layer (JS/DOM)       │  ← Renderização, eventos, animações
+│  UI Layer (Closure JS)    │  ← Renderização, eventos, animações
 ├──────────────────────────┤
 │  Data Model (local)       │  ← Cache, optimistic updates
 ├──────────────────────────┤
@@ -319,13 +405,63 @@ O app mobile (desde 2009) implementa **otimismo local**:
 - Compõe emails offline. Enfileira para envio quando reconectar.
 - Lê emails recentemente visualizados sem conexão.
 
-### Client-Side Encryption (2023+)
+### Client-Side Encryption (2023+): A Criptografia Que Nem o Google Quebra
 
-Para Workspace Enterprise:
-- Chaves de criptografia gerenciadas pelo CLIENTE (KACLS).
-- Envelope encryption: DEK criptografa conteúdo, KACLS criptografa DEK.
-- S/MIME para criptografia assimétrica.
-- Isolamento via iframe + CSP (Content Security Policy).
+O Gmail CSE (Client-Side Encryption) é a implementação mais profunda de criptografia zero-knowledge em escala planetária. A arquitetura é projetada para que **nem o Google consiga ler seus emails**.
+
+#### A Arquitetura de Duas Chaves
+
+**Envelope Encryption:**
+1. O navegador gera uma **DEK aleatória** (Data Encryption Key) via Web Crypto API para cada email.
+2. A DEK criptografa o conteúdo do email localmente (AES-256-GCM).
+3. O navegador envia a DEK + **dual JWTs** para o **KACLS** do cliente (Key Access Control List Service — um serviço externo de chaves operado PELO CLIENTE, on-premises ou cloud).
+4. O KACLS valida ambos os tokens, criptografa a DEK com a **KEK** (Key Encryption Key, que só o cliente controla, geralmente em HSM), e devolve um `wrapped_key` blob opaco.
+5. O Google armazena o conteúdo criptografado + wrapped DEK — **não consegue decriptar nenhum dos dois.**
+
+**O modelo Dual JWT** (a propriedade arquitetural crítica):
+
+| Token | Emissor | Função |
+|---|---|---|
+| **3P_JWT** | OIDC IdP do cliente | Prova a identidade do usuário INDEPENDENTEMENTE do Google |
+| **G_JWT** | Google Workspace | Prova que o usuário está autorizado para um recurso específico |
+
+Cada app Workspace tem seu próprio token issuer (ex: `gsuitecse-tokenissuer-gmail@system.gserviceaccount.com`). O KACLS exige AMBOS os tokens — o Google tem o G_JWT mas NÃO tem o 3P_JWT, então NÃO consegue autenticar com o KACLS.
+
+#### Isolamento no Browser: 3 Camadas
+
+**Camada 1 — Iframe com Origem Separada:** Conteúdo criptografado/decritografado é renderizado em um `<iframe>` com origem DISTINTA de `mail.google.com`. O Chrome coloca esse iframe em um **processo OS separado** (OOPIF — Out-of-Process iframe), protegendo até contra ataques Spectre.
+
+**Camada 2 — postMessage Validado:** A janela principal do Gmail se comunica com o iframe CSE EXCLUSIVAMENTE via `postMessage()` com `targetOrigin` específico (nunca `*`). A DEK decriptada pelo KACLS é passada assim. A decriptação real acontece DENTRO do iframe isolado.
+
+**Camada 3 — CSP Restritiva:** O iframe CSE tem uma Content Security Policy própria e restritiva (`frame-src 'none'`, `object-src 'none'`, `script-src` com hashes/nonces específicos).
+
+#### S/MIME para Criptografia Assimétrica
+
+O Gmail CSE implementa o padrão **S/MIME 3.2 (RFC 5751)**, mas com uma diferença fundamental: a chave privada NÃO fica no dispositivo do usuário nem nos servidores do Google — é **provisionada centralmente via KACLS**.
+
+- **Envio:** navegador gera mensagem MIME, criptografa com DEK aleatória, criptografa DEK com chave pública de cada destinatário, assina via KACLS (`privatekeysign`)
+- **Recebimento:** Gmail verifica assinatura, navegador chama KACLS via `privatekeydecrypt` para unwrap da DEK usando chave privada do destinatário
+- **Envelope encryption:** AES-128-CBC (MUST) / AES-256-CBC (SHOULD+), RSA-OAEP para key encryption
+- **Assinatura:** RSA-SHA256 (MUST), RSASSA-PSS (SHOULD+)
+
+**O que o CSE NÃO criptografa:** subject line, remetente/destinatário, timestamps, headers de roteamento.
+
+**O que é DESABILITADO com CSE:** Smart Compose/Reply, tradução, sumarização de emails, assinaturas, Confidential Mode, multi-send, add-ons third-party, busca no corpo de emails criptografados, email delegation.
+
+#### Linha do Tempo CSE
+
+| Data | Marco |
+|---|---|
+| **Jun 2021** | CSE beta para Drive, Docs, Sheets, Slides, Meet |
+| **Dez 2022** | CSE beta para Gmail (web) |
+| **Fev/Mar 2023** | **GA** (General Availability) para Gmail e Calendar |
+| **Jun 2023** | Google Security Blog publica deep dive técnico da arquitetura |
+| **Dez 2023** | Admins podem definir CSE como padrão para novos emails |
+| **Fev 2024** | CSE chega ao Android e iOS (Enterprise Plus + Assured Controls) |
+| **Ago 2025** | Google Cloud HSM lançado como encryption key service (FIPS 140-2 Level 3) |
+| **Abr 2026** | E2EE nativo do Gmail chega ao Android e iOS (compose e leitura no app) |
+
+**Edições do Workspace com CSE:** Enterprise Plus, Education Plus, Education Standard, Frontline Plus.
 
 ### Stack de Envio/Recebimento
 
@@ -477,17 +613,86 @@ Enquanto isso, apps como **Superhuman** e **Spark** mostram que email PODE ser r
 
 ---
 
-## 11. O Futuro: Gemini e a Era AI
+## 11. Gemini e a Era AI (2023-2026)
 
-### O Que Já Está Acontecendo
+### 11.1 A Linha do Tempo da AI no Gmail
 
-- **Gemini no Gmail**: botão dedicado para "resumir esta thread", "escrever resposta", "extrair ação".
-- **Summary Cards mais ricos**: extração automática de tracking de encomendas, detalhes de voos, eventos, reservas.
-- **Smart Reply melhorado pelo Gemini**: respostas mais contextuais e menos robóticas.
+| Data | Marco |
+|---|---|
+| **Nov 2015** | Smart Reply lançado no Inbox by Gmail |
+| **Mai 2017** | Smart Reply portado para o Gmail (Google I/O) |
+| **Mai 2018** | Smart Compose anunciado (Google I/O). Modelo BoW + RNN-LM em TPUv2 Pods |
+| **Mai 2023** | **"Help Me Write"** anunciado no Google I/O 2023. Generative AI. Workspace Labs (beta com waitlist) |
+| **Fev 2024** | Duet AI rebranded para **Gemini for Workspace**. Google One AI Premium ($19.99/mês) |
+| **Mai 2024** | **Gemini side panel** anunciado no Google I/O. Sumarização de threads, Gmail Q&A, Contextual Smart Reply |
+| **Jun 2024** | Side panel GA para assinantes pagos |
+| **Ago 2024** | **Polish**: transforma 12+ palavras em draft polido. Atalhos: Formalize, Elaborate, Shorten |
+| **Out 2024** | "Help me write" expandido para Gmail Web (antes só mobile). Atalho Ctrl+H |
+| **Jan 2025** | **Reestruturação de preços**: Gemini bundled em TODOS os planos Workspace. Business Standard $14/user/mês (antes $32 com add-on) |
+| **Fev 2025** | **Gemini 2.0 Flash** vira modelo default. +17 idiomas. Imagen 3 no side panel |
+| **Nov 2025** | Pânico de privacidade viral — Google nega usar emails para treinar Gemini (debunked: era a configuração "Smart Features" que existia há anos) |
+| **Jan 2026** | **"Gmail enters the Gemini era"**: Help Me Write gratuito para TODOS. AI Overviews (resumos de conversa). Suggested Replies melhorados. Proofread (premium) |
 
-### O Que Poderia (E Deveria) Acontecer
+### 11.2 O Que o Gemini Faz Hoje no Gmail (2026)
 
-1. **Auto-organização real**: o app classifica, prioriza, arquiva e responde EMAILS SIMPLES sem intervenção humana. Você só vê o que PRECISA ver.
+**No side panel (web):**
+- **Resumir esta thread**: sumário conciso de conversas longas
+- **Gmail Q&A**: perguntas em linguagem natural sobre sua inbox ("Qual foi o orçamento que a Acme mandou?")
+- **Contextual Smart Reply**: respostas detalhadas com saudação e fechamento (vs os chips de 1 linha do Smart Reply original)
+- **Integração Drive/Calendar**: busca documentos e verifica disponibilidade sem sair do Gmail
+- **Gems** (jul 2025): assistentes customizados para tarefas específicas
+
+**No compose (mobile + web):**
+- **Help Me Write**: gera email completo a partir de prompt curto
+- **Refine my draft** (12+ palavras): Polish, Formalize, Elaborate, Shorten, Recreate
+- **Voice prompting**: dite o draft por voz
+- **"I'm Feeling Lucky"**: variação criativa/inesperada do draft
+
+**Gratuito vs Pago (2026):**
+
+| Feature | Gratuito | Pago |
+|---|---|---|
+| Help Me Write | ✅ | ✅ |
+| AI Overviews (resumos) | ✅ | ✅ |
+| Suggested Replies | ✅ | ✅ |
+| Proofread (gramática/estilo avançado) | ❌ | ✅ |
+| Inbox Q&A | ❌ | ✅ |
+| AI Inbox (priorização) | ❌ | ✅ |
+
+### 11.3 Preços e Planos (2026)
+
+A grande virada foi em **janeiro de 2025**: o Google **eliminou os add-ons separados de Gemini** ($20-30/user/mês) e **embutiu a AI em todos os planos pagos**, com aumento de ~17-22% no preço base.
+
+| Plano | Preço (anual) | AI Inclusa |
+|---|---|---|
+| **Business Starter** | $7.00/user/mês | Gemini no Gmail apenas + Gemini app (~5 prompts/dia) |
+| **Business Standard** | $14.00/user/mês | Gemini completo em Gmail, Docs, Sheets, Slides, Meet, Drive, Chat |
+| **Business Plus** | $22.00/user/mês | + eDiscovery, Vault, segurança avançada |
+| **Enterprise** | Custom quote | + context windows mais longos, AI Classification, DLP avançado |
+
+**Consumidor:** Google One AI Premium (contas pessoais) — inclui Gemini no Gmail.
+
+**Economia vs 2024:** Business Standard com Gemini era $12 (base) + $20 (add-on) = $32/user/mês. Em 2026: **$14/user/mês** (redução de 56%).
+
+### 11.4 Privacidade: O Que o Google REALMENTE Faz com Seus Emails
+
+**Para Workspace (business/education):**
+- Dados **NÃO são usados** para treinar modelos de AI generativa/foundation
+- Prompts desaparecem após a sessão Gemini terminar
+- Dados permanecem dentro da organização
+- DLP, regiões de dados e controles de acesso existentes se aplicam ao Gemini
+- Certificações: ISO 27001, HIPAA, FedRAMP, ISO 42001
+- Na UE/Reino Unido/Japão/Suiça: smart features (incluindo resumos automáticos) vêm **desabilitadas por padrão**
+
+**Para contas pessoais (consumidor):**
+- Conversas do Gemini Apps (gemini.google.com) **podem** ser usadas para melhorar modelos, a menos que "Gemini Apps Activity" esteja desabilitado
+- Smart Features e Personalização no Gmail são controladas separadamente
+
+**Novembro 2025 — o pânico que não era:** um tweet viralizou alegando que o Google tinha "secretamente ativado o Gemini para ler todos os seus emails." A "prova" era a configuração **Smart Features** — que existia há ANOS para spam filtering, Smart Reply e autocomplete. Múltiplos veículos (PCMag, NDTV, WION, Mashable) fizeram fact-check e desmentiram. Um class action lawsuit foi aberto em 11 de novembro de 2025. O Google: *"Não estamos treinando Gemini nos seus emails do Gmail."*
+
+### 11.5 O Que Vem Por Aí
+
+1. **Auto-organização real**: o app classifica, prioriza, arquiva e responde emails SIMPLES sem intervenção humana. Você só vê o que PRECISA ver.
 
 2. **Inbox 2.0 (via Gemini)**: o conceito do Inbox — email como to-do list que se auto-gerencia — RESSUSCITADO com AI madura. Dessa vez, SEM app separado.
 
@@ -568,19 +773,20 @@ O Gmail é a VITRINE do Material Design. Cada iteração do Material (1.0, Theme
 2010 ─── Priority Inbox. Setas amarelas. "Importante primeiro."
 2011 ─── App Android nativo. Era Holo. Escuro, azul, feio.
 2013 ─── Tabs (Primary, Social, Promotions). Revolução na organização automática.
+2015 ─── Smart Reply no Inbox (novembro). AI sugerindo respostas curtas.
 2014 ─── Material Design 1.0. FAB vermelho. Cards. Sombras. Gmail RENASCE visualmente.
 2014 ─── Inbox by Gmail. Email como to-do list. Bundles. Snooze. O EXPERIMENTO.
-2017 ─── Smart Reply no mobile. AI começa a responder por você.
-2018 ─── Smart Compose. AI sugere frases enquanto você digita.
+2017 ─── Smart Reply portado do Inbox para o Gmail (Google I/O, maio). 12% dos replies mobile.
+2018 ─── Smart Compose (Google I/O, 8 de maio). Modelo BoW+RNN-LM em TPUv2 Pods. <100ms.
 2018 ─── Snooze portado do Inbox para o Gmail. Nudge. Follow-up reminders.
 2019 ─── Inbox MORRE (março). Fãs enfurecidos. Luto coletivo no Twitter.
 2020 ─── Novo logo. Envelope vermelho vira "M" multicolorido. Polêmica.
 2021 ─── Material You (M3). Cor dinâmica no Android 12+.
-2023 ─── Client-side encryption para Workspace Enterprise.
-2024 ─── Navigation bar transparente. Predictive back gesture.
-2025 ─── Material 3 chega ao iOS. Search bar pill-shaped.
-2025 ─── Material 3 Expressive. Containers. Animações elásticas. Reply movido para baixo.
-2026 ─── Logo com gradiente "AI era". Gemini integrado no fluxo de email.
+2023 ─── Client-side encryption para Workspace Enterprise. "Help Me Write" anunciado (Google I/O, maio). Generative AI no Gmail.
+2024 ─── Navigation bar transparente. Predictive back gesture. Gemini side panel (Google I/O, maio). Polish tool (agosto).
+2025 ─── Material 3 chega ao iOS. Search bar pill-shaped. Reestruturação de preços Workspace (janeiro): Gemini incluso em todos os planos. Gemini 2.0 Flash vira default (fevereiro).
+2025 ─── Material 3 Expressive (Google I/O, 13 de maio). 46 estudos, 18K participantes. Física de molas. 35+ formas. Gmail recebe em agosto (v2025.08.11.x).
+2026 ─── "Gmail enters the Gemini era" (janeiro). Help Me Write gratuito para todos. AI Overviews. Logo com gradiente "AI era". Gems no side panel.
 ```
 
 ---

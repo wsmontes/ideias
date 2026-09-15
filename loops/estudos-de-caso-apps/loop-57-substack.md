@@ -1,56 +1,69 @@
-# Estudo de Caso 57 — Substack: A Plataforma Que Transformou "Newsletter" em Negócio (E Vale $1.1B)
+# Estudo de Caso 57 — Substack: A Plataforma De Newsletters Com Node.js+Express, Cloudflare, Mailgun (SPF+DKIM+DMARC), Recommendation Network Que Gera 50% Das Assinaturas e Stripe Como Backbone De Pagamentos
 
 > **Data:** 2026-07-03
-> **Loop:** 57 de ∞ (Fase 3: Mídia & Creator Economy)
-> **Categoria:** Mídia Independente / Creator Economy / Newsletters
-> **Tema:** 2015. Chris Best (co-fundador do Kik Messenger) tira férias e começa a PENSAR sobre o estado do jornalismo. Escreve um ensaio sobre como o modelo de ADS das redes sociais INCENTIVA clickbait e polarização. Manda para Hamish McKenzie (ex-PandoDaily, ex-Tesla). McKenzie responde: "Você está dizendo o ÓBVIO. Todo mundo sabe qual é o PROBLEMA. O que falta é a SOLUÇÃO." Eles passam a primavera de 2017 trocando emails, Google Docs e videochamadas. Chegam a uma conclusão: **newsletters PAGAS.** "E se as pessoas PAGASSEM diretamente os escritores que confiam, em vez de depender de anúncios?" Inspirados por Ben Thompson (Stratechery), que ganhava quase $1M/ano escrevendo do quarto em Taipei, eles fundam a **Substack.** Modelo: writer fica com ~87% da receita. A Substack fica com 10%. Stripe pega ~3%. "A gente só ganha dinheiro quando os ESCRITORES ganham." Em 2017, lançam. Em 2020, pandemia: escritores PERDEM empregos e vão para a Substack. Em 2025: **20M+ de assinantes, 5M+ pagantes, $1.1B valuation, status de UNICÓRNIO.** Esta é a história da plataforma que provou que "pessoas PAGAM por conteúdo de qualidade" — e que "independência" pode ser um modelo de negócios.
+> **Loop:** 57 de ∞ (Reescrita)
+> **Categoria:** Publishing / Newsletters / Plataforma de Conteúdo
 
 ---
 
-## 1. A Origem: Kik Messenger, Stratechery e Um "Fire Emoji Score"
+## 0. Linhagem
 
-### Os Fundadores
-
-| Fundador | Background |
-|---|---|
-| **Chris Best** (CEO) | Co-fundador do Kik Messenger. Programador. Vancouver. |
-| **Hamish McKenzie** | Ex-PandoDaily (repórter tech). Ex-Tesla (redator). Nova Zelândia. |
-| **Jairaj Sethi** | Head de plataforma do Kik. Construiu a tecnologia. |
-
-### A Inspiração: Ben Thompson e Stratechery
-
-Ben Thompson escrevia a **Stratechery** — uma newsletter paga sobre tech e mídia. Do quarto em Taipei. **Ganhava ~$1M/ano.**
-
-Best e McKenzie pensaram: "Por que quase NINGUÉM está copiando esse modelo?"
-
-### O "Fire Emoji Score"
-
-A Substack criou um algoritmo (feito pelo funcionário Nathan Baschez) que media engajamento no Twitter: retweets, likes, replies. Atribuía um "fire emoji score." Escritores com 🔥🔥🔥🔥 eram RECRUTADOS.
-
-Esse algoritmo DESCOBRIU **Heather Cox Richardson** — historiadora cuja newsletter *Letters from an American* virou uma das MAIS LUCRATIVAS da plataforma.
+```
+Blogs (2000s) — WordPress, Blogger. RSS. Sem monetização nativa.
+Medium (2012) — publishing platform. Sem newsletters. Sem email lists.
+Substack (2017) — newsletter + blog + payments. 10% fee. Recommendation network.
+Substack hoje (2026) — 35M+ active subscriptions. ~2M paid. Node.js+AWS+Cloudflare.
+```
 
 ---
 
-## 2. A Filosofia: "A Gente Só Ganha Dinheiro Quando Os Escritores Ganham"
+## 1. Arquitetura Técnica
 
-### O Modelo
+### 1.1 Tech Stack
 
-- **Escritor fica com ~87%.** (100% - 10% Substack - ~3% Stripe)
-- **Substack NÃO vende anúncios.** Não tem algoritmo de engajamento.
-- **"A gente só ganha dinheiro quando os ESCRITORES ganham."**
+**Cloud**: AWS (IaaS). **CDN/Proxy**: Cloudflare (SSL, DDoS, reverse proxy). **Backend**: Node.js + Express. **Banco de dados**: PostgreSQL + DynamoDB. **Storage**: AWS S3. **Email**: Mailgun (primário) + provider secundário. **Monitoramento**: Datadog. **Payments**: Stripe. **Analytics**: Cloudflare Insights.
 
-### Os Pilares
+**Email authentication configurada por escritor**: cada newsletter tem subdomínio próprio com SPF, DKIM e DMARC configurados. O SPF aponta para os servidores Mailgun/Substack. DKIM assina criptograficamente cada email. DMARC define política de enforcement (`p=none` → `p=quarantine` → `p=reject`).
 
-| Pilar | Significado |
-|---|---|
-| **Writers own their audience** | A LISTA de emails é DO ESCRITOR. Se ele sair da Substack, LEVA junto. |
-| **No algorithm** | Sem feed otimizado para raiva. Sem clickbait. "Relações > viralidade." |
-| **"Support the talent, don't own the talent"** | "A gente não é o PATRÃO do escritor. A gente é a GRAVADORA." |
-| **Multi-formato** | Texto. Podcast. Vídeo. Chat. Notes. "O escritor ESCOLHE." |
+### 1.2 O Recommendation Network
 
-### A Tensão 2025: De "Plataforma Aberta" a "Walled Garden"
+A feature mais arquiteturalmente distintiva do Substack é o **recommendation network** — um grafo de escritores e publicações que gera **~50% de todas as assinaturas** e **~30% das assinaturas pagas**. Cross-promotions, publisher recommendations, leaderboards e feeds por categoria formam um mecanismo de descoberta que nenhuma plataforma self-hosted (Ghost, WordPress) consegue replicar.
 
-A Substack agora ENCORAJA seguir criadores DENTRO do app. Notes (microblogging). Chat. "Isso está virando uma REDE SOCIAL?"
+**Notes**: short-form social media integrado à plataforma, funcionando como camada de engajamento e descoberta.
+
+### 1.3 Stripe Como Backbone De Pagamentos
+
+Cada escritor conecta sua própria conta Stripe ao Substack. Leitores que assinam tornam-se customers na Stripe do escritor — o escritor retém ownership do billing relationship. O Substack cobra **10%** sobre assinaturas pagas; Stripe cobra ~2,9% + US$ 0,30 por transação.
+
+**Apple IAP lock-in (2025)**: Substack passou a exigir Apple In-App Purchase para assinaturas iOS. O IAP impõe **30% Apple fee** e transfere o billing relationship para a Apple — transações IAP não aparecem na Stripe do escritor, impedindo portabilidade de assinantes pagos. É uma estratégia de platform lock-in: controle do app → dependency via dark patterns → sever do billing relationship.
+
+### 1.4 Email Deliverability: SPF, DKIM, DMARC e IP Warming
+
+**2024 watershed**: Google e Yahoo passaram a exigir SPF+DKIM+DMARC para qualquer sender com >5.000 mensagens/dia. Envio não-compliant começa a ser bounced parcialmente, com rejection rates aumentando gradualmente.
+
+**Pipeline de deliverability do Substack por escritor**:
+- Custom sending domain com SPF/DKIM/DMARC
+- **IP warming**: novo escritor começa com volume gradual (semanas) para construir reputação de envio
+- **Bounce monitoring**: remoção automática de endereços inválidos
+- **Spam complaint rate** monitorado: <0,10% exigido. Google Postmaster Tools + Yahoo Sender Hub
+- **RFC 8058 one-click unsubscribe**: obrigatório desde 2024
+- **List hygiene**: double opt-in, sunset policies para inativos
+
+---
+
+## 2. Lições de Engenharia
+
+### 2.1 O recommendation network é um fosso que nenhuma alternativa self-hosted consegue replicar
+
+Ghost e WordPress oferecem 0% platform fee, mas não têm discovery network. O Substack gera 50% das assinaturas via recomendações — é o equivalente a um algoritmo de feed social para newsletters.
+
+### 2.2 SPF+DKIM+DMARC deixaram de ser "boas práticas" para serem requisitos de entrega
+
+Desde fevereiro 2024, sem os três configurados, emails >5.000/dia não chegam à caixa de entrada do Gmail ou Yahoo. É a maior mudança regulatória em email desde o CAN-SPAM Act.
+
+### 2.3 A taxa de 10% é um seguro contra complexidade de infraestrutura
+
+Manter infra própria (SPF, DKIM, IP warming, bounce monitoring, spam compliance, CDN, CMS, payments) custa mais que 10% da receita para a maioria dos escritores. O break-even só ocorre acima de ~US$ 10K/mês em subscription revenue.
 
 ---
 
@@ -59,42 +72,20 @@ A Substack agora ENCORAJA seguir criadores DENTRO do app. Notes (microblogging).
 | Atributo | Valor |
 |---|---|
 | **Nome** | Substack |
-| **Fundação** | Outubro de 2017 |
-| **Fundadores** | Chris Best, Hamish McKenzie, Jairaj Sethi |
-| **Valuation** | $1.1B (2025) |
-| **Assinantes ativos** | 20M+. Pagantes: 5M+. |
-| **Criadores** | 50.000+ ganhando dinheiro. 50+ ganhando $1M+/ano. |
-| **Preço** | Gratuito para ler (alguns). Assinaturas: $5-15/mês típico. |
-| **Concorrentes** | Medium, Ghost, Beehiiv, WordPress, Patreon |
+| **Fundação** | 2017. Fundadores: Chris Best (CEO), Hamish McKenzie, Jairaj Sethi |
+| **Categoria** | Publishing / Newsletters / Plataforma |
+| **Assinaturas** | 35M+ ativas. ~2M pagas |
+| **Fee** | 10% + Stripe (~2,9% + US$ 0,30). Apple IAP: 30% adicional |
+| **Stack** | Node.js+Express, PostgreSQL+DynamoDB, AWS S3, Cloudflare, Mailgun, Stripe, Datadog |
+| **Email** | SPF+DKIM+DMARC por domínio. IP warming. <0,10% spam rate. RFC 8058 |
+| **Concorrentes** | Ghost, beehiiv, WordPress+Memberships, Patreon |
 
 ---
 
-## 4. Lições do Substack
+## Fontes
 
-### 4.1 "Deixe o Criador Ser DONO da Audiência"
-
-A lista de emails é DO escritor. Se ele sair da Substack, LEVA a lista. Isso é CONFIANÇA radical.
-
-**Lição**: se você quer que criadores CONFIEM em você, deixe-os SEREM DONOS do próprio público.
-
-### 4.2 "A Gente Ganha Quando VOCÊ Ganha" — Alinhamento Total
-
-10% de fee. Sem ads. Sem algoritmo. "Nosso incentivo = SEU incentivo."
-
-**Lição**: alinhe seu modelo de negócios com o SUCESSO do seu usuário. Se ele GANHA, você ganha.
-
-### 4.3 "O Fire Emoji Score" — Use Dados para DESCOBRIR Talentos
-
-O algoritmo da Substack não foi feito para RECOMENDAR conteúdo. Foi feito para ENCONTRAR escritores promissores no Twitter e RECRUTÁ-LOS.
-
-**Lição**: a melhor aplicação de dados pode não ser "recomendação para usuários" — mas "DESCOBERTA de talentos para a plataforma."
-
----
-
-## Fontes e Referências
-
-- [Britannica — Substack Overview](https://www.britannica.com/topic/Substack)
-- [Columbia Journalism Review — The Substackerati](https://www.cjr.org/special_report/substackerati.php)
-- [TFN — Substack joins unicorn club with $100M raise (2025)](https://techfundingnews.com/substack-unicorn-100m-funding-2025/)
-- [The Observer — Substack joins $1bn club (2025)](https://observer.co.uk/news/business/article/publishing-app-substack-joins-1bn-club)
-- [Press Council SA — Substack supports the talent rather than owns the talent (2025)](https://presscouncil.org.za/2025/04/24/substack-supports-the-talent-rather-than-owns-the-talent-says-founder/)
+- [WebTechSurvey — substack.com Technology Stack (2025)](https://webtechsurvey.com/website/substack.com)
+- [Semafor — Substack network drives 50% of subscriptions, 30% of paid (2024)](https://www.semafor.com/)
+- [DataConomy — Substack forces IAP, hits writers with 30% fee (Set 2025)](https://dataconomy.com/2025/09/01/substack-forces-iap-hits-writers-with-30-fee/)
+- [Warmy — Email Deliverability Trends 2025 Guide (SPF/DKIM/DMARC enforcement by Google/Yahoo Feb 2024)](https://blog.warmy.io/)
+- [RaftLabs — How to Build a Newsletter Platform Like Substack (architecture guide)](https://www.raftlabs.com/blog/how-to-build-app-like-substack)

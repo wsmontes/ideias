@@ -212,8 +212,9 @@ Shorts tem 70 BILHÕES de views/dia. Mas criadores reclamam: paga CENTAVOS. Não
 | **CDN** | Google Media CDN / Google Global Cache. 3.000+ edge nodes. 98.5-99% cache hit. |
 | **Transporte** | QUIC/HTTP3 (30% menos rebuffering no mobile). |
 | **Armazenamento** | Google Colossus (vídeo). Vitess/MySQL + Spanner (metadata). Bigtable (watch history). |
-| **Transcodificação** | Custom Video Coding Units (ASICs proprietários). H.264 → VP9 → AV1. |
+| **Transcodificação** | **Argos VCU** (ASIC proprietário, Hot Chips 2021). 10 encoder cores/chip, 20 VCUs por servidor. H.264: 7× TCO. VP9: **33× TCO**. Gen 2 adiciona AV1 hardware. Substituiu ~10M CPUs Intel. |
 | **Streaming** | DASH (primário), HLS (Apple). Adaptive bitrate. 144p → 8K. |
+| **Armazenamento** | **Colossus** (vídeo). **Vitess/MySQL** (metadata — Vitess NASCEU no YouTube em 2010, criado por Sugu Sougoumarane e Mike Solomon em Go). **Spanner** (transações críticas). **Bigtable** (watch history). |
 | **Recomendação** | Two-stage NN (candidate generation → ranking). 2025: Gemini LRMs. |
 | **Backend** | Python (business logic), C++/Java (perf), Go (microservices). Borg/Google Cloud. |
 
@@ -221,7 +222,7 @@ Shorts tem 70 BILHÕES de views/dia. Mas criadores reclamam: paga CENTAVOS. Não
 
 1. **Chunked upload** (5-10MB chunks). Resumível.
 2. **Google Cloud Storage** → fila (Pub/Sub) → **transcodificação paralela** (DAG: segmentos processados simultaneamente).
-3. **Codecs em cascata**: H.264 (minutos) → VP9 (horas, vídeos populares) → AV1 (dias, mais vistos, 30% melhor compressão).
+3. **Codecs em cascata**: H.264 (6-12 min/hora de vídeo, universal) → VP9 (30-50 min, ~70% dos vídeos, 30-40% economia de banda) → AV1 (100-200h, vídeos mais vistos, ~30% compressão adicional). Tempo de encoding cresceu **8.000×** de 2003 a 2018 (Hot Chips 2021). >50% do catálogo (por watch time) disponível em AV1 (set/2024, AOMedia).
 4. **Manifest** (MPD/m3u8) gerado. **CDN pré-posiciona** conteúdo popular.
 
 ### Recomendação: Gemini LRMs (2025)

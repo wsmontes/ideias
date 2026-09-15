@@ -145,9 +145,9 @@ A gamificação do Duolingo é PROFUNDA:
 
 O Duolingo NÃO é "uma sequência fixa de lições." Cada usuário vê uma SEQUÊNCIA ÚNICA baseada em:
 
-- **HLR (Half-Life Regression)**: modelo proprietário que prevê EXATAMENTE quando você vai ESQUECER uma palavra. `p = 2^(-Δ/h)`. O sistema revisa a palavra NO MOMENTO em que a probabilidade de recall está caindo — NEM antes (desperdício), NEM depois (já esqueceu).
-- **Birdbrain**: deep learning (LSTM) que comprime TODO o histórico do usuário num vetor de 40 dimensões e decide a PRÓXIMA pergunta. 1 bilhão de exercícios/dia. 14ms por decisão.
-- **Resultado**: 12%+ de engajamento diário vs. Leitner system tradicional. 9.5%+ de retenção de sessão.
+- **HLR (Half-Life Regression)**: paper de **Burr Settles & Brendan Meeder, ACL 2016** ("A Trainable Spaced Repetition Model for Language Learning"). Prevê quando você vai esquecer uma palavra. `p = 2^(-Δ/h)`. Redução de **45%+ no erro de predição** de recall vs. Leitner. +12% engajamento diário em A/B test. Dataset: 13M learning traces.
+- **Birdbrain v1 (2020)**: regressão logística inspirada em Item Response Theory. Um único scalar de "learner ability." Atualização batch a cada 24h. Limitado — não capturava nuances (ex: "bom em past tense, ruim em future tense").
+- **Birdbrain v2 (maio 2022)**: **LSTM** que comprime TODO o histórico de interações num vetor de **40 dimensões**. Atualização **em tempo real** (streaming, não batch). Captura ~20% das aulas abandonadas que o v1 perdia. **Unificado** com HLR num único modelo deep learning: prediz tanto o timing (quando revisar) quanto o conteúdo (o quê mostrar). **1 bilhão de exercícios/dia. 14ms por decisão.** Session Generator: seleciona ~14 exercícios de ~200 candidatos, sequenciando de fácil a difícil.
 
 ### 3.5 Duolingo English Test ($49 vs. $250 TOEFL)
 

@@ -1,87 +1,89 @@
-# Estudo de Caso 44 — Procreate: O App Que Disse "NÃO" à AI (E Ganhou 30 Milhões de Artistas)
+# Estudo de Caso 44 — Procreate: O Motor de Renderização Valkyrie Sobre Metal Com 100+ Parâmetros de Brush, Motion Filtering, Barrel Roll, Wet Mix e a Recusa Explícita de Usar AI Generativa
 
 > **Data:** 2026-07-03
-> **Loop:** 44 de ∞ (Fase 3: Criação & Independência)
-> **Categoria:** Ilustração Digital / Arte / iPad
-> **Tema:** 2010. James Cuda — um web designer freelance de Hobart, Tasmânia — ganha um iPad de presente. Começa a RABISCAR. Percebe que NÃO EXISTE um bom app de desenho para iPad. "Eu consigo fazer melhor." Convence Lloyd Bottomley, um programador AUTODIDATA que conheceu por acaso, a codar. A esposa Alanna Cuda cuida das finanças. Trabalham 18 MESES. Noites e fins de semana. Freelas para pagar as contas. 3 reconstruções completas do zero. Últimos $15.000 AUD de economia. Em 16 de março de 2011, lançam o **Procreate.** Em 2013, ganha o Apple Design Award. Em 2018, é o app PAGO mais vendido do iPad. Hoje: 30M+ de usuários. Usado por Marvel, DC, Disney Animation, Pixar. Capas da The New Yorker. Pôsteres de Stranger Things e Blade Runner 2049. Concept art de Star Wars. Em agosto de 2024, faz algo que NENHUMA big tech faria: **anuncia que NUNCA usará AI generativa.** "I really fucking hate generative AI." Esta é a história do app que foi construído na COZINHA de uma casa na Tasmânia — e que provou que "independente", "pago uma vez" e "anti-AI" AINDA é um modelo de negócios BILIONÁRIO.
+> **Loop:** 44 de ∞ (Reescrita)
+> **Categoria:** Ilustração Digital / Renderização GPU / Ferramentas Criativas
 
 ---
 
-## 1. A Origem: Uma Cozinha na Tasmânia e $15.000
+## 0. Linhagem
 
-### Os Fundadores
-
-| Fundador | Papel |
-|---|---|
-| **James Cuda** | CEO. Web designer freelance. A IDEIA e o design. |
-| **Alanna Cuda** | CFO. Esposa do James. As FINANÇAS. |
-| **Lloyd Bottomley** | Programador autodidata. O CÓDIGO. |
-
-### Savage Interactive (2010)
-
-- Fundada na **cozinha** da casa dos Cuda em Old Beach, Tasmânia.
-- James ganhou um iPad. Começou a desenhar. "Não existe app BOM para desenhar."
-- Conheceu Bottomley POR ACASO. "Você coda?" "Sim."
-- **18 meses.** Noites e fins de semana. Freelas para pagar contas.
-- **3 reconstruções completas** do zero.
-- **$15.000 AUD** — o que sobrou das economias.
-
-### 16 de Março de 2011: Lançamento
-
-Procreate vai ao ar na App Store. Preço: **$0.99.** (Depois subiu para $9.99, hoje $12.99.)
-
-**Zero assinatura. Comprou, é SEU.**
+```
+Arte-final manual — mesa de luz, nanquim, letras transferíveis. Profissional.
+Photoshop (1990) — padrão profissional. Curva de aprendizado de semestres.
+Procreate (2011) — iPad. Metal. Toque + Pencil. "Photoshop no bolso."
+Procreate hoje (2026) — 30M+ usuários. Valkyrie 64-bit. 16K×8K. Zero AI generativa.
+```
 
 ---
 
-## 2. A Filosofia: "Human Creativity Is Made, Not Generated"
+## 1. Origem
 
-### O Manifesto Anti-AI (Agosto de 2024)
-
-Em agosto de 2024, James Cuda postou um VÍDEO:
-
-> *"I really fucking hate generative AI. I don't like what's happening in the industry, and I don't like what it's doing to artists."*
-
-O site oficial do Procreate publicou:
-
-> *"Generative AI is ripping the humanity out of things. Built on a foundation of theft, the technology is steering us toward a barren future."*
-
-### Os 3 Compromissos
-
-| Compromisso | Significado |
-|---|---|
-| **No Generative AI** | "Nós respeitamos profundamente suas habilidades conquistadas com esforço." |
-| **Your work belongs to YOU** | "Nós não temos acesso à sua arte, por design." |
-| **Privacy** | "Sua atividade não é rastreada em nossos apps." |
-
-### Os Pilares do Produto
-
-| Pilar | Significado |
-|---|---|
-| **One-time purchase** | $12.99. UMA vez. Sem assinatura. Sem "Procreate Pro Max Plus." |
-| **Independência radical** | Tasmânia. Recusou se mudar para o Vale do Silício. |
-| **Human-first** | "Sempre projetado com a ideia de que um HUMANO estará criando." |
-| **iPad-only** | "A gente otimiza para UMA plataforma. E otimiza MUITO BEM." |
+James Cuda, web designer freelance em Hobart, Tasmânia, ganhou um iPad em 2010. Tentou desenhar. Os apps disponíveis eram lentos, com latência que quebrava o fluxo criativo. Conheceu Lloyd Bottomley — programador autodidata — e juntos passaram 18 meses construindo o Procreate, financiados por freelas. Reescreveram o app três vezes do zero. Últimos A$ 15.000 investidos no lançamento. Três pessoas: Cuda (design), Bottomley (engine), Alanna Cuda (finanças). Zero venture capital. Nunca aceitaram um centavo de VC.
 
 ---
 
-## 3. As Inovações do Procreate
+## 2. Arquitetura Técnica
 
-### 3.1 Performance de 120fps no iPad (2015+)
+### 2.1 Valkyrie: A Engine de Renderização 64-bit Sobre Metal
 
-Enquanto apps concorrentes TRAVAVAM com pincéis complexos, o Procreate entregava 120fps no iPad Pro com Apple Pencil. "Parece PAPEL."
+O Procreate é construído sobre a engine proprietária **Valkyrie** — um motor de pintura 64-bit que usa a API **Metal** da Apple para acesso direto à GPU. A evolução: OpenGL (Silica, 2011) → Metal 2 (Silica-M, 2017) → Metal 3 (Valkyrie, 2019).
 
-### 3.2 QuickShape: Desenhe um Círculo Imperfeito, Ele Vira Perfeito
+**Pipeline de renderização de stroke:**
 
-Você desenha um círculo TORTO. Segura o Pencil por 1 segundo. O Procreate TRANSFORMA num círculo PERFEITO. Isso é MAGIA de UX.
+1. **Input sampling**: Apple Pencil captura pressure (2048 níveis), tilt (0-90°), azimuth e velocity a até 240 Hz. Dados brutos → processados pelo stroke path.
 
-### 3.3 Procreate Dreams (2023): Animação Frame a Frame
+2. **Stroke path processing**: StreamLine (smoothing por média móvel, speed-dependent), Motion Filtering (algoritmo avançado que deleta extremidades de wobble em vez de fazer média — "deletes wobble extremities entirely rather than averaging them"). Expression slider reintroduz sensação manual.
 
-O Procreate ENFIOU animação 2D no iPad. Timeline. Keyframes. Onion skinning. "O After Effects do iPad."
+3. **Brush engine computation**: Shape (geometria da ponta, até 16 stamps por ponto) × Grain (textura, Moving ou Texturized, com Scale, Depth, Blend Mode) × Rendering mode (6 modos: Light Glaze a Intense Blending, wet edges, burnt edges). Wet Mix: Dilution (água na tinta), Charge (tinta carregada no pincel, depleta com stroke longo), Attack (quantidade de tinta que adere à tela), Pull (força de arrasto da tinta existente).
 
-### 3.4 200+ Pincéis, Motor de Pincel Custom
+4. **GPU compositing**: Valkyrie renderiza strokes via Metal shaders customizados. 120 FPS em ProMotion. Latência próxima de zero. Layer compositing: 25+ blend modes, layer masks, clipping masks.
 
-Cada pincel é programável. Você pode CRIAR seu próprio pincel. Textura, forma, dinâmica, Apple Pencil pressure — tudo customizável.
+**Color**: 64-bit color pipeline interno. P3 Wide Color. sRGB. Sem CMYK nativo.
+
+**Canvas**: máximo 16K×8K pixels em iPad Pro. Layer count dinâmico — limitado por RAM (M4 iPad Pro: centenas de layers).
+
+### 2.2 O Brush Studio: 100+ Parâmetros Customizáveis
+
+**Shape**: Source Library com 150+ formas. Input Style: Touch, Azimuth (tilt), Azimuth and barrel roll (Apple Pencil Pro). Scatter, Count (até 16 por ponto), Randomização, Flip X/Y, Roundness Graph com pressure/tilt squash.
+
+**Grain**: Source Library com 100+ texturas. Comportamento Moving (streaky, paint roller travado) ou Texturized (estampa estática). Scale, Zoom, Rotation, Depth, Blend Mode, Brightness/Contrast, Grain Filtering. 3D: "Grain follows camera."
+
+**Stroke Path**: Spacing (frequência de stamp, zero = stroke fluido), Jitter (offset aleatório), Fall Off (fade). Taper: dual slider Pressure/Touch, Size, Opacity, Tip (fine a chunky), Classic Taper toggle.
+
+**Dynamics**: Speed (Size e Opacity por velocidade). Jitter (Size e Opacity aleatórios por stamp).
+
+**Apple Pencil**: Pressure (Size, Opacity, Flow, Bleed — cada com curva customizável). Tilt (Opacity, Gradation, Bleed, Size, Size Compression — trigger point via Tilt Graph 0-90°). Barrel Roll (Pencil Pro: Size, Opacity, Bleed, Relative to stroke toggle, preview com Hover).
+
+**Hover**: Opacity slider, Hover Fill (None/Shape/All), Cursor Outline (None/Contrast/Active color).
+
+**Color Dynamics**: Stamp Jitter e Stroke Jitter (Hue, Saturation, Lightness, Darkness, Secondary Color). Color Pressure, Color Tilt, Color Barrel Roll.
+
+### 2.3 QuickShape e StreamLine
+
+**QuickShape**: desenhe forma aproximada → segure Pencil → snap para geometria perfeita (linha, círculo, quadrado, triângulo, curva). Control points para ajuste pós-snap.
+
+**StreamLine**: Amount (0-100%), Pressure (aplicação de pressão ao longo do stroke). **Motion Filtering**: algoritmo avançado que deleta wobble extremities em vez de fazer média — "more advanced algorithms" que removem tremor preservando intenção. Expression slider para reintroduzir sensação manual. Estabilização global em Actions → Prefs → Pressure & Smoothing.
+
+### 2.4 A Recusa da AI Generativa
+
+Agosto 2024: James Cuda postou vídeo no X. "I really fucking hate generative AI." O Procreate nunca usará AI generativa. A reação: artistas aplaudiram, indústria tech criticou. Ações da Adobe caíram. A decisão é consistente com a filosofia desde 2011: pague uma vez (US$ 12,99), sem assinatura, sem DRM, sem coleta de dados, sem nuvem obrigatória. "Your work belongs to you."
+
+---
+
+## 3. Lições de Engenharia
+
+### 3.1 Rewrite do zero três vezes antes de ter usuários é um luxo que VC não permite
+
+18 meses, 3 reescritas completas, A$ 15.000. Sem VC pressionando por métricas. O resultado: uma engine de rendering que nenhum concorrente com pressão de time-to-market conseguiria construir.
+
+### 3.2 Motion Filtering > StreamLine para estabilização de stroke
+
+Deletar extremidades de wobble preserva mais intenção artística que fazer média móvel. É o tipo de otimização que só importa para artists profissionais — e que define se eles usam seu app ou o concorrente.
+
+### 3.3 "No AI" é uma estratégia de diferenciação de mercado
+
+Em um setor onde Adobe, Canva e todos os concorrentes adicionam AI generativa, dizer "não" a todos eles é mais poderoso que qualquer feature técnica.
 
 ---
 
@@ -89,42 +91,22 @@ Cada pincel é programável. Você pode CRIAR seu próprio pincel. Textura, form
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | Procreate |
-| **Fundação** | Março de 2011 |
-| **Empresa** | Savage Interactive (Hobart, Tasmânia) |
-| **Fundadores** | James Cuda, Alanna Cuda, Lloyd Bottomley |
-| **Usuários** | 30M+ |
-| **Preço** | $12.99 (one-time). Procreate Dreams: $19.99. |
+| **Nome** | Procreate (Savage Interactive) |
+| **Lançamento** | 16 março 2011. Preço: US$ 12,99 (compra única) |
+| **Fundadores** | James Cuda (CEO/Design), Lloyd Bottomley (Engine), Alanna Cuda (Finanças) |
+| **Categoria** | Ilustração Digital / Renderização GPU |
+| **Engine** | Valkyrie: Metal 3, 64-bit color, 120 FPS, 16K×8K canvas, P3 Wide Color |
+| **Brush** | 100+ parâmetros: Shape (150+), Grain (100+), 6 Rendering modes, Wet Mix, Color Dynamics |
+| **Pencil** | Pressure 2048 níveis, Tilt 0-90°, Azimuth, Barrel Roll (Pro), Hover, Motion Filtering |
+| **AI** | Zero AI generativa. "I really fucking hate generative AI." |
 | **Concorrentes** | Adobe Fresco, Clip Studio Paint, Affinity Designer |
 
 ---
 
-## 5. Lições do Procreate
+## Fontes
 
-### 5.1 "NÃO Usar AI" Pode Ser Sua Maior Vantagem Competitiva
-
-Enquanto Adobe, Canva e TODO MUNDO corriam para enfiar AI generativa, o Procreate disse **NÃO.** Viralizou. 30M de artistas APLAUDIRAM.
-
-**Lição**: num mundo onde TODO MUNDO faz a mesma coisa, dizer "NÃO" à tendência pode ser sua MAIOR diferenciação.
-
-### 5.2 "One-Time Purchase" AINDA Funciona
-
-$12.99. UMA vez. Sem assinatura. 30 milhões de usuários. "A gente não precisa de receita recorrente para ser lucrativo."
-
-**Lição**: nem todo app precisa ser SaaS. "Pague uma vez" AINDA é um modelo de negócios.
-
-### 5.3 "iPad-Only" Não É Limitação — É FOCO
-
-O Procreate NÃO tem versão Android. NÃO tem versão Windows. "A gente otimiza para UMA plataforma. E otimiza muito BEM."
-
-**Lição**: foco em UMA plataforma pode gerar um produto MELHOR que "portar para todas."
-
----
-
-## Fontes e Referências
-
-- [Apple App Store — A Creation Story: Procreate](https://apps.apple.com/us/story/id1348110402)
-- [TechCrunch — Procreate takes a stand against generative AI (2024)](https://techcrunch.com/2024/08/19/procreate-takes-a-stand-against-generative-ai-vows-to-never-incorporate-the-tech-into-its-products/)
-- [9to5Mac — iPad app Procreate rejects AI path (2024)](https://9to5mac.com/2024/08/19/ipad-app-procreate-rejects-ai-path-of-competitors-says-your-work-belongs-to-you/)
-- [Cartoon Brew — Procreate Pledges To Avoid Generative AI (2024)](https://www.cartoonbrew.com/tech/procreate-pledges-to-avoid-generative-ai-features-in-its-apps-242672.html)
-- [Procreate — Official AI Stance](https://procreate.com/jp/ai)
+- [Procreate Handbook v5.3 — Brush Studio Settings (todos os 100+ parâmetros)](https://help.procreate.com/procreate/handbook/5.3/brushes/brush-studio-settings)
+- [Procreate Official Site — Valkyrie Engine](https://procreate.com/procreate)
+- [Ars Technica — Procreate defies AI trend, pledges "no generative AI" (Ago 2024)](https://arstechnica.com/information-technology/2024/08/procreate-defies-ai-trend-pledges-no-generative-ai-in-its-illustration-app/)
+- [9to5Mac — iPad app Procreate rejects AI path (Ago 2024)](https://9to5mac.com/2024/08/19/ipad-app-procreate-rejects-ai-path-of-competitors-says-your-work-belongs-to-you/)
+- [MacRumors — Procreate 4 Silica M Engine, 64-bit color, P3 Wide Color (2017)](https://www.macrumors.com/2017/09/19/procreate-4-ios-11-support/)

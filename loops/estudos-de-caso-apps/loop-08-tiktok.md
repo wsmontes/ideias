@@ -267,47 +267,45 @@ Bottom Navigation:
 | Componente | Tecnologia |
 |---|---|
 | **Motor de recomendação** | **Monolith** (in-house ByteDance). Deep Retrieval + Transformer ranking. |
-| **Streaming de eventos** | Apache Kafka (1M+ writes/sec), Apache Flink (real-time) |
-| **Armazenamento** | Delta Lake (data lakehouse), HDFS, Hudi/Iceberg |
+| **Streaming de eventos** | Apache Kafka → **ByteMQ** (substituto interno, 70% menos custo, 99.76% workloads migradas, ACM SoCC 2024). **Apache Flink**: 70.000+ jobs concorrentes, 11M+ resource slots. Pico: **80M QPS** queries, **tens of TB/s** consumo. | 2.5T+ registros/dia processados. |
+| **Armazenamento** | **Apache Hudi** (data lakehouse primário, ByteDance tem PMC Member). HDFS. **NÃO usa Delta Lake nem Iceberg como primários.** 12EB total, 500PB/dia ingeridos, 50PB NVMe hot storage (2TB/s throughput). | 73% redução de custo com tiered storage (NVMe→HDD→fita). |
 | **ML frameworks** | TensorFlow, PyTorch, MXNet |
-| **Deploy** | Kubernetes + Istio 2.0. Microservices (Go, Java, Python). |
-| **Edge** | ByteDance Edge Nodes (BEN) — caching, streaming, ML no edge. |
-| **Feature store** | Hopsworks (real-time features para ML, 1M ops/sec) |
+| **Deploy** | Kubernetes. Microservices (Go, Java, Python). |
+| **Edge** | **PCDN** (Peer-assisted CDN): ~1M nós crowdsourced em 200+ cidades. **HyperEdge** (NSDI 2026): 100K+ dispositivos edge, ~100M usuários diários. **HCDN** para live streaming: 500+ clusters globais. Centenas de milhões de dólares/ano em economia de banda. Transporte UDP receiver-driven. |
+| **Feature store** | **Plataforma interna proprietária** (NÃO é Hopsworks — Hopsworks é usado apenas em demos educacionais). Features em <1s via Kafka+Flink. |
 | **Model optimization** | TVM/MLIR/XLA, GPU CUDA. On-device inference (Edge AI). |
 
 ### Monolith: O Motor de Recomendação
 
 O coração do TikTok é o **Monolith**, um sistema proprietário de recomendação descrito como "digital crack" por Andrej Karpathy.
 
-**Pipeline de 4 estágios:**
+**Pipeline de 4 estágios (confirmado por papers ByteDance: WWW '26, KDD 2025):**
 
-**1. Candidate Generation (Recall)**
-- Deep Retrieval Model (MLP com output em árvore).
-- ANN (Approximate Nearest Neighbor) vector search.
-- Filtra BILHÕES de vídeos → ~100 candidatos.
+| Estágio | Escala | Latência | Técnica |
+|---|---|---|---|
+| **1. Retrieval** | Bilhões → Milhares | ~ms | **Streaming VQ** (KDD 2025, substituiu Two-Tower+HNSW). Indexação em tempo real (16K-32K clusters). Item-first principle. Douyin/Douyin Lite. |
+| **2. Pre-ranking** | Milhares → Centenas | ~ms | **HAP** (WWW '26) com GHCL loss (balanceamento de gradientes hard/easy) + DAMR (roteamento adaptativo). COLD/COPR para alinhamento cross-stage. |
+| **3. Ranking** | Centenas → Dezenas | ~10ms | **Monolith**: multi-task DNN. Collisionless embedding tables (Cuckoo Hashing). Online training — modelo atualizado continuamente. DeepFM / multi-tower. |
+| **4. Re-ranking** | Dezenas → Lista final | ~ms | Diversidade (MMR), frescor, filtros de política, cold-start boosting, blend multi-objetivo. |
 
-**2. Fine Ranking (Precision)**
-- Transformer-based ranking models.
-- Multi-objective optimization: completion rate, like probability, share probability, follow probability.
-- Sub-200ms de latência TOTAL.
+**O segredo NÃO é o online training — é a feature freshness.** Seus cliques viram features disponíveis para predição em **<1 segundo** via Kafka + Flink. O modelo de ranking se atualiza em ~30 min (sync incremental de touched keys do training PS para o serving PS). Dense parameters: daily sync.
 
-**3. Re-ranking**
-- Filtros de política (conteúdo proibido, guideline violations).
-- Penalização de "engagement bait."
-- Diversidade (evitar bolhas de conteúdo).
-
-**4. Real-time Personalization**
-- Atualização CONTÍNUA baseada em CADA interação.
-- Não é "batch diário." É EM TEMPO REAL.
-- Se você der like num vídeo de gato, o PRÓXIMO vídeo pode ser um gato.
+**Monolith (arXiv 2209.07663, open-source no GitHub ByteDance):**
+- Worker-ParameterServer architecture (TensorFlow distributed)
+- Collisionless embedding via **Cuckoo Hashing** — sem colisões de ID
+- Embeddings expiráveis + frequency filtering
+- Fault tolerance: daily snapshots. *"System reliability could be traded-off for real-time learning."*
+- GitHub: 9.3K stars. Arquivado outubro 2025. Sucessor: **Primus** (USENIX ATC 2025, 20M+ CPU vCores, 200K+ GPUs, 7EB training data).
+- **BytePS** (OSDI 2020): aceleração de comunicação DNN distribuída. **ByteRobust** (2025): 97% ETTR em 9.600 GPUs.
 
 ### HLLM (2024): O Modelo Hierárquico de LLM
 
-A ByteDance desenvolveu um **Hierarchical Large Language Model** para recomendações sequenciais:
-- **Top layer**: preferências de LONGO prazo.
-- **Lower layers**: comportamento de SESSÃO (o que você está fazendo AGORA).
-- **Pre-training cross-domain**: resolve cold-start para novos usuários.
-- **+30% de precisão** para novos usuários/items.
+**HLLM confirmado** (arXiv 2409.12740, GitHub bytedance/HLLM). Pipeline de 2 estágios:
+- **Item LLM**: processa descrições textuais → embeddings via token `[ITEM]`
+- **User LLM**: sequências de item embeddings como input → prediz interesses futuros
+- **Resultados A/B no Douyin/TikTok**: +0.705% em métricas-chave com HLLM-1B + Late Fusion
+- **Benchmarks**: +22.93% médio no Pixel8M, +169.58% sobre SASRec no Amazon Books
+- **Cold start real**: ~1-2 horas para perfilamento significativo (WSJ 2021, BU 2024), ~1000 vídeos para personalização. NÃO são 20 minutos.
 
 ### Escala
 

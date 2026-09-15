@@ -1,104 +1,91 @@
-# Estudo de Caso 33 — Revolut: O Neobanco Que Substituiu Kafka Por PostgreSQL E Roda 1.200 Microserviços
+# Estudo de Caso 33 — Revolut: O Neobanco Com PostgreSQL Como Event Store (Sem Kafka), Sherlock Fraud Detection (Lambda Architecture, Couchbase Speed Layer <50ms, Spark Batch Layer), PRAGMA AI (40B Eventos, 3 Variantes) e 1.200 Microserviços Com 15 DevOps
 
 > **Data:** 2026-07-03
-> **Loop:** 33 de ∞ (Reescrita — Fase 2)
+> **Loop:** 33 de ∞ (Reescrita)
 > **Categoria:** Fintech / Infraestrutura / Sistemas Distribuídos
-> **Tema:** O Revolut processa pagamentos para 45 milhões de clientes com uma arquitetura de 1.200 microserviços que deliberadamente evita Apache Kafka — a escolha padrão da indústria para streaming de eventos. Em vez disso, a empresa construiu um event store proprietário sobre PostgreSQL com cursores JDBC scrollables e entregou consistência transacional onde Kafka ofereceria consistência eventual. Essa decisão é o fio condutor da arquitetura do Revolut: sempre que possível, prefira consistência forte e simplicidade operacional sobre escalabilidade horizontal e complexidade de infraestrutura. O resultado é uma plataforma onde uma equipe de DevOps de quinze pessoas suporta 1.300 engenheiros, onde o motor de detecção de fraude Sherlock processa decisões em 50 milissegundos usando uma arquitetura Lambda com Couchbase na camada de velocidade e Spark na camada de batch, e onde um modelo de AI proprietário chamado PRAGMA — treinado em 40 bilhões de eventos de transação — alimenta agentes que processam 2 milhões de tarefas de fincrime por mês.
 
 ---
 
-## 1. Por Que PostgreSQL em Vez de Kafka: O Event Store Proprietário
+## 0. Linhagem
 
-A maioria dos neobanks adota Kafka como backbone de streaming de eventos. O Revolut conscientemente não o fez. A justificativa interna, documentada em apresentações de engenharia, envolve três argumentos:
-
-**Complexidade operacional**: Kafka exige manutenção de clusters ZooKeeper (ou KRaft em versões recentes), gerenciamento de partições, retenção de tópicos e monitoramento de lag de consumidores. Para uma empresa que estava escalando de startup para banco regulado, adicionar essa superfície operacional ao stack era um risco desproporcional.
-
-**Curva de aprendizado**: cada novo engenheiro precisaria aprender o modelo de consumo do Kafka — partições, offsets, grupos de consumidores, semânticas de entrega — antes de ser produtivo. Com PostgreSQL, virtualmente todo engenheiro backend já conhece a ferramenta.
-
-**Consultabilidade**: eventos em Kafka são efêmeros (retidos por N dias) e difíceis de consultar ad-hoc. No PostgreSQL, cada evento é uma linha em uma tabela — pode ser consultado, indexado, agregado e analisado com SQL padrão, sem mover dados para um data warehouse separado.
-
-O event store do Revolut funciona assim: antes de enviar um evento para outros serviços, o serviço emissor persiste o evento em uma tabela PostgreSQL — a `event_store`. Um `SingleEventConsumer` ou `MultiEventConsumer` se inscreve para receber eventos de tipos específicos. Um `event-processor` despacha eventos usando cursores JDBC scrollables sobre uma réplica de leitura da `event_store`, evitando sobrecarregar a instância primária. Um processo reconciliador verifica periodicamente se há eventos persistidos mas não entregues e os reenvia — garantindo entrega at-least-once sem depender de um broker de mensagens externo.
+```
+Bancos tradicionais — agências físicas. Mainframes. Semana para abrir conta.
+Neobanks (2015-) — app-first. Minutos para abrir conta. Sem agências.
+Revolut (2015) — Londres. Multi-currency. Crypto. 45M clientes.
+Revolut hoje (2026) — 1.200 microserviços. PostgreSQL event store. Sherlock. PRAGMA.
+```
 
 ---
 
-## 2. Consistência de Dados Em Três Camadas
+## 1. Arquitetura Técnica
 
-O Revolut adota uma estratégia de consistência em três níveis, dependendo do escopo da operação:
+### 1.1 PostgreSQL Como Event Store: A Decisão Anti-Kafka
 
-**Nível 1 — Transações ACID**: quando todas as operações de uma transação financeira estão dentro dos limites do sistema Revolut — débito de uma conta, crédito em outra, atualização de saldo — tudo ocorre dentro de uma transação PostgreSQL padrão. Se qualquer parte falhar, a transação inteira é revertida. Isso é possível porque o Revolut controla ambas as pontas da transação.
+A maioria dos neobanks adota Kafka como backbone de streaming. O Revolut conscientemente rejeitou essa escolha. Em vez disso, cada serviço persiste eventos em uma tabela `event_store` no **PostgreSQL**, na **mesma transação** que modifica o estado de negócio — garantindo atomicidade entre estado e evento. Um `event-processor` lê eventos pendentes usando **cursores JDBC scrollables** sobre réplica de leitura, evitando sobrecarregar a instância primária. Um processo **reconciliador** verifica periodicamente eventos persistidos mas não entregues, reenviando-os — garantia at-least-once sem broker de mensagens externo.
 
-**Nível 2 — Job-based reconciliation**: quando a operação envolve sistemas externos (APIs de bancos, redes de cartão, SWIFT), uma transação ACID não é possível. O Revolut usa um Transaction Manager que inicia a transação, persiste o estado internamente, faz a chamada externa de forma assíncrona, e usa um job de reconciliação para verificar o resultado e corrigir inconsistências.
+**Por que não Kafka?** Complexidade operacional (ZooKeeper/KRaft, partições, consumer groups, monitoramento de lag), curva de aprendizado (cada engenheiro precisa aprender o modelo de consumo antes de ser produtivo), consultabilidade (eventos em Kafka são efêmeros; no PostgreSQL, cada evento é uma linha consultável com SQL padrão). O trade-off: não escala horizontalmente como Kafka — mas o throughput de eventos de um banco com 45M clientes está confortavelmente dentro dos limites do PostgreSQL.
 
-**Nível 3 — Eventual consistency para dados não-financeiros**: para dados que não afetam saldos — preferências de usuário, configurações de notificação, analytics — o Revolut aceita consistência eventual via propagação assíncrona de eventos.
+**Estratégia de consistência em 3 níveis:**
+- **Nível 1 — ACID**: operações internas (débito + crédito na mesma transação PostgreSQL)
+- **Nível 2 — Job-based reconciliation**: operações envolvendo sistemas externos usam Transaction Manager + job de reconciliação periódica
+- **Nível 3 — Consistência eventual**: dados não-financeiros (preferências, notificações, analytics)
 
-A migração planejada do core ledger de PostgreSQL para TigerBeetle — um banco de dados de transações financeiras projetado para processar mais de um milhão de transações por segundo com consistência forte e latência determinística — indica que a empresa está atingindo os limites do PostgreSQL para o workload de ledger.
+**Migração planejada para TigerBeetle**: banco de dados de transações financeiras open-source com Viewstamped Replication, >1M TPS, double-entry accounting nativo — indica que o PostgreSQL está atingindo limites para o workload de ledger.
 
----
+### 1.2 Sherlock: Arquitetura Lambda Para Decisão de Fraude em <50ms
 
-## 3. Sherlock: Arquitetura Lambda Para Detecção de Fraude em 50ms
+**Camada de velocidade (Speed Layer).** Modelos de ML leves (árvores de decisão, regressão logística) rodando contra **Couchbase** — banco NoSQL com cache em memória integrado. Features pré-computadas: padrão de gasto nas últimas 24h, localização do dispositivo, valor relativo à média do usuário, categoria do comerciante. Decisão (approve/block/challenge) em **<50ms**. Falsos positivos são preferíveis a falsos negativos — custo de um falso negativo é perda financeira total; falso positivo é fricção de verificação adicional.
 
-O motor de detecção de fraude do Revolut — Sherlock — opera com uma restrição de latência brutal: cada transação precisa ser avaliada em menos de 50 milissegundos. Para resolver isso, o Sherlock implementa uma arquitetura Lambda com duas camadas:
+**Camada de batch (Batch Layer).** Pipelines noturnos em Apache Airflow + Spark processam histórico completo, treinam modelos deep learning mais sofisticados e atualizam features agregadas no cache da camada de velocidade. Capturam padrões de longo prazo: sazonalidade, mudanças graduais, correlações entre contas.
 
-**Camada de velocidade (Speed Layer)** : modelos de machine learning leves rodando contra um cache em memória (Couchbase). Quando uma transação chega, o Sherlock consulta features pré-computadas no cache — padrões de gasto recentes, localização, valor, categoria do comerciante — e gera uma decisão (aprovar, bloquear, desafiar) em menos de 50ms. A latência é o requisito dominante; a precisão do modelo é secundária.
+**FinCrime AI Agents.** 9 agentes especializados processam 2 milhões de tarefas de fincrime por mês em 700.000 clientes, rodando em GPUs H100 dedicadas na **Nebius AI Cloud** (Holanda — conformidade GDPR). Cada agente é especializado em um tipo de crime financeiro; um orquestrador decide qual ativar.
 
-**Camada de batch (Batch Layer)** : pipelines noturnos em Apache Airflow, Dataflow e Spark processam o histórico completo de transações, treinam modelos de deep learning mais sofisticados, e atualizam as features no cache da camada de velocidade. Esses modelos consideram padrões de longo prazo — sazonalidade, mudanças graduais de comportamento, correlações entre contas — que não caberiam em uma decisão de 50ms.
+### 1.3 PRAGMA: Modelo Fundacional Para Transações Financeiras
 
-Os **FinCrime AI Agents** — nove agentes especializados — processam 2 milhões de tarefas por mês em 700.000 clientes, rodando em GPUs H100 dedicadas na Nebius AI Cloud. Esses agentes não são modelos de classificação binária; são sistemas que investigam transações suspeitas, coletam evidências, geram relatórios de atividade suspeita e escalam para analistas humanos quando necessário.
+**PRAGMA (PRedictive AGent for Monetary Activities)** — modelo proprietário treinado em **40 bilhões de eventos de transação** de 25 milhões de usuários. Arquitetura transformer sobre sequências de transações: cada transação é um "token" com features categóricas, numéricas e temporais. Três variantes: 10M parâmetros (decisões em tempo real), 100M (credit scoring), 1B (cross-sell e personalização).
 
----
+### 1.4 Plataforma de Desenvolvimento: 15 DevOps Para 1.300 Engenheiros
 
-## 4. PRAGMA: Um Modelo Fundacional Para Transações Financeiras
-
-O PRAGMA é um modelo de AI proprietário do Revolut treinado em 40 bilhões de eventos de transação de 25 milhões de usuários. Três variantes — 10 milhões, 100 milhões e 1 bilhão de parâmetros — são otimizadas para diferentes tarefas: detecção de fraude, credit scoring e cross-sell. O modelo é baseado em transformers e opera sobre sequências de transações, similar a como modelos de linguagem operam sobre sequências de tokens.
-
-A escolha do Nebius AI Cloud como infraestrutura de treinamento reflete uma decisão de soberania de dados: processar dados financeiros de cidadãos europeus em GPUs operadas por uma empresa europeia, mantendo conformidade com GDPR.
-
----
-
-## 5. Plataforma de Desenvolvimento: 15 DevOps Para 1.300 Engenheiros
-
-Uma equipe de quinze engenheiros de DevOps suporta 1.300 engenheiros de produto. Essa proporção — ~87:1 — é possível porque a plataforma interna de desenvolvimento é construída no modelo self-service: engenheiros criam seus próprios ambientes, implantam seus próprios serviços e monitoram sua própria produção. Não há equipe de QA dedicada, não há equipe de on-call dedicada. O modelo é "you build, you run".
-
-A infraestrutura roda no Google Cloud Platform: Compute Engine para VMs, GKE para Kubernetes, Cloud APIs para serviços gerenciados. O provisionamento é totalmente automatizado via Infrastructure as Code. Snapshots incrementais de bancos de dados multi-terabyte são concluídos em aproximadamente cinco minutos — comparado a vinte horas com snapshots completos.
+**Proporção 87:1** possível porque a plataforma é self-service. Engenheiros criam ambientes, deployam serviços e monitoram produção sem depender de DevOps. Modelo "you build, you run." Infraestrutura: **Google Cloud Platform** (Compute Engine, GKE). **1.200 microserviços** primariamente Java/Kotlin com Kotlin Coroutines.
 
 ---
 
-## 6. Lições de Engenharia
+## 2. Lições de Engenharia
 
-### 6.1 Kafka não é obrigatório para event-driven architecture
+### 2.1 PostgreSQL como event store é viável para a vasta maioria das empresas
 
-O Revolut provou que um event store sobre PostgreSQL com cursores JDBC scrollables e um processo reconciliador pode substituir Kafka para cargas de trabalho de fintech, com a vantagem adicional de consistência transacional (eventos e estado de negócio na mesma transação ACID). A troca é que isso não escala horizontalmente como Kafka — mas para a maioria das empresas, o limite de escala do PostgreSQL é mais alto do que sua carga de trabalho jamais atingirá.
+Se seu throughput de eventos é medido em milhares ou dezenas de milhares por segundo — não milhões — PostgreSQL é suficiente. A decisão de adotar Kafka deve ser baseada em requisitos de escala, não em pressão da indústria.
 
-### 6.2 A latência da detecção de fraude define sua arquitetura
+### 2.2 A latência alvo define a arquitetura de decisão
 
-Sherlock precisa decidir em 50ms. Isso força uma separação arquitetural entre a camada de velocidade (cache em memória, modelos leves) e a camada de batch (modelos pesados, atualização noturna). É um padrão que se repete em todo sistema de decisão em tempo real: a latência não é um requisito de performance — é o requisito que define a arquitetura.
+Sherlock precisa decidir em <50ms. Isso força separação entre speed layer (Couchbase, modelos simples) e batch layer (Spark, modelos complexos). Todo sistema de decisão em tempo real enfrenta esse trade-off.
 
-### 6.3 Consistência forte em transações financeiras não é negociável
+### 2.3 Consistência forte em transações financeiras não é negociável — mas é graduável
 
-O Revolut usa transações ACID para operações internas e job-based reconciliation para operações externas. Em nenhum ponto uma transação financeira é tratada com consistência eventual. A complexidade adicional do modelo de reconciliação é o preço que se paga por não poder usar ACID em chamadas externas.
+ACID quando pode; reconciliação quando não pode; consistência eventual apenas para dados não-financeiros.
 
 ---
 
-## 7. Ficha Técnica
+## 3. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Revolut |
-| **Fundação** | 2015 |
-| **Microserviços** | 1.200+ |
-| **Backend** | Java, Kotlin, Kotlin Coroutines |
-| **Event Store** | PostgreSQL (custom), JDBC scrollable cursors, sem Kafka |
-| **Fraude** | Sherlock: Lambda Architecture, Couchbase + Spark |
-| **AI** | PRAGMA (40B eventos, 3 variantes), FinCrime Agents (9 agentes, 2M tarefas/mês) |
-| **Infra** | GCP (Compute Engine, GKE), Nebius AI Cloud (200+ H100 GPUs) |
-| **DevOps** | 15 engenheiros para 1.300 devs |
+| **Fundação** | 2015 (Londres). Fundadores: Nik Storonsky (CEO), Vlad Yatsenko (CTO) |
+| **Categoria** | Neobank / Fintech |
+| **Clientes** | 45M+ |
+| **Microserviços** | 1.200+ (Java/Kotlin, Kotlin Coroutines) |
+| **Event Store** | PostgreSQL: JDBC scrollable cursors + event-processor + reconciliador. Sem Kafka |
+| **Fraude** | Sherlock: Lambda (Couchbase <50ms + Airflow/Spark batch). 9 FinCrime AI Agents (2M tarefas/mês, H100/Nebius) |
+| **AI** | PRAGMA: 40B eventos, 3 variantes (10M/100M/1B params). Transformer |
+| **Infra** | GCP (Compute Engine, GKE). 15 DevOps : 1.300 engenheiros (87:1) |
+| **Concorrentes** | N26, Monzo, Wise, Chime |
 
 ---
 
 ## Fontes
 
-- [AbnAsia — Architecture of a Neobank: Revolut](https://news.abnasia.org/blog/posts/en-architecture-of-a-neobank-revolut-3689)
-- [Nebius — Revolut on the Inference Frontier](https://nebius.com/customer-stories/revolut)
-- [QCon London 2024 — Unveiling the Tech Underpinning FinTech's Revolution](https://d3s75c3xtnyqxt.cloudfront.net/presentation/apr2024/unveiling-tech-underpinning-fintechs-revolution)
-- [ECER — Revolut, Netflix Highlight Platform Engineering's Role in Developer Speed](https://ecweb.ecer.com/topic/en/detail-225632-revolut_netflix_highlight_platform_engineerings_role_in_developer_speed.html)
-- [Google Cloud — Revolut Case Study](https://cloud.google.com/customers/revolut)
+- [QCon London 2024 — Unveiling the Tech Underpinning FinTech's Revolution (Revolut PostgreSQL event store, Sherlock)](https://d3s75c3xtnyqxt.cloudfront.net/presentation/apr2024/unveiling-tech-underpinning-fintechs-revolution)
+- [Nebius — Revolut on the Inference Frontier (200+ H100 GPUs, PRAGMA training)](https://nebius.com/customer-stories/revolut)
+- [CloudWars — How Couchbase Helps Fintech Customer Fight Fraud (Sherlock, 50ms decisions)](https://cloudwars.com/acceleration-economy-minute/how-couchbase-helps-fintech-customer-fight-fraud-while-saving-millions/)
+- [AbnAsia — Architecture of a Neobank: Revolut (event store, Sherlock, PRAGMA)](https://news.abnasia.org/blog/posts/en-architecture-of-a-neobank-revolut-3689)

@@ -144,13 +144,13 @@ A Garmin perdeu 70% do valor de mercado. A TomTom perdeu 80%. Um app matou uma i
 
 Realidade Aumentada para PEDESTRES. Aponte a câmera para a rua. Setas GIGANTES indicam para onde ir. Nomes de rua flutuam no ar.
 
-Usa **VPS (Visual Positioning Service)** — o Google compara o que a câmera VÊ com sua base de dados de Street View para determinar EXATAMENTE onde você está (precisão de CENTÍMETROS). Muito mais preciso que GPS em "urban canyons."
+Usa **VPS (Visual Positioning Service)** — DNN processa pixels da câmera, extrai features visuais de estruturas permanentes (prédios, pontes), e compara com um **point cloud 3D global de trilhões de pontos** construído a partir do Street View. Precisão **sub-métrica (~1m)** — NÃO é centimétrica (centímetros são aspiração futura, não spec atual). Muito mais preciso que GPS em "urban canyons." ARCore Geospatial API disponível para developers desde 2022.
 
 ### 3.5 Immersive View (2022-2023)
 
 Combine **Street View + imagens de satélite + AI** para criar um MODELO 3D FOTORREALISTA de uma cidade. Você SOBREVOA o trajeto ANTES de fazer. Vê o trânsito PREVISTO para a hora que você vai sair. Vê o TEMPO previsto.
 
-**Como funciona**: Neural Radiance Fields (NeRF) + bilhões de imagens. AI reconstrói geometria 3D com iluminação e sombras realistas.
+**Como funciona**: Pipeline NeRF em 3 variantes: **mip-NeRF 360** (qualidade), **NeRF-W** (GLO vectors para iluminação), e **Block-NeRF** (CVPR 2022, escala urbana). 2.8M imagens de 1.330 coletas em SF Alamo Square divididas em 35 blocos. Treino: 32 TPU v3 cores por bloco. Indoor: fotógrafos DSLR ~1h por venue. Entrega via Cloud Immersive Stream for XR (pré-renderizado como vídeos 360°).
 
 ### 3.6 AI / Gemini Integration (2024-2025)
 
@@ -271,11 +271,12 @@ O Google Maps precisa calcular a rota entre DOIS pontos em QUALQUER lugar do pla
 - **Customização (a cada 1-5 min)**: pesos das arestas são atualizados com tráfego EM TEMPO REAL.
 - **Query**: busca bidirecional "para cima" (só segue nós mais importantes). Quando os dois caminhos se encontram, a rota está pronta.
 
-**2. GNN/DeepMind para ETA (2020)**:
-- A rede rodoviária é dividida em "Supersegments."
-- Um Graph Neural Network com message passing prevê o tempo de travessia para cada segmento.
-- **+97% de precisão de ETA.** O GNN reduziu erros remanescentes em 50%+.
-- Treinado em 20+ anos de dados históricos + tráfego em tempo real.
+**2. GNN/DeepMind para ETA (CIKM 2021)**:
+- **Paper**: "ETA Prediction with Graph Neural Networks in Google Maps" (arXiv 2108.11482, 17 autores DeepMind/Google/Waymo).
+- Arquitetura **Encode-Process-Decode** + MetaGradients (RL para adaptar learning rate).
+- **~1M supersegments** (~20 segmentos cada) cobrindo vias principais. Ruas menores usam modelos por segmento.
+- **A baseline JÁ ERA 97% precisa.** O GNN reduziu os 3% restantes de erros em **16-51%** (Taichung: -51%, Sydney: -40%, Tóquio: -37%).
+- NÃO melhorou de um número baixo para 97%. A baseline era 97%, o GNN refinou o resto.
 
 **3. ML como correção residual**:
 - O motor de roteamento dá um ETA base.
@@ -308,8 +309,8 @@ Google Maps migrou de raster tiles (PNG) para **vector tiles** (Protobuf):
 | **MAUs** | 2 bilhões+ |
 | **Km navegados/ano** | 780 bilhões |
 | **Lugares indexados** | 250 milhões+ |
-| **Street View imagens** | 170 bilhões+ |
-| **Milhas Street View** | 16 milhões+ |
+| **Street View imagens** | **280 bilhões+** (2025). 170B era o número de ~2019. 100+ países, 16-20M km de estradas mapeadas. |
+| **Milhas Street View** | 10 milhões de milhas (~16M km). "16M milhas" é confusão comum km/milha. |
 | **Países Street View** | 87 |
 | **Reviews bloqueadas (fraude)** | 170 milhões+ (2023) |
 | **Preço** | Gratuito. API paga para empresas (Maps Platform). |

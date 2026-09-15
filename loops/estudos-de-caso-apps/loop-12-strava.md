@@ -166,9 +166,31 @@ O Strava analisa BILHÕES de atividades e sugere ROTAS baseadas em:
 
 Você escolhe distância e elevação. O Strava MONTA a rota.
 
-### 3.5 Relative Effort: Esforço Percebido por Dados
+### 3.5 Fitness & Freshness: O Modelo de Impulse-Response
 
-Baseado em batimentos cardíacos, o Strava calcula o ESFORÇO RELATIVO de cada atividade. "Você treinou DURO essa semana? Ou precisa descansar?" Ajuda a prevenir OVERTRAINING.
+O Strava calcula Fitness, Fatigue e Form usando o modelo **Banister impulse-response (1975)**, adaptado por Andy Coggan para ciclismo:
+
+```
+Fitness = Σ (1/42) × 1.3 × RE × exp(-i/42)    // Memória de ~6 semanas
+Fatigue = Σ (1/7)  × 1.3 × RE × exp(-i/7)     // Memória de ~1 semana
+Form   = Fitness − Fatigue
+```
+
+**Relative Effort** usa **7 zonas discretas de batimento cardíaco** (não uma função contínua como o TRIMP original de Banister). Comunidade de engenharia reversa identificou que o Strava usa scoring por zona, não uma curva exponencial contínua.
+
+### 3.6 Anti-Fraude em Segments: XGBoost Detecta Carros
+
+**James Wang** (Senior ML Engineer, Strava) construiu um detector de veículos nos leaderboards:
+- **XGBoost** gradient boosted trees com **57 features** de GPS, elevação e tempo
+- Feature proprietária: **"Sendrix Coefficient"** — quantas acelerações 0→20 mph um atleta consegue antes de fadigar. "Carros nunca se cansam."
+- **81% de detecção** de atividades veiculares. ~16K veículos sinalizados por dia.
+- **74% de redução** em flags manuais de veículos reportados por usuários
+- **4.45M** atividades anômalas removidas de run leaderboards, **3.9M** de ride
+- SHAP values para IA explicável ("velocidade máxima 80mph → fortemente weighted como carro")
+
+### 3.7 Routes: Geração por Diffusion Model
+
+Patente US 12,584,756 (março 2026, inventor Drew Robb): **"Generative model for route recommendation"** usando um **diffusion machine learning model** treinado em atividades gravadas. Em vez de sugerir rotas existentes, o modelo GERA novas rotas.
 
 ---
 

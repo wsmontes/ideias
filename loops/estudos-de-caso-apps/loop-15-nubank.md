@@ -279,7 +279,40 @@ O Nubank organizou o app por como as pessoas PENSAM: "transações" (dia a dia),
 
 ---
 
-## 8. Ficha Técnica do App
+## 8. Arquitetura Técnica: Clojure, Datomic e Immutability
+
+O Nubank é um dos casos mais singulares de stack tecnológica em fintechs globais.
+
+### Stack
+
+| Camada | Tecnologia |
+|---|---|
+| **Backend** | **Clojure** (99% dos engenheiros nunca tinham usado). **1.100+ microserviços Clojure.** Sem framework web — só HTTP server library. "Pure functions that receive Maps and return Maps." |
+| **Banco de dados** | **Datomic** (imutável, append-only. "Funciona como Git para dados"). +21 mil databases. Backend: RDS PostgreSQL (PII) + DynamoDB (não-PII). |
+| **Mensageria** | Apache Kafka. **72 bilhões de eventos/dia.** |
+| **Mobile** | **Dart/Flutter** (cross-platform). Migrou de React Native. |
+| **Infra** | **AWS.** 3.000+ CloudFormation stacks. **Nimbus** (Clojure DSL para CloudFormation). Immutable infra blue-green. |
+| **ML** | **nuFormer** — Transformer foundation model (24M/330M params). Self-supervised. O(100B) transações. **100+ modelos ML.** Apache Flink + Pinot para fraud detection (PIX: 700ms SLA). |
+| **Orquestração** | Kubernetes (EKS). 200+ deploys/dia. |
+| **Observabilidade** | Prometheus + Grafana + OpenTelemetry + OpenSearch. 0.7 trilhão de log lines/dia. 5 engenheiros mantêm. |
+
+### O Diferencial Filosófico: Immutability
+
+- **Datomic é imutável** — transações são fatos que nunca se alteram. Time-travel built-in: query "as of" qualquer ponto no tempo. Essencial para auditoria financeira.
+- **Clojure é imutável por padrão** — dados nunca são silenciosamente mutados. Elimina categorias inteiras de bugs de concorrência.
+- **Infra imutável** — toda mudança é kill + recriar. Rollback: reverter para versão anterior. Zero side effects.
+- **"Diplomat Architecture"** — adaptação funcional da Hexagonal Architecture. Ports + Adapters + camada de lógica de negócio pura.
+- **Cell-based architecture** — serviços agrupados por coorte de aquisição de clientes para isolamento de falhas.
+
+### Números
+
+- **Adquiriu a Cognitect** (criadora do Clojure e Datomic) em 2020
+- **200+ deploys/dia** em produção, 50+ mudanças/dia em domínio financeiro crítico
+- Sem equipes QA dedicadas — engenheiros são donos dos testes
+
+---
+
+## 9. Ficha Técnica do App
 
 | Atributo | Valor |
 |---|---|
@@ -289,7 +322,7 @@ O Nubank organizou o app por como as pessoas PENSAM: "transações" (dia a dia),
 | **IPO** | Dezembro de 2021 (NYSE: NU). $45B. |
 | **Categoria** | Banco Digital / Fintech |
 | **Plataformas** | iOS, Android, Web |
-| **Clientes** | 118M+ |
+| **Clientes** | **135M+** (Q1 2026). 115M+ no Brasil, 15M+ México, ~5M Colômbia. 60%+ dos adultos brasileiros. |
 | **Mercados** | Brasil, México, Colômbia |
 | **Preço** | Gratuito (cartão, conta). Receita via interchange, juros, marketplace. |
 | **Design System** | NuDS (Figma). Roxo `#8A05BE`. Pentagram rebrand (2023). Fonte custom. |

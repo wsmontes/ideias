@@ -1,118 +1,120 @@
-# Estudo de Caso 54 — Kindle: O App Que Colocou Uma Livraria No Seu Bolso (E Fez o Papel "Desaparecer")
+# Estudo de Caso 54 — Kindle: A Tecnologia E-Ink (Microcápsulas de 10-50µm, Regal Waveform de 3 Fases, TFT ±15V, Bistabilidade), o Formato KFX (Ion Binary, CONT Signature, DRMION) e o Whispersync
 
 > **Data:** 2026-07-03
-> **Loop:** 54 de ∞ (Fase 3: Leitura & Conteúdo)
-> **Categoria:** Leitura Digital / E-books / Ecossistema
-> **Tema:** 2004. Jeff Bezos chama Steve Kessel (chefe do negócio de livros FÍSICOS da Amazon) e dá uma ordem: *"Seu trabalho é DESTRUIR seu próprio negócio. Faça todos que vendem livros impressos ficarem DESEMPREGADOS."* Bezos tinha visto o iPod + iTunes DIZIMAR a indústria da música. Ele sabia: se a Amazon não canibalizasse seu próprio negócio de livros, ALGUÉM o faria. A Amazon cria secretamente o **Lab126** (o "A ao Z" da inovação). Um time de ~8 engenheiros. Palo Alto. Eles tinham UM objetivo: **fazer o dispositivo DESAPARECER durante a leitura.** "Quando lemos, não pensamos na cola, no papel, na costura. Só existe o mundo do autor." Em 19 de novembro de 2007, Bezos lança o **Kindle.** $399. 25.000 unidades em 5.5 HORAS. Esgotado por 6 MESES. Steve Jobs tinha ZOMBADO: "ninguém lê mais." Estava ERRADO. Hoje: 6M+ de títulos. 80%+ do mercado de e-books nos EUA. Whispersync. X-Ray. Word Wise. Audible. Goodreads. Esta é a história do dispositivo que NÃO era um tablet, NÃO era um telefone — era uma FOLHA DE PAPEL digital. E que transformou "ler" de "comprar um livro físico" para "baixar qualquer livro em 60 segundos."
+> **Loop:** 54 de ∞ (Reescrita)
+> **Categoria:** Leitura Digital / E-Ink / Plataforma de Conteúdo
 
 ---
 
-## 1. A Origem: O Medo de Bezos e o Lab Secreto
+## 0. Linhagem
 
-### O iPod Quase Destruiu a Música. Bezos Não Ia Deixar Acontecer Com Livros.
+```
+Papel — a tecnologia de leitura dominante por 2.000 anos. Reflexiva. Sem bateria.
+E-Ink (1997, MIT Media Lab) — Joseph Jacobson. Microcápsulas eletroforéticas. Bistável.
+Sony Librié (2004) — primeiro leitor E-Ink comercial. Japão apenas.
+Kindle 1 (2007) — E-Ink Vizplex, 167 PPI, teclado, US$ 399. Esgotou em 5,5 horas.
+Kindle hoje (2026) — Carta 1200. 300 PPI. Regal. Frontlight. KFX. 80%+ market share US.
+```
 
-- **2004**: Bezos VÊ o iPod + iTunes DEVASTAR a indústria da música. "Se a Amazon não fizer isso com livros, ALGUÉM fará."
-- **Steve Kessel**: "Seu trabalho é DESTRUIR seu próprio negócio."
-- **Lab126**: laboratório SECRETO. Palo Alto. ~8 engenheiros. Gregg Zehr (ex-Palm). Eles pediram um computador. Resposta: "Acho que tem um no armário."
-
-### A Visão: Fazer o Dispositivo DESAPARECER
-
-> *"All of us readers know that flow state when we read. We don't think about the glue, the paper, the stitching — all of that goes away. All that remains is the author's world."* — Jeff Bezos
-
-Por isso o Kindle usou:
-- **E Ink**: tinta ELETRÔNICA. Refletiva como papel. Legível no SOL. Quase ZERO consumo de bateria.
-- **Sem notificações.** Sem redes sociais. Sem Angry Birds. "Isso NÃO é um tablet."
-- **Whispernet**: 3G GRÁTIS. Baixar qualquer livro em MENOS DE 60 SEGUNDOS. Sem contrato.
-
-### 19 de Novembro de 2007: O Lançamento
-
-- $399. Teclado TORTO. Scroll wheel. Design "feio."
-- **25.000 unidades em 5.5 horas.** Esgotado por 6 MESES.
-- Steve Jobs (antes do lançamento): *"Isso é um produto sem esperança. Ninguém lê mais."*
-- A revista Wired depois: **"O iPod da leitura."**
+O Kindle não inventou E-Ink, e-books ou leitura digital. A Sony lançou o primeiro leitor E-Ink comercial três anos antes. Mas a Amazon fez o que nenhum concorrente conseguiu: integrou hardware subsidiado, a maior livraria do mundo e conectividade celular gratuita (Whispernet) em um produto que "simplesmente funcionava" — sem precisar de computador para baixar livros.
 
 ---
 
-## 2. A Filosofia: "O Dispositivo Desaparece. O Autor Aparece."
+## 1. Arquitetura Técnica
 
-### Os Pilares do Design
+### 1.1 A Física do E-Ink: Microcápsulas, Bistabilidade e o Problema do Ghosting
 
-| Pilar | Significado |
-|---|---|
-| **"Make it disappear"** | "O leitor NÃO pode pensar no dispositivo. Só no LIVRO." |
-| **Single-purpose** | NÃO é tablet. NÃO é telefone. É LEITURA. |
-| **E Ink > LCD** | Papel eletrônico. Sol? LEGÍVEL. Bateria? SEMANAS. |
-| **Whispersync** | Você lê no Kindle. Para. Abre o app no TELEFONE. Continua EXATAMENTE de onde parou. |
-| **Walled garden** | Só livros da Amazon. Mas a EXPERIÊNCIA é tão boa que ninguém RECLAMA. |
+A tela E-Ink opera por **eletroforese**: partículas carregadas suspensas em fluido movem-se sob campo elétrico. Cada pixel contém **microcápsulas de 10-50µm** com partículas brancas (carga positiva, TiO₂) e pretas (carga negativa, carbono) em fluido transparente, mantidas em binder polimérico sobre um **TFT backplane** que aplica ±15V.
 
-### O App Mobile (2024-2025): "Plataforma-Nativo"
+**Bistabilidade.** Diferentemente de LCDs que são transdutores de voltagem (estado depende da voltagem instantânea), displays eletroforéticos são **transdutores de impulso**: o estado final depende da integral de voltagem ao longo do tempo e do estado anterior. Uma vez que as partículas atingem a posição desejada, permanecem lá sem consumo de energia — a tela só gasta bateria ao virar a página. A condição de bistabilidade: o estado óptico persiste por ≥4× a duração mínima do pulso de endereçamento.
 
-O app do Kindle para iOS e Android NÃO tenta ser IGUAL. Cada versão segue o design NATIVO da plataforma:
-- iOS: gestos iOS. Android: Material Design.
-- "Familiaridade > Consistência." O usuário do iPhone NÃO quer um app com "cara de Android."
+**O problema do ghosting.** Quando partículas são movidas repetidamente, cargas residuais ("remnant voltage") ficam presas próximas aos eletrodos, criando campo elétrico residual que interfere na próxima atualização. Isso produz "ghost images" — resquícios da página anterior visíveis na página atual.
+
+**Regal Waveform Technology.** A solução proprietária da E Ink — mantida sob NDA estrito, com zero documentação pública — usa waveform de 3 fases:
+
+1. **Erase phase**: drive de todos os pixels para estado extremo uniforme (branco ou preto "rail") para eliminar imagem anterior
+2. **Shaking/Activation phase**: pulsos AC de polaridade alternada para aumentar mobilidade das partículas e reduzir efeitos de histórico (dwell-time dependence)
+3. **Drive phase**: pulso de amplitude ou duração variável para atingir o grayscale alvo. Usa **rail-stabilized approach**: reset para extremo com voltagem fixa alta (±VM), drive para alvo com voltagem variável mais baixa (±VD)
+
+**DC imbalance correction**: a carga líquida acumulada é trackeada por pixel. Waveforms são selecionadas de **look-up tables (LUTs)** que mapeiam transições entre estados de grayscale, com compensação por temperatura e dwell-time (tempo desde a última atualização). Sem DC balancing, displays degradam 10% em Dmin após 1.000 ciclos vs. 0% com balancing após 10.000.
+
+### 1.2 A Evolução do Hardware E-Ink
+
+| Geração | Ano | PPI | Contraste | Refresh | Console |
+|---|---|---|---|---|---|
+| Vizplex | 2007 | 167 | Baseline | Baseline | Kindle 1 |
+| Pearl | 2010 | 200 | +40% | = | Kindle 3 |
+| Carta | 2013 | 212 | +50% | = | Kindle Paperwhite 1 |
+| Carta HD | 2014 | 300 | ~ | ~ | Kindle Voyage |
+| Carta 1200 | 2021 | 300 | +15% | +20% | Paperwhite 11ª geração |
+
+**Frontlight (Paperwhite, 2012+)** : LEDs brancos na borda + light guide layer que distribui luz uniformemente sobre a superfície, projetada para baixo e refletida de volta — como luz ambiente refletida pelo papel. Warm light ajustável (Kindle Oasis 2019+).
+
+### 1.3 KFX: O Formato de Renderização Proprietário
+
+**KFX (Kindle Format 10, KF10)** , introduzido em agosto de 2015, é o formato de renderização mais avançado da Amazon. Diferentemente do KF8/AZW3 (baseado em HTML5/CSS3 compilado), o KFX é um container **Ion Binary** — formato de serialização hierárquica e auto-descritiva desenvolvido pela Amazon.
+
+**Estrutura do container KFX:**
+- **Signature (4 bytes)**: `"CONT"`
+- **Version (2 bytes)**: 1 ou 2
+- **Header length (4 bytes)**
+- **Container info**: Ion struct com `container_id`, `compression_type`, `drm_scheme`, `chunk_size`, `index_table_offset`
+- **Index table**: entradas com `id_idnum`, `type_idnum`, `entity_offset` (8 bytes), `entity_len` (8 bytes)
+- **Entities**: cada uma com signature `"ENTY"` e header próprio
+
+**Ion Binary Parser** (documentado via reverse engineering do DeDRM): `BinaryIonParser` com `SymbolTable` (mapeamento símbolo→string), Type Identifiers (TID), length codes (`LEN_IS_VAR_LEN = 0xE`, `LEN_IS_NULL = 0xF`).
+
+**Enhanced Typesetting Engine**: hyphenation automática (soft-hyphens), kerning, ligaduras. Fonte Bookerly exclusiva para E-Ink. Imagens em formato **JXR** (JPEG XR, maior compressão). O conteúdo é **pre-compilado**: o HTML/CSS original do publisher não é preservado; o texto é pré-renderizado em fragmentos binários otimizados para o dispositivo específico.
+
+**DRM: DRMION.** Arquivos com header `\xeaDRMION\xee` são criptografados com esquema baseado em **voucher** (licença). O voucher contém chaves de decriptação obfuscadas por tabela de versões (V1-V28 + versões especiais) com scrambling complexity e "magic word" por versão. O DeDRM reverte via `shuffle()`, `sbox()` (substitution box) e `mask()` (XOR). A migração de KF8 para KFX foi motivada tanto por melhorias tipográficas quanto pelo fato de o DRM do KF8 ter sido quebrado.
+
+### 1.4 Whispersync
+
+O **Whispersync** sincroniza posição de leitura, marcadores, destaques, anotações e último livro lido entre Kindle hardware, iOS, Android e Web. Arquitetura de **eventual consistency**: estado local em cada dispositivo (SQLite no Kindle, Core Data no iOS, IndexedDB no Web) → sync assíncrono com AWS quando Wi-Fi disponível → resolução de conflitos last-writer-wins por timestamp de servidor.
+
+**Whispersync for Voice**: integração Audible. Posição sincronizada entre ebook e audiobook — o áudio avança até onde você parou de ler; o ebook abre na página correspondente ao timestamp do áudio.
 
 ---
 
-## 3. As Inovações do Kindle
+## 2. Lições de Engenharia
 
-### 3.1 E Ink + Whispernet (2007)
+### 2.1 DC imbalance correction é a diferença entre um display que funciona por 10 anos e um que degrada em semanas
 
-Tinta eletrônica. SEM backlight (depois veio front-light). 3G GRÁTIS e VITALÍCIO. "Baixe qualquer livro em 60 segundos. Em qualquer lugar."
+Sem tracking de remnant voltage e DC-balanced waveforms, o acúmulo de cargas presas degrada o display exponencialmente. O fato de Kindles de 2012 ainda funcionarem perfeitamente em 2026 é testemunho da engenharia de waveform.
 
-### 3.2 Whispersync (2009): "Continue De Onde Parou"
+### 2.2 O formato KFX foi projetado tanto para Enhanced Typesetting quanto para DRM mais forte
 
-Leu 47% no Kindle. Abriu o app no iPhone. CONTINUA nos 47%. Em QUALQUER dispositivo.
+Hyphenation, kerning e ligaduras são melhorias reais. Mas a migração de KF8 (DRM quebrado) para KFX (Ion Binary + DRMION + voucher obfuscation) foi também uma resposta ao cracking. O conteúdo é pre-compilado em fragmentos binários — perdendo o markup original — o que torna archival e conversão mais difíceis.
 
-### 3.3 X-Ray (2011): "Quem É Esse Personagem Mesmo?"
+### 2.3 Vender hardware próximo ao custo é viável se o hardware é canal de vendas de conteúdo
 
-Pressione o nome de um personagem. O Kindle mostra: quem É, onde APARECEU antes, menções, timeline.
-
-### 3.4 Self-Publishing (Kindle Direct Publishing)
-
-Antes do Kindle, publicar um livro exigia EDITORA. Agora: escreva. Formate. Publique. EM 80.000 títulos (2006) para **800.000+** (2016).
+O Kindle é vendido perto do custo porque a Amazon ganha dinheiro com e-books — um leitor de Kindle compra 3-4× mais livros por ano do que antes. Mesmo modelo de consoles e impressoras: hardware é o canal, o lucro está no consumível.
 
 ---
 
-## 4. Ficha Técnica
+## 3. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | Kindle (dispositivo + app) |
-| **Lançamento** | 19 de novembro de 2007 |
-| **Criador** | Amazon (Jeff Bezos, Steve Kessel, Lab126) |
-| **Títulos** | 6M+ |
-| **Market share (US ebooks)** | 80%+ |
-| **Preço** | Dispositivo: $99-399. App: GRATUITO. |
-| **Concorrentes** | Kobo, Apple Books, Boox, Google Play Books |
+| **Nome** | Kindle (Amazon) |
+| **Lançamento** | 19 novembro 2007. Paperwhite: 2012 |
+| **Categoria** | Leitura Digital / E-Ink / Plataforma de Conteúdo |
+| **Tela** | E-Ink Carta 1200: microcápsulas 10-50µm, TFT ±15V, Regal 3-fase, 300 PPI, ~150ms refresh |
+| **Frontlight** | LEDs + light guide. Temperatura ajustável (2019+) |
+| **Bateria** | 2-8 semanas (bistabilidade: energia só ao virar página) |
+| **Formato** | KFX (KF10): Ion Binary, CONT signature, DRMION + voucher, Enhanced Typesetting (Bookerly, JXR) |
+| **Sync** | Whispersync: eventual consistency, LWW, Audible integration |
+| **Concorrentes** | Kobo (Rakuten), Nook (Barnes & Noble), iPad/Apple Books |
 
 ---
 
-## 5. Lições do Kindle
+## Fontes
 
-### 5.1 "Canibalize Seu Próprio Negócio Antes Que Outros o Façam"
-
-A Amazon VENDIA livros FÍSICOS. O Kindle CANIBALIZOU isso. Bezos ORDENOU a canibalização.
-
-**Lição**: se você não DESTRÓI seu próprio negócio, outro vem e DESTRÓI para você.
-
-### 5.2 "Faça o Dispositivo DESAPARECER"
-
-O Kindle NÃO compete com iPads. NÃO tem notificações. NÃO tem apps. "Quando você está lendo, o dispositivo NÃO EXISTE."
-
-**Lição**: o melhor hardware é aquele que você ESQUECE que está usando.
-
-### 5.3 "60 Segundos Para Baixar Um Livro" — Remova CADA Ponto de Fricção
-
-3G GRÁTIS embutido. SEM CONTRATO. "Pensou no livro? Em 60 segundos ele está NA SUA MÃO."
-
-**Lição**: elimine CADA obstáculo entre o DESEJO e a AÇÃO. Se o usuário tem que PENSAR em "como", ele DESISTE.
-
----
-
-## Fontes e Referências
-
-- [About Amazon — The inside story of how the Kindle was born](https://www.aboutamazon.com/news/devices/the-inside-story-of-how-the-kindle-was-born)
-- [The Guardian — Amazon's Kindle turns 10](https://amp.theguardian.com/books/2017/nov/13/amazons-kindle-turns-10-have-ebooks-clicked-with-you-yet)
-- [Pratt SID — Design Critiques: Amazon Kindle iOS App (2025)](https://ixd.prattsi.org/2025/09/design-critiques-amazon-kindle-ios-app/)
-- [eReadersForum — Why Kindles Continue to Dominate (2025)](https://www.ereadersforum.com/blog/why-kindles-continue-to-dominate-a-look-at-their-most-beloved-features/)
-- [About Amazon — 6 ways Kindle supports readers with disabilities (2024)](https://www.aboutamazon.com/news/books-and-authors/kindle-accessibility-features-for-all-readers)
+- [E Ink Holdings — Carta 1200 Electronic Ink Display Film (20% faster, 15% contrast)](https://tw.eink.com/brand/detail/carta1200)
+- [E Ink — US Patent 8,928,641: Methods for Driving Bistable Electro-Optic Displays (waveform, LUTs, DC balancing, shaking pulses)](https://www.freepatentsonline.com/7492339.html)
+- [E Ink — US Patent 2014/0300651 A1: Driving Bistable Displays (shaking signals, DC-balanced pulse trains, experimental data)](https://eureka.patsnap.com/patent-US20140300651A1)
+- [DeepWiki — KFX Format and Ion Parser (noDRM/DeDRM_tools): BinaryIonParser, SymbolTable, CONT signature, DRMION, voucher obfuscation](https://deepwiki.com/noDRM/DeDRM_tools/6.3-kfx-format-and-ion-parser)
+- [GitHub / Kavita — KFX Container Structure Reverse Engineering (CONT, ENTY, index table)](https://github.com/Kareadita/Kavita/discussions/3491)
+- [Docs.FileFormat.com — KFX File Format Overview](https://docs.fileformat.com/ebook/kfx/)
+- [Amazon — Whispersync for Voice and Kindle](https://www.amazon.com/whispersync)
+- [E Ink — ENHANCED PUSH-PULL (EPP) WAVEFORMS Patent (US20230206867A1, 2023): 4-particle ACeP™, 5+ voltage levels](https://www.freepatentsonline.com/y2023/0206867.html)

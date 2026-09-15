@@ -3,7 +3,7 @@
 > **Data:** 2026-07-02
 > **Loop:** 4 de ∞
 > **Categoria:** Mobilidade / Transporte / Marketplace
-> **Tema:** Dezembro de 2008. Paris. Travis Kalanick e Garrett Camp saem da conferência LeWeb e NÃO conseguem um táxi. Estão num frio congelante. Camp tem uma ideia: "e se você pudesse chamar um carro PRETO pelo iPhone, apertando UM botão?" Kalanick riu. 18 anos depois, a Uber está em 10.000+ cidades, 70 países, 180 milhões de usuários mensais, 11 bilhões de viagens por ano, market cap de $175 bilhões. No caminho, derrubou CEO, sobreviveu ao #deleteUber, queimou BILHÕES de dólares, e transformou o verbo "pegar um táxi" em "pedir um Uber." Esta é a história de como um app de botão ÚNICO reescreveu as regras da mobilidade urbana.
+> **Tema:** Dezembro de 2008. Paris. Travis Kalanick e Garrett Camp saem da conferência LeWeb e NÃO conseguem um táxi. Estão num frio congelante. Camp tem uma ideia: "e se você pudesse chamar um carro PRETO pelo iPhone, apertando UM botão?" Kalanick riu. 18 anos depois, a Uber está em 10.000+ cidades, 70 países, 202 milhões de consumidores mensais (MAPCs), 13.6 bilhões de viagens por ano, market cap de ~$150B. No caminho, derrubou CEO, sobreviveu ao #deleteUber, queimou BILHÕES de dólares, e transformou o verbo "pegar um táxi" em "pedir um Uber." Esta é a história de como um app de botão ÚNICO reescreveu as regras da mobilidade urbana.
 
 ---
 
@@ -22,7 +22,7 @@ UberX (2012): mais barato que táxi. O BIG BANG da disrupção.
       ↓
 Lyft (2012), Didi (China, 2012), Grab (SE Ásia, 2012), Ola (Índia, 2010)
       ↓
-Uber hoje (2026): Mobilidade, Eats, Freight. Super-app. Profitável.
+Uber hoje (2026): 202M consumidores mensais (MAPCs), 13.6B viagens/ano, $52B receita. Profitável (GAAP desde 2023). $193B em Gross Bookings. Super-app: Mobilidade, Delivery, Freight.
 ```
 
 O Uber não inventou o ride-hailing (havia rádio-táxi, limousine services, carona compartilhada). Mas inventou o ride-hailing QUE FUNCIONA — sem telefone, sem dinheiro, sem espera, sem incerteza. UM botão. E o carro APARECE.
@@ -126,13 +126,40 @@ Entrou no carro. Chegou ao destino. SAIU. Sem carteira. Sem máquina de cartão.
 - Eliminou a gorjeta forçada / "não tenho troco" / máquina quebrada.
 - Criou uma sensação de HOSPITALIDADE — você é um "convidado", não um "cliente."
 
-### 3.3 Surge Pricing (Preço Dinâmico, 2012)
+### 3.3 Surge Pricing (2012): A Física do Mercado em Tempo Real
 
-O Uber popularizou o preço dinâmico. Mais demanda que oferta? O preço SOBE. Mais motoristas entram na área. O preço DESCE.
+O Uber não inventou o preço dinâmico (hotéis e aviões fazem isso há décadas). Mas foi o PRIMEIRO a fazer preço dinâmico **em tempo real, hiperlocal e visível para o consumidor final** — e isso mudou tudo.
 
-**A lógica econômica é IMPECÁVEL:** o preço é um SINAL que equilibra oferta e demanda em tempo real.
+#### Como Funcionava (2012-2015): Zonas Desenhadas à Mão
 
-**O problema de PR:** usuários ODIAM. "Surge pricing" virou sinônimo de "Uber é ganancioso." Em desastres naturais, a PR foi CATASTRÓFICA.
+Pesquisadores da Northeastern University (Chen, Mislove & Wilson) fizeram engenharia reversa do algoritmo em 2015, criando 43 usuários virtuais em Manhattan e San Francisco:
+
+- Uber dividia cidades em **polígonos desenhados à mão** ("geosurge zones"). Manhattan tinha **16 zonas**; Boston, 9; Londres, 19.
+- Cada zona tinha seu próprio multiplicador de surge, atualizado a cada **3-5 minutos**.
+- Os limites eram ARBITRÁRIOS — na Times Square, **20% das vezes** o usuário podia economizar 50%+ andando para uma zona adjacente.
+- Correlação mais forte: diferença **supply − demand** e **estimated wait time**. Reação em tempo real (Δt=0).
+
+**O paper do apagão de surge (Hall, Kendrick & Nosko, 2015):** Na virada do ano de 2014 em NYC, um bug desligou o surge por 26 minutos. Resultado: pedidos de corrida **dobraram**, taxa de conclusão caiu para **<25%**, espera passou de 6-8 minutos. No show da Ariana Grande (com surge normal): oferta de motoristas **quase dobrou**, **100% de conclusão**, espera de ~2.6 min.
+
+#### As Crises de PR Que Quase Mataram a Empresa
+
+| Data | Evento | Surge | Desfecho |
+|---|---|---|---|
+| **Out 2012** | Furacão Sandy, NYC | 2× | Primeiro backlash. Uber arcou com ~$100K em prejuízo. |
+| **Dez 2013** | Tempestade de neve, NYC | **8×** ($415) | NY AG abriu investigação. |
+| **Dez 2014** | **Crise dos reféns em Sydney** | **4×** ($100 mínimo) | Uber defendeu o surge no Twitter durante o sequestro. Depois recuou, ofereceu rides grátis, pediu desculpas. Pior crise de PR da história. |
+| **Jan 2015** | Tempestade Juno, NYC | Cap em 2.8× | Acordo com NY AG: surge CAPADO em emergências. |
+| **Set 2016** | Bomba em Chelsea, NYC | Desligado em ~1h | Resposta rápida — mostrou aprendizado. |
+
+**O paradoxo do surge:** Economistas defendem — é sinalização eficiente de oferta/demanda. O público ODEIA — parece exploração. A pesquisa mostrou que o surge **redistribui motoristas** (+3.7% de novos carros), mas o efeito principal é realocação, não atração.
+
+#### A Evolução: De Multiplicador Para ML Pipeline
+
+**2016 — Upfront Pricing:** Preço fixo mostrado ANTES da corrida, dissociando o que o passageiro paga do que o motorista recebe. Rota-based pricing usa **modelos de ML que estimam disposição a pagar** — boosted decision trees, redes neurais, modelos lineares. Dois passageiros na mesma rota podem pagar valores diferentes.
+
+**2017 — Route-Based Pricing (Bloomberg):** O sistema aprendeu padrões de origem-destino. Um passageiro indo de um bairro rico para outro pagava MAIS que alguém indo para um bairro pobre — mesma distância, mesma demanda.
+
+**2025 — RL para Marketplace Balance:** DQN-inspired reinforcement learning em 400+ cidades. Aprende uma **função de valor** para estados de motoristas que é incorporada ao algoritmo de matching. Resultados: +0.52% ganhos dos motoristas, −2.2% cancelamentos. O surge virou **um input entre vários** em um sistema de ML multicamadas.
 
 ### 3.4 Avaliação Bidirecional (2012)
 
@@ -387,15 +414,15 @@ O Uber entendeu que seu app de 2010 foi projetado para UMA pessoa: o early adopt
 
 | Componente | Tecnologia | Por quê |
 |---|---|---|
-| **Backend core** | Java (JVM) — dispatch, matching, pricing | Escala, performance, ecossistema |
-| **Serviços de alta vazão** | Go | Geospatial, ETA, streaming |
-| **Fila de eventos** | Apache Kafka / Pulsar | Desacoplamento. Location updates, trip state, pricing. |
-| **Caching** | Redis | Posições recentes de motoristas (~5 seg). |
-| **Banco de dados** | MySQL (transacional), Cassandra (high-throughput), PostgreSQL | Polyglot persistence. |
-| **Orquestração** | Docker, Kubernetes | Microservices (2.200+). |
-| **Geospatial** | **H3** (hexagonal grid, open-source Uber), Google S2 | Indexação espacial em tempo real. |
+| **Backend core** | **Java** (JVM) — dispatch, matching, pricing | Substituiu Python em 2018. Type safety, ecossistema. |
+| **Serviços de alta vazão** | **Go** — geospatial, ETA, streaming, Schemaless | Adotado em 2016. Rewrite Python→Go ↓85% latência, ↓>85% CPU. |
+| **Arquitetura** | **DOMA** (Domain-Oriented Microservice Architecture) | ~2.200 microserviços (reduzidos de 4.000+). Cross-domain calls ↓60%, MTTR ↓40%. |
+| **Fila de eventos** | Apache Kafka | **8 trilhões de eventos/dia.** Clusters federados (~150 nodes). uReplicator cross-DC. |
+| **Caching** | Redis | **40+ milhões de reads/segundo.** Geospatial indexing em RAM. |
+| **Banco de dados** | Google Cloud **Spanner**, Schemaless (legado) | Polyglot persistence. Schemaless = append-only KV sobre MySQL. Migração → Spanner em 2021. |
+| **ML Platform** | **Michelangelo** (2015-2017) | 10.000 features no Feature Store. P95 <5ms. 14M predições/segundo (OCI). |
+| **Geospatial** | **H3** (hexagonal grid, open-source 2018), Google S2 | 16 resoluções hierárquicas. Res 15 = sub-meter. |
 | **Routing / ETA** | OSRM + motor proprietário | Tráfego real-time, map-matching. |
-| **Streaming** | WebSockets (driver ↔ server) | Bidirecional, baixa latência. |
 
 ### O Algoritmo de Dispatch (Matching)
 
@@ -408,12 +435,15 @@ O coração do Uber é o **dispatch engine**: dado um passageiro, encontrar o me
 2. **Filtragem**: tipo de veículo, nota do motorista, status, zona de surge.
 
 3. **Scoring** (para CADA candidato):
+   A fórmula linear do documento é uma **simplificação**. O sistema real é mais sofisticado:
    ```
-   Score = w1 × ETA + w2 × (1/AcceptanceRate) + w3 × DriverRating + w4 × TripEfficiency
+   expected_eta = p × driver_eta + (1-p) × (lapse_time + alternate_eta)
    ```
-   - **ETA** é o fator DOMINANTE.
-   - **AcceptanceRate** penaliza motoristas que recusam.
-   - **TripEfficiency** favorece destinos alinhados.
+   onde **p** = probabilidade de aceite do motorista prevista por **ML** (gradient boosted trees). Motoristas com baixa probabilidade de aceite são penalizados mesmo estando fisicamente próximos. (Patente US11158020B2)
+   
+   Esta fórmula de expected_eta é usada como input para o **Algoritmo Húngaro O(n³)**, que otimiza GLOBALMENTE a matriz de custo de todos os pares motorista×passageiro — não um scoring individual. Batch a cada 2-5 segundos.
+   
+   Desde 2017, uma **função de valor aprendida por RL** (DQN-inspired, 400+ cidades) é incorporada ao scoring para otimizar equilíbrio de marketplace de LONGO PRAZO, não só a corrida atual.
 
 4. **Dispatch**: melhor motorista recebe push notification + WebSocket. ~15 segundos para aceitar.
 
@@ -423,8 +453,10 @@ O coração do Uber é o **dispatch engine**: dado um passageiro, encontrar o me
 
 **Métricas-chave:**
 - Latência de matching: **<2 segundos.**
-- Taxa de sucesso: **99.99%.**
+- GPS updates: **a cada 4-5 segundos.**
+- Match success rate: **99.99%.**
 - Tempo médio de espera: **~3 minutos.**
+- Batch matching via **DISCO** (Dispatch Optimization). Algoritmo Húngaro sobre matriz de custo global.
 
 ### Por Que Hexágonos? (H3)
 

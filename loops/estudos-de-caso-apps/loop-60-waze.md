@@ -1,67 +1,84 @@
-# Estudo de Caso 60 — Waze: O App Que Transformou Motoristas em Sensores (E Foi Comprado Por $1.1B)
+# Estudo de Caso 60 — Waze: A Arquitetura Server-Side Routing Com A* Time-Dependent, Kafka + DBSCAN, RNN/LSTM Traffic Prediction e Community Map Editor
 
 > **Data:** 2026-07-03
-> **Loop:** 60 de ∞ (Fase 3: Navegação Comunitária)
-> **Categoria:** Navegação / Comunidade / Dados Crowdsourced
-> **Tema:** 2006. Ehud Shabtai — um engenheiro israelense — está FURIOSO com o trânsito. Radares. Engarrafamentos. Ele cria o **FreeMap Israel** — um projeto open-source para mapear Israel COMUNITARIAMENTE. Em 2008, ele e Uri Levine (ex-Unidade 8200, elite de inteligência israelense) fundam a **Waze.** O app NÃO TINHA mapas. Os PRIMEIROS usuários literalmente "PAVIMENTAVAM" as ruas dirigindo com o app aberto — um ícone de "rolo compressor" aparecia criando estradas atrás deles. Em 2012, a Apple lança o Apple Maps — um DESASTRE. Tim Cook pede DESCULPAS públicas e recomenda ALTERNATIVAS. Waze ganha 40% de downloads EM UM DIA. Em junho de 2013, o Google compra por **$1.1 BILHÃO.** 100 funcionários. ~$1.2M por cabeça. Hoje: 180M de MAUs, 500.000 editores voluntários de mapas. E uma pergunta que ATORMENTA: "o Google vai MATAR o Waze?" (Ainda não matou.) Esta é a história do app que provou que "motoristas são SENSORES" — e que comunidade + gamificação + GPS = $1.1 BILHÃO.
+> **Loop:** 60 de ∞ (Reescrita)
+> **Categoria:** Navegação / Crowdsourcing / Real-Time Data
 
 ---
 
-## 1. A Origem: Israel, Radares e um "Rolo Compressor" Virtual
+## 0. Linhagem
 
-### Os Fundadores
-
-| Fundador | Background |
-|---|---|
-| **Ehud Shabtai** | Engenheiro. Criou o FreeMap Israel (2006). |
-| **Uri Levine** | Ex-Unidade 8200. CEO (2008-09). Autor de *Fall in Love with the Problem.* |
-| **Amir Shinar** | Co-fundador. |
-
-### O Problema: Trânsito e Radares
-
-Shabtai estava CANSADO de radares de trânsito e engarrafamentos. Criou o **FreeMap Israel** — um projeto open-source. A comunidade dirigia com GPS ligado. Os DADOS construíam o mapa.
-
-### 2008: Waze Nasce
-
-O app NÃO TINHA mapas prontos. Os PRIMEIROS usuários literalmente CRIAVAM as ruas. Dirigiam com o app aberto. Um ícone de **"rolo compressor"** aparecia atrás do carro, "pavimentando" a estrada no mapa virtual.
-
-**Gamificação**: pontos, níveis, "moods" (emoji do motorista). "Baby Wazer" → "Waze Knight" → "Waze Royalty." Você SOBE de nível DIRIGINDO.
-
-### O Presente da Apple (2012)
-
-A Apple lançou o Apple Maps. Foi um DESASTRE. Tim Cook pediu DESCULPAS públicas e recomendou ALTERNATIVAS. Waze ganhou **40% de downloads em UM DIA.**
-
-### Google Compra (Junho de 2013)
-
-- **$1.1-1.3 BILHÃO.**
-- 100 funcionários. Média de **$1.2M por cabeça.**
-- Waze CONTINUOU operando como entidade separada dentro do Google.
-- Em 2023: sistemas de anúncios se fundiram com o Google Ads.
+```
+Mapas de papel — estáticos. Sem tráfego. Sem rerouting.
+GPS dedicado (Garmin, TomTom) — routing offline. Sem crowdsourcing.
+Google Maps (2005) — navegação. Dados históricos + satélite.
+Waze (2008, Israel) — crowdsourced. Real-time. Community map editing. Google (2013).
+Waze hoje (2026) — arquitetura distinta do Google Maps. Cloud-only. 2,4× mais reports/dia.
+```
 
 ---
 
-## 2. A Filosofia: "Usability, Simplicity, Retention"
+## 1. Arquitetura Técnica
 
-### Os 3 Princípios
+### 1.1 Server-Side Routing Com A* Time-Dependent
 
-| Princípio | Significado |
-|---|---|
-| **Usability** | Rotas PRECISAS. Instruções CLARAS. |
-| **Simplicity** | KISS: "Tão simples quanto possível, tão complexo quanto NECESSÁRIO." |
-| **Retention** | Gamificação: pontos, níveis, moods. Você VOLTA porque quer SUBIR de nível. |
+Diferentemente do Google Maps (offline vector tiles + on-device routing), o Waze é **cloud-native e server-dependent**. Toda rota é calculada no servidor; o cliente só tem fallback routing offline.
 
-### "Motoristas São Sensores"
+**Algoritmo**: A* com edge weights time-dependent. Cada segmento de estrada tem peso baseado em: real-time speed data de GPS probes, **historical speed data** em janelas de 10-15 minutos, e **turn delay tracking** — o tempo de travessia é separado por direção de saída (virar à esquerda vs. direita vs. reto), evitando que congestionamento de uma direção penalize incorretamente o tráfego que segue reto.
 
-- **Passive crowdsourcing**: só de DIRIGIR com o Waze aberto, você já contribui com velocidade e tráfego.
-- **Active crowdsourcing**: reportar acidente, polícia, perigo, buraco. Um TOQUE.
-- **500.000 editores voluntários** de mapas.
-- **Connected Citizens Program**: 600+ cidades e agências compartilham dados de trânsito.
+**Junction penalty**: 5 segundos para novas estradas sem dados reais. Cai assim que dados de direção real se acumulam. **Route caching**: rotas frequentes cacheadas. Se conhece B→C e você pede A→C, calcula A→B e concatena. Live Map updates podem levar até 24 horas.
 
-### Rebrand Pentagram (2024-2025): "Block by Block"
+**Rerouting agressivo**: recalcula automaticamente quando tráfego aumenta ~15% acima do esperado — sem perguntar ao usuário. Google Maps sugere a ~25% e requer tap.
 
-- Design inspirado em GRADE de cidades. Modular. Blocos.
-- **30 novos "Moods"** — baseados em pesquisa com 13.000 motoristas.
-- Fonte **"Boing"** (A2 Type): cantos arredondados, amigável.
+### 1.2 Kafka + DBSCAN Para Crowdsourcing Pipeline
+
+- **Kafka-based event streaming** processa incident reports (acidentes, polícia, hazards, road closures)
+- **Geospatial clustering (DBSCAN)** agrupa múltiplos reports do mesmo incidente no espaço/tempo
+- **Vector-based map matching** para precisão de posição GPS
+- Dados de velocidade de **GPS probes** como input primário para tempo de travessia
+- **Sub-10 segundo reroute latency**
+- **Protocol Buffers** como formato de dados
+- **Feedback loop**: reports são confirmados/refutados por usuários subsequentes. Condições de estrada atualizadas em minutos
+
+### 1.3 ML Para Predição de Tráfego e ETA
+
+- **RNNs e LSTMs** para dependências sequenciais em dados de tráfego
+- **Graph-based neural networks** + **spatiotemporal embeddings** para encoding da rede viária
+- **Hybrid framework**: dados históricos (baseline) + dados real-time (adaptativo). Spatial features: classificação de estradas, densidade de interseções, speed limits, elevação. Temporal features: hora, dia da semana, sazonalidade, eventos
+- **Cloud-based ML inference** (Google Maps usa TensorFlow Lite on-device)
+
+### 1.4 Community Map Editor (WME)
+
+**Segment-based road model**: estradas divididas em segmentos entre junções. Mínimo 5m. **Elevation layers**: túneis com atributo `-1`. **Turn restrictions**: editores configuram viradas permitidas/restritas. **Waze Beacons**: dispositivos Bluetooth em túneis para localização quando GPS indisponível.
+
+**NCDOT integration (2022-2024)** : 36.000+ road closure incidents automatizados via feed JSON/XML. Waze Reverse Geocoding API para road name matching. Voluntários como QA layer.
+
+### 1.5 Waze vs Google Maps: Arquiteturas Distintas
+
+| Dimensão | Waze | Google Maps |
+|---|---|---|
+| Routing | Server-side A* | On-device + server fallback |
+| Rerouting | Auto (~15%) | Sugestão (~25%, tap) |
+| ML | Cloud RNN/LSTM | On-device TensorFlow Lite |
+| Offline | Zero (cloud-only) | Full vector tiles |
+| Dados | Apenas crowdsourced | Histórico + satélite + crowd |
+| Reports/dia | 2,4× mais | Menos, com sensor fusion |
+
+---
+
+## 2. Lições de Engenharia
+
+### 2.1 Server-side routing permite iteração de algoritmo sem update de cliente
+
+Cada melhoria no A* time-dependent é deployada no servidor e disponível para todos os usuários instantaneamente. Google Maps precisa de update de app.
+
+### 2.2 DBSCAN clustering resolve N reports do mesmo incidente
+
+Múltiplos usuários reportando o mesmo acidente geram N eventos. Geospatial clustering agrupa reports próximos em um incidente verificado, reduzindo ruído.
+
+### 2.3 Turn delay tracking por direção de saída é a feature mais subestimada
+
+Separar tempo de travessia por direção evita que congestionamento de uma direção contamine as outras. Segmentos curtos demais quebram esse tracking.
 
 ---
 
@@ -69,43 +86,20 @@ A Apple lançou o Apple Maps. Foi um DESASTRE. Tim Cook pediu DESCULPAS pública
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | Waze |
-| **Fundação** | 2008 (Israel). |
-| **Fundadores** | Ehud Shabtai, Uri Levine, Amir Shinar |
-| **Aquisição** | Google, junho de 2013. $1.1B. |
-| **MAUs** | 180M+ |
-| **Editores voluntários** | 500.000+ |
-| **Preço** | Gratuito. Receita: Waze Ads (publicidade local). |
-| **Concorrentes** | Google Maps, Apple Maps, HERE Maps |
+| **Nome** | Waze (Google) |
+| **Fundação** | 2008 (Israel). Google: 2013 (US$ 1,1B) |
+| **Categoria** | Navegação / Crowdsourcing / Real-Time |
+| **Routing** | Server-side A* time-dependent. Reroute <10s. Junction penalty 5s |
+| **Pipeline** | Kafka + DBSCAN + vector map matching. Protobuf |
+| **ML** | RNN/LSTM + GNN + spatiotemporal embeddings. Cloud-based |
+| **Map Editor** | Segment-based. Community volunteers. Beacons Bluetooth |
+| **Concorrentes** | Google Maps, Apple Maps, TomTom |
 
 ---
 
-## 4. Lições do Waze
+## Fontes
 
-### 4.1 "Seus Usuários PODEM Construir Seu Mapa"
-
-O Waze NÃO TINHA mapas. Os USUÁRIOS construíram. Dirigindo. De GRAÇA. 500.000 editores voluntários até hoje.
-
-**Lição**: sua comunidade pode CONSTRUIR o ativo mais valioso do seu produto. Você só precisa dar as FERRAMENTAS.
-
-### 4.2 "O Desastre do Concorrente É Sua MELHOR Campanha de Marketing"
-
-A Apple lançou o Apple Maps. Foi um FRACASSO. Tim Cook pediu DESCULPAS. Waze ganhou 40% de downloads em 1 DIA.
-
-**Lição**: esteja PRONTO quando o concorrente TROPEÇAR. O tropeço dele é seu CRESCIMENTO.
-
-### 4.3 "Gamificação Pode Construir InfraestrutURA"
-
-Pontos, níveis, moods. As pessoas DIRIGEM mais, REPORTAM mais, EDITAM mais — para GANHAR pontos. Isso construiu o MELHOR dataset de tráfego em tempo real do mundo.
-
-**Lição**: gamificação não é "divertida." É INFRAESTRUTURA. Ela MOTIVA a contribuição que CONSTRÓI seu produto.
-
----
-
-## Fontes e Referências
-
-- [NFX — The Insider Story of Waze](https://www.nfx.com/post/the-insider-story-of-waze)
-- [Wikipedia — Waze](https://en.wikipedia.org/wiki/Waze)
-- [Pentagram — Waze Brand Identity (2024-2025)](https://www.pentagram.com/work/waze)
-- [Google Support — About Waze (2025)](https://support.google.com/waze/answer/6071177)
-- [PCMag — Waze Review (2025)](https://uk.pcmag.com/gps-navigation/131284/waze)
+- [Waze Discuss — Routing Server (community documentation, algorithm details)](https://www.waze.com/discuss/t/routing-server/379517)
+- [NCDOT STIC Final Report — Automating Waze Road Closures (36K incidents, JSON/XML feed, 2022-2024)](https://connect.ncdot.gov/groups/NCSTIC/STIC%20Projects/STIC%20Incentive%20Final%20Report%20-%20Automating%20Waze%20Road%20Closures.pdf)
+- [HAL Science / PeerJ 2024 — ETA Prediction Survey (RNN/LSTM, GNN, hybrid framework)](https://hal.science/hal-05314114v1/file/peerj-cs-3259.pdf)
+- [News.lavx.hu — Waze vs. Google Maps: Technical Deep Dive (2024)](https://news.lavx.hu/article/waze-vs-google-maps-technical-deep-dive-into-navigation-algorithms-and-features)

@@ -1,99 +1,91 @@
-# Estudo de Caso 51 — Fortnite: O Jogo Que Deixou de Ser Jogo (E Virou Plataforma, Palco e Campo de Batalha Jurídico)
+# Estudo de Caso 51 — Fortnite: O Unreal Engine Como Plataforma Social, UEFN Com Verse (Linguagem Funcional, Software Transactional Memory), Creator Economy 2.0 e o Caminho Para UE6
 
 > **Data:** 2026-07-03
-> **Loop:** 51 de ∞ (Fase 3: Gaming & Metaverso)
-> **Categoria:** Gaming / Plataforma / Live Events / Creator Economy
-> **Tema:** 2011. Tim Sweeney — o programador que fundou a Epic Games no porão dos pais em 1991 — anuncia um jogo de sobrevivência cooperativa. **Fortnite.** O desenvolvimento é um CAOS. Quase cancelado MÚLTIPLAS vezes. Em julho de 2017, finalmente lança como early access PAGO. Mas em setembro de 2017, a Epic faz um PIVOT de 2 MESES: copia o battle royale do PUBG (que RODAVA no Unreal Engine da Epic!) e lança **Fortnite Battle Royale.** GRÁTIS. O resto é história: 800M+ contas, pico de $372M/mês, $26B+ em receita vitalícia. Travis Scott fez um SHOW VIRTUAL para 45M de pessoas. A Marvel trouxe o Galactus. A Disney investiu $1.5B. Mas em 2020, Sweeney fez algo que NENHUM desenvolvedor de games ousou: **processou a Apple.** Tirou Fortnite da App Store. Lançou o #FreeFortnite. "A taxa de 30% é um IMPOSTO sobre a internet." Esta é a história do jogo que NÃO é mais um jogo — é uma PLATAFORMA de criação, um PALCO de shows, e um CAMPO DE BATALHA jurídico que redefiniu a economia dos apps.
+> **Loop:** 51 de ∞ (Reescrita)
+> **Categoria:** Gaming / Plataforma / Creator Economy
 
 ---
 
-## 1. A Origem: Porão dos Pais, Unreal Engine e um Pivot de 2 Meses
+## 0. Linhagem
 
-### Tim Sweeney: O Programador Que Virou Bilionário
+```
+Unreal Engine (1998) — motor de jogo licenciado. Quake, depois Gears of War.
+Fortnite (2017) — Save the World → Battle Royale. Free-to-play. 400M+ registrados.
+UEFN (2023) — Unreal Editor for Fortnite. UE5. Verse. Creator Economy 2.0.
+Fortnite hoje (2026) — US$ 722M pagos a criadores. 260K islands. UE6 no horizonte.
+```
 
-- **1991**: fundou a **Potomac Computer Systems** no porão dos pais. 21 anos.
-- **1998**: **Unreal.** O jogo. O ENGINE. O engine virou o NEGÓCIO.
-- **2012**: Tencent compra 40% por $330M. "Games as a service."
-- **2017 (julho)** : Fortnite: Save the World. Pago. Sucesso MODERADO.
-- **2017 (setembro)** : **PIVOT DE 2 MESES.** Battle Royale. GRÁTIS.
+---
 
-> *"The advent of this multiplayer game can be perceived as a particularly serendipitous event."*
+## 1. Arquitetura Técnica
 
-O battle royale do Fortnite nasceu porque o PUBG EXPLODIU — e o PUBG RODAVA no Unreal Engine da Epic. A Epic PEGOU o motor que tinha LICENCIADO para o PUBG... e fez um CONCORRENTE.
+### 1.1 Unreal Engine Como Fundação
 
-### Os Números
+Fortnite é construído sobre o **Unreal Engine 5** — o mesmo motor usado por The Witcher 4, Final Fantasy VII Remake e centenas de jogos AAA. Isso dá à Epic uma vantagem estrutural: cada otimização no UE5 para Fortnite (streaming de mundo aberto, latência de rede, suporte a novas plataformas) beneficia todo o ecossistema UE5. O ciclo reverso também funciona: inovações de licenciados UE5 fluem para Fortnite.
 
-| Métrica | Valor |
+### 1.2 Verse: A Linguagem de Programação da Plataforma
+
+**Verse** é a linguagem customizada da Epic para UEFN, com propriedades que a diferenciam de Lua (Roblox) e C# (Unity):
+
+- **Software Transactional Memory**: execução paralela segura sem código multithreaded frágil. Transações atômicas que podem ser compostas.
+- **Determinístico e imutável**: mesmo input sempre produz mesmo output — crítico para sync multiplayer.
+- **Paradigma funcional/lógico**: usa expressões `fail`/`succeed` em vez de booleanos tradicionais. Falha é propagada para cima; sucesso continua execução.
+- **Live updates**: editar/testar sem ciclos longos de compilação.
+- **Escalabilidade**: visão de 15M+ jogadores concorrentes em um mundo persistente.
+
+**UE6**: Verse se tornará parte do core do Unreal Engine 6 (~2027). "Write once, deploy across Fortnite and standalone ecosystems." Blueprint pode ser gradualmente depreciado em favor de Verse + Scene Graph.
+
+### 1.3 Creator Economy 2.0
+
+**US$ 722 milhões** pagos a criadores desde o lançamento do UEFN. **260.000+ islands**. 11,2 bilhões de horas jogadas em conteúdo de criadores.
+
+**Revenue split (in-island transactions, dez 2025)**: 100% para criador até jan 2027 (~74% efetivo após platform fees); 50% após (~37% efetivo). Compare com Roblox: ~25%.
+
+**Engagement payout atualizado (v38.00)**: User Acquisition Rewards — criadores ganham 75% da contribuição de novos jogadores ao engagement pool por 6 meses. Sponsored Row: leilão de posições no Discover; 100% da receita de ads volta ao engagement pool.
+
+### 1.4 Cross-Platform e Eventos Ao Vivo
+
+O Fortnite foi o primeiro jogo AAA a implementar cross-play completo entre PC, Mac, PlayStation, Xbox, Switch e mobile. Progressão unificada via Epic account. Servidores dedicados AWS. Sistema de replay que grava inputs e eventos do motor (não vídeo), permitindo re-renderização em qualquer ângulo/resolução.
+
+**Eventos ao vivo**: Marshmello (10,7M CCU, 2019), Travis Scott (12,3M, 2020). Não são vídeos — são experiências interativas 3D onde cada jogador experimenta o evento de um ângulo diferente, com liberdade de movimento.
+
+---
+
+## 2. Lições de Engenharia
+
+### 2.1 Seu motor de jogo e seu jogo devem compartilhar código
+
+Fortnite é o laboratório de P&D do UE5. Cada otimização beneficia ambos. É uma vantagem que nenhum concorrente replica sem construir seu próprio motor.
+
+### 2.2 Verse + Scene Graph é a aposta de arquitetura de software mais ambiciosa em gaming
+
+STM, determinismo, paradigma funcional/lógico — Verse não é apenas uma linguagem de script. É uma aposta em resolver o problema de concorrência em mundos virtuais massivos.
+
+### 2.3 100% revenue share para criadores é uma estratégia de aquisição de ecossistema
+
+A Epic está subsidiando criadores para construir o catálogo de conteúdo que torna UEFN competitivo com Roblox. A taxa cai para 50% em 2027 — mas até lá, o ecossistema já estará estabelecido.
+
+---
+
+## 3. Ficha Técnica
+
+| Atributo | Valor |
 |---|---|
-| **Contas** | 800M+ |
-| **Receita vitalícia** | $26B+ |
-| **Pico mensal** | $372M (dez/2017) |
-| **Travis Scott** | 45M de viewers |
-| **Disney investment** | $1.5B |
-| **Epic valuation** | $31.5B |
-| **Pago a criadores** | $722M em 24 meses |
+| **Nome** | Fortnite (Epic Games) |
+| **Lançamento** | 2017 (Save the World). Set 2017 (Battle Royale) |
+| **Fundador** | Tim Sweeney (CEO Epic Games) |
+| **Categoria** | Battle Royale / Plataforma / Creator Economy |
+| **Motor** | Unreal Engine 5. UE6 ~2027 |
+| **Linguagem** | Verse: STM, determinístico, funcional/lógico, live updates |
+| **Creator Economy** | US$ 722M pagos. 260K+ islands. Revenue share: 100% até 2027, 50% após |
+| **Concorrentes** | Roblox, Minecraft, Fortnite Creative |
 
 ---
 
-## 2. A Filosofia: "Cosmético, Não Poder"
+## Fontes
 
-### O Modelo de Monetização Que MUDOU a Indústria
-
-| O Que Fortnite FAZ | O Que Fortnite NUNCA Fez |
-|---|---|
-| Skins, emotes, gliders. COSMÉTICOS. | Pay-to-win. Armas melhores? NUNCA. |
-| Battle Pass sazonal. $8-10. | Loot boxes. Sweeney: "Isso é VÍCIO." |
-| FOMO POSITIVO. "Compre AGORA ou NUNCA MAIS." | Poder comprável. "Skill > dinheiro." |
-| **$1.5M/dia** em microtransações. | |
-
-> *"Players want to pay for SELF-EXPRESSION, not for power."* — Tim Sweeney
-
-### "Fortnite É Um LUGAR, Não Um JOGO"
-
-Saxs Persson (EVP da Epic): *"Fortnite is a place you go to have fun with your friends. WHAT you do there? That's not really up to us anymore."*
-
-- **Creative Mode + UEFN** (Unreal Editor for Fortnite): criadores constroem MUNDOS.
-- **Engagement-based payouts**: $722M pagos a criadores. Sem "walled gardens."
-- **Disney investiu $1.5B** para construir um universo de entretenimento DENTRO do Fortnite.
-
----
-
-## 3. O Duelo Com a Apple (2020-2025)
-
-Em agosto de 2020, a Epic fez o IMPENSÁVEL: **introduziu um sistema de pagamento DIRETO no Fortnite mobile. BURLANDO a taxa de 30% da Apple.**
-
-A Apple BANIU Fortnite da App Store. A Epic lançou o **#FreeFortnite.** Processou a Apple por antitruste. O case foi o MAIOR julgamento antitruste da era digital.
-
-Resultado: derrota em 9 de 10 acusações. Mas VITÓRIA SIMBÓLICA: forçou a Apple a permitir links para pagamentos externos. O debate sobre a "Apple tax" de 30% NUNCA mais foi o mesmo.
-
----
-
-## 4. Lições do Fortnite
-
-### 4.1 "Pivot de 2 Meses" — Velocidade MATA
-
-A Epic fez o battle royale em **2 MESES.** Copiou o PUBG. Lançou GRÁTIS. O original (Save the World) era PAGO. O pivot virou $26 BILHÕES.
-
-**Lição**: se você vê uma ONDA (PUBG), NÃO espere 2 anos para surfar. Faça em 2 MESES.
-
-### 4.2 "Cosmético, Não Poder" — Monetização SEM Pay-to-Win
-
-Fortnite provou que COSMÉTICOS podem gerar $26 bilhões. SEM vender poder. SEM loot boxes.
-
-**Lição**: jogadores QUEREM pagar. Mas querem pagar por EXPRESSÃO, não por VANTAGEM.
-
-### 4.3 "Processar a Apple" — O Tiro Que Mudou a Economia dos Apps
-
-A Epic PERDEU 9 de 10 acusações. Mas MUDOU o debate. A "taxa de 30%" da Apple NUNCA mais foi inquestionável.
-
-**Lição**: às vezes você PERDE no tribunal. Mas GANHA na opinião pública. E isso ABRE o mercado.
-
----
-
-## Fontes e Referências
-
-- [News & Observer — Open Source: Fortnite created in Cary, NC (2024)](https://www.newsobserver.com/news/business/article294098479.html)
-- [Digiday — Tim Sweeney hopes to outbuild YouTube, outmaneuver Apple (2025)](https://digiday.com/media/epic-games-ceo-tim-sweeney-hopes-to-outbuild-youtube-outmaneuver-apple-and-outlast-the-metaverse-hype/)
-- [Yahoo Tech — Fortnite's future: AI tools and big ideas (2025)](https://tech.yahoo.com/gaming/articles/fortnites-future-ai-tools-big-090000654.html)
-- [StudioKrew — How Fortnite Changed the Game Industry (2025)](https://studiokrew.com/blog/how-fortnite-changed-the-game-industry/)
-- [GamesIndustry.biz — Sweeney: Fortnite engine improvements (2018)](https://www.gamesindustry.biz/sweeney-fortnite-engine-improvements-will-benefit-more-than-battle-royale-bandwagon)
+- [Epic Games — UEFN Documentation, Verse Language](https://dev.epicgames.com/documentation/fortnite)
+- [GEEIQ — Fortnite's new creator tools (2025)](https://geeiq.com/fortnites-new-creator-tools-key-takeaways-for-brands/)
+- [Fortnite — In-Island Transactions Tools (2025)](https://www.fortnite.com/news/tools-for-in-island-transactions-now-available-to-fortnite-developers)
+- [The Creative Blok — UEFN v38.00 Update (Verse UI, Tycoon, Monetization)](https://thecreativeblok.com/uefn-v38-00-update-verse-powered-ui-tycoon-systems-monetization-rewards/)
+- [Sequence Labs — Unreal Engine 6 (Verse, Blueprint deprecation, cross-game)](https://labs.sequence.xyz/unreal-engine-6-upcoming-opportunity-for-ecosystems-web3-monetization/)

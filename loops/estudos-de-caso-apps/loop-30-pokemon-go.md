@@ -1,103 +1,100 @@
-# Estudo de Caso 30 — Pokémon GO: O Jogo Que Mapeou o Mundo em 3D Enquanto Você Caçava Pikachu
+# Estudo de Caso 30 — Pokémon GO / Niantic: O Lightship VPS Com Pipeline de Reconstrução 3D em 5 Estágios (Splitting→Mapping→Connected Components→Dense 3D Many-Depth→Semantics 20 Classes), o LGM de 150 Trilhões de Parâmetros (50M Redes Neurais) e o Pivot Para Plataforma Espacial (Scopely US$ 3,5B)
 
 > **Data:** 2026-07-03
-> **Loop:** 30 de ∞ (Reescrita — Fase 2)
-> **Categoria:** AR / Gaming / Infraestrutura Geoespacial
-> **Tema:** 2010. John Hanke — o homem que fundou a Keyhole (adquirida pelo Google em 2004 e transformada em Google Earth) — convence Larry Page a deixá-lo montar um grupo interno no Google explorando a interseção de mapas, telefones celulares e jogos. O grupo se chama Niantic Labs, nome de um navio baleeiro que encalhou em San Francisco durante a Corrida do Ouro de 1849 e foi soterrado — uma metáfora para a ideia de que "há coisas incríveis escondidas sob a superfície". O primeiro produto da Niantic é o Field Trip (2011), um app que notifica o usuário sobre pontos históricos próximos — interessante, mas não viral. O segundo é o Ingress (2012), um jogo de realidade aumentada onde jogadores visitam locais físicos para capturar portais. O Ingress acumula 15 milhões de downloads e, crucialmente, 5 milhões de localizações submetidas por usuários — um banco de dados geoespacial que se tornaria a infraestrutura do Pokémon GO. Em 1º de abril de 2014, o Google Maps publica um vídeo de April Fools' mostrando pessoas caçando Pokémon no Google Maps. O vídeo tem 18 milhões de visualizações. Tsunekazu Ishihara, CEO da The Pokémon Company, é um jogador de Ingress nível 11 que joga com a esposa todos os dias. Ele assiste ao vídeo. Hanke assiste ao vídeo. A reunião entre Niantic e The Pokémon Company parece "inevitável". Em agosto de 2015, a Niantic se separa do Google. Google, Nintendo e The Pokémon Company investem US$ 20 milhões. Em 6 de julho de 2016, o Pokémon GO é lançado. Em um mês, fatura US$ 200 milhões. Os servidores caem repetidamente. O mundo para.
+> **Loop:** 30 de ∞ (Reescrita)
+> **Categoria:** AR / Infraestrutura Geoespacial / 3D Computer Vision
 
 ---
 
-## 0. A Linhagem: Como Um Mapa Virtual do Mundo Real se Tornou o Tabuleiro de Jogo Mais Valioso Já Construído
+## 0. Linhagem
 
 ```
-Google Earth/Keyhole (2001-2005): imagens de satélite. Visualização. Passivo.
-      ↓
-Field Trip (2011): notificações baseadas em localização. Interessante, não viral.
-      ↓
-Ingress (2012): jogo AR. Portais em locais reais. 5M de pontos submetidos por usuários.
-      ↓
-Pokémon GO (2016): Ingress + Pokémon + timing perfeito. Fenômeno global.
-      ↓
-Niantic Lightship (2021-): plataforma de AR para desenvolvedores. VPS.
-      ↓
-Large Geospatial Model (2024): AI espacial treinada em bilhões de imagens de pedestres.
+Keyhole (2001) → Google Earth (2004). Niantic Labs (2010) dentro do Google.
+Ingress (2012) — 15M downloads. 5M POIs submetidos. O banco de dados geoespacial.
+Pokémon GO (2016) — o maior mecanismo de coleta de dados geoespaciais disfarçado de jogo.
+Niantic Spatial (2024-2025) — pivot para plataforma. Games vendidos para Scopely (US$ 3,5B).
 ```
 
-Pokémon GO não foi um jogo que deu certo. Foi uma infraestrutura — cinco anos de dados geoespaciais coletados por jogadores de Ingress — que encontrou a propriedade intelectual certa no momento em que smartphones tinham capacidade de processamento suficiente para AR. O jogo era a camada visível. O mapa era o ativo.
+O Pokémon GO não é um jogo — é o maior mecanismo de coleta de dados geoespaciais do mundo, disfarçado de entretenimento. Cada jogador que aponta a câmera para uma igreja, estátua ou parque está gerando scans 3D que alimentam a infraestrutura de posicionamento visual que a Niantic está construindo.
 
 ---
 
-## 1. A Origem: Google Earth, April Fools' e Um CEO Que Jogava Ingress
+## 1. Arquitetura Técnica
 
-John Hanke não era um desenvolvedor de jogos. Era um construtor de mapas. Sua empresa Keyhole — cujo nome era uma referência aos satélites espiões KH da Guerra Fria — havia sido financiada em parte pela In-Q-Tel, o braço de venture capital da CIA. Quando o Google adquiriu a Keyhole em 2004, o Earth Viewer se tornou Google Earth. Hanke passou seis anos dentro do Google gerenciando as divisões de Maps e Earth, crescendo a equipe de trinta para mais de mil pessoas.
+### 1.1 Lightship VPS: Posicionamento Visual Centimétrico
 
-Em 2010, ele estava inquieto. Larry Page deu permissão para um experimento: um pequeno grupo dentro do Google explorando mapas, celulares e jogos. O nome Niantic veio de uma placa que Hanke viu em San Francisco — Niantic era um navio baleeiro que encalhou durante a Corrida do Ouro. Sobreviveu como armazém e hotel. Quando queimou, foi soterrado. Anos depois, arqueólogos escavaram o local. O navio estava lá o tempo todo, debaixo da cidade. A metáfora era perfeita: há camadas de história e significado sob cada ponto do mundo físico. O trabalho da Niantic era revelá-las.
+O **Visual Positioning System (VPS)** determina a pose 6-DoF (posição + orientação) de um dispositivo com **precisão centimétrica** usando apenas a câmera do smartphone. GPS: erro de 5-15m. VPS: erro de centímetros. A diferença é a diferença entre "o Pokémon está em algum lugar nesta rua" e "o Pokémon está exatamente neste degrau da escada."
 
-O Ingress foi o laboratório. Dois times — Enlightened e Resistance — disputando portais em locais reais. Jogadores precisavam estar fisicamente presentes em um local para capturá-lo. O jogo não era um sucesso comercial massivo, mas construiu dois ativos extraordinários: uma comunidade de jogadores dispostos a viajar para lugares aleatórios para capturar pontos virtuais, e um banco de dados de 5 milhões de portais — submetidos pelos próprios jogadores, verificados por outros jogadores, cobrindo o planeta inteiro. Cada portal tinha coordenadas GPS, foto, descrição e categoria.
+**Escala**: 10 milhões de localizações escaneadas, **1 milhão ativadas** em produção. ~1 milhão de novos scans por semana. Cobertura densa em San Francisco, Los Angeles, Seattle, Nova York, Londres, Tóquio. ~250 milhões de pessoas a menos de 5 minutos de caminhada de uma localização VPS-ativada.
 
-Em 1º de abril de 2014, Tatsuo Nomura — um engenheiro do Google Maps — publicou um vídeo de April Fools' mostrando um "Pokémon Challenge" no Google Maps. Dezoito milhões de visualizações. A piada revelou uma demanda real. Hanke e Nomura começaram a explorar a ideia seriamente. A reunião com Ishihara foi decisiva. Ishihara era um jogador de Ingress — nível 11, jogava diariamente, conhecia o produto melhor que a maioria dos funcionários da Niantic. Ele entendeu imediatamente o potencial. O acordo foi assinado.
+### 1.2 O Pipeline de Reconstrução 3D em 5 Estágios
 
-Quando a Niantic se separou do Google em agosto de 2015 — o Alphabet estava reorganizando a empresa e a Niantic não se encaixava em nenhuma unidade de negócios — Hanke escolheu investidores estratégicos em vez de VCs. Google, Nintendo e The Pokémon Company investiram US$ 20 milhões. Andreessen Horowitz e Kleiner Perkins avaliaram o negócio em US$ 150 milhões e passaram. Subestimaram o valor do banco de dados de portais do Ingress. Subestimaram o valor de uma franquia de vinte anos com um bilhão de fãs. Subestimaram o apelo primitivo de ver um Pikachu no seu quintal.
+**Stage 1 — Splitting Scans.** Clipes de 15-30 segundos (~300 frames) de qualquer smartphone são divididos em frames individuais. Deriva de GPS e erros de posição são corrigidos dividindo scans em múltiplos "nós."
 
-O Pokémon GO foi construído sobre um motor completamente novo — não o motor do Ingress. Hanke insistiu nisso. O motor V1 do Ingress teria sido "absolutamente esmagado" pela escala de lançamento. A reconstrução levou meses adicionais, mas significou que o jogo aguentou — mal, com quedas constantes de servidor, mas aguentou — a demanda explosiva. Os PokéStops e Gyms foram extraídos diretamente do banco de dados de portais do Ingress: os melhores portais viraram Gyms, o resto virou PokéStops. Os habitats das espécies foram definidos por sobreposição de dados geográficos: corpos d'água geravam Pokémon aquáticos, parques geravam Pokémon de grama, dados climáticos e de solo influenciavam distribuições.
+**Stage 2 — Location Mapping.** Cada scan dividido é transformado em mapas 3D especializados para localização — otimizados para matching de imagem contra query, não para visualização. Dois tipos de mapa construídos concorrentemente: localization map (machine-readable) e mesh+texture map (human-readable).
 
-Em um mês, o jogo faturou US$ 200 milhões. O valuation da Niantic saltou para mais de US$ 3 bilhões.
+**Stage 3 — Connected Components.** Mapas 3D são relacionados entre si usando GPS para limitar complexidade combinatória. **Global bundle adjustment** minimiza erro de reprojeção e rejeita outliers — ajustando simultaneamente posições de câmera e pontos 3D. Output: sequência coerente de 5-10 minutos.
 
----
+**Stage 4 — Dense 3D Reconstruction.** Mapas de profundidade computados por imagem usando **Many-Depth** — o modelo proprietário de depth estimation da Niantic. Redundância na sequência filtra ruído para produzir mesh 3D fundido com textura de alta resolução. **Não requer LiDAR** — funciona com câmera RGB de qualquer smartphone.
 
-## 2. A Infraestrutura Que o Jogo Construiu: VPS, Lightship e o Modelo Geoespacial
+**Stage 5 — Context + Semantics.** Segmentação semântica classifica cada pixel em **20 classes**: céu, solo natural/artificial, água, pessoas, edifícios, vegetação, grama, flores, troncos de árvores, animais, areia, telas, terra, veículos, comida, assentos, neve. Permite AR context-aware.
 
-O Pokémon GO foi o caso de uso que financiou a construção de uma infraestrutura de AR muito mais ambiciosa do que o jogo sugeria. O **Visual Positioning System (VPS)** é um serviço de nuvem que localiza um dispositivo com precisão centimétrica — não por GPS, que tem erro de vários metros em áreas urbanas, mas por comparação da imagem da câmera com um mapa 3D global construído a partir de scans enviados por jogadores. Um único frame comprimido da câmera é suficiente para determinar a posição e orientação do dispositivo com seis graus de liberdade.
+**Gaussian Splatting (2024).** Scaniverse processa scan iOS → Gaussian splat → visualizável em Meta Quest em <5 minutos. "World's largest collection of 3D Gaussian splats."
 
-O mapa 3D que alimenta o VPS é construído por crowdsourcing. Jogadores que optam por escanear PokéStops contribuem clipes de quinze a trinta segundos — aproximadamente trezentos frames cada. O pipeline de processamento divide os scans em segmentos, corrige deriva de GPS, reconstrói geometria 3D via "Many-Depth" (estimativa de profundidade por frame), aplica segmentação semântica (árvore, prédio, chão, céu, água) e otimiza globalmente o resultado via bundle adjustment. O resultado são malhas 3D texturizadas e semanticamente anotadas de locais reais. Em 2024, a Niantic tinha mais de dez milhões de locais escaneados globalmente, um milhão de locais ativados para VPS, e recebia aproximadamente um milhão de novos scans por semana.
+**Infraestrutura cloud:** hierarchical LRU cache (RAM+SSD), map sharding com virtualization layer em cloud VMs, indexing via Google Cloud Bigtable. Latência típica: poucas centenas de ms após inicialização do cliente.
 
-O **Lightship ARDK** é a plataforma de desenvolvimento que expõe essa infraestrutura para terceiros. A versão 3.0, lançada em 2024, oferece meshing em tempo real usando apenas a câmera RGB — sem LiDAR — e segmentação semântica com mais de vinte classes. Suporta co-localização multiplayer (até dez jogadores no mesmo espaço AR, sincronizados via VPS).
+### 1.3 Large Geospatial Model: 150 Trilhões de Parâmetros, 50 Milhões de Redes Neurais
 
-O **Large Geospatial Model (LGM)** , anunciado em novembro de 2024, é a aposta mais ambiciosa. Treinado em bilhões de imagens de perspectiva de pedestre — coletadas via Pokémon GO, Ingress e Scaniverse — o LGM aprende características comuns entre localizações. Reconhece uma igreja vista por trás mesmo que todas as imagens de treinamento mostrem a fachada. Prevê a geometria de ambientes a partir de visões parciais. É um modelo de fundação para espaço físico: o equivalente geoespacial do que GPT é para texto.
+O **LGM** (novembro 2024) não é um modelo monolítico. São **50 milhões de redes neurais** — uma por localização no mundo — cada uma com ~3 milhões de parâmetros comprimindo milhares de imagens em representação neural que codifica a cena 3D implicitamente em seus pesos (baseado nas pesquisas ACE 2023 e ACE Zero 2024). Total: **150 trilhões de parâmetros** distribuídos.
 
----
+**De local para global.** Atualmente, redes locais são independentes — só reconhecem o que foram treinadas para reconhecer. A visão do LGM é **destilar informação comum** entre todas as redes locais em um modelo global capaz de **extrapolar** — inferir como é a parte de trás de uma igreja nunca vista baseado em milhares de igrejas similares. "Extrapolating locally by interpolating globally."
 
-## 3. Lições de Produto
+**ACE Zero (ECCV 2024, oral presentation).** Treina visual relocalizer com uma única imagem, estima poses para milhares de imagens em **1 hora ou menos em uma única GPU** — on par com SOTA em reconstrução 3D mas significativamente mais rápido.
 
-### 3.1 O jogo pode ser a interface para construir infraestrutura
+**Controvérsia de dados (novembro 2024):** reportagens revelaram que jogadores estavam contribuindo scans para treinar o LGM sem saber. Niantic confirmou o uso dos dados — scans de locais públicos, anonimizados.
 
-Pokémon GO gerou bilhões em receita. Mas o ativo mais valioso que produziu não foram os Pokémon — foi o mapa 3D do mundo construído por jogadores que escaneavam PokéStops. A Niantic entendeu que um jogo de sucesso não é um fim em si mesmo; é um motor de coleta de dados que financia a construção de infraestrutura para a próxima plataforma. O mesmo padrão se aplica a Tesla (carros coletam dados para direção autônoma) e Google (buscas coletam dados para treinar modelos de AI).
+### 1.4 O Pivot: Games Para Scopely (US$ 3,5B), Plataforma Espacial
 
-### 3.2 O banco de dados de localizações pré-existente era o verdadeiro produto
-
-O Pokémon GO não teria funcionado sem os 5 milhões de portais do Ingress. Esses portais não foram criados por uma equipe de curadores — foram submetidos por jogadores ao longo de anos, de graça, por diversão. O banco de dados de localizações era o fosso competitivo que nenhum concorrente conseguiria replicar rapidamente. A lição é que dados geoespaciais gerados por usuários são extraordinariamente difíceis de copiar e extraordinariamente valiosos quando combinados com a propriedade intelectual certa.
-
-### 3.3 O timing de uma piada pode revelar um mercado
-
-O vídeo de April Fools' do Google Maps não era um estudo de mercado — era uma piada. Mas dezoito milhões de visualizações são um sinal tão forte quanto qualquer pesquisa de mercado. A Niantic tratou o sinal como real e construiu o produto.
+Março 2025: games (Pokémon GO, Pikmin Bloom, Monster Hunter Now) vendidos para Scopely por **US$ 3,5 bilhões**. **Niantic Spatial Inc.** emerge como empresa pura de plataforma. Três pilares: **Capture** (Scaniverse, crowdsourced scans, drones), **Localize** (VPS, LGM), **Augment** (Lightship ARDK, 8th Wall, Niantic Studio). Parcerias: **Snap Inc.** (VPS no Snapchat e Spectacles, junho 2025), **Vantor** (defesa: navegação de drones sem GPS).
 
 ---
 
-## 4. Ficha Técnica
+## 2. Lições de Engenharia
+
+### 2.1 Entretenimento é o mecanismo de coleta de dados mais eficiente já inventado
+
+Nenhuma campanha paga conseguiria motivar milhões de pessoas a caminhar quilômetros apontando câmeras. Pokémon GO conseguiu porque não era coleta de dados — era um jogo.
+
+### 2.2 Global bundle adjustment transforma scans amadores em mapas precisos
+
+GPS deriva, câmera treme, iluminação muda. Bundle adjustment ajusta posições e pontos simultaneamente — o algoritmo que transforma caos em geometria coerente.
+
+### 2.3 Redes neurais locais com destilação global são scaling mais eficiente que modelo monolítico
+
+50M redes de 3M parâmetros cada: paralelizável, incremental, novas localizações não exigem retreino global. O design oposto de um LLM monolítico — e correto para o domínio.
+
+---
+
+## 3. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
-| **Nome** | Pokémon GO |
-| **Lançamento** | 6 de julho de 2016 |
-| **Desenvolvedor** | Niantic, Inc. (spin-off do Google, 2015) |
-| **Fundador** | John Hanke (CEO) |
-| **IPO** | Não (privada). Valuation: ~US$ 9B (pico). |
-| **Downloads** | 1 bilhão+ |
-| **Receita vitalícia** | US$ 6 bilhões+ |
-| **Locais VPS** | 10M+ escaneados, 1M ativados |
-| **Scans/semana** | ~1 milhão |
-| **Preço** | Gratuito. In-app purchases (PokéCoins). |
-| **Concorrentes** | Jurassic World Alive, Minecraft Earth (RIP), Monster Hunter Now |
+| **Nome** | Pokémon GO / Niantic Spatial Inc. |
+| **Lançamento** | 6 julho 2016. Niantic Spatial: março 2025 |
+| **Categoria** | AR / Infraestrutura Geoespacial |
+| **VPS** | 10M+ localizações escaneadas, 1M+ ativadas, ~1M scans/semana, precisão centimétrica |
+| **Pipeline 3D** | 5 estágios: Splitting → Location Mapping → Connected Components (bundle adjustment) → Dense 3D (Many-Depth) → Semantics (20 classes) |
+| **LGM** | 150T parâmetros, 50M redes neurais (~3M params/local). ACE Zero (ECCV 2024). Gaussian Splats |
+| **Pivot** | Games → Scopely (US$ 3,5B). Niantic Spatial Inc. Parcerias Snap, Vantor |
+| **Concorrentes** | Snap (Spectacles), Meta (Quest), Apple (Vision Pro) |
 
 ---
 
 ## Fontes
 
-- [Game Developer — Tracing Pokémon GO's roots back to Meridian 59](https://www.gamedeveloper.com/design/tracing-i-pok-mon-go-i-s-roots-back-to-the-90s-mmorpg-i-meridian-59-i-)
-- [CBC News — How Pokémon Go went from Google prank to mobile gaming phenomenon](https://www.cbc.ca/news/science/pokemon-google-origins-1.3690769)
-- [Mashable — How the gurus behind Google Earth created Pokémon GO](https://mashable.com/article/john-hanke-pokemon-go)
-- [GamesBeat — The accidental history of Niantic's Pokémon GO, as told by John Hanke](https://gamesbeat.com/the-accidental-history-of-niantics-pokemon-go-as-told-by-john-hanke/)
-- [Niantic Labs — Engineering Pokémon Playgrounds: VPS](https://nianticlabs.com/news/pokemon-playgrounds)
-- [Niantic Labs — Lightship VPS Part 2: Building Our 3D Map](https://nianticlabs.com/news/vps-part-2)
-- [Game Developer — Niantic's new AI model built by Pokémon GO players (2024)](https://www.gamedeveloper.com/business/niantic-pokemon-go-ai-model)
-- [PCMag — Pokémon GO players helped train AI for spatial intelligence (2024)](https://uk.pcmag.com/ai/155407/ever-played-pokemon-go-you-helped-train-an-ai-for-spatial-intelligence)
+- [Niantic Labs — Lightship VPS Part 2: Building Our 3D Map From Crowdsourced Scans (5-stage pipeline detalhado)](https://nianticlabs.com/news/vps-part-2)
+- [Niantic Spatial — Large Geospatial Model: Advancing Spatial Intelligence (Nov 2024, 150T params, 50M networks)](https://www.nianticspatial.com/blog/largegeospatialmodel)
+- [Niantic Labs — ECCV 2024: ACE Zero, DoubleTake, MicKey (4 papers, oral presentation)](https://www.nianticlabs.com/news/eccv2024)
+- [Frontier VC — Building a Large Geospatial Model to Achieve Spatial Intelligence (Dez 2024)](https://frontiervc.com/partner-pov/2024/12/11/building-a-large-geospatial-model-to-achieve-spatial-intelligence)
+- [Ars Technica — Niantic uses Pokémon Go player data to build AI navigation system (Nov 2024)](https://arstechnica.com/ai/2024/11/niantic-uses-pokemon-go-player-data-to-build-ai-navigation-system/)
+- [Harmony Studios — Niantic Spatial SDK features and pricing (Abr 2025)](https://www.harmony.co.uk/insights/niantic-spatial-sdk-lightship)

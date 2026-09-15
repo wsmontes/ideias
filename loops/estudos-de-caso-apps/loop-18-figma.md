@@ -93,7 +93,7 @@ O WebAssembly forneceu o caminho de compilação: código C++ é transformado pe
 
 Sobre essa camada de C++/WASM, o Figma construiu um motor de renderização 2D proprietário — batizado internamente de **TinyGPU** — que em vez de depender do DOM, `<canvas>` ou SVG do navegador, desenha cada pixel diretamente via **WebGL**. Isso deu ao Figma controle sobre anti‑aliasing, blend modes, máscaras, gradientes com dithering e composição de camadas — coisas que os renderizadores nativos dos navegadores ou não fazem, ou fazem de forma inconsistente entre plataformas.
 
-Recentemente o time iniciou a migração para **WebGPU**, sucessor do WebGL. O WebGPU permite compute shaders que transferem trabalho da CPU para a GPU e elimina o estado global que tornava o WebGL propenso a bugs sutis e difíceis de reproduzir.
+Em **setembro de 2025**, o Figma completou a migração para **WebGPU** ("Figma Rendering: Powered by WebGPU"). Um ano de trabalho. Shaders GLSL auto-traduzidos para WGSL via **naga** (open-source). Dawn (WebGPU do Chromium) para builds Wasm + nativas. Fallback dinâmico WebGPU→WebGL. O WebGPU permite compute shaders que transferem trabalho da CPU para a GPU e elimina o estado global propenso a bugs.
 
 ### 3.2 O Motor de Sincronização: CRDTs Parciais com Servidor Central
 
@@ -107,7 +107,7 @@ Para ordenação de camadas na árvore de objetos, o Figma usa **fractional inde
 
 ### 3.3 Multiplayer Server em Rust
 
-O servidor de sincronização foi reescrito em **Rust**, substituindo a implementação original em TypeScript. Rust oferece garantias de segurança de memória em tempo de compilação e desempenho comparável ao C++. Cada documento do Figma é atribuído a um processo de servidor dedicado, que mantém o estado autoritativo do SceneGraph e transmite mudanças aos clientes conectados.
+O servidor de sincronização foi reescrito em **Rust** (originalmente TypeScript, depois C++). Rust oferece segurança de memória em tempo de compilação + desempenho comparável ao C++ sem garbage collector. Cada documento é atribuído a um processo de servidor dedicado com estado autoritativo do SceneGraph. **DynamoDB write-ahead journal**: janela de perda de dados reduzida de 30-60s (checkpoint-only) para <1s. **2.2 bilhões de mudanças recebidas/dia.** 95% das edições persistem em <600ms.
 
 Uma otimização importante: o servidor **não reexecuta a lógica de renderização**. O que ele armazena é uma representação compacta do grafo de objetos com as propriedades de cada nó, permitindo que o estado de um documento com milhares de camadas caiba em poucos megabytes de RAM.
 

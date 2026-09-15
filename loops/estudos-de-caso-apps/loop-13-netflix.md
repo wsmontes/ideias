@@ -136,9 +136,27 @@ A Netflix construiu sua PRÓPRIA CDN — **Open Connect**. 18.000 servidores fí
 - Netflix DÁ os servidores de GRAÇA para ISPs em troca de peering direto.
 - **Sem isso, a Netflix seria INVIÁVEL.** A conta de banda seria astronômica.
 
-### 3.4 Chaos Engineering (Chaos Monkey)
+**Arquitetura de duas camadas:**
+- **Control Plane (AWS):** Zuul (API gateway), Eureka (service discovery), Titus (containers), Spinnaker (CD), Conductor (workflow orchestration), Cassandra, EVCache.
+- **Data Plane (Open Connect):** Dispositivo contacta AWS para autenticação/personalização, recebe manifest apontando para OCA mais próxima, faz streaming direto da OCA.
 
-A Netflix INVENTOU o Chaos Monkey — um serviço que DERRUBA instâncias de produção ALEATORIAMENTE. Para TESTAR se o sistema sobrevive.
+### 3.4 Per-Title Encoding (2015): O Fim do Bitrate Fixo
+
+**Netflix Tech Blog, 14 de dezembro de 2015** — Anne Aaron, Zhi Li, David Ronca et al.
+
+Antes, a Netflix usava uma "bitrate ladder" fixa para TODOS os títulos. *"Você não deveria alocar os mesmos bits para My Little Pony e para The Avengers."*
+
+**Método Convex Hull:**
+- Codificações de teste em várias resoluções (1920×1080 até 320×240) com QPs diferentes
+- Interpolação de curvas qualidade × bitrate
+- Convex hull = fronteira Pareto-eficiente onde cada resolução supera as outras
+- Resultado: **~20% de redução de bitrate** com mesma qualidade visual (Orange is the New Black: 5.800→4.640 kbps em 1080p)
+
+**Evolução posterior:** Per-shot encoding (Dynamic Optimizer, 2018) — ajuste de qualidade CENA por CENA. Codec evolution: AVC → HEVC → VP9 → **AV1** (~30% de todo streaming Netflix em 2025). VMAF (Video Multimethod Assessment Fusion) como métrica de qualidade perceptual.
+
+### 3.5 Chaos Engineering (Chaos Monkey)
+
+A Netflix INVENTOU o Chaos Monkey — criado por **Greg Orzell** em 2010-2011 durante a migração para AWS. **Greg Orzell** (engenheiro Netflix): *"Randomly picked a VM and sent it a Terminate command."* Java + AWS SDK. Rodava em dias úteis, 9h-15h. Open-sourced em julho de 2012. Expansão: **Simian Army** (Latency Monkey, Chaos Kong — simula queda de AZ inteira). Inspirado pelo outage de 3 dias em agosto de 2008.
 
 Isso gerou uma cultura de RESILIÊNCIA. Se o sistema NÃO aguenta um servidor cair aleatoriamente, ele NÃO está pronto para produção.
 
@@ -240,7 +258,7 @@ A maior mudança no mobile: uma tab de **Clips** com rolagem VERTICAL:
 - Conteúdo PRÉ-POSICIONADO de madrugada (fill windows: 2h-14h).
 - **98% de cache hit.** Só 2% bate na origem.
 - Netflix DÁ os servidores para ISPs. Em troca: peering direto (sem custo de trânsito).
-- **Live streaming**: 100M dispositivos em <1 minuto.
+- **Live streaming**: Pico de **65M streams concorrentes** (Jake Paul vs Tyson, Nov/2024). 100M+ total de espectadores únicos. Netflix reconstruiu Live Origin (Cassandra+EVCache, p50: 113→25ms).
 
 ### Recomendações em Tempo Real (2025)
 

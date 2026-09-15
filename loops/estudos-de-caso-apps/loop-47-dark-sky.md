@@ -1,99 +1,84 @@
-# Estudo de Caso 47 — Dark Sky: O App de Clima Que a Apple Comprou, Matou (E Enterrou no iOS 16)
+# Estudo de Caso 47 — Dark Sky: O Algoritmo de Nowcasting Que Previa Chuva Com Precisão de Minutos Usando Radar, Optical Flow e GPU — Até a Apple Matá-lo e Integrá-lo ao WeatherKit
 
 > **Data:** 2026-07-03
-> **Loop:** 47 de ∞ (Fase 3: Utilidades & Design)
-> **Categoria:** Clima / Previsão do Tempo / Data Visualization
-> **Tema:** 2011. Adam Grossman e Jack Turner lançam um Kickstarter para um app de previsão do tempo. Arrecadam ~$40.000. Em 2012, lançam o **Dark Sky.** O diferencial: previsão **hiper-local,** minuto a minuto. "Vai chover daqui a 8 minutos." Não "30% de chance de chuva hoje." MINUTOS. O app usava MACHINE LEARNING — zero meteorologistas humanos. *"Humanos são HORRÍVEIS em prever o tempo."* O design era uma OBRA-PRIMA de visualização de dados. A tela principal mostrava EXATAMENTE o que você precisava saber num PISCAR DE OLHOS. Nada mais. Nada menos. Em março de 2020, a **Apple comprou.** Fechou o app Android. Fechou a API. Em janeiro de 2023, **matou o app iOS.** As features foram "absorvidas" pelo Apple Weather no iOS 16 — mas todo mundo que USOU o Dark Sky sabe: a ALMA se perdeu. Esta é a história do app que PROVOU que design de informação IMPORTA — e que quando a Apple te compra, ela compra sua TECNOLOGIA, não sua ALMA.
+> **Loop:** 47 de ∞ (Reescrita)
+> **Categoria:** Clima / Previsão / Data Visualization
 
 ---
 
-## 1. A Origem: Kickstarter, $40K e "Vai Chover Em 8 Minutos"
+## 0. Linhagem
 
-### Adam Grossman: O Fundador Que Odiou Meteorologistas
-
-- Lançou o Dark Sky via **Kickstarter em 2011.** ~$40.000.
-- **2012**: app no iOS. $3.99.
-- Filosofia desde o dia 1: **"Humanos são HORRÍVEIS em prever o tempo. Deixe os COMPUTADORES fazerem isso."**
-
-> *"When it comes to weather forecasting, it's best to leave it to the computers."* — Adam Grossman, 2014
-
-### A Inovação: Previsão Hiper-Local, Minuto a Minuto
-
-- "Vai chover daqui a 8 minutos." NÃO "30% de chance de chuva."
-- GPS seguia sua localização EXATA. Previsão para o SEU quarteirão.
-- **Project Quicksilver**: o mapa de temperatura de MAIS ALTA resolução do mundo. Cada pixel ≤12.5 milhas quadradas.
-
-### Apple Compra (Março de 2020)
-
-- Valor: NÃO DIVULGADO.
-- Android: MORTO. API: MORTA. Website: MORTO.
-- iOS: sobreviveu até **1º de janeiro de 2023.**
-- Features foram para o Apple Weather (iOS 16). Mas o DESIGN... não.
+```
+Previsão do tempo tradicional — meteorologistas + TV. "30% de chance de chuva hoje."
+Dark Sky (2012) — previsão hiperlocal minuto a minuto. "Chuva começando em 17 minutos."
+Apple Weather (2023) — Dark Sky integrado. WeatherKit API. App original desligado.
+```
 
 ---
 
-## 2. A Filosofia: "O Que Você REALMENTE Quer Saber?"
+## 1. Arquitetura Técnica
 
-### O "Glance" — Uma Olhadela de Menos de 1 Segundo
+### 1.1 O Algoritmo de Nowcasting em 5 Etapas
 
-> *"O que um ciclista quer saber quando OLHA para o céu escuro e pega o telefone?"*
+O Dark Sky não tentava prever chuva com modelos atmosféricos complexos. Usava **nowcasting**: extrapolação de observações atuais para previsão de curtíssimo prazo (0-60 minutos).
 
-A tela principal mostrava:
-1. **Temperatura atual** + ícone simples.
-2. **Linha do tempo de chuva** (ANIMADA só se chuva fosse esperada).
-3. **Próximas horas** — barras de temperatura. Tendência visível SEM ler números.
-4. **Próximos dias** — barras horizontais. "Você não precisa LER os números para entender a TENDÊNCIA."
+**1. Noise Filtering com FANN.** Dados de radar das 140+ estações NOAA contêm ruído: reflexos de solo, pássaros, insetos. Descartar todo sinal de baixa intensidade remove bordas de tempestade (valiosas). Dark Sky treinou uma **Fast Artificial Neural Network (FANN)** para reconhecer a "textura" distinta do ruído, atingindo 90-95% de identificação com near-zero falsos positivos.
 
-### Os Princípios de Design
+**2. Computer Vision para Storm Velocity.** Sistemas meteorológicos se comportam aproximadamente de forma linear em escalas de minutos. Um algoritmo de CV extrai vetores de movimento de tempestades a partir de imagens de radar consecutivas — essencialmente **optical flow** aplicado a precipitação.
 
-| Princípio | Como o Dark Sky Aplicava |
+**3. GPU-Based Prediction.** Campos de velocidade alimentam a GPU para extrapolar movimento e renderizar a animação de nowcast para os próximos 60 minutos.
+
+**4. Error Monitoring.** Previsões são continuamente comparadas com radar real para trackear erro por estação em tempo real.
+
+**5. Hyperlocal GPS Adjustment.** A previsão é ajustada para fatores microclimáticos: elevação, inclinação, distância de corpos d'água, efeitos de ilha de calor urbana.
+
+**Limitação**: "Our system cannot predict conditions beyond 6 hours." Além de 60 minutos, a previsão degrada rapidamente — o caos atmosférico torna impossível prever chuva com precisão de minutos usando apenas extrapolação de radar.
+
+### 1.2 O App e a API
+
+O app iOS (US$ 3,99) foi lançado em 2012. A **Dark Sky API** (2012-2023) permitia a qualquer desenvolvedor acessar as mesmas previsões hiperlocais. Processava milhões de requisições por hora, servindo apps de viagem, agricultura, construção civil e milhares de apps de clima.
+
+### 1.3 Aquisição e Morte (Apple, 2020-2023)
+
+Março 2020: Apple adquire por valor não divulgado. App Android descontinuado imediatamente. Setembro 2022: app iOS removido da App Store. Janeiro 2023: app para de funcionar. Março 2023: API desligada. Tecnologia integrada ao Apple Weather (iOS 16+) e exposta como **WeatherKit API** (Swift + REST, pricing de US$ 49,99/mês para 1M chamadas).
+
+A transição não foi suave: múltiplas outages do Apple Weather em 2023-2024, atribuídas à complexidade de integrar múltiplas fontes de dados globais (NOAA, ECMWF, JMA) com o motor do Dark Sky.
+
+---
+
+## 2. Lições de Engenharia
+
+### 2.1 Nowcasting é um problema de visão computacional, não de modelagem atmosférica
+
+Extrapolar movimento de células de precipitação visíveis no radar usando optical flow é mais eficaz para 0-60 minutos que qualquer modelo atmosférico complexo. Você não precisa entender física da atmosfera para prever onde uma célula de chuva estará em 15 minutos.
+
+### 2.2 Construir seu negócio sobre uma API de terceiro é risco existencial
+
+Milhares de apps dependiam da Dark Sky API. Quando a Apple a desligou, cada um precisou refatorar seu backend de clima — com degradação de qualidade.
+
+### 2.3 Aquisições por big tech frequentemente matam produtos, não os salvam
+
+A Apple comprou o Dark Sky para extrair a tecnologia, não para operá-lo. App desligado, API descontinuada, time absorvido. Destino padrão de startups adquiridas por plataformas.
+
+---
+
+## 3. Ficha Técnica
+
+| Atributo | Valor |
 |---|---|
-| **Contexto > completude** | Mostrava SÓ o relevante AGORA. "Não TUDO." |
-| **Expandir, não navegar** | Cada elemento expandia NO LUGAR. Sem abrir novas telas. |
-| **Tendências > precisão** | Barras horizontais mostravam subida/descida sem precisar ler números. |
-| **Cor com RESTRIÇÃO** | VERMELHO só para alertas de severidade do NWS. O ÚNICO splash de cor. |
-| **Movimento = significado** | Timeline de chuva ANIMADA só quando chuva era esperada. |
+| **Nome** | Dark Sky |
+| **Lançamento** | 2012. App: US$ 3,99 |
+| **Fundadores** | Adam Grossman, Jack Turner |
+| **Aquisição** | Apple: março 2020. Shutdown: jan 2023 |
+| **Tecnologia** | FANN noise filtering + optical flow + GPU extrapolation + hyperlocal GPS adj. |
+| **API** | Milhões de req/hora. Desligada mar 2023 |
+| **Sucessor** | Apple Weather (iOS 16+) + WeatherKit API |
 
 ---
 
-## 3. O Legado: "Requiem For An Interface"
+## Fontes
 
-Em 2023, a ACM *interactions* publicou um artigo chamado **"Requiem for an Interface"** — uma EULOGIA ao design do Dark Sky.
-
-> *"Dark Sky was not just an app; it was a paradigm shift in how we perceive and interact with weather data."*
-
-> *"The interface embodied Vitruvian principles: commodity, firmness, and delight."*
-
-O Apple Weather (iOS 16+) TEM a tecnologia do Dark Sky. Mas NÃO TEM a alma. "Larded with too much nerdy exactitude and blinking, flashing colors."
-
----
-
-## 4. Lições do Dark Sky
-
-### 5.1 "O Que o USUÁRIO Quer Saber?" > "O Que os DADOS Podem Mostrar?"
-
-A tela principal do Dark Sky respondia UMA pergunta: "vai chover?" Em SEGUNDOS. O Apple Weather mostra TUDO.
-
-**Lição**: design de INFORMAÇÃO é EDITAR. Cortar. Remover. "O que o usuário REALMENTE precisa?" Não "o que CABE na tela?"
-
-### 5.2 Quando a Apple Te Compra, Ela Compra Sua TECNOLOGIA, Não Sua ALMA
-
-A Apple absorveu a TECNOLOGIA do Dark Sky. Mas MATOU o design. O app morreu. A API morreu. O Android morreu.
-
-**Lição**: se uma big tech te compra, entenda: ela quer seus DADOS, seus ALGORITMOS, seus ENGENHEIROS. Não sua INTERFACE.
-
-### 5.3 Um App PODE Ser Uma Obra-Prima de Design
-
-Dark Sky é estudado em cursos de HCI como EXEMPLO CANÔNICO de design para "situações de uso." "O que um ciclista precisa saber num GLANCE?"
-
-**Lição**: design de interface NÃO é "deixar bonito." É entender PROFUNDAMENTE o contexto de uso.
-
----
-
-## Fontes e Referências
-
-- [Fast Company — Dark Sky Reinvents Weather Apps With Hyper-Local Forecasts (2011)](https://www.fastcompany.com/1665389/dark-sky-reinvents-weather-apps-with-hyper-local-forecasts)
-- [Fast Company — How Dark Sky Is Changing Weather Forecasting With ML (2016)](https://www.fastcompany.com/3063991/how-dark-sky-is-changing-weather-forecasting-with-machine-learning)
-- [ACM interactions — Requiem for an Interface (2023)](https://interactions.acm.org/archive/view/september-october-2023/requiem-for-an-interface)
-- [Nightingale — A Eulogy for Dark Sky, a Data Visualization Masterpiece (2023)](https://nightingaledvs.com/dark-sky-weather-data-viz/)
-- [BBC — Apple buys weather app Dark Sky (2020)](https://www.bbc.com/news/technology-52115095)
+- [Dark Sky blog (archive.org) — How Dark Sky works](https://web.archive.org/web/20221201000000*/https://blog.darksky.net/)
+- [TechCrunch — Apple acquires Dark Sky (Mar 2020)](https://techcrunch.com/2022/09/13/as-apples-weatherkit-launches-dark-sky-for-ios-to-wind-down-operations-by-year-end/)
+- [MacRumors — Dark Sky shuts down (Jan 2023)](https://www.macrumors.com/2023/01/01/dark-sky-shuts-down-tomorrow/)
+- [Weather4Cast 2024 — Optical flow + cGAN for nowcasting (Deshpande et al.)](https://arxiv.org/pdf/2412.00451)

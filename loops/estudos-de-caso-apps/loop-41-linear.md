@@ -1,126 +1,142 @@
-# Estudo de Caso 41 — Linear: O App Que Provou Que "Opinião" Vence "Flexibilidade"
+# Estudo de Caso 41 — Linear: O Sync Engine Local-First Com IndexedDB+MobX (Cell-Level Observability), Object Pool, Transaction Queue, GraphQL+WebSocket Delta Packets (Sync ID Monotônico), Rebase Offline e LWW — Servidor De ~US$ 80/Mês
 
 > **Data:** 2026-07-03
-> **Loop:** 41 de ∞ (Fase 2: Ferramentas de Desenvolvimento)
-> **Categoria:** Gestão de Projetos / Software Development / Ferramentas
-> **Tema:** 2018. Três finlandeses — Karri Saarinen (designer na Airbnb), Tuomas Artman (engenheiro na Uber) e Jori Lallo (engenheiro na Coinbase) — se encontram para tomar cerveja. Todos TRABALHAM em empresas de tecnologia de elite. Todos USAM Jira. Todos ODEIAM Jira. "Todas as ferramentas de software que usamos são HORRÍVEIS. A gente consegue fazer melhor." Saarinen já tinha até criado uma extensão de Chrome na Airbnb que reescrevia o CSS do Jira — removendo o CAOS visual. ~100 colegas instalaram. O sinal era CLARO. Em 2019, os três largam Airbnb, Uber e Coinbase. Constroem um protótipo em UM MÊS. Um time de 10 pessoas TESTA e não QUER MAIS SAIR. Em abril de 2019, lançam um beta FECHADO com 10.000 emails na lista de espera. Saarinen ESCOLHE A MÃO ~10 pessoas por semana para entrar. Demoram QUASE UM ANO para abrir ao público. Resultado: **sub-100ms de latência.** Keyboard-first. Sync local-first. Zero plugins. "Opinionated software." Hoje: 14.000+ clientes (OpenAI, Ramp, Vercel, Scale AI, Cash App), $1.25B valuation, LUCRATIVO desde 2021. Esta é a história do app que DISSE "NÃO" à flexibilidade infinita — e PROVOU que software com OPINIÃO vence software que tenta agradar TODO MUNDO.
+> **Loop:** 41 de ∞ (Reescrita)
+> **Categoria:** Ferramentas de Desenvolvimento / Local-First / Sync Engine
 
 ---
 
-## 1. A Origem: Três Finlandeses, Uma Cerveja e Ódio ao Jira
+## 0. Linhagem
 
-### Os Fundadores
+```
+Jira (2002) — customizável, pesado, lento. O padrão que todos usam e ninguém gosta.
+Asana (2008), Monday (2012) — alternativas. Mais rápidas. Menos opinativas.
+Linear (2019) — local-first. Keyboard-first. Sync engine próprio. Opinionated.
+Linear hoje (2026) — 150K+ teams. US$ 400M valuation. 80 funcionários. LSE reverse-engineered.
+```
 
-| Fundador | Background |
-|---|---|
-| **Karri Saarinen** (CEO) | Finlandês. Principal Designer na Airbnb. Founding designer na Coinbase. |
-| **Tuomas Artman** (CTO) | Finlandês. Senior Engineer na Uber. Ex-Groupon. |
-| **Jori Lallo** | Finlandês. Senior Engineer na Coinbase. |
-
-### A Extensão de Chrome Que Reescrevia o Jira
-
-Na Airbnb, Saarinen criou uma extensão de Chrome que aplicava CSS CUSTOMIZADO ao Jira. Removia cores, simplificava hierarquia, eliminava elementos desnecessários. **~100 colegas instalaram.**
-
-"Se ~100 pessoas instalaram uma extensão SÓ para consertar o Jira, o Jira ESTÁ quebrado."
-
-### A Cerveja Que Mudou Tudo (2018)
-
-Artman e Lallo chamaram Saarinen para tomar cerveja:
-
-> *"Todas as ferramentas que usamos são HORRÍVEIS. A gente consegue fazer melhor."*
-
-Saarinen: "Essa É a ideia." Não exploraram OUTRAS ideias.
+"Literally the first lines of code that I wrote was the sync engine, which is very uncommon to what you usually do when you're a startup." — Tuomas Artman, cofundador e CTO.
 
 ---
 
-## 2. A Filosofia: "Opinionated Software"
+## 1. Arquitetura Técnica
 
-### "Software Com Opinião"
+### 1.1 O Sync Engine: IndexedDB + MobX + Object Pool + Transaction Queue
 
-> *"Flexible software lets everyone invent their own workflows, which eventually creates chaos as teams scale."* — Jori Lallo
+O **Linear Sync Engine (LSE)** é uma camada local-first que trata o navegador como banco de dados primário. O servidor é um **sync target**, não a source of truth para a UI.
 
-Enquanto Jira e Asana dizem "configure como quiser", Linear diz: **"Existe UM jeito certo de fazer. A gente já ESCOLHEU para você."**
+**Object Graph (MobX).** Camada mais alta: modelos em memória com propriedades MobX observáveis. Cada propriedade é seu próprio observable — **cell-level re-renders**: mudar `issue.title` re-renderiza apenas o componente que lê aquele campo. 50 issues atualizadas = 50 cell re-renders, não um re-render de lista inteira. O UI nunca lê da rede; sempre lê deste pool local.
 
-| Jira / Asana | Linear |
-|---|---|
-| Flexível. Customize TUDO. | Opinionated. "O jeito certo" já está lá. |
-| Plugins para TUDO. | Zero plugins. Tudo nativo. |
-| Lento. | Sub-100ms. Local-first sync. |
-| Para "qualquer pessoa." | Para ICs (engenheiros, designers, PMs). |
+**Object Pool.** Mapa normalizado em memória de todas as instâncias de modelo, keyed por UUID. Modelos são **hydrated** de JSON (IndexedDB) para objetos JavaScript vivos com métodos (`.save()`, etc.). Suporta **lazy hydration** (propriedades carregadas apenas quando acessadas) e **partial loading** (Issue, Comment carregados sob demanda; nem todos no boot).
 
-### Os Princípios
+**Transaction Queue.** Toda mutação é encapsulada como **transação** (Create, Update, Delete) que:
+1. É aplicada imediatamente ao MobX object graph (optimistic update — latência zero)
+2. É persistida em IndexedDB (`_transaction` table — crash recovery)
+3. Entra na `TransactionQueue` em memória
+4. É agrupada em **batch** e enviada via **GraphQL mutation** ao servidor
+5. Se offline, acumula; quando online, flush automático
 
-| Princípio | Significado |
-|---|---|
-| **Quality > Speed & Scale** | "Qualidade é nosso PRIMEIRO princípio." |
-| **Purpose-built** | Construa para ALGUÉM específico, não para "todo mundo." |
-| **Local-first** | Dados no cliente. Zero latência. Sync em background. |
-| **Keyboard-first** | Cmd+K. j/k. C = criar issue. Mouse é SECUNDÁRIO. |
-| **Profitable, not hyper-growth** | Lucrativo desde 2021. Crescimento CONTROLADO. |
+**Model System (TypeScript decorators):**
+
+```typescript
+@ClientModel("Issue")
+class Issue extends Model {
+  @Property() title: string;
+  @Property({ serializer: PrioritySerializer }) priority: Priority;
+  @Reference(() => User, "assignedIssues", { nullable: true, indexed: true }) assignee: User | null;
+}
+```
+
+`@ClientModel` registra no `ModelRegistry` com `loadStrategy` (instant, lazy, partial, local). `@Property`/`@Reference` registram metadados (type, serializer, lazy load, indexed).
+
+### 1.2 Bootstrap e Fluxo de Dados
+
+**Bootstrap (initial load):**
+1. Cria ObjectStore para cada modelo
+2. Abre conexão IndexedDB (meta database + workspace database `linear_<hash>`)
+3. Determina tipo: `full` (core models), `partial` (Comment/IssueHistory diferidos) ou `local`
+4. Fetch `/sync/bootstrap?type=full&onlyModels=...`
+5. Persiste em IndexedDB
+6. **Hydrate** JSON → objetos MobX vivos no Object Pool
+7. Abre WebSocket para updates incrementais
+
+**Write Path:**
+```
+Frontend: issue.title = "New Title"; issue.save()
+  → MobX observable → UI re-render instantâneo
+  → Object Pool update
+  → Transaction escrita em IndexedDB _transaction
+  → TransactionQueue → batch → GraphQL mutation → Server
+  → Server: processa, atribui Sync ID, broadcast delta via WebSocket
+  → Client: recebe delta, atualiza IndexedDB model tables, remove de _transaction
+```
+
+**Read Path (remote updates):**
+```
+Outro cliente faz mudança → Server broadcast delta via WebSocket
+  → Client: aplica delta ao IndexedDB + Object Pool
+  → MobX reactivity → re-render dos componentes afetados
+```
+
+**Delta Packets via WebSocket.** Arrays de `SyncAction` objetos: `id` (Sync ID monotônico), `modelName`, `modelId`, `action` (I/U/D), `data`. No reconnect, cliente faz delta sync: `/sync/delta?lastSyncId=X&toSyncId=Y`.
+
+### 1.3 Conflitos: Rebase Offline + LWW
+
+Linear usa **Last-Writer-Wins** — não CRDTs (exceto para descrições de issues em texto rico, onde usa **Yjs + ProseMirror**). Conflitos são raros em issue tracking: propriedades discretas (status, assignee, priority) raramente são editadas concorrentemente.
+
+**Rebase offline:** quando cliente reconecta após período offline:
+1. Recebe último estado do servidor via delta sync
+2. **Rebaiseia** transações locais pendentes no topo do estado mais recente
+3. Transações rebaiseadas são enviadas ao servidor
+4. Servidor aplica (LWW) e incrementa Sync ID
+
+**Princípios de design (Tuomas Artman):** Centralized ordering (servidor gera Sync IDs globais), client-side prediction (memory-first writes, zero-latency UX), local-first (dataset completo em IndexedDB, offline built-in), transaction-based (toda mutação é atômica, reversível, cacheable, rebase-able), pragmatic conflict resolution (LWW sobre OT/CRDT para SaaS).
+
+### 1.4 Stack e Custo
+
+**Frontend:** React + MobX + TypeScript. IndexedDB via wrapper `idb`. GraphQL via `graphql-request`. Yjs + ProseMirror (CRDT para texto rico). Comlink (Worker RPC). Rolldown-Vite bundler (50% menos JS enviado, 59% mais rápido first-paint em issues view).
+
+**Backend:** Node.js + TypeScript. PostgreSQL (Cloud SQL, particionado 300 vias). Redis (event bus + cache + sync cursors). Kubernetes (GCP). Cloudflare Workers (multi-region edge proxy).
+
+**Custo:** datacenter europeu serve ~1.000 CCU em ~2 CPU cores, ~US$ 80/mês. "Since data is persisted on local devices, you don't pay for database reads as often."
 
 ---
 
-## 3. As Inovações do Linear
+## 2. Lições de Engenharia
 
-### 3.1 Sub-100ms de Latência
+### 2.1 O sync engine é a feature mais importante — comece por ele
 
-Toda interação acontece em **menos de 100 milissegundos.** Como? Local-first sync engine. Dados no cliente. UI otimista (ação aparece ANTES da confirmação do servidor). Renderização CUSTOM — sem bibliotecas de componentes pesadas.
+Tuomas Artman escreveu o sync engine como primeiras linhas de código. A maioria das startups começa pela UI; o resultado é arquitetura que nunca funciona offline.
 
-### 3.2 Cmd+K: TUDO Pelo Teclado
+### 2.2 Cell-level MobX observability é o segredo da performance multi-editor
 
-Pressione Cmd+K. Qualquer ação — criar issue, mudar status, atribuir, filtrar — em SEGUNDOS. Sem mouse. "C" = criar issue. Em 10 segundos, a issue está criada, categorizada e atribuída.
+Cada propriedade é um observable separado. 50 pessoas editando issues diferentes geram apenas os re-renders necessários. Redux — com state tree único — não consegue essa granularidade.
 
-### 3.3 Cycles: Sprints Com OPINIÃO
+### 2.3 LWW é suficiente para a vasta maioria de apps colaborativos
 
-Linear NÃO pergunta "qual a duração do seu sprint?" Ele SUGERE 2 semanas. Você pode MUDAR. Mas o default é OPINIONATED.
-
-### 3.4 Triage: "Inbox" de Issues
-
-Toda issue nova cai no Triage. Você ACEITA ou RECUSA. "Inbox zero" para PMs.
+CRDTs são necessários para texto rico (Yjs + ProseMirror), não para propriedades discretas. Linear adicionou CRDTs depois, apenas onde necessário.
 
 ---
 
-## 4. Ficha Técnica
+## 3. Ficha Técnica
 
 | Atributo | Valor |
 |---|---|
 | **Nome** | Linear |
-| **Fundação** | 2019. Beta fechado: abril de 2019. Público: 2020. |
-| **Fundadores** | Karri Saarinen, Tuomas Artman, Jori Lallo (Finlândia) |
-| **Valuation** | $1.25 bilhão (2023) |
-| **Clientes** | 14.000+ (OpenAI, Ramp, Vercel, Scale AI, Cash App) |
-| **Preço** | Gratuito (até 2 times). Business: $8/user/mês. |
-| **Concorrentes** | Jira (Atlassian), Asana, Monday.com, Notion |
+| **Fundação** | 2019. Público: 2020. Fundadores: Karri Saarinen, Tuomas Artman, Jori Lallo |
+| **Categoria** | Issue Tracking / Local-First |
+| **Valuation** | US$ 400M. 80 funcionários. 150K+ teams |
+| **Sync Engine** | LSE: IndexedDB + MobX + Object Pool + Transaction Queue + GraphQL + WebSocket deltas + LWW |
+| **CRDT** | Yjs + ProseMirror (apenas descrições de issues) |
+| **Stack** | React, MobX, TypeScript, Node.js, PostgreSQL, Redis, K8s/GCP, Cloudflare Workers |
+| **Servidor EU** | ~2 CPU cores, ~US$ 80/mês para ~1.000 CCU |
+| **Concorrentes** | Jira, Asana, Monday.com |
 
 ---
 
-## 5. Lições do Linear
+## Fontes
 
-### 5.1 "Software Com Opinião > Software Flexível"
-
-Jira deixa você configurar TUDO. Linear diz "o jeito certo é ESTE." O resultado: times que usam Linear NÃO passam 2 semanas "configurando o Jira." Eles COMEÇAM a trabalhar.
-
-**Lição**: flexibilidade tem CUSTO. Para cada opção que você oferece, você transfere COMPLEXIDADE ao usuário.
-
-### 5.2 "Velocidade É Feature"
-
-O diferencial #1 do Linear não é "mais features." É que NADA trava. Sub-100ms. Local-first. Isso IMPORTA mais que features.
-
-**Lição**: performance NÃO é requisito técnico. É DIFERENCIAL DE PRODUTO. Invista nela como tal.
-
-### 5.3 "Desenhe Para ALGUÉM, Não Para TODO MUNDO"
-
-Saarinen: *"É impossível desenhar algo realmente bom para TODO MUNDO."* Linear é para ICs que constroem software. Não para CFOs. Não para RH. Não para "qualquer um."
-
-**Lição**: o produto que tenta agradar TODO MUNDO acaba não agradando NINGUÉM.
-
----
-
-## Fontes e Referências
-
-- [First Round Review — Linear's Path to Product-Market Fit](https://review.firstround.com/linears-path-to-product-market-fit/)
-- [Sequoia Capital — Designing for the Developers (Linear Spotlight)](https://www.sequoiacap.com/article/linear-spotlight/)
-- [Figma Blog — The Linear Method: Opinionated Software](https://www.figma.com/blog/the-linear-method-opinionated-software/)
-- [Ideaplan — How Opinionated Design Beat Feature Parity](https://www.ideaplan.io/case-studies/linear-modern-pm-tooling)
-- [Ideaplan — How Linear Built the Fastest Project Management Tool](https://www.ideaplan.io/case-studies/linear-developer-experience)
-- [Runtime News — Linear CEO Karri Saarinen interview](https://www.runtime.news/linear-ceo-karri-saarinen-our-customer-base-is-quite-powerful/)
+- [FujiMon — Linear's Sync Engine Architecture (reverse engineering aprovado pelo CTO, 2024)](https://www.fujimon.com/blog/linear-sync-engine)
+- [GitHub — backupManager/reverse-linear-sync-engine-dev (endorsed by Tuomas Artman)](https://github.com/backupManager/reverse-linear-sync-engine-dev)
+- [Hacker News — Reverse engineering of Linear's sync engine (2025)](https://news.ycombinator.com/item?id=44123131)
+- [WeChat/Weixin — 揭秘 Linear 数据同步引擎 (Chinese deep-dive, IndexedDB, MobX, sync IDs)](http://mp.weixin.qq.com/s?__biz=MzA5ODI5NDYxNA==&mid=2649781038&idx=1&sn=b77f6eb5dcf54493d22265eb4ff26e55)

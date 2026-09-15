@@ -360,13 +360,12 @@ O Instagram foi um dos PRIMEIROS grandes apps a adotar dark mode (iOS 13, 2019).
 | **Backend core** | Python + Django (MONOLITO. Milhares de endpoints. Milhões de linhas.) |
 | **Frontend mobile** | React Native (iOS + Android, codebase único) |
 | **Frontend web** | React |
-| **Banco de dados** | PostgreSQL (sharded, user data), Apache Cassandra (likes, comments — alta vazão) |
-| **Social graph** | **TAO** (Meta's custom graph DB). Grafos de followers/following. |
-| **Caching** | Redis (feed cache. Sub-10ms read.) |
-| **Media storage** | Object Storage S3-compatible + CDN (CloudFront/Cloudflare) |
-| **ML** | PyTorch, FAISS (vector search), 1.000+ modelos em produção |
-| **Orquestração** | Docker, Kubernetes |
-| **Deploy** | 30-50 deploys/dia. Backend a cada 7 minutos. CI/CD total. |
+| **Banco de dados** | **TAO** (graph DB, followers/following), **UDB** (MySQL sharded), **ZippyDB** (KV — substituiu Cassandra ~2021), **Everstore** (mídia). PostgreSQL foi legacy inicial. |
+| **Caching** | Memcached, Redis. Feed cache sub-10ms read. |
+| **Media storage** | Meta **Everstore** (proprietário) + CDN. Migrado do S3 em 2014 (20 bilhões de fotos). |
+| **ML** | **IGQL** (DSL Python-like otimizada em C++ para pipelines de recomendação). 65B features, 90M predições/seg. PyTorch, FAISS. |
+| **Orquestração** | Meta infra (**Tupperware**, containers LXC). Não é Docker/Kubernetes padrão. |
+| **Deploy** | **Mono-repo, single master branch**, sem branching. Deploys contínuos do monólito. |
 
 ### O Feed: Hybrid Fan-Out
 
@@ -397,11 +396,39 @@ Instagram opera sistemas de AI SEPARADOS para Feed, Stories, Reels, Explore, Sea
 
 **Super-sinais**: Saves e **Shares via DM** (sends) são os sinais mais FORTES. Mais que likes. Adam Mosseri já confirmou que "sends" são o sinal #1 de relevância.
 
-**Pipeline de ranking (4 estágios):**
-1. Candidate Generation (centenas de posts potenciais)
-2. Feature Extraction (milhares de sinais)
-3. Prediction Models (redes neurais: probabilidade de like, save, share, watch time)
-4. Scoring Function + Policy Penalties
+**Feed vs Explore — DOIS pipelines diferentes:**
+
+O **Feed** (posts de quem você segue) usa um modelo relativamente simples (Mosseri, 2021):
+```
+Score = w1·P(like) + w2·P(comment) + w3·P(save) + w4·P(watch_time) − w5·P(hide/report)
+```
+4 etapas: Coletar posts recentes → Analisar milhares de sinais → Prever probabilidades de ação → Ordenar por score com regras (evitar posts sequenciais do mesmo autor).
+
+O **Explore** (descoberta de quem você NÃO segue, 2019) é muito mais pesado. **Funil de 3 passagens:**
+1. **Modelo de destilação**: seleciona 150 de 500 candidatos (modelo leve que imita modelos maiores)
+2. **Rede neural leve**: seleciona 50 de 150 (features densas completas)
+3. **Rede neural profunda MTML** (Multi-Task Multi-Label): seleciona os 25 finais, prevendo ações positivas (curtir, salvar) e negativas ("ver menos disso")
+
+**65 bilhões de features, 90 milhões de predições por segundo.** Pipeline orquestrado em **IGQL** — a DSL Python-like otimizada em C++ que a engenharia do Instagram criou para montar e agregar algoritmos de recomendação.
+
+### "Instagration": A Maior Migração AWS→Data Center Próprio da História (2013-2014)
+
+Em 2013, o Instagram inteiro rodava na AWS — EC2, S3, CloudFront. 200 milhões de usuários. Um único data center (US East). Falhas de hardware **3-4 vezes por semana**. O co-founder Mike Krieger: *"AWS estava ficando mais cara a cada mês."*
+
+O Facebook (que havia adquirido o Instagram em 2012) decidiu migrar TUDO para seus data centers próprios. O projeto se chamava **Instagration:**
+
+| Fase | Data | Detalhe |
+|---|---|---|
+| **Preparação** | 11 meses | **Neti**: proxy IP dinâmico Python + ZooKeeper para bridge entre EC2 e VPC |
+| **EC2 Classic → VPC** | Nov 2013 | Passo intermediário para resolver conflitos de IP com a rede privada do Facebook. Latência caiu de ~80ms para ~35ms. |
+| **Compute cut-over** | 25 Abr 2014 | Infraestrutura de computação totalmente migrada (~20 meses pós-aquisição). Latência: **~20ms**. |
+| **Mídia** | Abr-Mai 2014 | **20 bilhões de fotos** transferidas do S3 para o **Everstore** (storage proprietário da Meta). Transferência: ~1 mês. |
+| **Cassandra→ZippyDB** | ~2016-2021 | Migração do banco de dados. Cassandra aposentado ~2019. |
+| **TAO adoption** | ~2017-2018 | Grafo social migrado para o graph DB da Meta (~4 anos pós-aquisição). |
+
+**Time**: 8-20 engenheiros. **Downtime**: ZERO. Krieger: *"Os usuários continuaram no mesmo carro. Nós trocamos cada peça sem que eles percebessem."*
+
+A Meta alega redução de **~75% na latência** do "hot path" de renderização do feed. O FTC disputa quanto disso veio da infraestrutura da Meta vs. o upgrade VPC. O projeto criou um template reutilizável para futuras aquisições.
 
 ### React Native: O Híbrido Que Deu Certo
 

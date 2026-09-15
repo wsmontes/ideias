@@ -197,6 +197,23 @@ Em vez de buscar por DESTINO ("Paris"), busque por CATEGORIA ("Cabana minimalist
 
 **Genialidade**: transforma INDECISÃO em DESCOBERTA. O usuário que "não sabe o que quer" vira um EXPLORADOR.
 
+### 3.8 Smart Pricing (2015): O Algoritmo Que os Hosts não Confiam
+
+Lançado em 2015, o Smart Pricing é uma ferramenta de ML que sugere preços automáticos por noite para cada anúncio.
+
+**Arquitetura do modelo (KDD 2018, Ye et al.):**
+1. **GBM de classificação binária**: Gradient Boosting Machine que prediz a probabilidade de reserva para cada combinação listing×noite. Features: características do imóvel, bairro, sazonalidade, feriados, padrões históricos de reserva.
+2. **Modelo de regressão com loss function customizada**: Inspirada em SVR (Support Vector Regression) com margem ε-insensitiva. Como não existe "preço ótimo verdadeiro" observável, o modelo minimiza **"bad price suggestions"** — preços que levariam a resultados ruins. Usa preços passados do host como proxy de custo marginal.
+3. **Limitação fundamental**: otimiza por **receita, não lucro** — o Airbnb não observa os custos marginais privados de cada host.
+
+**O paradoxo da adoção (Foroughifar & Mehta, UC Berkeley/Univ. Toronto, 2024):**
+- Apenas **22%** dos hosts usaram Smart Pricing ao menos uma vez em 20 meses.
+- **28%** dos adotantes abandonaram a ferramenta.
+- O motivo NÃO é custo de adoção (~$12-20). É **crença prévia pessimista** — hosts acreditavam que os preços sugeridos seriam 38-65% mais baixos que os reais.
+- Simulações mostram que corrigir crenças + incorporar estimativas de custo marginal aumentaria adoção para **86.5%** e lucro dos hosts em **+98.8%** (+$18.481/ano).
+
+O Smart Pricing é um caso de estudo fascinante de como o melhor algoritmo do mundo não funciona se os usuários não CONFIAN nele.
+
 ---
 
 ## 4. A Linha do Tempo do Design Visual
@@ -391,7 +408,7 @@ O Airbnb tem um dos design systems mais maduros do mundo. Em 2025, expandiu para
 | Componente | Tecnologia |
 |---|---|
 | **Backend core** | Ruby on Rails (monolito original) → Microservices (Java, Go, Ruby) |
-| **Search** | Elasticsearch (geospatial), embeddings (two-tower NN), IVF index |
+| **Search** | Elasticsearch (geospatial), embeddings (two-tower NN), IVF index | EBR: Query-User tower (100-dim) + Listing tower (100-dim). 800M+ click sessions para treino. |
 | **Ranking** | LambdaRank GBDT + Deep NN (195 features, 2 hidden layers) |
 | **Realtime data** | Kafka (change data capture, event streaming) |
 | **Caching** | Redis, Memcached |
@@ -404,24 +421,29 @@ O Airbnb tem um dos design systems mais maduros do mundo. Em 2025, expandiu para
 **Estágio 1 — Retrieval (candidatos)**
 - Geohash/PostGIS para filtrar por localização.
 - **Embedding-Based Retrieval (EBR)**: redes neurais de duas torres.
-  - **Listing tower**: processa features do imóvel (amenidades, capacidade, engajamento).
-  - **Query tower**: processa features da busca (local, hóspedes, datas).
-  - **Contrastive learning**: pares positivos = booked. Pares negativos = visto mas não bookado.
-  - **IVF (Inverted File Index)** para busca aproximada (ANN). Escolhido sobre HNSW porque lida melhor com alta taxa de atualização.
+  - **Listing tower**: processa features do imóvel (amenidades, capacidade, engajamento). Pré-computada offline diariamente.
+  - **Query tower**: processa features da busca (local, hóspedes, datas). Computada online.
+  - **Contrastive learning com "trip-based sampling"**: agrupa buscas por parâmetros e usa o anuncio bookado como positivo. Negativos = anuncios com interação (wishlist) mas sem booking. Amostragem aleatória foi rejeitada — tornava o problema fácil demais.
+  - **Similaridade por distância Euclidiana** (não dot product) — produz clusters mais balanceados.
+  - **IVF (Inverted File Index)** para busca aproximada. Escolhido sobre HNSW porque: (1) ~10.000 atualizações/segundo (preços, disponibilidade) faziam HNSW crescer demais em memória; (2) filtros (geo, preços) combinados com HNSW degradavam latência.
+  - **Resultado A/B**: +0.31% conversão de reservas, −16% recursos de computação. Também aplicado a Email Marketing (+2.3% bookings).
+  - Paper: *"Applying Embedding-Based Retrieval to Airbnb Search"* (arXiv 2601.06873, Jan 2026).
 
 **Estágio 2 — Ranking (scoring)**
-- **GBDT + Deep NN em stack**:
-  - LambdaRank com ~100 features.
-  - Rede neural com 195 features de input → 2 hidden layers (127 + 83 ReLU).
-  - Factorization Machine features alimentadas na NN.
-- **Features de embedding**: similaridade de cosseno entre embedding do candidato e centroide do histórico recente do usuário.
-  - `EmbClickSim` (5ª feature mais importante), `EmbSkipSim` (8ª), `EmbLongClickSim` (20ª).
-- **Resultado**: +2.58% de lift em bookings.
+- **Two-Tower NN (KDD 2020 Best Paper)**: substituiu a DNN de 2 camadas.
+  - **Query-User tower** (100-dim): contexto da busca + perfil do usuário. Computada online, uma vez por busca.
+  - **Listing tower** (100-dim): atributos do anúncio. Compartilhada entre todos os anúncios. Pré-computada offline.
+  - **Distância Euclidiana** entre as duas torres mede a "diferença entre este anúncio e o ideal." Redução de **33% na latência P99**.
+  - **ICE Plots** revelaram que o modelo aprendeu o "preço certo para a viagem" — picos de score em faixas de preço específicas para anúncios de alta qualidade, em vez de monotonicamente preferir "mais barato."
+  - **Resultado**: +0.6% bookings, +0.7% NDCG, −2.3% preço médio, +0.75% receita.
+- **KDD 2018 Best Paper — Listing Embeddings**: Skip-gram sobre **800M+ sessões de clique**. Três inovações: (1) booked listing como contexto global em TODA janela; (2) in-market negatives do mesmo destino; (3) host rejections como negativos explícitos. Resultado: +21% CTR em similares, +4.9% booking rate.
+- **BiListing — Multimodal Embeddings (CIKM 2025)**: CLIP-based. PhotoSet Transformer consolida até 64 fotos; Mixtral 8x7b gera descrições visuais; OPQ comprime 1280-d para **40 bytes/listing (97% redução)**. +0.425% NDCG offline.
 
 **Estágio 3 — Personalização em Tempo Real**
 - Histórico de 2 semanas do usuário (cliques, wishlists, bookings).
 - Particionado por MERCADO (NY vs LA vs Paris).
-- Atualizado via Kafka. Online inference.
+- Features em tempo real via Kafka streaming: `EmbClickSim`, `EmbSkipSim`, `EmbLongClickSim`, `EmbWishlistSim`, `EmbInqSim`, `EmbBookSim`.
+- **Cold start para novos anúncios**: média dos embeddings dos 3 vizinhos mais próximos (10 milhas, mesmo tipo, mesma faixa de preço). +14% bookings para novos listings.
 
 ### Trust & Safety: O Sistema de Quatro Camadas
 

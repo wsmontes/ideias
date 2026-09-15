@@ -3,7 +3,7 @@
 > **Data:** 2026-07-02
 > **Loop:** 16 de ∞
 > **Categoria:** Mensageria / Comunidade / Privacidade / Open Platform
-> **Tema:** 2011. Pavel Durov, o "Mark Zuckerberg russo", dono do VKontakte (VK), a maior rede social da Rússia, recebe uma visita do FSB (serviço secreto russo). Exigem que ele entregue dados de ativistas pró-democracia ucranianos. Ele RECUSA. Posta a carta do FSB no seu mural do VK. É FORÇADO a vender suas ações e FUGIR da Rússia em 2014. Com seu irmão **Nikolai Durov** — matemático GÊNIO, medalhista de ouro da IMO, criador do protocolo MTProto — ele funda o **Telegram** em 2013 como sua RESPOSTA: uma plataforma de comunicação que NENHUM governo pode controlar. Anos depois, o Telegram é o app de mensagens ALTERNATIVO do planeta: 900M+ usuários, grupos de 200.000 pessoas, canais com milhões de inscritos, bots que fazem TUDO, pagamentos em cripto (TON), e uma moderação TÃO mão-leve que virou refúgio para extremistas, golpistas e ativistas ao mesmo tempo. Em agosto de 2024, Durov foi PRESO na França. Esta é a história do app que foi de "refúgio seguro contra o Kremlin" a "o WhatsApp dos que não confiam no WhatsApp" — e que agora luta para não ser engolido pelas próprias contradições.
+> **Tema:** 2011. Pavel Durov, o "Mark Zuckerberg russo", dono do VKontakte (VK), a maior rede social da Rússia, recebe uma visita do FSB (serviço secreto russo). Exigem que ele entregue dados de ativistas pró-democracia ucranianos. Ele RECUSA. Posta a carta do FSB no seu mural do VK. É FORÇADO a vender suas ações e FUGIR da Rússia em 2014. Com seu irmão **Nikolai Durov** — matemático GÊNIO, medalhista de ouro da IMO, criador do protocolo MTProto — ele funda o **Telegram** em 2013 como sua RESPOSTA: uma plataforma de comunicação que NENHUM governo pode controlar. Anos depois, o Telegram é o app de mensagens ALTERNATIVO do planeta: **1 bilhão** de MAUs (março 2025), 500M DAU, grupos de 200.000 pessoas, canais com milhões de inscritos, bots que fazem TUDO, pagamentos em cripto (TON), e uma moderação TÃO mão-leve que virou refúgio para extremistas, golpistas e ativistas ao mesmo tempo. Em agosto de 2024, Durov foi PRESO na França. Esta é a história do app que foi de "refúgio seguro contra o Kremlin" a "o WhatsApp dos que não confiam no WhatsApp" — e que agora luta para não ser engolido pelas próprias contradições.
 
 ---
 
@@ -64,7 +64,7 @@ Dubai = neutralidade geopolítica. Impostos ZERO. Liberdade TOTAL.
 
 ### A Prisão na França (Agosto de 2024)
 
-Durov foi PRESO ao chegar em Paris. 12 acusações: cumplicidade em tráfico de drogas, distribuição de CSAM, lavagem de dinheiro — crimes cometidos POR USUÁRIOS na plataforma. Foi solto sob fiança. Está sob supervisão judicial na França. Não pode sair do país.
+Durov foi PRESO ao chegar em Paris (24 ago 2024, 20:00 CET). **12 acusações** formais (indiciamento de 8 jul 2024): cumplicidade em tráfico de drogas, distribuição de CSAM, lavagem de dinheiro, violação de criptologia — crimes cometidos POR USUÁRIOS na plataforma. Solto sob **fiança de €5M** (28 ago). Banido de sair da França até março de 2025; restrição de viagem totalmente revogada em **novembro de 2025**. Telegram subsequentemente anunciou que entregará IPs e telefones a autoridades com ordens legais válidas.
 
 **A pergunta**: um CEO é RESPONSÁVEL pelo que os USUÁRIOS fazem na plataforma? Ou a liberdade ABSOLUTA tem um preço?
 
@@ -223,12 +223,13 @@ Copiando dos melhores:
 
 | Componente | Tecnologia |
 |---|---|
-| **Protocolo** | MTProto 2.0 (custom, Nikolai Durov). AES-256-IGE. DH 2048-bit. |
-| **Transporte** | TCP, HTTP, HTTPS, WebSocket, Obfuscated2 (anti-DPI) |
-| **Infraestrutura** | Múltiplos data centers globais. Cada usuário = "home DC." |
+| **Protocolo** | **MTProto 2.0** (dez/2017, Nikolai Durov). AES-256-IGE, SHA-256 msg_key, DH 2048-bit, Perfect Forward Secrecy. MTProto 1.0 deprecado. |
+| **Transporte** | TCP, HTTP, HTTPS, WebSocket, UDP. Obfuscated2 (anti-DPI). |
+| **Infraestrutura** | **5 data centers** (pluto, venus, aurora, vesta, flora). Cada usuário = "home DC." Servidor **C++ closed-source** (não é Erlang). Cloud própria — não usa AWS. Chaves criptográficas quebradas em pedaços e nunca armazenadas no mesmo local dos dados. |
 | **Serialização** | Type Language (TL). Binário compacto. Layer 224. ~2.329 definições. |
 | **Bot API** | HTTP/JSON. Wrapper sobre MTProto. |
-| **Storage** | Home DC persistente. CDN para mídia. |
+| **Client library** | **TDLib** (C++17, open-source, Boost license). Cross-platform. 8.9K GitHub stars. Uma instância = 37.000+ bots. |
+| **Storage** | Home DC persistente. CDN DCs (canais >100K inscritos, cache em RAM, AES-256-CTR, não conseguem decriptar). |
 | **Sync** | Delta sync ("message cursor"). Incremental. Multi-device. |
 
 ### MTProto 2.0: A Criptografia Que o FSB Não Consegue Quebrar

@@ -251,7 +251,31 @@ O "S" no Slack é Search. TUDO é indexado. Se a informação SOME, a ferramenta
 
 ---
 
-## 8. Ficha Técnica do App
+## 8. Arquitetura Técnica: Mensagens em Tempo Real e Vitess
+
+### Stack
+
+| Camada | Tecnologia |
+|---|---|
+| **Backend web/API** | **Hack/HHVM** (~5M linhas). Migrou de PHP 5 → HHVM (2016) → Hack strict mode. Ferramenta de análise estática **Hakana** em Rust (5× mais rápida). |
+| **Mensagens real-time** | **Gateway Servers** (WS, stateful) + **Channel Servers** (~16M canais/host) + **Admin Servers**. Kafka pub/sub particionado por ID de canal. Envoy (substituiu HAProxy, migração zero-downtime). **~100K msg/s, <200ms p99.** |
+| **Banco de dados** | **MySQL** sharded via **Vitess**. ~1PB dados, ~3.000 shards, ~600K writes/s pico. Mediana 2ms, p99 11ms. CDC pipeline Debezium+Kafka+Iceberg (48h→<10min). |
+| **Search** | **Apache SolrCloud** (um dos maiores clusters do mundo). +500 coleções, +1.500 shards. Indexação MapReduce offline + real-time live. **Flannel** = cache de borda no nível de aplicação (NÃO é o search — reduz payload de inicialização em 44×). |
+| **Desktop** | **Electron** + React + Redux. Migrou webView→BrowserView no Slack 3.0 (inicialização mais rápida, até 50% menos RAM). |
+| **Outras linguagens** | Java (search infra), Go (serviços), Elixir (chamadas voz/vídeo), Rust (Hakana). |
+| **Infra** | AWS primário. Multi-região. Envoy service mesh. |
+
+### O Nome
+
+**SLACK = "Searchable Log of All Conversation and Knowledge."** Stewart Butterfield criou o backronym em 14 de novembro de 2012 (substituindo o codinome "linefeed"). Confirmado por ele no Twitter em 2016.
+
+### Salesforce $27.7B
+
+Anunciada em 1/12/2020, fechada em 21/7/2021. Maior aquisição da história da Salesforce. Cash + stock ($26.79 + 0.0776 ações CRM por ação Slack).
+
+---
+
+## 9. Ficha Técnica do App
 
 | Atributo | Valor |
 |---|---|
